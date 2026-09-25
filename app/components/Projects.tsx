@@ -1,6 +1,7 @@
 /* SPEC 01 — Paso 6: sección 04 — Proyectos + demos (data-anim="stagger-in"). */
 
 import { demos, projects } from "@/lib/content";
+import { getSiteImage } from "@/lib/data";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
 import Chip from "./ui/Chip";
@@ -21,7 +22,9 @@ export default function Projects() {
                   className="absolute inset-0 bg-cover bg-center filter saturate-90 transition-all duration-700 group-hover:scale-105 group-hover:saturate-100"
                   role="img"
                   aria-label={`${project.title} — ${project.category}`}
-                  style={{ backgroundImage: `url('${project.image}')` }}
+                  style={{
+                    backgroundImage: `url('${getSiteImage(`project-${project.index}`).url}')`,
+                  }}
                 />
               </div>
               <div className="pt-6 flex flex-col justify-between flex-1 space-y-4">

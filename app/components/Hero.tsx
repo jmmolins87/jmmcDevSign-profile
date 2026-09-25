@@ -1,9 +1,10 @@
 /* SPEC 01 — Paso 3: hero con data-anim="hero-scrub" + hairline divisoria. */
 
-import { heroImage } from "@/lib/content";
+import { getSiteImage } from "@/lib/data";
 import Section from "./ui/Section";
 
 export default function Hero() {
+  const image = getSiteImage("hero");
   return (
     <Section anim="hero-scrub" padding="pt-space-xl pb-32" className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center min-h-[calc(100vh-140px)]">
@@ -91,8 +92,8 @@ export default function Hero() {
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out"
               role="img"
-              aria-label="Interior arquitectónico minimalista cinematográfico con luz terracota cálida"
-              style={{ backgroundImage: `url('${heroImage}')` }}
+              aria-label={image.alt}
+              style={{ backgroundImage: `url('${image.url}')` }}
             />
             {/* Layer 2: Ambient Vignette & Color Grading */}
             <div className="absolute inset-0 bg-gradient-to-tr from-on-surface/40 via-transparent to-primary/10 mix-blend-multiply z-10 pointer-events-none" />
