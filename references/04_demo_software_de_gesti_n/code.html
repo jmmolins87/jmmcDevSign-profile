@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Newsreader:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-error-container":"#93000a","on-primary-container":"#fffbff","surface-tint":"#b62409","on-secondary-fixed":"#00201d","surface-container-high":"#efe7e1","primary-fixed":"#ffdad3","surface-bright":"#fff8f4","on-secondary-container":"#086f67","on-secondary-fixed-variant":"#00504a","on-surface-variant":"#5b403b","background":"#fff8f4","on-primary-fixed-variant":"#8e1400","tertiary-fixed-dim":"#f5bd58","inverse-on-surface":"#f8efea","surface":"#fff8f4","surface-container-highest":"#e9e1db","surface-variant":"#e9e1db","secondary-fixed-dim":"#83d5cb","on-tertiary-container":"#fffbff","inverse-surface":"#34302c","surface-container":"#f5ece7","outline":"#8f706a","secondary-container":"#9cefe4","tertiary-container":"#996c04","on-error":"#ffffff","on-secondary":"#ffffff","inverse-primary":"#ffb4a5","on-primary":"#ffffff","surface-dim":"#e0d9d3","error":"#ba1a1a","tertiary-fixed":"#ffdeaa","surface-container-low":"#fbf2ec","primary":"#b32107","tertiary":"#7a5500","outline-variant":"#e3beb7","primary-container":"#d63b20","on-tertiary-fixed-variant":"#5f4100","primary-fixed-dim":"#ffb4a5","error-container":"#ffdad6","secondary-fixed":"#9ff1e7","on-surface":"#1e1b18","surface-container-lowest":"#ffffff","secondary":"#006a63","on-primary-fixed":"#3e0400","on-tertiary-fixed":"#271900","on-tertiary":"#ffffff","on-background":"#1e1b18"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin-mobile":"1.25rem","gutter-mobile":"1rem","space-md":"1rem","space-lg":"1.5rem","space-xl":"2.5rem","margin":"3rem","space-sm":"0.5rem","space-xs":"0.25rem","gutter":"1.5rem"},fontFamily:{"headline-lg-mobile":["Newsreader"],"display-lg-mobile":["Newsreader"],"headline-sm":["Newsreader"],"headline-md":["Newsreader"],"body-md":["Geist"],"display-xl":["Newsreader"],"body-lg":["Geist"],"headline-lg":["Newsreader"],"body-sm":["Geist"],"mono-code":["JetBrains Mono"],"display-xl-mobile":["Newsreader"],"label-caps":["JetBrains Mono"],"display-lg":["Newsreader"]},fontSize:{"headline-lg-mobile":["32px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"400"}],"display-lg-mobile":["40px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"400"}],"headline-sm":["24px",{"lineHeight":"30px","fontWeight":"400"}],"headline-md":["32px",{"lineHeight":"38px","fontWeight":"400"}],"body-md":["16px",{"lineHeight":"26px","fontWeight":"400"}],"display-xl":["96px",{"lineHeight":"100px","letterSpacing":"-0.03em","fontWeight":"400"}],"body-lg":["19px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"400"}],"headline-lg":["44px",{"lineHeight":"48px","letterSpacing":"-0.015em","fontWeight":"400"}],"body-sm":["14px",{"lineHeight":"22px","fontWeight":"400"}],"mono-code":["13px",{"lineHeight":"20px","fontWeight":"400"}],"display-xl-mobile":["52px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"400"}],"label-caps":["11px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"500"}],"display-lg":["64px",{"lineHeight":"68px","letterSpacing":"-0.02em","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="sticky top-0 w-full z-50 bg-[#F4EFE6]/95 backdrop-blur-md border-b border-[#DDD5C6]"><div class="h-[72px] max-w-[1280px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between"><a class="font-headline-sm text-headline-sm text-[#15120F] tracking-tight hover:opacity-80 transition-opacity" data-path="portfolio-overview" href="#">JMMC</a><div class="flex items-center gap-4 md:gap-6"><div class="flex items-center rounded-full border border-[#DDD5C6] px-3 py-1 font-label-caps text-label-caps tracking-widest"><span class="text-[#15120F] font-semibold cursor-pointer">ES</span><span class="mx-1.5 text-[#DDD5C6]">|</span><span class="text-on-surface-variant/60 hover:text-on-surface cursor-pointer transition-colors">EN</span></div><button aria-label="Toggle color scheme" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#DDD5C6] bg-transparent text-on-surface hover:border-outline transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">light_mode</span><span class="material-symbols-outlined text-[14px] text-on-surface-variant">expand_more</span></button><button aria-label="Open navigation menu" class="w-9 h-9 flex flex-col items-center justify-center gap-[5px] rounded-full border border-[#DDD5C6] hover:border-outline transition-colors" type="button"><span class="w-[18px] h-[1.5px] bg-[#15120F] block"></span><span class="w-[18px] h-[1.5px] bg-[#15120F] block"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-[72px] bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Slim Context Banner -->
+<div class="w-full bg-surface-container-low/60 py-2.5 px-margin-mobile md:px-margin">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between">
+<a class="font-mono-code text-mono-code text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1.5 group" data-path="portfolio-overview" href="#">
+<span class="material-symbols-outlined text-[16px] transition-transform group-hover:-translate-x-0.5">arrow_back</span>
+<span>Volver al portfolio</span>
+</a>
+<div class="flex items-center gap-2 bg-surface px-3 py-1 rounded-full shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-caps text-label-caps tracking-widest text-on-surface-variant">DEMO · DATOS FICTICIOS</span>
+</div>
+</div>
+</div>
+<div class="max-w-[1280px] w-full mx-auto px-margin-mobile md:px-margin py-8 flex flex-col gap-8">
+<!-- Top Horizontal Navigation & Global Action Controls -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-2">
+<!-- Tabs Group -->
+<nav aria-label="Navegación principal de demo" class="flex items-center gap-1 bg-surface-container-low p-1.5 rounded-xl overflow-x-auto">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface text-on-surface shadow-sm font-label-caps text-label-caps tracking-wider transition-all" type="button">
+<span class="font-semibold text-primary">RESUMEN</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface/50 font-label-caps text-label-caps tracking-wider transition-all" type="button">
+<span>CLIENTES</span>
+<span class="font-mono-code text-[10px] px-1.5 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant">1.240</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface/50 font-label-caps text-label-caps tracking-wider transition-all" type="button">
+<span>FACTURAS</span>
+<span class="font-mono-code text-[10px] px-1.5 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant">38</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface/50 font-label-caps text-label-caps tracking-wider transition-all" type="button">
+<span>INVENTARIO</span>
+<span class="font-mono-code text-[10px] px-1.5 py-0.5 rounded-full bg-primary-container text-on-primary font-bold">4</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface/50 font-label-caps text-label-caps tracking-wider transition-all" type="button">
+<span>AJUSTES</span>
+</button>
+</nav>
+<!-- Controls Group -->
+<div class="flex items-center gap-3">
+<div class="relative flex items-center bg-surface px-3 py-2 rounded-lg shadow-sm cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mr-2">calendar_today</span>
+<span class="font-mono-code text-mono-code text-on-surface mr-2">Últimos 30 días</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface hover:bg-surface-container shadow-sm text-on-surface font-label-caps text-label-caps tracking-widest transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>EXPORTAR</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-on-primary font-label-caps text-label-caps tracking-widest shadow-md hover:opacity-90 transition-opacity" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>NUEVA FACTURA</span>
+</button>
+</div>
+</div>
+<!-- 4 KPI Metrics Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-anim="stagger-in">
+<!-- Card 1: Facturación -->
+<div class="bg-surface p-5 rounded-[14px] shadow-sm flex flex-col justify-between" data-anim="fade-up">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps tracking-wider text-on-surface-variant">FACTURACIÓN MENSUAL</span>
+<span class="material-symbols-outlined text-[18px] text-primary">payments</span>
+</div>
+<div class="mt-4">
+<div class="font-mono-code text-[28px] font-medium text-on-surface" data-anim="count-up">48.250 €</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-mono-code text-mono-code text-secondary flex items-center font-medium">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+              +18.4%
+            </span>
+<span class="font-mono-code text-[11px] text-on-surface-variant/80">vs. mes anterior</span>
+</div>
+</div>
+<div class="mt-5 pt-3 bg-surface-container-low px-3 py-2 rounded-lg flex items-center justify-between">
+<span class="font-mono-code text-[11px] text-on-surface-variant">Meta mensual: 92%</span>
+<div class="w-16 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" data-anim="draw-line" style="width: 92%"></div>
+</div>
+</div>
+</div>
+<!-- Card 2: Clientes Activos -->
+<div class="bg-surface p-5 rounded-[14px] shadow-sm flex flex-col justify-between" data-anim="fade-up">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps tracking-wider text-on-surface-variant">CLIENTES ACTIVOS</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">groups</span>
+</div>
+<div class="mt-4">
+<div class="font-mono-code text-[28px] font-medium text-on-surface" data-anim="count-up">342</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-mono-code text-mono-code text-secondary flex items-center font-medium">
+<span class="material-symbols-outlined text-[14px]">person_add</span>
+              +12
+            </span>
+<span class="font-mono-code text-[11px] text-on-surface-variant/80">nuevos este ciclo</span>
+</div>
+</div>
+<div class="mt-5 pt-3 bg-surface-container-low px-3 py-2 rounded-lg flex items-center justify-between">
+<span class="font-mono-code text-[11px] text-on-surface-variant">Tasa de retención</span>
+<span class="font-mono-code text-[11px] font-bold text-on-surface">96.8%</span>
+</div>
+</div>
+<!-- Card 3: Facturas Pendientes -->
+<div class="bg-surface p-5 rounded-[14px] shadow-sm flex flex-col justify-between" data-anim="fade-up">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps tracking-wider text-on-surface-variant">POR COBRAR</span>
+<span class="material-symbols-outlined text-[18px] text-tertiary">schedule</span>
+</div>
+<div class="mt-4">
+<div class="font-mono-code text-[28px] font-medium text-on-surface" data-anim="count-up">8.410 €</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-mono-code text-mono-code text-tertiary font-medium">5 pendientes</span>
+<span class="font-mono-code text-[11px] text-primary font-medium">· 2 vencen hoy</span>
+</div>
+</div>
+<div class="mt-5 pt-3 bg-surface-container-low px-3 py-2 rounded-lg flex items-center justify-between">
+<span class="font-mono-code text-[11px] text-on-surface-variant">Promedio de cobro</span>
+<span class="font-mono-code text-[11px] font-bold text-on-surface">14.2 días</span>
+</div>
+</div>
+<!-- Card 4: Margen Operativo -->
+<div class="bg-surface p-5 rounded-[14px] shadow-sm flex flex-col justify-between" data-anim="fade-up">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps tracking-wider text-on-surface-variant">MARGEN OPERATIVO</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">balance</span>
+</div>
+<div class="mt-4">
+<div class="font-mono-code text-[28px] font-medium text-on-surface" data-anim="count-up">34.6%</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-mono-code text-mono-code text-secondary flex items-center font-medium">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+              +2.1 ptos
+            </span>
+<span class="font-mono-code text-[11px] text-on-surface-variant/80">objetivo fiscal</span>
+</div>
+</div>
+<div class="mt-5 pt-3 bg-surface-container-low px-3 py-2 rounded-lg flex items-center justify-between">
+<span class="font-mono-code text-[11px] text-on-surface-variant">EBITDA est.</span>
+<span class="font-mono-code text-[11px] font-bold text-on-surface">16.710 €</span>
+</div>
+</div>
+</div>
+<!-- Main Section: Chart (8 cols) + Agenda/Citas (4 cols) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Revenue & Collections Chart (8 cols) -->
+<div class="lg:col-span-8 bg-surface p-6 rounded-[14px] shadow-sm flex flex-col justify-between" data-anim="fade-up">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Evolución de ingresos y cobros</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Conciliación de facturación neta versus liquidaciones efectivas</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-4 text-[12px] font-label-caps">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="text-on-surface-variant">Facturación</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="text-on-surface-variant">Cobros</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-1 rounded-lg flex items-center font-mono-code text-[11px]">
+<button class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface" type="button">D</button>
+<button class="px-2 py-0.5 rounded bg-surface shadow-xs font-semibold text-on-surface" type="button">S</button>
+<button class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface" type="button">M</button>
+</div>
+</div>
+</div>
+<!-- Inline SVG Line Chart with Tooltip Anchor -->
+<div class="relative w-full h-[260px] flex items-end">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 800 240">
+<!-- Subtle dashed background grid lines -->
+<line opacity="0.6" stroke="#DDD5C6" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="800" y1="20" y2="20"></line>
+<line opacity="0.6" stroke="#DDD5C6" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="800" y1="80" y2="80"></line>
+<line opacity="0.6" stroke="#DDD5C6" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="800" y1="140" y2="140"></line>
+<line opacity="0.9" stroke="#DDD5C6" stroke-width="1" x1="0" x2="800" y1="200" y2="200"></line>
+<!-- Area gradient under Primary Line -->
+<defs>
+<lineargradient id="primaryFade" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#b32107" stop-opacity="0.12"></stop>
+<stop offset="100%" stop-color="#b32107" stop-opacity="0"></stop>
+</lineargradient>
+<lineargradient id="tealFade" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#006a63" stop-opacity="0.10"></stop>
+<stop offset="100%" stop-color="#006a63" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Area fills -->
+<path d="M 0 170 Q 120 130, 240 145 T 480 90 T 640 60 T 800 35 L 800 200 L 0 200 Z" fill="url(#primaryFade)"></path>
+<path d="M 0 185 Q 120 160, 240 160 T 480 120 T 640 85 T 800 65 L 800 200 L 0 200 Z" fill="url(#tealFade)"></path>
+<!-- Primary Line: Facturación -->
+<path d="M 0 170 Q 120 130, 240 145 T 480 90 T 640 60 T 800 35" data-anim="draw-line" fill="none" stroke="#b32107" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Secondary Line: Cobros -->
+<path d="M 0 185 Q 120 160, 240 160 T 480 120 T 640 85 T 800 65" data-anim="draw-line" fill="none" stroke="#006a63" stroke-linecap="round" stroke-width="2"></path>
+<!-- Data Point Hit & Marker for Week 3 -->
+<line stroke="#DDD5C6" stroke-dasharray="3 3" stroke-width="1.5" x1="480" x2="480" y1="20" y2="200"></line>
+<circle cx="480" cy="90" fill="#fff8f4" r="5" stroke="#b32107" stroke-width="2.5"></circle>
+<circle cx="480" cy="120" fill="#fff8f4" r="5" stroke="#006a63" stroke-width="2.5"></circle>
+</svg>
+<!-- Interactive Active Tooltip Positioned -->
+<div class="absolute left-[56%] top-[30px] -translate-x-1/2 bg-on-surface text-surface px-3 py-1.5 rounded-lg shadow-md pointer-events-none z-10 flex flex-col gap-0.5">
+<span class="font-label-caps text-[9px] text-surface-container-highest tracking-widest">SEM. 03 · HITO</span>
+<div class="font-mono-code text-[12px] font-semibold text-secondary-container">14.820 € cobrados</div>
+<div class="font-mono-code text-[11px] text-primary-fixed-dim">18.400 € facturados</div>
+</div>
+</div>
+<!-- Axis Labels -->
+<div class="flex justify-between items-center pt-3 font-mono-code text-mono-code text-on-surface-variant/80">
+<span>Semana 01</span>
+<span>Semana 02</span>
+<span class="text-on-surface font-semibold">Semana 03</span>
+<span>Semana 04</span>
+</div>
+</div>
+<!-- Next Appointments / Citas (4 cols) -->
+<div class="lg:col-span-4 bg-surface p-6 rounded-[14px] shadow-sm flex flex-col justify-between" data-anim="fade-up">
+<div>
+<div class="flex items-center justify-between mb-5">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Citas de hoy</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Reuniones y revisiones agendadas</p>
+</div>
+<span class="font-label-caps text-[11px] px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-medium">4 PARA HOY</span>
+</div>
+<!-- Appointments List -->
+<div class="flex flex-col gap-3">
+<!-- Appt 1 -->
+<div class="p-3 bg-surface-container-low rounded-xl flex items-start justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-start gap-3">
+<span class="font-mono-code text-mono-code font-bold text-primary pt-0.5">10:30</span>
+<div>
+<div class="font-body-md text-[14px] font-medium text-on-surface leading-snug">Revisión fiscal trimestral</div>
+<div class="font-body-sm text-[12px] text-on-surface-variant">Vanguard Studio S.L.</div>
+</div>
+</div>
+<a class="text-on-surface-variant hover:text-primary transition-colors p-1" href="#" title="Iniciar Meet">
+<span class="material-symbols-outlined text-[18px]">videocam</span>
+</a>
+</div>
+<!-- Appt 2 -->
+<div class="p-3 bg-surface-container-low rounded-xl flex items-start justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-start gap-3">
+<span class="font-mono-code text-mono-code font-bold text-on-surface pt-0.5">12:00</span>
+<div>
+<div class="font-body-md text-[14px] font-medium text-on-surface leading-snug">Demo nueva plataforma ERP</div>
+<div class="font-body-sm text-[12px] text-on-surface-variant">Kinetix Labs Inc.</div>
+</div>
+</div>
+<a class="text-on-surface-variant hover:text-primary transition-colors p-1" href="#" title="Iniciar Meet">
+<span class="material-symbols-outlined text-[18px]">videocam</span>
+</a>
+</div>
+<!-- Appt 3 -->
+<div class="p-3 bg-surface-container-low rounded-xl flex items-start justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-start gap-3">
+<span class="font-mono-code text-mono-code font-bold text-on-surface pt-0.5">16:15</span>
+<div>
+<div class="font-body-md text-[14px] font-medium text-on-surface leading-snug">Firma anexo de contratación</div>
+<div class="font-body-sm text-[12px] text-on-surface-variant">Solaria Energy Group</div>
+</div>
+</div>
+<span class="font-label-caps text-[10px] text-secondary font-medium self-center bg-surface px-2 py-0.5 rounded">PRESENCIAL</span>
+</div>
+<!-- Appt 4 -->
+<div class="p-3 bg-surface-container-low rounded-xl flex items-start justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-start gap-3">
+<span class="font-mono-code text-mono-code font-bold text-on-surface pt-0.5">17:30</span>
+<div>
+<div class="font-body-md text-[14px] font-medium text-on-surface leading-snug">Briefing arquitectura SaaS</div>
+<div class="font-body-sm text-[12px] text-on-surface-variant">Artemis Ventures</div>
+</div>
+</div>
+<a class="text-on-surface-variant hover:text-primary transition-colors p-1" href="#" title="Iniciar Meet">
+<span class="material-symbols-outlined text-[18px]">videocam</span>
+</a>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full py-2 bg-surface-container-high hover:bg-surface-container-highest rounded-lg text-on-surface font-label-caps text-label-caps tracking-widest text-center transition-colors" type="button">
+          VER CALENDARIO COMPLETO
+        </button>
+</div>
+</div>
+<!-- Bottom Row: Recent Invoices Table (8 cols) + Low Stock Alert (4 cols) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pb-8">
+<!-- Invoices Table (8 cols) -->
+<div class="lg:col-span-8 bg-surface p-6 rounded-[14px] shadow-sm flex flex-col justify-between" data-anim="fade-up">
+<div>
+<div class="flex items-center justify-between mb-5">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Últimas facturas emitidas</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Registro y trazabilidad de los cobros en curso</p>
+</div>
+<a class="font-label-caps text-label-caps tracking-wider text-primary hover:text-primary-container flex items-center gap-1 transition-colors" href="#">
+<span>VER TODAS (142)</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-caps text-[11px] tracking-wider">
+<th class="py-2.5 px-3 rounded-l-lg">ID FACTURA</th>
+<th class="py-2.5 px-3">CLIENTE / ENTIDAD</th>
+<th class="py-2.5 px-3">EMISIÓN</th>
+<th class="py-2.5 px-3">VENCE</th>
+<th class="py-2.5 px-3 text-right">IMPORTE</th>
+<th class="py-2.5 px-3 text-center">ESTADO</th>
+<th class="py-2.5 px-2 rounded-r-lg text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high font-mono-code text-[13px]">
+<!-- Row 1: Pagada -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3 font-semibold text-on-surface">#INV-2026-089</td>
+<td class="py-3 px-3 font-body-md text-[14px] text-on-surface">Vanguard Studio S.L.</td>
+<td class="py-3 px-3 text-on-surface-variant">12 May 2026</td>
+<td class="py-3 px-3 text-on-surface-variant">26 May 2026</td>
+<td class="py-3 px-3 text-right font-medium text-on-surface">4.850,00 €</td>
+<td class="py-3 px-3 text-center">
+<span class="font-label-caps text-[10px] px-2.5 py-1 rounded-full bg-secondary-container/40 text-on-secondary-container">PAGADA</span>
+</td>
+<td class="py-3 px-2 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Descargar PDF" type="button">
+<span class="material-symbols-outlined text-[16px]">download</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Pendiente -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3 font-semibold text-on-surface">#INV-2026-088</td>
+<td class="py-3 px-3 font-body-md text-[14px] text-on-surface">Kinetix Labs Inc.</td>
+<td class="py-3 px-3 text-on-surface-variant">10 May 2026</td>
+<td class="py-3 px-3 text-on-surface-variant">24 May 2026</td>
+<td class="py-3 px-3 text-right font-medium text-on-surface">2.200,00 €</td>
+<td class="py-3 px-3 text-center">
+<span class="font-label-caps text-[10px] px-2.5 py-1 rounded-full bg-tertiary-container/30 text-tertiary">PENDIENTE</span>
+</td>
+<td class="py-3 px-2 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Descargar PDF" type="button">
+<span class="material-symbols-outlined text-[16px]">download</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Vencida -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3 font-semibold text-on-surface">#INV-2026-087</td>
+<td class="py-3 px-3 font-body-md text-[14px] text-on-surface">Solaria Energy Group</td>
+<td class="py-3 px-3 text-on-surface-variant">28 Abr 2026</td>
+<td class="py-3 px-3 text-primary font-medium">12 May 2026</td>
+<td class="py-3 px-3 text-right font-medium text-primary">1.360,00 €</td>
+<td class="py-3 px-3 text-center">
+<span class="font-label-caps text-[10px] px-2.5 py-1 rounded-full bg-error-container text-on-error-container">VENCIDA</span>
+</td>
+<td class="py-3 px-2 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Descargar PDF" type="button">
+<span class="material-symbols-outlined text-[16px]">download</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: Pagada -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-3 px-3 font-semibold text-on-surface">#INV-2026-086</td>
+<td class="py-3 px-3 font-body-md text-[14px] text-on-surface">Artemis Ventures</td>
+<td class="py-3 px-3 text-on-surface-variant">25 Abr 2026</td>
+<td class="py-3 px-3 text-on-surface-variant">09 May 2026</td>
+<td class="py-3 px-3 text-right font-medium text-on-surface">6.400,00 €</td>
+<td class="py-3 px-3 text-center">
+<span class="font-label-caps text-[10px] px-2.5 py-1 rounded-full bg-secondary-container/40 text-on-secondary-container">PAGADA</span>
+</td>
+<td class="py-3 px-2 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Descargar PDF" type="button">
+<span class="material-symbols-outlined text-[16px]">download</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between text-mono-code text-[12px] text-on-surface-variant">
+<span>Mostrando 4 de 142 registros</span>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded hover:bg-surface-container" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px] opacity-40">chevron_left</span>
+</button>
+<span class="font-semibold text-on-surface">1</span>
+<button class="p-1 rounded hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Critical Low Stock Alerts (4 cols) -->
+<div class="lg:col-span-4 bg-surface p-6 rounded-[14px] shadow-sm flex flex-col justify-between" data-anim="fade-up">
+<div>
+<div class="flex items-center justify-between mb-5">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Alertas de inventario</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Bajo umbral mínimo de seguridad</p>
+</div>
+<span class="font-label-caps text-[10px] px-2 py-1 rounded bg-error-container text-on-error-container font-medium">4 CRÍTICOS</span>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Item 1 -->
+<div class="p-3 bg-surface-container-low rounded-xl flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div>
+<div class="font-body-md text-[14px] font-medium text-on-surface">Servidor Rack Edge-4U</div>
+<span class="font-mono-code text-[11px] text-on-surface-variant">SKU-SRV-901</span>
+</div>
+<div class="text-right">
+<span class="font-mono-code text-[12px] font-bold text-primary">1 / 10</span>
+<span class="font-mono-code text-[10px] text-on-surface-variant block">uds</span>
+</div>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" data-anim="draw-line" style="width: 10%"></div>
+</div>
+<div class="flex justify-end pt-1">
+<button class="font-label-caps text-[10px] text-primary hover:text-primary-container flex items-center gap-1 font-semibold" type="button">
+<span>PEDIR A PROVEEDOR</span>
+<span class="material-symbols-outlined text-[12px]">send</span>
+</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-3 bg-surface-container-low rounded-xl flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div>
+<div class="font-body-md text-[14px] font-medium text-on-surface">Módulo Transceptor SFP+ 10G</div>
+<span class="font-mono-code text-[11px] text-on-surface-variant">SKU-OPT-104</span>
+</div>
+<div class="text-right">
+<span class="font-mono-code text-[12px] font-bold text-tertiary">3 / 25</span>
+<span class="font-mono-code text-[10px] text-on-surface-variant block">uds</span>
+</div>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" data-anim="draw-line" style="width: 12%"></div>
+</div>
+<div class="flex justify-end pt-1">
+<button class="font-label-caps text-[10px] text-on-surface hover:text-primary flex items-center gap-1 font-semibold" type="button">
+<span>REORDENAR</span>
+<span class="material-symbols-outlined text-[12px]">replay</span>
+</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-3 bg-surface-container-low rounded-xl flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div>
+<div class="font-body-md text-[14px] font-medium text-on-surface">Llaves FIDO2 de Seguridad Cripto</div>
+<span class="font-mono-code text-[11px] text-on-surface-variant">SKU-KEY-442</span>
+</div>
+<div class="text-right">
+<span class="font-mono-code text-[12px] font-bold text-primary">2 / 30</span>
+<span class="font-mono-code text-[10px] text-on-surface-variant block">uds</span>
+</div>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" data-anim="draw-line" style="width: 6.6%"></div>
+</div>
+<div class="flex justify-end pt-1">
+<button class="font-label-caps text-[10px] text-primary hover:text-primary-container flex items-center gap-1 font-semibold" type="button">
+<span>PEDIR A PROVEEDOR</span>
+<span class="material-symbols-outlined text-[12px]">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full py-2 bg-surface-container-high hover:bg-surface-container-highest rounded-lg text-on-surface font-label-caps text-label-caps tracking-widest text-center transition-colors" type="button">
+          INVENTARIO COMPLETO (84 ARTÍCULOS)
+        </button>
+</div>
+</div>
+</div>
+</div></main><footer class="w-full border-t border-[#DDD5C6] bg-[#F4EFE6] py-8"><div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin flex flex-col md:flex-row items-center justify-between gap-6"><div class="font-label-caps text-[12px] tracking-wider text-[#6B645A] uppercase">© 2026 JMMC / FULLSTACK & UI/UX</div><div class="flex flex-wrap items-center justify-center gap-6 font-label-caps text-label-caps tracking-widest text-[#6B645A]"><div class="flex items-center"><span class="text-[#15120F] font-semibold cursor-pointer">ES</span><span class="mx-1.5 text-[#DDD5C6]">|</span><span class="hover:text-on-surface cursor-pointer transition-colors">EN</span></div><a class="hover:text-on-surface transition-colors" href="#">GitHub</a><a class="hover:text-on-surface transition-colors" href="#">LinkedIn</a><a class="hover:text-on-surface transition-colors flex items-center gap-1 font-semibold text-on-surface" href="#top">VOLVER ARRIBA ↑</a></div></div></footer></body></html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-fixed":"#9ff1e7","on-tertiary-fixed-variant":"#5f4100","on-secondary":"#ffffff","primary-fixed-dim":"#ffb4a5","secondary-fixed-dim":"#83d5cb","outline":"#8f706a","surface-container":"#f5ece7","error":"#ba1a1a","tertiary-fixed":"#ffdeaa","on-secondary-container":"#086f67","on-surface-variant":"#5b403b","tertiary-container":"#996c04","on-surface":"#1e1b18","secondary":"#006a63","primary-fixed":"#ffdad3","on-tertiary":"#ffffff","on-error-container":"#93000a","surface-container-highest":"#e9e1db","on-tertiary-container":"#fffbff","on-primary-container":"#fffbff","inverse-surface":"#34302c","surface-tint":"#b62409","primary-container":"#d63b20","surface-container-high":"#efe7e1","on-background":"#1e1b18","on-primary-fixed-variant":"#8e1400","outline-variant":"#e3beb7","on-tertiary-fixed":"#271900","surface":"#fff8f4","inverse-primary":"#ffb4a5","on-error":"#ffffff","surface-container-lowest":"#ffffff","background":"#fff8f4","surface-dim":"#e0d9d3","on-secondary-fixed":"#00201d","surface-bright":"#fff8f4","on-secondary-fixed-variant":"#00504a","inverse-on-surface":"#f8efea","primary":"#b32107","surface-variant":"#e9e1db","secondary-container":"#9cefe4","error-container":"#ffdad6","on-primary-fixed":"#3e0400","tertiary":"#7a5500","tertiary-fixed-dim":"#f5bd58","on-primary":"#ffffff","surface-container-low":"#fbf2ec"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{gutter:"1.5rem",margin:"3rem","space-xs":"0.25rem","space-xl":"2.5rem","gutter-mobile":"1rem","space-sm":"0.5rem","space-md":"1rem","space-lg":"1.5rem","margin-mobile":"1.25rem"},fontFamily:{"headline-md":["Newsreader"],"mono-code":["JetBrains Mono"],"headline-lg":["Newsreader"],"display-lg-mobile":["Newsreader"],"display-xl":["Newsreader"],"label-caps":["JetBrains Mono"],"body-sm":["Geist"],"body-lg":["Geist"],"display-lg":["Newsreader"],"headline-lg-mobile":["Newsreader"],"display-xl-mobile":["Newsreader"],"headline-sm":["Newsreader"],"body-md":["Geist"]},fontSize:{"headline-md":["32px",{lineHeight:"38px",fontWeight:"400"}],"mono-code":["13px",{lineHeight:"20px",fontWeight:"400"}],"headline-lg":["44px",{lineHeight:"48px",letterSpacing:"-0.015em",fontWeight:"400"}],"display-lg-mobile":["40px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"400"}],"display-xl":["96px",{lineHeight:"100px",letterSpacing:"-0.03em",fontWeight:"400"}],"label-caps":["11px",{lineHeight:"14px",letterSpacing:"0.06em",fontWeight:"500"}],"body-sm":["14px",{lineHeight:"22px",fontWeight:"400"}],"body-lg":["19px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"400"}],"display-lg":["64px",{lineHeight:"68px",letterSpacing:"-0.02em",fontWeight:"400"}],"headline-lg-mobile":["32px",{lineHeight:"36px",letterSpacing:"-0.01em",fontWeight:"400"}],"display-xl-mobile":["52px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"400"}],"headline-sm":["24px",{lineHeight:"30px",fontWeight:"400"}],"body-md":["16px",{lineHeight:"26px",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-background min-h-screen flex flex-col antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant"><div class="h-[72px] max-w-[1280px] mx-auto px-margin-mobile lg:px-margin flex items-center justify-between"><a class="font-headline-sm text-headline-sm text-on-surface tracking-normal hover:text-primary transition-colors" data-path="portfolio-home" href="#">JMMC</a><div class="flex items-center gap-space-sm"><div class="flex items-center p-0.5 rounded-full border border-outline-variant bg-surface-container-lowest"><button class="px-2.5 py-1 rounded-full bg-surface-container font-label-caps text-label-caps text-on-surface font-medium transition-colors" type="button">ES</button><span class="text-outline-variant text-[10px]">|</span><button class="px-2.5 py-1 rounded-full text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps transition-colors" type="button">EN</button></div><button aria-label="Cambiar tema" class="h-9 px-2 rounded-full border border-outline-variant bg-surface-container-lowest flex items-center gap-1 text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">light_mode</span><span class="material-symbols-outlined text-[14px]">expand_more</span></button><button aria-label="Abrir menú" class="w-9 h-9 rounded-full border border-outline-variant bg-surface-container-lowest flex flex-col items-center justify-center gap-[5px] group hover:border-outline transition-colors" type="button"><span class="w-[18px] h-[1.5px] bg-on-surface group-hover:bg-primary transition-colors"></span><span class="w-[18px] h-[1.5px] bg-on-surface group-hover:bg-primary transition-colors"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="h-10 border-t border-outline-variant/60 bg-surface-container-low/80 backdrop-blur-sm"><div class="max-w-[1280px] mx-auto px-margin-mobile lg:px-margin h-full flex items-center justify-between"><a class="inline-flex items-center font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" data-path="portfolio-overview" href="#">← Volver al portfolio</a><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-outline-variant bg-surface-container-lowest font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>Acceso restringido · Solo miembros</span></div></div></header><main class="w-full pt-[112px] bg-background flex-1"><div class="flex flex-col w-full">
+<!-- SECONDARY WORKSPACE SUB-BAR -->
+<div class="w-full bg-surface-container-low/90 backdrop-blur-md px-margin-mobile lg:px-margin py-3.5" data-anim="fade-up">
+<div class="max-w-[1280px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+<!-- Left Context & Sync State -->
+<div class="flex items-center gap-3 flex-wrap">
+<a class="inline-flex items-center gap-1.5 font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors group" data-path="blog-archive" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+<span>Volver al blog</span>
+</a>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<!-- Draft State Pill -->
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container font-label-caps text-label-caps text-on-surface">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+          Borrador
+        </span>
+<!-- Sync Timestamp -->
+<div class="inline-flex items-center gap-1.5 font-mono-code text-mono-code text-on-surface-variant">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span>Guardado hace 2 s</span>
+</div>
+</div>
+<!-- Right Publish Controls -->
+<div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps shadow-sm hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Vista previa</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-surface-container-lowest text-on-surface font-label-caps text-label-caps shadow-sm hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">save</span>
+<span>Guardar</span>
+</button>
+<button class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-on-primary font-label-caps text-label-caps shadow-sm hover:bg-primary-container transition-all group" type="button">
+<span>Publicar</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- MAIN EDITORIAL CANVAS WORKSPACE -->
+<div class="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin py-8 lg:py-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+<!-- COLUMN 1: MAIN EDITORIAL DRAFT (8 COLS) -->
+<article class="lg:col-span-8 flex flex-col gap-6" data-anim="stagger-in">
+<!-- COVER IMAGE CONTAINER (EDIT STATE) -->
+<div class="relative group w-full rounded-xl overflow-hidden bg-surface-container shadow-sm aspect-[16/9]">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-[1.02]" data-alt="Editorial warm photograph of an architect designer's studio at dusk with low wooden desk, soft incandescent lamp lighting, warm concrete walls, bookshelves loaded with design volumes and large panoramic window overlooking the twilight skyline." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuATVQ789tbuRmiDcC6GlvQ0M272jYv1EYCcD4h9DMCca1BdPpFhDWMVbLMskZ8fe0vslehzYfhtsMIQ4Blg7JtNO2rY6pSq9wOKkl3uUg1Nq6tuYt_0eZATCp74nWAYrucurF4OIHlpJCgVeP8-g1y_xiih-fp9NOpLW5yovoquDC2M0FOyiUCKCAEhlp5TFW0p0CMA2tiOD0d8xss7hY5FGU54C7EPNiH9Ar2UnZIoyG8BfF77CSQd')">
+</div>
+<!-- Ambient scrim gradient for readability of overlays -->
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent pointer-events-none"></div>
+<!-- Cover Image Toolbar Overlay -->
+<div class="absolute top-4 right-4 flex items-center gap-2 opacity-95 group-hover:opacity-100 transition-opacity">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface/90 backdrop-blur-md font-label-caps text-label-caps text-on-surface shadow-sm hover:bg-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">photo_camera</span>
+<span>Cambiar imagen</span>
+</button>
+<button aria-label="Eliminar imagen de portada" class="w-8 h-8 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-error hover:bg-error-container transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+<!-- Alt Tag Preview Pill -->
+<div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-surface-container-lowest font-mono-code text-mono-code pointer-events-none">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-inverse-surface/75 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[13px] text-secondary-fixed">check_circle</span>
+<span>Alt text configurado (68 palabras)</span>
+</span>
+<span class="hidden sm:inline-flex px-2 py-0.5 rounded-md bg-inverse-surface/60 backdrop-blur-sm text-[11px]">
+              2140 × 1204 px · 16:9
+            </span>
+</div>
+</div>
+<!-- ESSAY HEADER INPUTS -->
+<header class="flex flex-col gap-4 pt-2">
+<!-- Live Category / Slug Breadcrumb -->
+<div class="flex items-center gap-2 font-mono-code text-mono-code text-primary">
+<span class="font-label-caps text-label-caps uppercase tracking-wider bg-surface-container-high px-2 py-0.5 rounded-full text-on-surface-variant">Volumen IV · Ensayo</span>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface-variant">15 min de lectura</span>
+</div>
+<!-- Giant Headline Input (Newsreader Editorial Title) -->
+<div class="relative w-full">
+<textarea class="w-full bg-transparent resize-none font-headline-lg lg:font-display-lg text-headline-lg lg:text-display-lg text-on-surface tracking-tight leading-[1.08] focus:outline-none placeholder:text-outline-variant" placeholder="Escribe el título del ensayo..." rows="2">Diseñar con código: hacia una sensibilidad editorial en el software</textarea>
+</div>
+<!-- Excerpt / Dek Input -->
+<div class="w-full">
+<textarea class="w-full bg-transparent resize-none font-body-lg text-body-lg text-on-surface-variant italic leading-relaxed focus:outline-none placeholder:text-outline-variant" placeholder="Escribe una bajada o sumario editorial..." rows="2">Reflexiones sobre el equilibrio entre rigor algorítmico, tipografía clásica y la tensión dramática en interfaces digitales contemporáneas.</textarea>
+</div>
+</header>
+<!-- FLOATING / STICKY RICH TEXT TOOLBAR -->
+<div class="sticky top-[80px] z-30 w-full py-1">
+<nav aria-label="Herramientas de edición" class="w-full bg-surface/95 backdrop-blur-md rounded-xl px-3 py-2 flex items-center justify-between shadow-md overflow-x-auto gap-2">
+<!-- Typographic levels -->
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 rounded-md font-mono-code text-mono-code font-semibold flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" type="button">H1</button>
+<button class="w-7 h-7 rounded-md font-mono-code text-mono-code font-semibold flex items-center justify-center bg-surface-container-high text-primary" type="button">H2</button>
+<button class="w-7 h-7 rounded-md font-mono-code text-mono-code font-semibold flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" type="button">H3</button>
+</div>
+<div class="w-[1px] h-4 bg-outline-variant"></div>
+<!-- Formatting controls -->
+<div class="flex items-center gap-0.5">
+<button class="w-7 h-7 rounded-md flex items-center justify-center text-on-surface hover:bg-surface-container font-semibold transition-colors" title="Negrita" type="button">
+<span class="material-symbols-outlined text-[17px]">format_bold</span>
+</button>
+<button class="w-7 h-7 rounded-md flex items-center justify-center text-on-surface hover:bg-surface-container italic transition-colors" title="Cursiva" type="button">
+<span class="material-symbols-outlined text-[17px]">format_italic</span>
+</button>
+<button class="w-7 h-7 rounded-md flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" title="Enlace" type="button">
+<span class="material-symbols-outlined text-[17px]">link</span>
+</button>
+<button class="w-7 h-7 rounded-md flex items-center justify-center bg-surface-container text-on-surface transition-colors" title="Cita en bloque" type="button">
+<span class="material-symbols-outlined text-[17px]">format_quote</span>
+</button>
+<button class="w-7 h-7 rounded-md flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" title="Fragmento de código" type="button">
+<span class="material-symbols-outlined text-[17px]">code</span>
+</button>
+<button class="w-7 h-7 rounded-md flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" title="Insertar imagen" type="button">
+<span class="material-symbols-outlined text-[17px]">add_photo_alternate</span>
+</button>
+</div>
+<div class="w-[1px] h-4 bg-outline-variant"></div>
+<!-- List controls -->
+<div class="flex items-center gap-0.5">
+<button class="w-7 h-7 rounded-md flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" title="Lista con viñetas" type="button">
+<span class="material-symbols-outlined text-[17px]">format_list_bulleted</span>
+</button>
+<button class="w-7 h-7 rounded-md flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" title="Lista numerada" type="button">
+<span class="material-symbols-outlined text-[17px]">format_list_numbered</span>
+</button>
+</div>
+<!-- Word count metric indicator -->
+<div class="ml-auto pl-2 flex items-center gap-2 font-mono-code text-mono-code text-on-surface-variant whitespace-nowrap">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>1.420 palabras · 6 min</span>
+</div>
+</nav>
+</div>
+<!-- EDITORIAL BODY CONTENT (LIVE TYPOGRAPHIC EDITOR) -->
+<div class="flex flex-col gap-6 py-4">
+<!-- Paragraph 1 -->
+<p class="font-body-lg text-body-lg text-on-surface leading-[1.85] text-justify">
+            Durante décadas, la industria del software ha tratado la interfaz de usuario como una mera capa de abstracción funcional: un conjunto prescindible de cajas ensambladas con el único propósito de despachar información transaccional. Sin embargo, cuando observamos las publicaciones editoriales del siglo XX —desde las partituras tipográficas de Emil Ruder hasta los volúmenes arquitectónicos de El Croquis—, descubrimos que cada espacio en blanco, cada modulación de ritmo y cada tensión asimétrica transmiten una intención estética inequívoca.
+          </p>
+<!-- Pull Quote Block (Editorial Accent) -->
+<div class="my-4 pl-6 py-3 bg-surface-container-low rounded-r-xl relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-full"></div>
+<p class="font-headline-sm text-headline-sm text-on-surface italic leading-relaxed">
+              «La verdadera elegancia visual surge de la contención: eliminar lo superfluo hasta que solo permanezca la estructura y la resonancia del contenido.»
+            </p>
+<div class="mt-3 flex items-center gap-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">
+<span>— Cuaderno de taller, 2026</span>
+<span class="text-outline-variant">·</span>
+<span class="text-secondary font-mono-code">Fragmento destacado</span>
+</div>
+</div>
+<!-- Section Heading -->
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight mt-4 flex items-center gap-3">
+<span>1. La tensión entre densidad y whitespace</span>
+</h2>
+<!-- Paragraph 2 with Code Tag & Live Cursor Indicator -->
+<p class="font-body-lg text-body-lg text-on-surface leading-[1.85] relative">
+            En sistemas de alta densidad de información, el reto no reside en comprimir datos de manera indiscriminada, sino en orquestar anclas visuales mediante 
+            <code class="px-2 py-0.5 rounded bg-surface-container-high font-mono-code text-mono-code text-primary font-medium">JetBrains Mono</code> 
+            para valores cuantitativos y una tipografía romana de alto contraste para el eje narrativo. Diseñar con código implica concebir el DOM no como un árbol estático, sino como un plano secuencial donde el scroll actúa como el paso de página en una publicación encuadernada.
+            <span class="inline-block w-[2px] h-5 bg-primary ml-1 align-middle animate-pulse"></span>
+</p>
+<!-- Editorial Inline Note / Callout -->
+<div class="mt-4 p-5 rounded-xl bg-surface-container-low flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-[22px] mt-0.5">edit_note</span>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps uppercase text-on-surface tracking-wider">Nota de revisión en curso</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Pendiente de añadir un gráfico interactivo SVG con la correlación de escala tipográfica áurea y la velocidad de lectura cognitiva en pantallas retina.
+              </p>
+</div>
+</div>
+</div>
+</article>
+<!-- COLUMN 2: INSPECTOR & PUBLISHING METADATA PANEL (4 COLS) -->
+<aside class="lg:col-span-4 flex flex-col gap-6" data-anim="stagger-in">
+<!-- MODULE: LANGUAGE & AUDIENCE LOCALE -->
+<div class="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">Idioma del artículo</span>
+<span class="font-mono-code text-mono-code text-secondary">ES · Activo</span>
+</div>
+<!-- Segmented Pill Selector -->
+<div class="grid grid-cols-2 p-1 rounded-full bg-surface-container">
+<button class="py-1.5 rounded-full bg-surface-container-lowest font-label-caps text-label-caps text-on-surface shadow-xs font-semibold" type="button">
+              Español (ES)
+            </button>
+<button class="py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps transition-colors" type="button">
+              English (EN)
+            </button>
+</div>
+</div>
+<!-- MODULE: SLUG & URL STRUCTURE -->
+<div class="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<label class="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant" for="post-slug">Slug permanente</label>
+<button class="font-label-caps text-label-caps text-primary hover:underline flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[13px]">content_copy</span>
+<span>Copiar URL</span>
+</button>
+</div>
+<div class="flex items-center px-3 py-2 rounded-lg bg-surface-container font-mono-code text-mono-code text-on-surface">
+<span class="text-on-surface-variant select-none">/blog/</span>
+<input class="w-full bg-transparent focus:outline-none text-on-surface ml-0.5 truncate" id="post-slug" type="text" value="disenar-con-codigo-sensibilidad-editorial"/>
+</div>
+<span class="font-body-sm text-[12px] text-on-surface-variant">Se actualizará automáticamente si modificas el título principal.</span>
+</div>
+<!-- MODULE: CATEGORY & TAXONOMY -->
+<div class="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">Categoría editorial</label>
+<div class="relative">
+<select class="w-full appearance-none px-3.5 py-2.5 rounded-lg bg-surface-container font-body-sm text-body-sm text-on-surface focus:outline-none cursor-pointer pr-10">
+<option selected="">Ensayos de Diseño &amp; Arquitectura</option>
+<option>Ingeniería de Software &amp; Frontend</option>
+<option>Tipografía &amp; Arte Computacional</option>
+<option>Bitácora de Investigación</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant text-[18px]">
+                expand_more
+              </span>
+</div>
+</div>
+<!-- Tag Chips -->
+<div class="flex flex-col gap-2 pt-1">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">Etiquetas de indexación</span>
+<div class="flex flex-wrap gap-1.5 items-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container font-label-caps text-label-caps text-on-surface">
+                UI/UX
+                <button aria-label="Quitar tag UI/UX" class="hover:text-primary" type="button"><span class="material-symbols-outlined text-[13px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container font-label-caps text-label-caps text-on-surface">
+                EDITORIAL
+                <button aria-label="Quitar tag EDITORIAL" class="hover:text-primary" type="button"><span class="material-symbols-outlined text-[13px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container font-label-caps text-label-caps text-on-surface">
+                TYPOGRAPHY
+                <button aria-label="Quitar tag TYPOGRAPHY" class="hover:text-primary" type="button"><span class="material-symbols-outlined text-[13px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container font-label-caps text-label-caps text-on-surface">
+                SYSTEMS
+                <button aria-label="Quitar tag SYSTEMS" class="hover:text-primary" type="button"><span class="material-symbols-outlined text-[13px]">close</span></button>
+</span>
+<!-- Add tag pill button -->
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps transition-colors" type="button">
+<span class="material-symbols-outlined text-[13px]">add</span>
+<span>Añadir</span>
+</button>
+</div>
+</div>
+</div>
+<!-- MODULE: PUBLICATION TIMING & VISIBILITY -->
+<div class="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">Publicación programada</span>
+<span class="font-label-caps text-label-caps text-primary">Programado</span>
+</div>
+<div class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-surface-container">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">calendar_today</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">24 Octubre 2026, 10:00 CEST</span>
+<span class="font-mono-code text-[11px] text-on-surface-variant">Lanzamiento sincronizado con Newsletter</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 font-body-sm text-[13px] text-on-surface-variant">
+<span>¿Publicar ahora?</span>
+<button class="text-primary hover:underline font-medium" type="button">Cambiar a inmediata</button>
+</div>
+</div>
+<!-- MODULE: ACCESSIBILITY (ALT TEXT) -->
+<div class="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant" for="cover-alt">Alt Text (Accesibilidad)</label>
+<span class="font-mono-code text-[11px] text-secondary">A11y OK</span>
+</div>
+<textarea class="w-full p-2.5 rounded-lg bg-surface-container font-body-sm text-body-sm text-on-surface focus:outline-none resize-none leading-relaxed" id="cover-alt" rows="3">Fotografía arquitectónica en tonos cálidos con estudio de diseño y biblioteca iluminada al atardecer.</textarea>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Describe la portada para lectores de pantalla y buscadores.</span>
+</div>
+<!-- MODULE: SEO & METADATA PREVIEW -->
+<div class="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">Optimización SEO</span>
+<span class="inline-flex items-center gap-1 font-mono-code text-[11px] text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+              Puntuación 98/100
+            </span>
+</div>
+<!-- Meta Title -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="seo-title">Meta Título</label>
+<span class="font-mono-code text-[11px] text-secondary">52 / 60</span>
+</div>
+<input class="w-full px-3 py-2 rounded-lg bg-surface-container font-body-sm text-body-sm text-on-surface focus:outline-none" id="seo-title" type="text" value="Diseñar con código — Sensibilidad editorial | JMMC"/>
+</div>
+<!-- Meta Description -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase" for="seo-desc">Meta Descripción</label>
+<span class="font-mono-code text-[11px] text-secondary">128 / 160</span>
+</div>
+<textarea class="w-full px-3 py-2 rounded-lg bg-surface-container font-body-sm text-body-sm text-on-surface focus:outline-none resize-none" id="seo-desc" rows="3">Exploración sobre la convergencia entre tipografía editorial clásica y arquitectura de frontend de alto rendimiento.</textarea>
+</div>
+<!-- Google Search Snippet Preview -->
+<div class="flex flex-col gap-1.5 pt-2">
+<span class="font-label-caps text-[10px] uppercase tracking-wider text-on-surface-variant">Previsualización en Google</span>
+<div class="p-3.5 rounded-lg bg-surface-container-high flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-[12px] font-mono-code text-on-surface-variant">
+<span>jmmc.dev</span>
+<span>›</span>
+<span>blog</span>
+<span>›</span>
+<span class="truncate">disenar-con-codigo...</span>
+</div>
+<span class="font-body-md text-[15px] font-medium text-primary hover:underline cursor-pointer leading-tight">
+                Diseñar con código — Sensibilidad editorial | JMMC
+              </span>
+<p class="font-body-sm text-[12px] text-on-surface-variant line-clamp-2 leading-relaxed mt-0.5">
+                Exploración sobre la convergencia entre tipografía editorial clásica y arquitectura de frontend de alto rendimiento. Durante décadas, la industria...
+              </p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interactions for active inputs & counters
+  document.addEventListener('DOMContentLoaded', () => {
+    const seoTitle = document.getElementById('seo-title');
+    if (seoTitle) {
+      seoTitle.addEventListener('input', (e) => {
+        const target = e.target;
+        const count = target.value.length;
+        const counter = target.previousElementSibling?.querySelector('span:last-child');
+        if (counter) {
+          counter.textContent = `${count} / 60`;
+          counter.className = count > 60 
+            ? 'font-mono-code text-[11px] text-error' 
+            : 'font-mono-code text-[11px] text-secondary';
+        }
+      });
+    }
+  });
+</script></main><footer class="w-full border-t border-outline-variant bg-surface-container-low py-space-lg"><div class="max-w-[1280px] mx-auto px-margin-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">© 2026 JMMC / FULLSTACK &amp; UI/UX</div><div class="flex items-center gap-space-lg"><span class="font-label-caps text-label-caps text-on-surface-variant">ES | EN</span><a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors uppercase" data-path="github-archive" href="#">GitHub</a><a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors uppercase" data-path="linkedin-profile" href="#">LinkedIn</a></div><a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors uppercase" href="#">VOLVER ARRIBA ↑</a></div></footer></body></html>
