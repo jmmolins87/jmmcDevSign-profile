@@ -1,26 +1,190 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* SPEC 01 — Paso 1: tokens Paper (rem apeo Material → Paper).
+   Los alias Material (surface, on-surface, primary…) se conservan como
+   nombres de utilidad y apuntan a la paleta Paper del proyecto. */
+
+@theme {
+  /* Paleta Paper directa */
+  --color-paper: #f4efe6;
+  --color-paper-surface: #fbf8f2;
+  --color-ink: #15120f;
+  --color-muted: #6b645a;
+  --color-hairline: #ddd5c6;
+  --color-accent: #e8482b;
+  --color-accent-text: #b93013;
+  --color-teal: #1f7a72;
+  --color-ochre: #d9a441;
+
+  /* Alias Material → Paper (compatibilidad con el HTML de referencia) */
+  --color-background: #f4efe6;
+  --color-surface: #fbf8f2;
+  --color-surface-bright: #fbf8f2;
+  --color-surface-dim: #e7ddc9;
+  --color-surface-container-lowest: #fffdf8;
+  --color-surface-container-low: #fbf8f2;
+  --color-surface-container: #efe7d6;
+  --color-surface-container-high: #e7ddc9;
+  --color-surface-container-highest: #dfd3bc;
+  --color-surface-variant: #e7ddc9;
+  --color-surface-tint: #e8482b;
+  --color-on-surface: #15120f;
+  --color-on-surface-variant: #6b645a;
+  --color-on-background: #15120f;
+  --color-inverse-surface: #15120f;
+  --color-inverse-on-surface: #f3eee5;
+  --color-inverse-primary: #ff8a70;
+  --color-outline: #6b645a;
+  --color-outline-variant: #ddd5c6;
+  --color-primary: #e8482b;
+  --color-on-primary: #fbf8f2;
+  --color-primary-container: #e8482b;
+  --color-on-primary-container: #fbf8f2;
+  --color-primary-fixed: #f6c7bb;
+  --color-primary-fixed-dim: #efa08d;
+  --color-on-primary-fixed: #5c130a;
+  --color-on-primary-fixed-variant: #b93013;
+  --color-secondary: #1f7a72;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #d3ece8;
+  --color-on-secondary-container: #0e4f49;
+  --color-secondary-fixed: #9cefe4;
+  --color-secondary-fixed-dim: #7fd8cd;
+  --color-on-secondary-fixed: #00201d;
+  --color-on-secondary-fixed-variant: #00504a;
+  --color-tertiary: #7a5500;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #996c04;
+  --color-on-tertiary-container: #fffbff;
+  --color-tertiary-fixed: #ffdeaa;
+  --color-tertiary-fixed-dim: #f5bd58;
+  --color-on-tertiary-fixed: #271900;
+  --color-on-tertiary-fixed-variant: #5f4100;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* Familias (next/font expone las variables --font-newsreader, etc.) */
+  --font-display-xl: var(--font-newsreader), "Georgia", serif;
+  --font-display-xl-mobile: var(--font-newsreader), "Georgia", serif;
+  --font-display-lg: var(--font-newsreader), "Georgia", serif;
+  --font-display-lg-mobile: var(--font-newsreader), "Georgia", serif;
+  --font-headline-lg: var(--font-newsreader), "Georgia", serif;
+  --font-headline-lg-mobile: var(--font-newsreader), "Georgia", serif;
+  --font-headline-md: var(--font-newsreader), "Georgia", serif;
+  --font-headline-sm: var(--font-newsreader), "Georgia", serif;
+  --font-body-lg: var(--font-geist-sans), system-ui, sans-serif;
+  --font-body-md: var(--font-geist-sans), system-ui, sans-serif;
+  --font-body-sm: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono-code: var(--font-geist-mono), ui-monospace, monospace;
+  --font-label-caps: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Tamaños editoriales */
+  --text-display-xl: 96px;
+  --text-display-xl--line-height: 100px;
+  --text-display-xl--letter-spacing: -0.03em;
+  --text-display-xl--font-weight: 400;
+  --text-display-xl-mobile: 52px;
+  --text-display-xl-mobile--line-height: 56px;
+  --text-display-xl-mobile--letter-spacing: -0.02em;
+  --text-display-xl-mobile--font-weight: 400;
+  --text-display-lg: 64px;
+  --text-display-lg--line-height: 68px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 400;
+  --text-display-lg-mobile: 40px;
+  --text-display-lg-mobile--line-height: 44px;
+  --text-display-lg-mobile--letter-spacing: -0.02em;
+  --text-display-lg-mobile--font-weight: 400;
+  --text-headline-lg: 44px;
+  --text-headline-lg--line-height: 48px;
+  --text-headline-lg--letter-spacing: -0.015em;
+  --text-headline-lg--font-weight: 400;
+  --text-headline-lg-mobile: 32px;
+  --text-headline-lg-mobile--line-height: 36px;
+  --text-headline-lg-mobile--letter-spacing: -0.01em;
+  --text-headline-lg-mobile--font-weight: 400;
+  --text-headline-md: 32px;
+  --text-headline-md--line-height: 38px;
+  --text-headline-md--font-weight: 400;
+  --text-headline-sm: 24px;
+  --text-headline-sm--line-height: 30px;
+  --text-headline-sm--font-weight: 400;
+  --text-body-lg: 19px;
+  --text-body-lg--line-height: 32px;
+  --text-body-lg--letter-spacing: -0.01em;
+  --text-body-lg--font-weight: 400;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 26px;
+  --text-body-md--font-weight: 400;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 22px;
+  --text-body-sm--font-weight: 400;
+  --text-label-caps: 11px;
+  --text-label-caps--line-height: 14px;
+  --text-label-caps--letter-spacing: 0.06em;
+  --text-label-caps--font-weight: 500;
+  --text-mono-code: 13px;
+  --text-mono-code--line-height: 20px;
+  --text-mono-code--font-weight: 400;
+
+  /* Espaciado editorial */
+  --spacing-margin: 3rem;
+  --spacing-margin-mobile: 1.25rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-mobile: 1rem;
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    overscroll-behavior: none;
+    background: var(--color-background);
+    color: var(--color-on-surface);
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  ::selection {
+    background: var(--color-primary-fixed);
+    color: var(--color-on-primary-fixed);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Material Symbols Outlined (carga vía <link> — ver layout.tsx) */
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
+  }
 }
