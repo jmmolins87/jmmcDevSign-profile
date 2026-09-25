@@ -1,22 +1,13 @@
 /* SPEC 01 — Paso 4: sección 01 — Sobre mí (data-anim="reveal-lines"). */
 
 import { portraitImage } from "@/lib/content";
+import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
 
 export default function About() {
   return (
-    <>
-      <section
-        className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin py-32"
-        data-anim="reveal-lines"
-        id="sobre-mi"
-      >
-        {/* Section Label */}
-        <div className="flex items-center gap-space-md mb-16">
-          <span className="font-mono-code text-mono-code text-primary uppercase tracking-[0.06em]">
-            01 — Sobre mí
-          </span>
-          <div className="h-[1px] flex-1 bg-outline-variant" />
-        </div>
+    <Section id="sobre-mi" anim="reveal-lines">
+      <SectionHeading index="01" name="Sobre mí" />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           {/* Left Editorial Narrative */}
           <div className="lg:col-span-7 space-y-space-lg">
@@ -92,11 +83,6 @@ export default function About() {
             </div>
           </div>
         </div>
-      </section>
-      {/* Hairline Divider */}
-      <div className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin">
-        <div className="w-full h-[1px] bg-outline-variant" />
-      </div>
-    </>
+    </Section>
   );
 }

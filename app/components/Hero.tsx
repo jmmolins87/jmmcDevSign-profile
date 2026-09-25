@@ -1,14 +1,11 @@
 /* SPEC 01 — Paso 3: hero con data-anim="hero-scrub" + hairline divisoria. */
 
 import { heroImage } from "@/lib/content";
+import Section from "./ui/Section";
 
 export default function Hero() {
   return (
-    <>
-      <section
-        className="relative w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin pt-space-xl pb-32"
-        data-anim="hero-scrub"
-      >
+    <Section anim="hero-scrub" padding="pt-space-xl pb-32" className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center min-h-[calc(100vh-140px)]">
           {/* Hero Narrative (Left ~45%) */}
           <div className="lg:col-span-6 flex flex-col justify-between py-space-md z-10">
@@ -128,11 +125,6 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </section>
-      {/* Hairline Divider */}
-      <div className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin">
-        <div className="w-full h-[1px] bg-outline-variant" />
-      </div>
-    </>
+    </Section>
   );
 }

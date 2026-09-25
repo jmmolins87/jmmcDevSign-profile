@@ -3,21 +3,13 @@
    animación del paso 9; sin JS muestran su ancho final. */
 
 import { stackGroups } from "@/lib/content";
+import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
 
 export default function Stack() {
   return (
-    <>
-      <section
-        className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin py-32"
-        data-anim="fill-bar"
-        id="stack"
-      >
-        <div className="flex items-center gap-space-md mb-16">
-          <span className="font-mono-code text-mono-code text-primary uppercase tracking-[0.06em]">
-            02 — Stack
-          </span>
-          <div className="h-[1px] flex-1 bg-outline-variant" />
-        </div>
+    <Section id="stack" anim="fill-bar">
+      <SectionHeading index="02" name="Stack" />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Section Intro Sticky Left */}
           <div className="lg:col-span-4 space-y-4">
@@ -77,11 +69,6 @@ export default function Stack() {
             ))}
           </div>
         </div>
-      </section>
-      {/* Hairline Divider */}
-      <div className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin">
-        <div className="w-full h-[1px] bg-outline-variant" />
-      </div>
-    </>
+    </Section>
   );
 }

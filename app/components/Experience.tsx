@@ -1,21 +1,14 @@
 /* SPEC 01 — Paso 5: sección 03 — Experiencia (data-anim="draw-line"). */
 
 import { timeline } from "@/lib/content";
+import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
+import Chip from "./ui/Chip";
 
 export default function Experience() {
   return (
-    <>
-      <section
-        className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin py-32"
-        data-anim="draw-line"
-        id="experiencia"
-      >
-        <div className="flex items-center gap-space-md mb-20">
-          <span className="font-mono-code text-mono-code text-primary uppercase tracking-[0.06em]">
-            03 — Experiencia
-          </span>
-          <div className="h-[1px] flex-1 bg-outline-variant" />
-        </div>
+    <Section id="experiencia" anim="draw-line">
+      <SectionHeading index="03" name="Experiencia" className="mb-20" />
         {/* Timeline Wrapper */}
         <div className="relative">
           {/* Vertical Hairline Connector */}
@@ -62,12 +55,9 @@ export default function Experience() {
                     </p>
                     <div className="flex flex-wrap gap-2 pt-2">
                       {entry.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 rounded-full border border-outline-variant font-label-caps text-label-caps text-on-surface-variant"
-                        >
+                        <Chip key={tag} className="px-3 py-1">
                           {tag}
-                        </span>
+                        </Chip>
                       ))}
                     </div>
                   </div>
@@ -76,11 +66,6 @@ export default function Experience() {
             })}
           </div>
         </div>
-      </section>
-      {/* Hairline Divider */}
-      <div className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin">
-        <div className="w-full h-[1px] bg-outline-variant" />
-      </div>
-    </>
+    </Section>
   );
 }

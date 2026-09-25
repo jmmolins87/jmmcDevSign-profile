@@ -1,21 +1,13 @@
 /* SPEC 01 — Paso 7: sección 05 — Servicios (4 tarjetas numeradas). */
 
 import { services } from "@/lib/content";
+import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
 
 export default function Services() {
   return (
-    <>
-      <section
-        className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin py-32"
-        data-anim="reveal-lines"
-        id="servicios"
-      >
-        <div className="flex items-center gap-space-md mb-16">
-          <span className="font-mono-code text-mono-code text-primary uppercase tracking-[0.06em]">
-            05 — Servicios
-          </span>
-          <div className="h-[1px] flex-1 bg-outline-variant" />
-        </div>
+    <Section id="servicios" anim="reveal-lines">
+      <SectionHeading index="05" name="Servicios" />
         {/* 4 Numbered Cards in a Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => (
@@ -48,11 +40,6 @@ export default function Services() {
             </div>
           ))}
         </div>
-      </section>
-      {/* Hairline Divider */}
-      <div className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin">
-        <div className="w-full h-[1px] bg-outline-variant" />
-      </div>
-    </>
+    </Section>
   );
 }

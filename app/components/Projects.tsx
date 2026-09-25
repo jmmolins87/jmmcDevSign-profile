@@ -1,21 +1,14 @@
 /* SPEC 01 — Paso 6: sección 04 — Proyectos + demos (data-anim="stagger-in"). */
 
 import { demos, projects } from "@/lib/content";
+import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
+import Chip from "./ui/Chip";
 
 export default function Projects() {
   return (
-    <>
-      <section
-        className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin py-32"
-        data-anim="stagger-in"
-        id="proyectos"
-      >
-        <div className="flex items-center gap-space-md mb-16">
-          <span className="font-mono-code text-mono-code text-primary uppercase tracking-[0.06em]">
-            04 — Proyectos
-          </span>
-          <div className="h-[1px] flex-1 bg-outline-variant" />
-        </div>
+    <Section id="proyectos" anim="stagger-in">
+      <SectionHeading index="04" name="Proyectos" />
         {/* 2x2 Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {projects.map((project) => (
@@ -50,12 +43,7 @@ export default function Projects() {
                 </div>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 rounded-full border border-outline-variant font-label-caps text-label-caps text-on-surface-variant"
-                    >
-                      {tag}
-                    </span>
+                    <Chip key={tag}>{tag}</Chip>
                   ))}
                 </div>
               </div>
@@ -84,10 +72,10 @@ export default function Projects() {
                 <div className="space-y-1">
                   <div className="flex items-center gap-3">
                     {demo.live ? (
-                      <span className="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-mono-code text-[10px] uppercase tracking-wider font-semibold flex items-center gap-1">
+                      <Chip tone="live" className="px-2.5 py-0.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
                         {demo.badge}
-                      </span>
+                      </Chip>
                     ) : (
                       <span className="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono-code text-[10px] uppercase tracking-wider">
                         {demo.badge}
@@ -111,11 +99,6 @@ export default function Projects() {
             ))}
           </div>
         </div>
-      </section>
-      {/* Hairline Divider */}
-      <div className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin">
-        <div className="w-full h-[1px] bg-outline-variant" />
-      </div>
-    </>
+    </Section>
   );
 }

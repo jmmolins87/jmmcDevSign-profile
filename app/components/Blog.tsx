@@ -3,23 +3,15 @@
    va como markup local, fuera del modelo de lib/content.ts. */
 
 import { featuredPostImage, postPeeks } from "@/lib/content";
+import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
 
 export default function Blog() {
   const [prev, next] = postPeeks;
 
   return (
-    <>
-      <section
-        className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin py-32"
-        data-anim="reveal-lines"
-        id="blog"
-      >
-        <div className="flex items-center gap-space-md mb-16">
-          <span className="font-mono-code text-mono-code text-primary uppercase tracking-[0.06em]">
-            06 — Blog &amp; Bitácora
-          </span>
-          <div className="h-[1px] flex-1 bg-outline-variant" />
-        </div>
+    <Section id="blog" anim="reveal-lines">
+      <SectionHeading index="06" name="Blog & Bitácora" />
         {/* Carousel Container */}
         <div className="relative w-full overflow-hidden">
           <div className="flex items-center justify-center gap-6 py-4">
@@ -133,11 +125,6 @@ export default function Blog() {
             </a>
           </div>
         </div>
-      </section>
-      {/* Hairline Divider */}
-      <div className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin">
-        <div className="w-full h-[1px] bg-outline-variant" />
-      </div>
-    </>
+    </Section>
   );
 }

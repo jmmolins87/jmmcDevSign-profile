@@ -5,23 +5,16 @@
 "use client";
 
 import { useState } from "react";
+import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
 
 export default function Contact() {
   // [placeholder] — envío real (proveedor de email) en una spec futura.
   const [sent, setSent] = useState(false);
 
   return (
-    <section
-      className="w-full max-w-[1280px] mx-auto px-margin-mobile lg:px-margin py-32"
-      data-anim="reveal-lines"
-      id="contacto"
-    >
-      <div className="flex items-center gap-space-md mb-16">
-        <span className="font-mono-code text-mono-code text-primary uppercase tracking-[0.06em]">
-          07 — Contacto
-        </span>
-        <div className="h-[1px] flex-1 bg-outline-variant" />
-      </div>
+    <Section id="contacto" anim="reveal-lines" divider={false}>
+      <SectionHeading index="07" name="Contacto" />
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
         {/* Giant Left Title */}
         <div className="lg:col-span-5 space-y-6">
@@ -144,6 +137,6 @@ export default function Contact() {
           </form>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
