@@ -10,16 +10,24 @@ import type { FeedEvent } from "@/lib/data/types";
 const TONE_CYCLE = ["text-primary", "text-secondary", "text-tertiary"];
 
 export default function Feed({ agentActive }: { agentActive: boolean }) {
-  const [events, setEvents] = useState<FeedEvent[]>(MOCK_FEED);
+  const [events, setEvents] = useState<{ key: string; event: FeedEvent }[]>(
+    MOCK_FEED.map((event) => ({ key: `${event.time}-${event.title}`, event }))
+  );
 
   useEffect(() => {
     if (!agentActive) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let i = 0;
     const timer = setInterval(() => {
-      const next = MOCK_FEED_EXTRA[i % MOCK_FEED_EXTRA.length];
+      if (i >= MOCK_FEED_EXTRA.length) {
+        clearInterval(timer);
+        return;
+      }
+      const next = MOCK_FEED_EXTRA[i];
+      setEvents((prev) =>
+        [{ key: `live-${i}`, event: next }, ...prev].slice(0, 8)
+      );
       i += 1;
-      setEvents((prev) => [next, ...prev].slice(0, 8));
     }, 6000);
     return () => clearInterval(timer);
   }, [agentActive]);
@@ -53,9 +61,9 @@ export default function Feed({ agentActive }: { agentActive: boolean }) {
         </span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-sm font-mono-code text-[12px]">
-        {events.slice(0, 4).map((event, i) => (
+        {events.slice(0, 4).map(({ key, event }, i) => (
           <div
-            key={`${event.time}-${event.title}`}
+            key={key}
             className="p-2.5 rounded bg-surface border border-outline-variant flex flex-col justify-between gap-1"
           >
             <span className={`${TONE_CYCLE[i % TONE_CYCLE.length]} font-medium`}>
