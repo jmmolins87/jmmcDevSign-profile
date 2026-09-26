@@ -49,7 +49,15 @@ export function applyTheme(resolved: ResolvedTheme): void {
   document.documentElement.dataset.theme = resolved;
 }
 
+/** SPEC 05 — Paso 7: las demos son apps operativas (modo Operate) y se
+    fuerzan a Paper aunque la preferencia guardada sea oscuro. La preferencia
+    en localStorage no se toca: volver a la landing restaura el tema. */
+export function isDemoPath(pathname: string): boolean {
+  return pathname === "/demos" || pathname.startsWith("/demos/");
+}
+
 /* Script anti-parpadeo: se inyecta en <head> antes del body, así que fija
-   data-theme antes del primer pintado. Siempre resuelve a "light" ante un
+   data-theme antes del primer pintado. En /demos/* siempre "light" (Paso 7);
+   si no, resuelve la preferencia guardada. Siempre resuelve a "light" ante un
    error (fallback igual al Paper de SPEC 01). */
-export const themeInitScript = `(function(){try{var p=localStorage.getItem("${THEME_KEY}");if(p!=="light"&&p!=="dark"&&p!=="system"){p="system";}var d=window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(p==="system")?(d?"dark":"light"):p;}catch(e){document.documentElement.dataset.theme="light";}})();`;
+export const themeInitScript = `(function(){try{if(/^\\/demos(\\/|$)/.test(location.pathname)){document.documentElement.dataset.theme="light";return;}var p=localStorage.getItem("${THEME_KEY}");if(p!=="light"&&p!=="dark"&&p!=="system"){p="system";}var d=window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=(p==="system")?(d?"dark":"light"):p;}catch(e){document.documentElement.dataset.theme="light";}})();`;

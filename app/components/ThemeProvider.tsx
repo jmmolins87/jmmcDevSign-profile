@@ -1,6 +1,7 @@
 "use client";
 
 /* SPEC 05 — Paso 1: contexto de tema + hook useTheme.
+   SPEC 05 — Paso 7: se fuerza "light" en /demos/* con usePathname().
 
    Tanto la preferencia (localStorage) como el color del SO (matchMedia) son
    sistemas externos, así que se leen con useSyncExternalStore: en el servidor
@@ -13,14 +14,17 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useSyncExternalStore,
   type ReactNode,
 } from "react";
+import { usePathname } from "next/navigation";
 import {
   THEME_EVENT,
   THEME_KEY,
   applyTheme,
+  isDemoPath,
   readStoredTheme,
   resolveTheme,
   type ResolvedTheme,
@@ -68,6 +72,12 @@ function subscribeSystemDark(onChange: () => void) {
 const getSystemDark = () => getDarkQuery()?.matches ?? false;
 const getServerSystemDark = () => false;
 
+/* En el servidor useLayoutEffect no hace nada y React avisa; en cliente se
+   usa para aplicar el tema antes del paint (sin frame de tema antiguo al
+   navegar hacia /demos/* con la preferencia en oscuro). */
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 export default function ThemeProvider({ children }: { children: ReactNode }) {
   const theme = useSyncExternalStore(
     subscribeTheme,
@@ -79,12 +89,17 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     getSystemDark,
     getServerSystemDark,
   );
-  const resolved: ResolvedTheme = resolveTheme(theme, systemDark);
+  /* SPEC 05 — Paso 7: en /demos/* se fuerza Paper; la preferencia guardada
+     queda intacta y la landing vuelve a resolverla al salir. */
+  const pathname = usePathname();
+  const resolved: ResolvedTheme = isDemoPath(pathname)
+    ? "light"
+    : resolveTheme(theme, systemDark);
 
   // Escribir en el DOM desde un effect está permitido: es el sistema externo.
   // Con el mismo valor que puso el script del <head>, la escritura es
   // idempotente y no produce parpadeo.
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     applyTheme(resolved);
   }, [resolved]);
 
