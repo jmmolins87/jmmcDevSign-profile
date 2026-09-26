@@ -181,7 +181,7 @@ export const demos: DemoRow[] = [
     live: true, // [placeholder]
     title: "Agente de leads", // [placeholder]
     body: "Recibe leads, los cualifica y automatiza el seguimiento comercial mediante agentes conversacionales autónomos.", // [placeholder]
-    href: "#", // [placeholder]
+    href: "/demos/leads", // [placeholder]
   },
   {
     badge: "Demo", // [placeholder]
