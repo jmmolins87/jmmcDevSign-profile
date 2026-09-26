@@ -1,15 +1,25 @@
-/* SPEC 06 — Paso 5: dossier del pedido seleccionado.
+/* SPEC 06 — Pasos 5-6: dossier del pedido seleccionado.
    El desglose sale de orderTotals() (IVA incluido en los artículos).
    La nota de cocina solo se renderiza si el pedido tiene `note`.
-   Los botones de acción se cablean en el paso 6; imprimir queda inerte. */
+   MARCAR COMO LISTO queda con aria-disabled si el pedido ya está en
+   Listo (decisión 1 del paso 6); imprimir sigue inerte. */
 
 "use client";
 
 import { CHANNEL_LABEL, formatEUR, orderTotals } from "@/lib/data/orders";
 import type { Order } from "@/lib/data/types";
 
-export default function Dossier({ order }: { order: Order }) {
+export default function Dossier({
+  order,
+  onMarkReady,
+  onCancel,
+}: {
+  order: Order;
+  onMarkReady: () => void;
+  onCancel: () => void;
+}) {
   const { subtotal, iva, total } = orderTotals(order);
+  const canAdvance = order.column !== "listo";
 
   return (
     <aside
@@ -118,11 +128,17 @@ export default function Dossier({ order }: { order: Order }) {
         </div>
       </div>
 
-      {/* Acciones (se cablean en el paso 6) */}
+      {/* Acciones */}
       <div className="flex flex-col gap-2.5 pt-2">
         <button
           type="button"
-          className="w-full py-3 rounded-full bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-wider flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.99] transition-all focus:outline-none"
+          aria-disabled={!canAdvance}
+          onClick={canAdvance ? onMarkReady : undefined}
+          className={`w-full py-3 rounded-full bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-wider flex items-center justify-center gap-2 transition-all focus:outline-none ${
+            canAdvance
+              ? "hover:opacity-95 active:scale-[0.99]"
+              : "opacity-60 cursor-default"
+          }`}
         >
           <span className="material-symbols-outlined text-[18px]">
             check_circle
@@ -131,6 +147,7 @@ export default function Dossier({ order }: { order: Order }) {
         </button>
         <button
           type="button"
+          onClick={onCancel}
           className="w-full py-2.5 rounded-full border border-outline-variant text-error hover:bg-error-container/20 font-label-caps text-label-caps uppercase tracking-wider transition-colors focus:outline-none"
         >
           Cancelar pedido

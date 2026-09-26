@@ -43,10 +43,12 @@ const COLUMNS: {
 export default function Kanban({
   orders,
   selectedId,
+  updatedId,
   onSelect,
 }: {
   orders: Order[];
   selectedId: string;
+  updatedId: string | null;
   onSelect: (id: string) => void;
 }) {
   return (
@@ -91,6 +93,7 @@ export default function Kanban({
                     key={order.id}
                     order={order}
                     selected={order.id === selectedId}
+                    updated={order.id === updatedId}
                     onSelect={onSelect}
                   />
                 ))
