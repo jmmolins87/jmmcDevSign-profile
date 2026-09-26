@@ -1,15 +1,20 @@
 /* SPEC 06 — Shell cliente de la demo Pedidos en tiempo real.
-   Paso 2: filtros. Paso 3: reloj de sincronización.
+   Paso 2: filtros (toolbar controlada). Paso 3: reloj de sincronización.
    Paso 4: selección de pedido. Paso 5: dossier del seleccionado.
    Paso 6: transiciones (Marcar listo / Cancelar), resaltado
    "actualizado ahora" (~5 s) y toast flotante.
    Paso 7: timer determinista de ~15 s (sin intervalo con
-   prefers-reduced-motion). Filtrado efectivo, paso 8. */
+   prefers-reduced-motion). Paso 8: búsqueda/canal aplicados al
+   tablero con estado `SIN RESULTADOS`. Cableado de la landing: 9. */
 
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { DEFAULT_BADGE, MOCK_ORDERS } from "@/lib/data/orders";
+import {
+  CHANNEL_LABEL,
+  DEFAULT_BADGE,
+  MOCK_ORDERS,
+} from "@/lib/data/orders";
 import type { Order, OrderChannel } from "@/lib/data/types";
 import Toolbar from "./Toolbar";
 import SummaryStrip from "./SummaryStrip";
@@ -17,9 +22,11 @@ import Kanban from "./Kanban";
 import Dossier from "./Dossier";
 import LiveToast, { type Toast } from "./LiveToast";
 
+type ChannelFilter = OrderChannel | "all";
+
 export default function Shell() {
   const [query, setQuery] = useState("");
-  const [channel, setChannel] = useState<OrderChannel | "all">("all");
+  const [channel, setChannel] = useState<ChannelFilter>("all");
   const [selectedId, setSelectedId] = useState("1043");
   const [syncedAgo, setSyncedAgo] = useState(1);
   const [orders, setOrders] = useState<Order[]>(MOCK_ORDERS);
@@ -29,8 +36,29 @@ export default function Shell() {
   const [toast, setToast] = useState<Toast | null>(null);
   const toastSeq = useRef(0);
 
-  const selected =
-    orders.find((order) => order.id === selectedId) ?? orders[0];
+  /* Paso 8 — vista filtrada: ID o comensal (case-insensitive) y canal.
+     Solo alimenta al tablero y a la reselección; el tab `Pedidos` y la
+     franja en vivo derivan del array completo `orders` (riesgo 5 de la
+     spec: ambos deben coincidir tras cada cancelación). */
+  const needle = query.trim().toLowerCase();
+  const visible = orders.filter((order) => {
+    const matchesQuery =
+      needle === "" ||
+      order.id.toLowerCase().includes(needle) ||
+      order.guest.toLowerCase().includes(needle);
+    const matchesChannel = channel === "all" || order.channel === channel;
+    return matchesQuery && matchesChannel;
+  });
+
+  const selected = visible.find((order) => order.id === selectedId) ?? visible[0];
+
+  const term =
+    query.trim() !== ""
+      ? query.trim()
+      : channel !== "all"
+        ? CHANNEL_LABEL[channel]
+        : "";
+  const emptyMessage = term ? `SIN RESULTADOS PARA «${term}»` : "SIN RESULTADOS";
 
   // Reloj de la píldora "Sincronizado hace N s" (texto: corre siempre).
   useEffect(() => {
@@ -126,10 +154,11 @@ export default function Shell() {
       <SummaryStrip orders={orders} syncedAgo={syncedAgo} />
       <div className="w-full grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
         <Kanban
-          orders={orders}
+          orders={visible}
           selectedId={selectedId}
           updatedId={updatedId}
           onSelect={setSelectedId}
+          emptyMessage={emptyMessage}
         />
         {selected && (
           <Dossier

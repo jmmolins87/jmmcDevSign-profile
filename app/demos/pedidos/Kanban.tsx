@@ -1,5 +1,8 @@
-/* SPEC 06 — Paso 4: kanban de 3 columnas con selección.
-   Los contadores de columna se derivan de la lista filtrada. */
+/* SPEC 06 — Pasos 4 y 8: kanban de 3 columnas con selección.
+   Los contadores de columna se derivan de la lista filtrada.
+   Si la lista llega vacía (búsqueda/canal sin coincidencias) se
+   muestra el estado `SIN RESULTADOS PARA «…»` a todo el ancho;
+   los estados vacíos van en monospace. */
 
 "use client";
 
@@ -45,12 +48,23 @@ export default function Kanban({
   selectedId,
   updatedId,
   onSelect,
+  emptyMessage,
 }: {
   orders: Order[];
   selectedId: string;
   updatedId: string | null;
   onSelect: (id: string) => void;
+  emptyMessage: string;
 }) {
+  // Sin ninguna coincidencia: un único panel a todo el ancho.
+  if (orders.length === 0) {
+    return (
+      <div className="xl:col-span-8 border border-outline-variant rounded-[14px] px-6 py-space-xl text-center font-mono-code text-label-caps uppercase text-on-surface-variant">
+        {emptyMessage}
+      </div>
+    );
+  }
+
   return (
     <div
       className="xl:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-space-md"
@@ -84,7 +98,7 @@ export default function Kanban({
             {/* Pila de tarjetas */}
             <div className="flex flex-col gap-space-sm">
               {list.length === 0 ? (
-                <p className="px-3 py-space-sm border border-outline-variant rounded-[14px] text-center font-label-caps text-label-caps uppercase text-on-surface-variant">
+                <p className="px-3 py-space-sm border border-outline-variant rounded-[14px] text-center font-mono-code text-label-caps uppercase text-on-surface-variant">
                   Sin pedidos en esta columna
                 </p>
               ) : (
