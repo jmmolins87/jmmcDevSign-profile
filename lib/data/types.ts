@@ -76,3 +76,26 @@ export type AgentSetting = {
   description: string;
   defaultOn: boolean;
 };
+
+/* SPEC 06 — Demo Pedidos en tiempo real. */
+
+export type OrderColumn = "nuevo" | "preparacion" | "listo";
+
+export type OrderChannel = "web-directa" | "take-away" | "delivery";
+
+export type OrderItem = { qty: number; name: string; price: number };
+
+export type Order = {
+  id: string;
+  guest: string;
+  channel: OrderChannel;
+  place: string;
+  delivery: string;
+  issuedAt: string;
+  ageLabel: string;
+  column: OrderColumn;
+  badge: string;
+  phone: string;
+  note?: string;
+  items: OrderItem[];
+};

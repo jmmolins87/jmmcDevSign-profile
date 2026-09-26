@@ -195,7 +195,7 @@ export const demos: DemoRow[] = [
     live: false, // [placeholder]
     title: "Pedidos en tiempo real", // [placeholder]
     body: "Sistema de pedidos para tiendas: los cambios de estado se sincronizan al instante vía WebSockets sin recargar.", // [placeholder]
-    href: "#", // [placeholder]
+    href: "/demos/pedidos", // [placeholder]
   },
   {
     badge: "Demo", // [placeholder]
