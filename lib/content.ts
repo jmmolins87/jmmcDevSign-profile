@@ -207,15 +207,16 @@ export const demos: DemoRow[] = [
 ];
 
 /* SPEC 05 — Paso 5: mapa de navegación del overlay (los ids coinciden con
-   los Section id de la landing de SPEC 01). */
+   los Section id de la landing de SPEC 01). Marcado [placeholder] por el
+   criterio de aceptación de la spec (Modelo de datos). */
 export const navItems: NavItem[] = [
-  { index: "01", label: "Sobre mí", href: "#sobre-mi" },
-  { index: "02", label: "Stack", href: "#stack" },
-  { index: "03", label: "Experiencia", href: "#experiencia" },
-  { index: "04", label: "Proyectos", href: "#proyectos" },
-  { index: "05", label: "Servicios", href: "#servicios" },
-  { index: "06", label: "Blog", href: "#blog" },
-  { index: "07", label: "Contacto", href: "#contacto" },
+  { index: "01", label: "Sobre mí", href: "#sobre-mi" }, // [placeholder]
+  { index: "02", label: "Stack", href: "#stack" }, // [placeholder]
+  { index: "03", label: "Experiencia", href: "#experiencia" }, // [placeholder]
+  { index: "04", label: "Proyectos", href: "#proyectos" }, // [placeholder]
+  { index: "05", label: "Servicios", href: "#servicios" }, // [placeholder]
+  { index: "06", label: "Blog", href: "#blog" }, // [placeholder]
+  { index: "07", label: "Contacto", href: "#contacto" }, // [placeholder]
 ];
 
 
