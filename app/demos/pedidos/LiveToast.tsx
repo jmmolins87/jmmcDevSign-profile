@@ -43,7 +43,7 @@ export default function LiveToast({
           → {toast.to}
         </span>
         <span className="text-outline-variant">·</span>
-        <span className="text-on-surface-variant font-label-caps text-[10px] uppercase whitespace-nowrap">
+        <span className="text-on-surface-variant font-label-caps text-[10px] whitespace-nowrap">
           hace un instante
         </span>
       </div>
