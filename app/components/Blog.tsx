@@ -2,12 +2,20 @@
    controles inoperativos). La tarjeta destacada es un one-off editorial:
    va como markup local, fuera del modelo de lib/content.ts. */
 
-import { featuredPostImage, postPeeks } from "@/lib/content";
+import { getFeaturedPost, getPostPeeks } from "@/lib/data";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
 
+const MONTHS_ES = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+
+function formatMeta(publishedAt: string, readingMinutes: number): string {
+  const date = new Date(`${publishedAt}T00:00:00`);
+  return `${date.getDate()} ${MONTHS_ES[date.getMonth()]} ${date.getFullYear()} · ${readingMinutes} min lectura`;
+}
+
 export default function Blog() {
-  const [prev, next] = postPeeks;
+  const [prev, next] = getPostPeeks();
+  const post = getFeaturedPost();
 
   return (
     <Section id="blog" anim="reveal-lines">
@@ -32,27 +40,24 @@ export default function Blog() {
                   <div
                     className="absolute inset-0 bg-cover bg-center"
                     role="img"
-                    aria-label="Cuaderno de especímenes tipográficos sobre mesa de arquitecto"
-                    style={{ backgroundImage: `url('${featuredPostImage}')` }}
+                    aria-label={post.cover.alt}
+                    style={{ backgroundImage: `url('${post.cover.url}')` }}
                   />
                 </div>
                 <div className="md:col-span-6 space-y-4">
                   <div className="flex items-center gap-3">
                     <span className="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-label-caps text-[10px] uppercase">
-                      Arquitectura Frontend
+                      {post.category}
                     </span>
                     <span className="font-mono-code text-[11px] text-outline">
-                      14 Feb 2026 · 6 min lectura
+                      {formatMeta(post.publishedAt, post.readingMinutes)}
                     </span>
                   </div>
                   <h3 className="font-headline-md text-headline-md text-on-surface font-normal">
-                    Más allá de la reactividad: composición funcional y
-                    rendimiento en browsers modernos
+                    {post.title}
                   </h3>
                   <p className="font-body-sm text-body-sm text-on-surface-variant">
-                    Un análisis pausado sobre por qué el exceso de capas de
-                    abstracción daña el Core Web Vitals y cómo recuperar la
-                    fluidez cinematográfica a 60 FPS.
+                    {post.excerpt}
                   </p>
                   <div className="pt-2">
                     <a

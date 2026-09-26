@@ -1,10 +1,11 @@
 /* SPEC 01 — Paso 4: sección 01 — Sobre mí (data-anim="reveal-lines"). */
 
-import { portraitImage } from "@/lib/content";
+import { getSiteImage } from "@/lib/data";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
 
 export default function About() {
+  const image = getSiteImage("portrait");
   return (
     <Section id="sobre-mi" anim="reveal-lines">
       <SectionHeading index="01" name="Sobre mí" />
@@ -37,8 +38,8 @@ export default function About() {
               <div
                 className="absolute inset-0 bg-cover bg-center filter grayscale contrast-125 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
                 role="img"
-                aria-label="Retrato de estudio de JMMC, director creativo e ingeniero de software"
-                style={{ backgroundImage: `url('${portraitImage}')` }}
+                aria-label={image.alt}
+                style={{ backgroundImage: `url('${image.url}')` }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-on-surface/60 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 text-surface font-mono-code text-[11px] uppercase tracking-wider">
