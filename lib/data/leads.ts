@@ -2,7 +2,7 @@
    Datos ficticios de references/02_demo_agente_de_leads/.
    Todo contenido de ejemplo lleva // [placeholder]. */
 
-import type { FeedEvent, Kpi, Lead } from "./types";
+import type { AgentSetting, FeedEvent, Kpi, Lead } from "./types";
 
 export const MOCK_LEADS: Lead[] = [
   {
@@ -188,4 +188,12 @@ export const MOCK_FEED_EXTRA: FeedEvent[] = [
   { time: "12:51 h", title: "Lead #8502 (A. Ferrer) cualificado 76/100 → Seguimiento", meta: "Regla: High Intent Score" }, // [placeholder]
   { time: "12:57 h", title: "Respuesta de Elena Vance: pide benchmark de cualificación", meta: "Canal: Email Directo" }, // [placeholder]
   { time: "13:03 h", title: "Recordatorio de agenda enviado a Marta Rius", meta: "Sync Google Calendar" }, // [placeholder]
+];
+
+export const MOCK_SETTINGS: AgentSetting[] = [
+  { id: "agent-active", label: "Agente activo", description: "Autopilot v2.4 procesa y cualifica leads nuevos.", defaultOn: true }, // [placeholder]
+  { id: "auto-qualify", label: "Cualificación automática", description: "Score predictivo al entrar un lead al pipeline.", defaultOn: true }, // [placeholder]
+  { id: "auto-email", label: "Envío de emails", description: "Secuencias de cualificación sin revisión humana.", defaultOn: true }, // [placeholder]
+  { id: "human-escalation", label: "Escalado a humano", description: "Deriva a llamada cuando el score supera 90.", defaultOn: false }, // [placeholder]
+  { id: "notifications", label: "Notificaciones", description: "Avisos por email de eventos del agente.", defaultOn: false }, // [placeholder]
 ];

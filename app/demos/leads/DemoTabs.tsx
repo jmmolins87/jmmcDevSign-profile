@@ -14,9 +14,11 @@ const TABS: { id: DemoTab; label: string; count?: string }[] = [
 export default function DemoTabs({
   tab,
   onTab,
+  agentActive,
 }: {
   tab: DemoTab;
   onTab: (tab: DemoTab) => void;
+  agentActive: boolean;
 }) {
   return (
     <section
@@ -55,10 +57,23 @@ export default function DemoTabs({
       </div>
       <div className="flex items-center gap-space-md">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant text-body-sm">
-          <span className="w-2 h-2 rounded-full bg-secondary animate-ping opacity-75" />
-          <span className="w-2 h-2 -ml-3.5 rounded-full bg-secondary" />
+          {agentActive && (
+            <span className="w-2 h-2 rounded-full bg-secondary animate-ping opacity-75 motion-reduce:animate-none" />
+          )}
+          <span
+            className={`w-2 h-2 rounded-full ${
+              agentActive ? "-ml-3.5 bg-secondary" : "bg-outline"
+            }`}
+          />
           <span className="font-mono-code text-mono-code text-on-surface">
-            Agente activo: <strong className="font-medium">Autopilot v2.4</strong>
+            {agentActive ? (
+              <>
+                Agente activo:{" "}
+                <strong className="font-medium">Autopilot v2.4</strong>
+              </>
+            ) : (
+              "Agente pausado"
+            )}
           </span>
         </div>
         <button

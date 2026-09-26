@@ -69,3 +69,10 @@ export type FeedEvent = {
   title: string;
   meta: string;
 };
+
+export type AgentSetting = {
+  id: string;
+  label: string;
+  description: string;
+  defaultOn: boolean;
+};
