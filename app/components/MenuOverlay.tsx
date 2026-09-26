@@ -5,10 +5,12 @@
    SPEC 05 — Paso 5: mapa desde lib/content.ts (navItems), enlaces que
    cierran y scrollean, badge ACTIVO por IntersectionObserver
    (rootMargin -45%/-50%) y destinos inexistentes inertes.
+   SPEC 05 — Paso 6: animación de apertura Anime.js v4 (hooks data-anim
+   "fade-up" + "stagger-label" 45ms), sin nada con reduced-motion.
    Paleta fija de la referencia (decisión "1": siempre la variante oscura,
    validada en screen.png, en Paper y en Night). */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { demos, navItems } from "@/lib/content";
 import ThemePopover from "./ThemePopover";
 
@@ -29,6 +31,63 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = previous;
+    };
+  }, []);
+
+  // SPEC 05 — Paso 6: animación de apertura con Anime.js v4 sobre los mismos
+  // hooks data-anim del sistema ("fade-up" + "stagger-label" con delta de
+  // 45ms, según la decisión de la spec). Con prefers-reduced-motion no se
+  // oculta nada ni se importa animejs: el HTML queda en su estado final.
+  useLayoutEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const root = containerRef.current;
+    if (!root) return;
+
+    const blocks = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-anim='fade-up']"),
+    );
+    const labels = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-anim='stagger-label'] > *"),
+    );
+
+    // Estado oculto síncrono antes del primer paint (sin flash del contenido
+    // visible mientras se carga el chunk de animejs).
+    const hide = (el: HTMLElement, y: string) => {
+      el.style.opacity = "0";
+      el.style.transform = `translateY(${y})`;
+    };
+    blocks.forEach((el) => hide(el, "24px"));
+    labels.forEach((el) => hide(el, "8px"));
+
+    let cancelled = false;
+    (async () => {
+      try {
+        const { animate } = await import("animejs");
+        if (cancelled) return;
+        animate(blocks, {
+          opacity: [0, 1],
+          translateY: [24, 0],
+          duration: 700,
+          ease: "outExpo",
+        });
+        animate(labels, {
+          opacity: [0, 1],
+          translateY: [8, 0],
+          duration: 600,
+          delay: (_el, i) => (i ?? 0) * 45,
+          ease: "outExpo",
+        });
+      } catch {
+        // Sin animejs (offline/bloqueo): restaurar el estado final visible.
+        [...blocks, ...labels].forEach((el) => {
+          el.style.removeProperty("opacity");
+          el.style.removeProperty("transform");
+        });
+      }
+    })();
+
+    return () => {
+      cancelled = true;
     };
   }, []);
 
@@ -108,7 +167,10 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
       className="fixed inset-0 z-[60] bg-[#15120F] text-[#F4EFE6] overflow-y-auto"
     >
       {/* Barra de 72px del overlay (wordmark, ES|EN, tema, ✕, avatar) */}
-      <div className="h-[72px] px-margin-mobile lg:px-margin flex items-center justify-between border-b border-[#2B2723] bg-[#15120F]/95 backdrop-blur-md sticky top-0 z-10">
+      <div
+        data-anim="fade-up"
+        className="h-[72px] px-margin-mobile lg:px-margin flex items-center justify-between border-b border-[#2B2723] bg-[#15120F]/95 backdrop-blur-md sticky top-0 z-10"
+      >
         <a
           href="#top"
           className="font-headline-sm text-headline-sm tracking-tight text-[#F4EFE6] hover:text-[#FF6A45] transition-colors focus:outline-none"
@@ -157,11 +219,14 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
         {/* 01 / Mapa de navegación */}
         <div className="lg:col-span-7 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#2B2723] pb-space-lg lg:pb-0 lg:pr-space-xl">
           <div>
-            <span className="font-label-caps text-label-caps uppercase text-[#8F7F72] tracking-wider mb-space-md block">
+            <span
+              data-anim="fade-up"
+              className="font-label-caps text-label-caps uppercase text-[#8F7F72] tracking-wider mb-space-md block"
+            >
               01 / Mapa de navegación
             </span>
             <nav aria-label="Secciones">
-              <ul className="flex flex-col gap-2">
+              <ul data-anim="stagger-label" className="flex flex-col gap-2">
                 {navItems.map((item) => {
                   const active = item.href === activeHref;
                   return (
@@ -200,14 +265,20 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
               </ul>
             </nav>
           </div>
-          <div className="mt-space-lg pt-space-md border-t border-[#2B2723] flex items-center justify-between text-[#8F7F72] font-label-caps text-label-caps uppercase tracking-wider">
+          <div
+            data-anim="fade-up"
+            className="mt-space-lg pt-space-md border-t border-[#2B2723] flex items-center justify-between text-[#8F7F72] font-label-caps text-label-caps uppercase tracking-wider"
+          >
             <span>Disponible para Q2/Q3 2026</span>
             <span>Madrid &amp; remoto</span>
           </div>
         </div>
 
         {/* 02 / Demos en vivo + zona de miembros + 03 / Conexiones */}
-        <div className="lg:col-span-5 flex flex-col justify-between pl-0 lg:pl-space-md">
+        <div
+          data-anim="fade-up"
+          className="lg:col-span-5 flex flex-col justify-between pl-0 lg:pl-space-md"
+        >
           <div>
             <div className="flex items-center justify-between mb-space-md">
               <span className="font-label-caps text-label-caps uppercase text-[#8F7F72] tracking-wider">
