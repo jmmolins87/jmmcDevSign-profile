@@ -2,7 +2,7 @@
    Datos ficticios de references/02_demo_agente_de_leads/.
    Todo contenido de ejemplo lleva // [placeholder]. */
 
-import type { AgentStep, FeedEvent, Kpi, Lead } from "./types";
+import type { FeedEvent, Kpi, Lead } from "./types";
 
 export const MOCK_LEADS: Lead[] = [
   {
@@ -171,10 +171,10 @@ export const MOCK_COLUMN_TOTALS: Record<string, number> = {
 };
 
 export const MOCK_KPIS: Kpi[] = [
-  { label: "Leads hoy", value: "48", detail: "+14% vs ayer", tone: "teal" }, // [placeholder]
-  { label: "Cualificados", value: "32", detail: "66.7% ratio", tone: "teal" }, // [placeholder]
-  { label: "Tasa de respuesta", value: "78.4%", detail: "~4.2 min avg", tone: "ochre", badge: "Automático" }, // [placeholder]
-  { label: "Reuniones agendadas", value: "12", detail: "80% meta", tone: "accent" }, // [placeholder]
+  { label: "Leads hoy", value: "48", icon: "group", detail: "+14%", detailSuffix: "vs ayer", detailTone: "teal", barWidth: 70, barTone: "teal" }, // [placeholder]
+  { label: "Cualificados", value: "32", icon: "verified", detail: "66.7% ratio", detailTone: "teal", barWidth: 66.7, barTone: "teal" }, // [placeholder]
+  { label: "Tasa de respuesta", value: "78.4%", badge: "Automático", detail: "~4.2 min avg", detailTone: "muted", barWidth: 78.4, barTone: "ochre" }, // [placeholder]
+  { label: "Reuniones agendadas", value: "12", icon: "calendar_month", detail: "80% meta", detailTone: "accent", barWidth: 80, barTone: "accent" }, // [placeholder]
 ];
 
 export const MOCK_FEED: FeedEvent[] = [

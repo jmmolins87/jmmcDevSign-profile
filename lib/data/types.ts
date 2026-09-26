@@ -55,9 +55,13 @@ export type Lead = {
 export type Kpi = {
   label: string;
   value: string;
-  detail: string;
-  tone: "teal" | "ochre" | "accent";
+  icon?: string;
   badge?: string;
+  detail: string;
+  detailSuffix?: string;
+  detailTone: "teal" | "muted" | "accent";
+  barWidth: number;
+  barTone: "teal" | "ochre" | "accent";
 };
 
 export type FeedEvent = {
