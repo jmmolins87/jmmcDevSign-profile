@@ -348,3 +348,28 @@ html[data-theme="dark"] {
     transform: translateY(0);
   }
 }
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-toast-in {
+  animation: toast-in 300ms ease-out forwards;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@utility animate-fade-up {
+  animation: fade-up 500ms ease-out forwards;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}

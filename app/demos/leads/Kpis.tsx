@@ -7,12 +7,14 @@ const BAR_TONES: Record<Kpi["barTone"], string> = {
   teal: "bg-secondary",
   ochre: "bg-tertiary",
   accent: "bg-primary",
+  muted: "bg-outline-variant",
 };
 
 const DETAIL_TONES: Record<Kpi["detailTone"], string> = {
   teal: "text-secondary",
   muted: "text-on-surface-variant",
   accent: "text-primary",
+  ochre: "text-tertiary",
 };
 
 const HEADER_ICON_TONES: Record<string, string> = {

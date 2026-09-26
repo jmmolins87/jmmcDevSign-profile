@@ -59,9 +59,9 @@ export type Kpi = {
   badge?: string;
   detail: string;
   detailSuffix?: string;
-  detailTone: "teal" | "muted" | "accent";
+  detailTone: "teal" | "muted" | "accent" | "ochre";
   barWidth: number;
-  barTone: "teal" | "ochre" | "accent";
+  barTone: "teal" | "ochre" | "accent" | "muted";
 };
 
 export type FeedEvent = {
