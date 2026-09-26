@@ -41,6 +41,13 @@ export type DemoRow = {
   href: string;
 };
 
+export type NavItem = {
+  index: string;
+  label: string;
+  /* Hash de la landing: cada sección renderiza su Section id correspondiente. */
+  href: string;
+};
+
 
 export const stackGroups: StackGroup[] = [
   {
@@ -197,6 +204,19 @@ export const demos: DemoRow[] = [
     body: "Gestiona tu negocio desde un único panel consolidado con facturación, clientes e inventario unificado.", // [placeholder]
     href: "#", // [placeholder]
   },
+];
+
+/* SPEC 05 — Paso 5: mapa de navegación del overlay (los ids coinciden con
+   los Section id de la landing de SPEC 01). Marcado [placeholder] por el
+   criterio de aceptación de la spec (Modelo de datos). */
+export const navItems: NavItem[] = [
+  { index: "01", label: "Sobre mí", href: "#sobre-mi" }, // [placeholder]
+  { index: "02", label: "Stack", href: "#stack" }, // [placeholder]
+  { index: "03", label: "Experiencia", href: "#experiencia" }, // [placeholder]
+  { index: "04", label: "Proyectos", href: "#proyectos" }, // [placeholder]
+  { index: "05", label: "Servicios", href: "#servicios" }, // [placeholder]
+  { index: "06", label: "Blog", href: "#blog" }, // [placeholder]
+  { index: "07", label: "Contacto", href: "#contacto" }, // [placeholder]
 ];
 
 

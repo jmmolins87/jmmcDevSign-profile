@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import GrainOverlay from "./components/GrainOverlay";
+import ThemeProvider from "./components/ThemeProvider";
+import { themeInitScript } from "@/lib/theme";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +34,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} h-full antialiased`}
+      /* SPEC 05: el script anti-parpadeo fija data-theme antes de la
+         hidratación; React no lo renderiza y este flag evita el warning. */
+      suppressHydrationWarning
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,17 +48,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* Material Symbols vía <link>: next/font/google no lo expone en esta versión (ver spec paso 1). */}
         {/* eslint-disable-next-line @next/next/no-page-custom-font -- App Router, no pages/_document */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
         />
+        {/* SPEC 05 — anti-parpadeo: fija <html data-theme> antes del primer pintado. */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="min-h-full flex flex-col bg-background text-on-surface font-body-md">
-        <GrainOverlay />
-        <Header />
-        <main id="top" className="w-full pt-[72px] bg-background min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        <ThemeProvider>
+          <GrainOverlay />
+          <Header />
+          <main id="top" className="w-full pt-[72px] bg-background min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

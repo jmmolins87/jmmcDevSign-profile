@@ -145,6 +145,151 @@
   --spacing-space-xl: 2.5rem;
 }
 
+/* SPEC 05 — Paso 2: paleta Night.
+   Se redeclaran las MISMAS variables de @theme bajo html[data-theme="dark"]:
+   las utilidades de Tailwind compilan a var(--color-*), así que reescritas
+   aquí cambian todo el sitio sin ninguna clase `dark:` (Decisiones SPEC 05).
+   Fuente: references/DESIGN.md — sección "Night (Dark)". */
+
+html[data-theme="dark"] {
+  /* Paleta Night directa */
+  --color-paper: #0f0e0d;
+  --color-paper-surface: #181614;
+  --color-ink: #f3eee5;
+  --color-muted: #a39c90;
+  --color-hairline: #2b2723;
+  --color-accent: #ff6a45;
+  --color-accent-text: #ff6a45; /* 6.7:1 sobre #0F0E0D — legible sin oscurecer */
+  --color-teal: #5cc8be;
+  --color-ochre: #d9a441;
+
+  /* Alias Material → Night */
+  --color-background: #0f0e0d;
+  --color-surface: #181614;
+  --color-surface-bright: #181614;
+  --color-surface-dim: #141210;
+  --color-surface-container-lowest: #12100e;
+  --color-surface-container-low: #181614;
+  --color-surface-container: #1e1b18;
+  --color-surface-container-high: #24211d;
+  --color-surface-container-highest: #2b2723;
+  --color-surface-variant: #24211d;
+  --color-surface-tint: #ff6a45;
+  --color-on-surface: #f3eee5;
+  --color-on-surface-variant: #a39c90;
+  --color-on-background: #f3eee5;
+  --color-inverse-surface: #f3eee5;
+  --color-inverse-on-surface: #15120f;
+  --color-inverse-primary: #b93013;
+  --color-outline: #a39c90;
+  --color-outline-variant: #2b2723;
+  --color-primary: #ff6a45;
+  --color-on-primary: #15120f;
+  --color-primary-container: #ff6a45;
+  --color-on-primary-container: #15120f;
+  /* Los tonos "fixed" son idénticos en ambos temas por diseño Material */
+  --color-primary-fixed: #f6c7bb;
+  --color-primary-fixed-dim: #efa08d;
+  --color-on-primary-fixed: #5c130a;
+  --color-on-primary-fixed-variant: #b93013;
+  --color-secondary: #5cc8be;
+  --color-on-secondary: #00201d;
+  --color-secondary-container: #14393b;
+  --color-on-secondary-container: #9cefe4;
+  --color-secondary-fixed: #9cefe4;
+  --color-secondary-fixed-dim: #7fd8cd;
+  --color-on-secondary-fixed: #00201d;
+  --color-on-secondary-fixed-variant: #00504a;
+  --color-tertiary: #d9a441;
+  --color-on-tertiary: #15120f;
+  --color-tertiary-container: #3a2c08;
+  --color-on-tertiary-container: #ffdeaa;
+  --color-tertiary-fixed: #ffdeaa;
+  --color-tertiary-fixed-dim: #f5bd58;
+  --color-on-tertiary-fixed: #271900;
+  --color-on-tertiary-fixed-variant: #5f4100;
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  /* Film grain de Night (DESIGN.md: 3.5% Night vs 2.5% Paper → aquí
+     0.05 con screen, porque multiply sobre #0F0E0D anularía el grano). */
+  --grain-opacity: 0.05;
+  --grain-blend: screen;
+}
+
+/* Redeclaración Paper: necesario para que un nodo con data-theme="light"
+   (p. ej. rutas forzadas a Paper) re-consolide la paleta clara. */
+[data-theme="light"] {
+  --color-paper: #f4efe6;
+  --color-paper-surface: #fbf8f2;
+  --color-ink: #15120f;
+  --color-muted: #6b645a;
+  --color-hairline: #ddd5c6;
+  --color-accent: #e8482b;
+  --color-accent-text: #b93013;
+  --color-teal: #1f7a72;
+  --color-ochre: #d9a441;
+
+  --color-background: #f4efe6;
+  --color-surface: #fbf8f2;
+  --color-surface-bright: #fbf8f2;
+  --color-surface-dim: #e7ddc9;
+  --color-surface-container-lowest: #fffdf8;
+  --color-surface-container-low: #fbf8f2;
+  --color-surface-container: #efe7d6;
+  --color-surface-container-high: #e7ddc9;
+  --color-surface-container-highest: #dfd3bc;
+  --color-surface-variant: #e7ddc9;
+  --color-surface-tint: #e8482b;
+  --color-on-surface: #15120f;
+  --color-on-surface-variant: #6b645a;
+  --color-on-background: #15120f;
+  --color-inverse-surface: #15120f;
+  --color-inverse-on-surface: #f3eee5;
+  --color-inverse-primary: #ff8a70;
+  --color-outline: #6b645a;
+  --color-outline-variant: #ddd5c6;
+  --color-primary: #e8482b;
+  --color-on-primary: #fbf8f2;
+  --color-primary-container: #e8482b;
+  --color-on-primary-container: #fbf8f2;
+  --color-primary-fixed: #f6c7bb;
+  --color-primary-fixed-dim: #efa08d;
+  --color-on-primary-fixed: #5c130a;
+  --color-on-primary-fixed-variant: #b93013;
+  --color-secondary: #1f7a72;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #d3ece8;
+  --color-on-secondary-container: #0e4f49;
+  --color-secondary-fixed: #9cefe4;
+  --color-secondary-fixed-dim: #7fd8cd;
+  --color-on-secondary-fixed: #00201d;
+  --color-on-secondary-fixed-variant: #00504a;
+  --color-tertiary: #7a5500;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #996c04;
+  --color-on-tertiary-container: #fffbff;
+  --color-tertiary-fixed: #ffdeaa;
+  --color-tertiary-fixed-dim: #f5bd58;
+  --color-on-tertiary-fixed: #271900;
+  --color-on-tertiary-fixed-variant: #5f4100;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  --grain-opacity: 0.035;
+  --grain-blend: multiply;
+}
+
+/* Valores por defecto del grain (Paper) para el primer pintado sin atributo. */
+:root {
+  --grain-opacity: 0.035;
+  --grain-blend: multiply;
+}
+
 @layer base {
   html,
   body {
