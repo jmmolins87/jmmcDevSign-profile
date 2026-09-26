@@ -1,8 +1,10 @@
-/* SPEC 07 — Paso 4: Panel "Alertas de inventario" con 3 items + botón ver inventario. */
+/* SPEC 07 — Paso 4: Panel "Alertas de inventario" con 3 items + botón ver inventario.
+   Paso 6: toasts [placeholder] para botones de acción. */
 
 "use client";
 
 import { MOCK_STOCK_ALERTS, type StockAlert } from "@/lib/data/software";
+import { useToast } from "./useToast";
 
 const SEVERITY_STYLES: Record<StockAlert["severity"], { bar: string; count: string }> = {
   critical: { bar: "bg-primary", count: "text-primary" },
@@ -15,6 +17,8 @@ const ACTION_STYLES: Record<string, string> = {
 };
 
 export default function StockAlerts() {
+  const { showToast } = useToast();
+
   return (
     <>
       <div className="flex items-center justify-between mb-5">
@@ -55,6 +59,7 @@ export default function StockAlerts() {
             </div>
             <div className="flex justify-end pt-1">
               <button
+                onClick={() => showToast(`[placeholder] ${alert.actionLabel} · ${alert.name}`)}
                 className={`font-label-caps text-[10px] flex items-center gap-1 font-semibold ${ACTION_STYLES[alert.actionLabel]}`}
                 type="button"
               >
@@ -67,7 +72,11 @@ export default function StockAlerts() {
           </div>
         ))}
       </div>
-      <button className="mt-4 w-full py-2 bg-surface-container-high hover:bg-surface-container-highest rounded-lg text-on-surface font-label-caps text-label-caps tracking-widest text-center transition-colors" type="button">
+      <button
+        onClick={() => showToast("[placeholder] Ver inventario completo")}
+        className="mt-4 w-full py-2 bg-surface-container-high hover:bg-surface-container-highest rounded-lg text-on-surface font-label-caps text-label-caps tracking-widest text-center transition-colors"
+        type="button"
+      >
         INVENTARIO COMPLETO (84 ARTÍCULOS)
       </button>
     </>
