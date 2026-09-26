@@ -350,16 +350,16 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
                   </div>
                 </div>
               </div>
-              <button
-                type="button"
-                aria-disabled="true"
-                className="font-label-caps text-label-caps text-[#FFDEAA] uppercase flex items-center gap-1 focus:outline-none"
+              <a
+                href="/zona-miembros"
+                onClick={onClose}
+                className="font-label-caps text-label-caps text-[#FFDEAA] uppercase flex items-center gap-1 hover:text-[#FF6A45] transition-colors focus:outline-none"
               >
                 Entrar{" "}
                 <span className="material-symbols-outlined text-[14px]">
                   login
                 </span>
-              </button>
+              </a>
             </div>
           </div>
 
