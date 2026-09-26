@@ -1,7 +1,7 @@
 /* SPEC 06 — Shell cliente de la demo Pedidos en tiempo real.
-   Paso 2: filtros (búsqueda + canal). Paso 3: reloj de sincronización.
-   El resto del estado (selección, transiciones, timer y toast) llega
-   en los pasos 4–7. */
+   Paso 2: filtros. Paso 3: reloj de sincronización.
+   Paso 4: selección de pedido. Transiciones, timer y toast llegan
+   en los pasos 6–7; el dossier, en el paso 5. */
 
 "use client";
 
@@ -10,10 +10,12 @@ import { MOCK_ORDERS } from "@/lib/data/orders";
 import type { OrderChannel } from "@/lib/data/types";
 import Toolbar from "./Toolbar";
 import SummaryStrip from "./SummaryStrip";
+import Kanban from "./Kanban";
 
 export default function Shell() {
   const [query, setQuery] = useState("");
   const [channel, setChannel] = useState<OrderChannel | "all">("all");
+  const [selectedId, setSelectedId] = useState("1043");
   const [syncedAgo, setSyncedAgo] = useState(1);
 
   // Reloj de la píldora "Sincronizado hace N s" (texto: corre siempre).
@@ -32,6 +34,13 @@ export default function Shell() {
         onChannel={setChannel}
       />
       <SummaryStrip orders={MOCK_ORDERS} syncedAgo={syncedAgo} />
+      <div className="w-full grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+        <Kanban
+          orders={MOCK_ORDERS}
+          selectedId={selectedId}
+          onSelect={setSelectedId}
+        />
+      </div>
     </>
   );
 }

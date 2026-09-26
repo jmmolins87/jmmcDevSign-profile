@@ -337,3 +337,11 @@ export function orderTotals(order: Order): {
   const iva = round2(total - subtotal);
   return { subtotal, iva, total };
 }
+
+/* Formato monetario compartido por el kanban y el dossier. */
+const EUR = new Intl.NumberFormat("es-ES", {
+  style: "currency",
+  currency: "EUR",
+});
+
+export const formatEUR = (value: number): string => EUR.format(value);
