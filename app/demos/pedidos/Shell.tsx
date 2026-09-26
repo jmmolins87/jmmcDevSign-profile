@@ -3,7 +3,8 @@
    Paso 4: selección de pedido. Paso 5: dossier del seleccionado.
    Paso 6: transiciones (Marcar listo / Cancelar), resaltado
    "actualizado ahora" (~5 s) y toast flotante.
-   Timer automático en el paso 7; filtrado efectivo, paso 8. */
+   Paso 7: timer determinista de ~15 s (sin intervalo con
+   prefers-reduced-motion). Filtrado efectivo, paso 8. */
 
 "use client";
 
@@ -44,20 +45,53 @@ export default function Shell() {
     return () => clearTimeout(timer);
   }, [updatedId, updateSeq]);
 
-  const flashUpdate = (id: string | null) => {
+  const flashUpdate = useCallback((id: string | null) => {
     setUpdatedId(id);
     setUpdateSeq((prev) => prev + 1);
-  };
+  }, []);
 
   // Cada cambio de estado es una sincronización: reinicia el reloj y
   // muestra el toast (auto-cierre a los 7 s dentro de LiveToast).
-  const notify = (orderId: string, to: string) => {
+  const notify = useCallback((orderId: string, to: string) => {
     toastSeq.current += 1;
     setToast({ id: toastSeq.current, orderId, to });
     setSyncedAgo(1);
-  };
+  }, []);
 
   const closeToast = useCallback(() => setToast(null), []);
+
+  /* Paso 7 — timer en vivo: cada ~15 s avanza el primer pedido de
+     `nuevo` a `preparacion` y, si no queda ninguno, el primero de
+     `preparacion` a `listo`. Con `prefers-reduced-motion: reduce` no
+     se crea el intervalo. Se recrea con cada cambio de `orders` para
+     que cada cambio del tablero reinicie la ventana de ~15 s. */
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    const tick = () => {
+      const target =
+        orders.find((order) => order.column === "nuevo") ??
+        orders.find((order) => order.column === "preparacion");
+      if (!target) return;
+      const nextColumn =
+        target.column === "nuevo" ? "preparacion" : "listo";
+      setOrders((prev) =>
+        prev.map((order) =>
+          order.id === target.id
+            ? { ...order, column: nextColumn, badge: DEFAULT_BADGE[nextColumn] }
+            : order,
+        ),
+      );
+      flashUpdate(target.id);
+      notify(
+        target.id,
+        nextColumn === "preparacion" ? "En preparación" : "Listo",
+      );
+    };
+    const timer = setInterval(tick, 15000);
+    return () => clearInterval(timer);
+  }, [orders, flashUpdate, notify]);
 
   const handleMarkReady = () => {
     if (!selected || selected.column === "listo") return;
