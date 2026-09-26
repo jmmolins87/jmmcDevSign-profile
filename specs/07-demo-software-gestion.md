@@ -1,6 +1,6 @@
 # SPEC 07 — Demo Software de gestión interactiva con mocks
 
-> **Status:** Aprobados
+> **Status:** Implementados
 > **Depends on:** SPEC 01, SPEC 02
 > **Date:** 2026-09-26
 > **Objective:** Implementar la demo "Software de gestión" como ruta `/demos/software-gestion` interactiva con mocks, fiel a `references/04_demo_software_de_gesti_n/screen.png`, reutilizando primitivas UI y animaciones de SPEC 01-02.

@@ -202,7 +202,7 @@ export const demos: DemoRow[] = [
     live: false, // [placeholder]
     title: "Software de gestión (SaaS)", // [placeholder]
     body: "Gestiona tu negocio desde un único panel consolidado con facturación, clientes e inventario unificado.", // [placeholder]
-    href: "#", // [placeholder]
+    href: "/demos/software-gestion", // [placeholder]
   },
 ];
 
