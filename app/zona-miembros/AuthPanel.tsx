@@ -1,16 +1,19 @@
 "use client";
 
-/* SPEC 08 — Paso 4: Panel auth (derecha).
+/* SPEC 08 / SPEC 10 — Panel auth (derecha).
    Header: ZONA PRIVADA — PORTAFOLIO v2.6.4
-   Control segmentado: Entrar / Crear cuenta
-   Formulario: AuthForm
+   Control segmentado: Entrar / Crear cuenta → AuthForm real (Supabase Auth)
+   Con sesión activa: SessionPanel (email + ir al editor + cerrar sesión)
    Footnote: Security card
    Bottom meta: ZONA_EDITORIAL // ID: JMMC-SYS-89 / ESTADO: SERVIDOR ACTIVO */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthForm from "./AuthForm";
+import SessionPanel from "./SessionPanel";
+import { getBrowserClient } from "@/lib/supabase/browser";
 
 type AuthMode = "login" | "register";
+type SessionStatus = "loading" | "anon" | "authed";
 
 const MODE_CONFIG: Record<AuthMode, { title: string; description: string }> = {
   login: {
@@ -25,9 +28,39 @@ const MODE_CONFIG: Record<AuthMode, { title: string; description: string }> = {
   },
 };
 
+const AUTHED_CONFIG = {
+  title: "Sesión activa",
+  description:
+    "Ya estás dentro del gestor editorial. Puedes entrar al editor o cerrar la sesión en este terminal.",
+};
+
 export default function AuthPanel() {
   const [mode, setMode] = useState<AuthMode>("login");
-  const config = MODE_CONFIG[mode];
+  const [status, setStatus] = useState<SessionStatus>("loading");
+  const [sessionEmail, setSessionEmail] = useState("");
+
+  useEffect(() => {
+    let active = true;
+    getBrowserClient()
+      .auth.getSession()
+      .then(({ data }) => {
+        if (!active) return;
+        if (data.session?.user) {
+          setSessionEmail(data.session.user.email ?? "");
+          setStatus("authed");
+        } else {
+          setStatus("anon");
+        }
+      })
+      .catch(() => {
+        if (active) setStatus("anon");
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const config = status === "authed" ? AUTHED_CONFIG : MODE_CONFIG[mode];
 
   return (
     <div className="w-full lg:w-1/2 bg-surface-container-lowest flex flex-col justify-between p-8 sm:p-12 lg:p-16">
@@ -50,36 +83,57 @@ export default function AuthPanel() {
           </p>
         </div>
 
-        {/* Mode Selector / Segmented Control */}
-        <div className="p-1 rounded-full bg-surface-container mb-8 flex items-center" data-anim="stagger-label">
-          <button
-            type="button"
-            onClick={() => setMode("login")}
-            className={`flex-1 py-2 px-4 rounded-full font-label-caps text-label-caps uppercase transition-all ${
-              mode === "login"
-                ? "bg-inverse-surface text-inverse-on-surface shadow-sm"
-                : "text-on-surface-variant hover:text-on-surface"
-            }`}
-            aria-current={mode === "login" ? "true" : "false"}
-          >
-            Entrar
-          </button>
-          <button
-            type="button"
-            onClick={() => setMode("register")}
-            className={`flex-1 py-2 px-4 rounded-full font-label-caps text-label-caps uppercase transition-all ${
-              mode === "register"
-                ? "bg-inverse-surface text-inverse-on-surface shadow-sm"
-                : "text-on-surface-variant hover:text-on-surface"
-            }`}
-            aria-current={mode === "register" ? "true" : "false"}
-          >
-            Crear cuenta
-          </button>
-        </div>
+        {/* Mode Selector / Segmented Control + form o sesión activa */}
+        {status === "loading" && (
+          <div className="p-1 rounded-full bg-surface-container mb-8 flex items-center justify-center" data-anim="stagger-label">
+            <span className="font-mono-code text-[11px] text-on-surface-variant py-2 px-4">
+              VERIFICANDO SESIÓN...
+            </span>
+          </div>
+        )}
 
-        {/* Authentication Form */}
-        <AuthForm mode={mode} />
+        {status === "anon" && (
+          <>
+            <div className="p-1 rounded-full bg-surface-container mb-8 flex items-center" data-anim="stagger-label">
+              <button
+                type="button"
+                onClick={() => setMode("login")}
+                className={`flex-1 py-2 px-4 rounded-full font-label-caps text-label-caps uppercase transition-all ${
+                  mode === "login"
+                    ? "bg-inverse-surface text-inverse-on-surface shadow-sm"
+                    : "text-on-surface-variant hover:text-on-surface"
+                }`}
+                aria-current={mode === "login" ? "true" : "false"}
+              >
+                Entrar
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode("register")}
+                className={`flex-1 py-2 px-4 rounded-full font-label-caps text-label-caps uppercase transition-all ${
+                  mode === "register"
+                    ? "bg-inverse-surface text-inverse-on-surface shadow-sm"
+                    : "text-on-surface-variant hover:text-on-surface"
+                }`}
+                aria-current={mode === "register" ? "true" : "false"}
+              >
+                Crear cuenta
+              </button>
+            </div>
+
+            <AuthForm mode={mode} />
+          </>
+        )}
+
+        {status === "authed" && (
+          <SessionPanel
+            email={sessionEmail}
+            onSignedOut={() => {
+              setSessionEmail("");
+              setStatus("anon");
+            }}
+          />
+        )}
 
         {/* Security Footnote Card */}
         <div className="mt-8 pt-6 bg-surface-container-low rounded-xl p-4 space-y-3" data-anim="fade-up">
