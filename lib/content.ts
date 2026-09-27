@@ -215,7 +215,7 @@ export const navItems: NavItem[] = [
   { index: "03", label: "Experiencia", href: "#experiencia" }, // [placeholder]
   { index: "04", label: "Proyectos", href: "#proyectos" }, // [placeholder]
   { index: "05", label: "Servicios", href: "#servicios" }, // [placeholder]
-  { index: "06", label: "Blog", href: "#blog" }, // [placeholder]
+  { index: "06", label: "Blog", href: "/blog/editor" }, // [placeholder]
   { index: "07", label: "Contacto", href: "#contacto" }, // [placeholder]
 ];
 
