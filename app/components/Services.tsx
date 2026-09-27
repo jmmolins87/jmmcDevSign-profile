@@ -1,13 +1,15 @@
 /* SPEC 01 — Paso 7: sección 05 — Servicios (4 tarjetas numeradas). */
 
-import { services } from "@/lib/content";
+import { getDict } from "@/lib/i18n/server";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
 
-export default function Services() {
+export default async function Services() {
+  const dict = await getDict();
+  const services = dict.services;
   return (
     <Section id="servicios" anim="reveal-lines">
-      <SectionHeading index="05" name="Servicios" />
+      <SectionHeading index="05" name={dict.sections.services.name} />
         {/* 4 Numbered Cards in a Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => (

@@ -1,22 +1,26 @@
 /* SPEC 04 — Paso 3: panel IA con el detalle del lead seleccionado. */
 
 import type { Lead } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 const SIGNAL_DOTS = ["bg-primary", "bg-secondary", "bg-tertiary"];
 
-const PRIORITY_LABEL: Record<Lead["priority"], string> = {
-  alta: "Alta Prioridad",
-  media: "Media Prioridad",
-  baja: "Baja Prioridad",
-};
-
-function verdict(score: number): string {
-  if (score >= 90) return "Excelente fit predictivo";
-  if (score >= 70) return "Buen fit predictivo";
-  return "Fit en evaluación";
-}
-
 export default function IaPanel({ lead }: { lead: Lead }) {
+  const { demosLeads } = useDict().sections;
+  const panel = demosLeads.panel;
+
+  const PRIORITY_LABEL: Record<Lead["priority"], string> = {
+    alta: panel.priority.alta,
+    media: panel.priority.media,
+    baja: panel.priority.baja,
+  };
+
+  const verdict = (score: number): string => {
+    if (score >= 90) return panel.verdictExcellent;
+    if (score >= 70) return panel.verdictGood;
+    return panel.verdictEvaluating;
+  };
+
   const priorityPill =
     lead.priority === "alta"
       ? "border border-primary/30 bg-primary/10 text-primary"
@@ -34,11 +38,11 @@ export default function IaPanel({ lead }: { lead: Lead }) {
             psychology
           </span>
           <span className="font-mono-code text-label-caps uppercase tracking-wider text-on-surface-variant font-semibold">
-            Detalle de cualificación (IA)
+            {panel.title}
           </span>
         </div>
         <button
-          aria-label="Opciones de lead"
+          aria-label={panel.optionsAria}
           type="button"
           aria-disabled="true"
           className="w-7 h-7 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface transition-colors focus:outline-none"
@@ -61,7 +65,7 @@ export default function IaPanel({ lead }: { lead: Lead }) {
           </span>
         </div>
         <p className="font-body-sm text-body-sm text-on-surface-variant">
-          {lead.role} en <strong className="text-on-surface">{lead.company}</strong>
+          {lead.role} {panel.roleIn} <strong className="text-on-surface">{lead.company}</strong>
         </p>
         <div className="flex flex-wrap gap-y-1 gap-x-3 text-mono-code font-mono-code text-on-surface-variant text-[12px] pt-1">
           <span className="inline-flex items-center gap-1">
@@ -77,7 +81,7 @@ export default function IaPanel({ lead }: { lead: Lead }) {
       {/* Evaluación semántica */}
       <div className="flex flex-col gap-space-xs bg-surface p-space-md rounded-lg border border-outline-variant">
         <span className="font-mono-code text-[10px] uppercase tracking-wider text-outline font-semibold">
-          Evaluación semántica automática
+          {panel.semanticEvaluation}
         </span>
         <div className="flex flex-col gap-space-sm mt-1 text-body-sm">
           {lead.signals.map((signal, i) => (
@@ -108,7 +112,7 @@ export default function IaPanel({ lead }: { lead: Lead }) {
           </div>
           <div className="flex flex-col">
             <span className="font-mono-code text-label-caps uppercase text-on-surface-variant">
-              Score global
+              {panel.scoreGlobal}
             </span>
             <span className="font-body-sm text-body-sm font-medium text-on-surface">
               {verdict(lead.score)}
@@ -117,13 +121,13 @@ export default function IaPanel({ lead }: { lead: Lead }) {
         </div>
         <div className="flex flex-col gap-1 text-right font-mono-code text-[11px] text-on-surface-variant">
           <span>
-            Fit de perfil:{" "}
+            {panel.fitProfile}{" "}
             <strong className="text-on-surface">
               {Math.min(99, lead.score + 2)}%
             </strong>
           </span>
           <span>
-            Señales de compra:{" "}
+            {panel.buySignals}{" "}
             <strong className="text-on-surface">
               {Math.min(99, lead.score - 2)}%
             </strong>
@@ -135,7 +139,7 @@ export default function IaPanel({ lead }: { lead: Lead }) {
         <div className="flex items-center gap-2 text-primary">
           <span className="material-symbols-outlined text-[16px]">bolt</span>
           <span className="font-mono-code text-label-caps uppercase font-semibold">
-            Próximo paso programado
+            {panel.nextStep}
           </span>
         </div>
         <p className="text-body-sm text-on-surface font-medium leading-tight">
@@ -150,21 +154,21 @@ export default function IaPanel({ lead }: { lead: Lead }) {
             aria-disabled="true"
             className="px-3 py-1 rounded-full bg-primary text-on-primary font-mono-code text-label-caps uppercase font-medium hover:bg-primary-container transition-colors"
           >
-            Previsualizar
+            {panel.preview}
           </button>
           <button
             type="button"
             aria-disabled="true"
             className="px-3 py-1 rounded-full border border-outline-variant text-on-surface-variant hover:text-on-surface font-mono-code text-label-caps uppercase transition-colors"
           >
-            Pausar
+            {panel.pause}
           </button>
         </div>
       </div>
       {/* Secuencia del agente */}
       <div className="flex flex-col gap-space-xs pt-space-xs">
         <span className="font-mono-code text-label-caps uppercase tracking-wider text-on-surface-variant font-semibold">
-          Secuencia del agente
+          {panel.sequence}
         </span>
         <div className="relative pl-5 border-l border-outline-variant flex flex-col gap-4 mt-2">
           {lead.steps.map((step) => (

@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "JMMC — Editorial design and development",
+    "description": "JMMC's portfolio: fullstack, UI/UX design, automation and AI. From first sketch to deploy."
+  },
   "sections": {
     "header": {
       "openMenu": "Open navigation",
@@ -92,6 +96,331 @@
     "footer": {
       "tagline": "Fullstack & UI/UX",
       "backToTop": "Back to top"
+    },
+    "theme": {
+      "selector": "Theme selector",
+      "menuLabel": "Appearance",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "zonaMiembros": {
+      "ariaLabel": "Members zone",
+      "metaTitle": "Members zone · JMMC",
+      "metaDescription": "Editorial access for authors and collaborators",
+      "privateZone": "PRIVATE ZONE — PORTFOLIO",
+      "checkingSession": "VERIFYING SESSION...",
+      "tabLogin": "Sign in",
+      "tabRegister": "Create account",
+      "loginTitle": "Sign in",
+      "loginDescription": "Enter your credentials to access the editorial manager, workshop notes and private publications.",
+      "registerTitle": "Create account",
+      "registerDescription": "Register your access to the editorial manager, workshop notes and private publications.",
+      "sessionTitle": "Active session",
+      "sessionDescription": "You're already in the editorial manager. You can enter the editor or sign out on this device.",
+      "sessionBanner": "Signed in. You have access to the editorial manager.",
+      "goToEditor": "Go to the blog editor",
+      "signOut": "Sign out",
+      "signingOut": "Signing out...",
+      "emailLabel": "EMAIL",
+      "authorId": "AUTHOR ID",
+      "emailPlaceholder": "name@studio.io",
+      "passwordLabel": "PASSWORD",
+      "forgotPassword": "Forgot my password?",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "codeLabel": "Code:",
+      "attempt": "Attempt",
+      "remember": "Remember this device",
+      "sessionDuration": "Session: 30 days",
+      "verifying": "Verifying...",
+      "submitLogin": "Enter the members zone",
+      "submitRegister": "Create my account",
+      "magicSent": "Magic link sent to your inbox!",
+      "magicLink": "Send me a magic link",
+      "signupNotice": "Account created. We've sent you an email to confirm your access.",
+      "networkError": "Could not reach the authentication server.",
+      "errors": {
+        "invalid_credentials": "The email or password do not match the authorized records.",
+        "user_already_exists": "An account with this email already exists.",
+        "email_not_confirmed": "Confirm your email before signing in. Check your inbox.",
+        "weak_password": "The password is too weak: use at least 6 characters.",
+        "signup_disabled": "Registration is currently closed.",
+        "over_email_send_rate_limit": "Too many attempts. Wait a minute and try again."
+      },
+      "footnote": "Only accredited members can publish on the blog and access previous release notes. If you don't have an invitation yet, request access through the official contact form.",
+      "encrypted": "Encrypted Authentication",
+      "requestInvite": "Request Invitation →",
+      "metaLeft": "ZONA_EDITORIAL // ID: JMMC-SYS-89",
+      "metaRight": "STATUS: SERVER ACTIVE",
+      "editorialBadge": "05 / EDITORIAL ACCESS",
+      "editorialPrivate": "PRIVATE RECORD",
+      "editorialRestricted": "Restricted access · Authors & Collaborators",
+      "editorialQuote": "\u00abWriting is also designing.\u00bb",
+      "editorialTagline": "Notes on product, architecture and code",
+      "editorialBackdropAlt": "Cinematic still of an intimate author writing desk in a moody dark library at twilight. An illuminated vintage brass banker lamp casts warm amber light across an open leather journal with fine handwritten ink calligraphy, alongside a glass ink bottle, fountain pen, and ceramic coffee cup. Atmospheric chiaroscuro, warm walnut wood, deep shadows, 35mm film grain aesthetic."
+    },
+    "demosLeads": {
+      "metaTitle": "Demo · Lead agent — JMMC",
+      "metaDescription": "Fictional sandbox of the lead agent: pipeline, AI qualification and live activity.",
+      "backToPortfolio": "Back to portfolio",
+      "demoBadge": "Demo · fictional data",
+      "tabs": {
+        "pipeline": "Pipeline",
+        "activity": "Agent activity",
+        "settings": "Settings"
+      },
+      "agentActive": "Agent active:",
+      "agentVersion": "Autopilot v2.4",
+      "agentPaused": "Agent paused",
+      "filterButton": "Filter by source",
+      "columns": {
+        "nuevo": "New",
+        "cualificado": "Qualified",
+        "seguimiento": "Follow-up",
+        "reunion": "Meeting"
+      },
+      "selected": "Selected",
+      "panel": {
+        "title": "Qualification detail (AI)",
+        "optionsAria": "Lead options",
+        "priority": {
+          "alta": "High Priority",
+          "media": "Medium Priority",
+          "baja": "Low Priority"
+        },
+        "roleIn": "at",
+        "verdictExcellent": "Excellent predictive fit",
+        "verdictGood": "Good predictive fit",
+        "verdictEvaluating": "Fit under evaluation",
+        "semanticEvaluation": "Automatic semantic evaluation",
+        "scoreGlobal": "Global score",
+        "fitProfile": "Profile fit:",
+        "buySignals": "Buying signals:",
+        "nextStep": "Scheduled next step",
+        "preview": "Preview",
+        "pause": "Pause",
+        "sequence": "Agent sequence"
+      },
+      "feed": {
+        "title": "Live agent activity",
+        "viewFullLog": "View full log"
+      },
+      "activity": {
+        "title": "Agent log",
+        "eventsToday": "148 events today"
+      },
+      "settings": {
+        "title": "Agent settings",
+        "description": "Local demo state — not persisted."
+      }
+    },
+    "demosPedidos": {
+      "metaTitle": "Demo · Real-time orders — JMMC",
+      "metaDescription": "Fictional real-time orders sandbox: kitchen board with state transitions and live updates.",
+      "backToPortfolio": "Back to portfolio",
+      "demoBadge": "Demo · fictional data",
+      "orderPrefix": "Order ",
+      "toolbar": {
+        "navAria": "Order sheet sections",
+        "tabOrders": "Orders",
+        "tabProducts": "Products",
+        "tabSettings": "Settings",
+        "searchPlaceholder": "Search by ID, guest...",
+        "searchAria": "Search by ID or guest",
+        "channelAria": "Filter by channel",
+        "allChannels": "All channels"
+      },
+      "strip": {
+        "title": "Real-time orders",
+        "live": "Live",
+        "syncedPrefix": "Synced",
+        "syncedSuffix": "s ago",
+        "nuevos": "New",
+        "preparacion": "In preparation",
+        "listo": "Ready"
+      },
+      "columns": {
+        "nuevo": "New",
+        "preparacion": "In preparation",
+        "listo": "Ready"
+      },
+      "emptyColumn": "No orders in this column",
+      "emptyResults": "NO RESULTS",
+      "emptyResultsPrefix": "NO RESULTS FOR \u201c",
+      "emptyResultsSuffix": "\u201d",
+      "itemSingular": "item",
+      "itemPlural": "items",
+      "updatedBadge": "\u26a1 Updated just now",
+      "states": {
+        "preparacion": "In preparation",
+        "listo": "Ready",
+        "cancelado": "Cancelled"
+      },
+      "dossier": {
+        "issuedPrefix": "Issued today at",
+        "issuedSuffix": "",
+        "printAria": "Print order sheet",
+        "guest": "Guest",
+        "detail": "Order details",
+        "kitchenNote": "Kitchen note",
+        "subtotal": "Subtotal",
+        "iva": "VAT incl. (10%)",
+        "total": "Total",
+        "markReady": "Mark as ready",
+        "cancelOrder": "Cancel order"
+      },
+      "toast": {
+        "justNow": "just now",
+        "closeAria": "Close notification"
+      }
+    },
+    "demosSoftware": {
+      "metaTitle": "Demo · Management software — JMMC",
+      "metaDescription": "Fictional management software sandbox: KPIs, billing, inventory and appointments.",
+      "backToPortfolio": "Back to portfolio",
+      "demoBadge": "Demo · fictional data",
+      "tabs": {
+        "resumen": "OVERVIEW",
+        "clientes": "CLIENTS",
+        "facturas": "INVOICES",
+        "inventario": "INVENTORY",
+        "ajustes": "SETTINGS"
+      },
+      "last30Days": "Last 30 days",
+      "exportButton": "EXPORT",
+      "newInvoiceButton": "NEW INVOICE",
+      "toastExport": "[placeholder] Export CSV",
+      "toastNewInvoice": "[placeholder] New invoice",
+      "comingSoon": "Coming soon in this demo",
+      "headings": {
+        "chart": "REVENUE AND COLLECTIONS TREND",
+        "appointments": "TODAY'S APPOINTMENTS",
+        "invoices": "LATEST INVOICES ISSUED",
+        "stock": "INVENTORY ALERTS"
+      },
+      "kpis": {
+        "target": "Monthly target: 92%"
+      },
+      "chart": {
+        "subtitle": "Reconciliation of net billing versus effective collections",
+        "legendBilling": "Billing",
+        "legendCollections": "Collections",
+        "rangeDay": "D",
+        "rangeWeek": "W",
+        "rangeMonth": "M"
+      },
+      "appointments": {
+        "todayCount": "4 TODAY",
+        "meetTitle": "Start Meet",
+        "inPerson": "IN PERSON",
+        "viewCalendar": "VIEW FULL CALENDAR"
+      },
+      "invoices": {
+        "subtitle": "Tracking of the collections in progress",
+        "viewAll": "VIEW ALL (142)",
+        "colId": "INVOICE ID",
+        "colClient": "CLIENT / ENTITY",
+        "colIssued": "ISSUED",
+        "colDue": "DUE",
+        "colAmount": "AMOUNT",
+        "colStatus": "STATUS",
+        "downloadPdf": "Download PDF",
+        "showing": "Showing 4 of 142 records"
+      },
+      "stock": {
+        "subtitle": "Below minimum safety threshold",
+        "critical": "4 CRITICAL",
+        "toastViewInventory": "[placeholder] View full inventory",
+        "fullInventory": "FULL INVENTORY (84 ITEMS)"
+      }
+    },
+    "editor": {
+      "metaTitle": "Blog editor · JMMC",
+      "metaDescription": "Create and edit blog posts",
+      "topbar": {
+        "backToPortfolio": "← Back to portfolio",
+        "restrictedBadge": "Restricted access · Members only",
+        "backToBlog": "Back to blog",
+        "draft": "Draft",
+        "savedPrefix": "Saved",
+        "savedSuffix": "s ago",
+        "preview": "Preview",
+        "save": "Save",
+        "publish": "Publish"
+      },
+      "canvas": {
+        "changeImage": "Change image",
+        "removeCover": "Remove cover image",
+        "altConfigured": "Alt text configured",
+        "altWords": "words",
+        "readTime": "min read",
+        "titlePlaceholder": "Write the essay title...",
+        "excerptPlaceholder": "Write a standfirst or editorial summary..."
+      },
+      "body": {
+        "bodyPlaceholder": "Start writing your article...",
+        "pullQuoteLabel": "Featured excerpt",
+        "revisionTitle": "Revision note in progress"
+      },
+      "toolbar": {
+        "navLabel": "Editing tools",
+        "heading": "Heading",
+        "bold": "Bold",
+        "italic": "Italic",
+        "link": "Link",
+        "quote": "Blockquote",
+        "code": "Code snippet",
+        "image": "Insert image",
+        "bulletList": "Bulleted list",
+        "numberedList": "Numbered list",
+        "placeholderText": "text",
+        "linkText": "link text",
+        "codeText": "code",
+        "imageText": "alt text",
+        "headingText": "Title",
+        "words": "words",
+        "min": "min"
+      },
+      "inspector": {
+        "language": {
+          "label": "Post language",
+          "active": "Active"
+        },
+        "slug": {
+          "label": "Permanent slug",
+          "copy": "Copy URL",
+          "copied": "Copied!",
+          "hint": "It updates automatically if you change the main title."
+        },
+        "category": {
+          "label": "Editorial category",
+          "tagsLabel": "Indexing tags",
+          "addTag": "Add",
+          "removeTag": "Remove tag"
+        },
+        "publication": {
+          "label": "Scheduled publication",
+          "status": "Scheduled",
+          "publishNow": "Publish now?",
+          "switchImmediate": "Switch to immediate"
+        },
+        "alt": {
+          "label": "Alt Text (Accessibility)",
+          "a11yOk": "A11y OK",
+          "chars": "chars",
+          "hint": "Describe the cover for screen readers and search engines."
+        },
+        "seo": {
+          "label": "SEO optimization",
+          "score": "Score",
+          "titleLabel": "Meta Title",
+          "descLabel": "Meta Description",
+          "previewLabel": "Google preview",
+          "titleFallback": "Post title",
+          "descFallback": "Post description..."
+        }
+      }
     }
   },
   "navItems": [

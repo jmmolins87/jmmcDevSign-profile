@@ -26,10 +26,10 @@ export default function BlogEditorClient() {
   const [body, setBody] = useState(DEFAULT_BODY);
   const [coverAlt, setCoverAlt] = useState(DEFAULT_COVER_ALT);
   const [seoTitle, setSeoTitle] = useState(
-    "Diseñar con código — Sensibilidad editorial | JMMC",
+    "Diseñar con código — Sensibilidad editorial | JMMC", // [placeholder]
   );
   const [seoDescription, setSeoDescription] = useState(
-    "Exploración sobre la convergencia entre tipografía editorial clásica y arquitectura de frontend de alto rendimiento.",
+    "Exploración sobre la convergencia entre tipografía editorial clásica y arquitectura de frontend de alto rendimiento.", // [placeholder]
   );
   const [category, setCategory] = useState(DEFAULT_CATEGORY);
   const [tags, setTags] = useState<string[]>(DEFAULT_TAGS);

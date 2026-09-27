@@ -26,11 +26,14 @@ const newsreader = Newsreader({
   style: ["normal", "italic"],
 });
 
-export const metadata: Metadata = {
-  title: "JMMC — Diseño y desarrollo editorial",
-  description:
-    "Portafolio de JMMC: fullstack, diseño UI/UX, automatización e IA. Del primer boceto al deploy.",
-};
+/* SPEC 10 — Paso 6: metadata localizada desde el diccionario. */
+export async function generateMetadata(): Promise<Metadata> {
+  const { meta } = getDictionary(await getLocale());
+  return {
+    title: meta.title,
+    description: meta.description,
+  };
+}
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   /* SPEC 10 — Paso 5: el locale lo fija proxy.ts vía header `x-locale`. */

@@ -7,8 +7,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+import { useDict, useI18n } from "@/lib/i18n/I18nProvider";
+
 export default function EditorTopBar() {
   const [savedAgo, setSavedAgo] = useState(2);
+  const { withLocale } = useI18n();
+  const topbar = useDict().sections.editor.topbar;
 
   useEffect(() => {
     const id = setInterval(() => setSavedAgo((n) => n + 1), 1000);
@@ -22,13 +26,13 @@ export default function EditorTopBar() {
         <div className="max-w-[1280px] mx-auto px-margin-mobile lg:px-margin h-10 flex items-center justify-between">
           <Link
             className="inline-flex items-center font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors"
-            href="/"
+            href={withLocale("/")}
           >
-            ← Volver al portfolio
+            {topbar.backToPortfolio}
           </Link>
           <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-outline-variant bg-surface-container-lowest font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Acceso restringido · Solo miembros
+            {topbar.restrictedBadge}
           </span>
         </div>
       </div>
@@ -47,13 +51,13 @@ export default function EditorTopBar() {
             <span className="material-symbols-outlined text-[16px] group-hover:-translate-x-0.5 transition-transform">
               arrow_back
             </span>
-            <span>Volver al blog</span>
+            <span>{topbar.backToBlog}</span>
           </a>
           <span className="w-1 h-1 rounded-full bg-outline-variant" />
           {/* Draft badge */}
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container font-label-caps text-label-caps text-on-surface">
             <span className="w-1.5 h-1.5 rounded-full bg-tertiary" />
-            Borrador
+            {topbar.draft}
           </span>
           {/* Sync tick */}
           <div className="inline-flex items-center gap-1.5 font-mono-code text-mono-code text-on-surface-variant">
@@ -61,7 +65,7 @@ export default function EditorTopBar() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary" />
             </span>
-            <span>Guardado hace {savedAgo} s</span>
+            <span>{topbar.savedPrefix} {savedAgo} {topbar.savedSuffix}</span>
           </div>
         </div>
 
@@ -72,20 +76,20 @@ export default function EditorTopBar() {
             type="button"
           >
             <span className="material-symbols-outlined text-[16px]">visibility</span>
-            <span>Vista previa</span>
+            <span>{topbar.preview}</span>
           </button>
           <button
             className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-surface-container-lowest text-on-surface font-label-caps text-label-caps shadow-sm hover:bg-surface-container transition-all"
             type="button"
           >
             <span className="material-symbols-outlined text-[16px]">save</span>
-            <span>Guardar</span>
+            <span>{topbar.save}</span>
           </button>
           <button
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-on-primary font-label-caps text-label-caps shadow-sm hover:bg-primary-container transition-all group"
             type="button"
           >
-            <span>Publicar</span>
+            <span>{topbar.publish}</span>
             <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">
               arrow_forward
             </span>

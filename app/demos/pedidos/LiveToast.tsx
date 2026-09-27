@@ -6,6 +6,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 export type Toast = { id: number; orderId: string; to: string };
 
@@ -16,6 +17,8 @@ export default function LiveToast({
   toast: Toast | null;
   onClose: () => void;
 }) {
+  const { demosPedidos } = useDict().sections;
+
   useEffect(() => {
     if (!toast) return;
     const timer = setTimeout(onClose, 7000);
@@ -37,19 +40,19 @@ export default function LiveToast({
       </span>
       <div className="flex items-center gap-2 font-mono-code text-[12px] text-on-surface min-w-0">
         <span className="font-bold text-primary whitespace-nowrap">
-          Pedido #{toast.orderId}
+          {demosPedidos.orderPrefix}{toast.orderId}
         </span>
         <span className="text-on-surface-variant whitespace-nowrap">
           → {toast.to}
         </span>
         <span className="text-outline-variant">·</span>
         <span className="text-on-surface-variant font-label-caps text-[10px] whitespace-nowrap">
-          hace un instante
+          {demosPedidos.toast.justNow}
         </span>
       </div>
       <button
         type="button"
-        aria-label="Cerrar notificación"
+        aria-label={demosPedidos.toast.closeAria}
         onClick={onClose}
         className="ml-1 shrink-0 text-on-surface-variant hover:text-on-surface flex items-center justify-center p-0.5 focus:outline-none"
       >

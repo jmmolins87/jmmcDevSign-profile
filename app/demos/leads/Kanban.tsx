@@ -4,14 +4,8 @@
 
 import { MOCK_COLUMN_TOTALS, MOCK_LEADS } from "@/lib/data/leads";
 import type { LeadColumn } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 import LeadCard from "./LeadCard";
-
-const COLUMNS: { id: LeadColumn; label: string; countTone: string }[] = [
-  { id: "nuevo", label: "Nuevo", countTone: "bg-surface-container-highest text-on-surface-variant" },
-  { id: "cualificado", label: "Cualificado", countTone: "bg-secondary/15 text-secondary font-medium" },
-  { id: "seguimiento", label: "Seguimiento", countTone: "bg-surface-container-highest text-on-surface-variant" },
-  { id: "reunion", label: "Reunión", countTone: "bg-tertiary-fixed text-on-tertiary-fixed font-medium" },
-];
 
 export default function Kanban({
   selectedId,
@@ -20,6 +14,15 @@ export default function Kanban({
   selectedId: string;
   onSelect: (id: string) => void;
 }) {
+  const { demosLeads } = useDict().sections;
+
+  const COLUMNS: { id: LeadColumn; label: string; countTone: string }[] = [
+    { id: "nuevo", label: demosLeads.columns.nuevo, countTone: "bg-surface-container-highest text-on-surface-variant" },
+    { id: "cualificado", label: demosLeads.columns.cualificado, countTone: "bg-secondary/15 text-secondary font-medium" },
+    { id: "seguimiento", label: demosLeads.columns.seguimiento, countTone: "bg-surface-container-highest text-on-surface-variant" },
+    { id: "reunion", label: demosLeads.columns.reunion, countTone: "bg-tertiary-fixed text-on-tertiary-fixed font-medium" },
+  ];
+
   return (
     <div className="lg:col-span-8 flex flex-col gap-space-md">
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">

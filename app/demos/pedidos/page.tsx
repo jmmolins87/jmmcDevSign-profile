@@ -4,15 +4,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ScrollAnimations from "@/app/components/ScrollAnimations";
+import { getDict, withLocale } from "@/lib/i18n/server";
 import Shell from "./Shell";
 
-export const metadata: Metadata = {
-  title: "Demo · Pedidos en tiempo real — JMMC",
-  description:
-    "Sandbox ficticio de pedidos en tiempo real: tablero de cocina con transiciones de estado y actualizaciones en vivo.",
-};
+/* SPEC 10 — Paso 6: metadata localizada desde el diccionario. */
+export async function generateMetadata(): Promise<Metadata> {
+  const { demosPedidos } = (await getDict()).sections;
+  return {
+    title: demosPedidos.metaTitle,
+    description: demosPedidos.metaDescription,
+  };
+}
 
-export default function PedidosDemoPage() {
+export default async function PedidosDemoPage() {
+  const { demosPedidos } = (await getDict()).sections;
+  const backHref = await withLocale("/");
+
   return (
     <div className="flex flex-col w-full">
       {/* Sub-barra de demo */}
@@ -20,16 +27,16 @@ export default function PedidosDemoPage() {
         <div className="max-w-[1280px] mx-auto px-margin-mobile lg:px-margin h-12 flex items-center justify-between text-body-sm">
           <Link
             className="inline-flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors font-mono-code text-mono-code focus:outline-none"
-            href="/"
+            href={backHref}
           >
             <span className="material-symbols-outlined text-[16px]">
               arrow_back
             </span>
-            <span>Volver al portfolio</span>
+            <span>{demosPedidos.backToPortfolio}</span>
           </Link>
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-outline-variant bg-surface font-mono-code text-label-caps uppercase tracking-wider text-on-surface-variant">
             <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse motion-reduce:animate-none" />
-            <span>Demo · datos ficticios</span>
+            <span>{demosPedidos.demoBadge}</span>
           </div>
         </div>
       </div>

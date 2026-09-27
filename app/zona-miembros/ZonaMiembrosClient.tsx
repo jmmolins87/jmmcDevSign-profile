@@ -10,9 +10,11 @@
 import { useLayoutEffect, useRef } from "react";
 import EditorialPanel from "./EditorialPanel";
 import AuthPanel from "./AuthPanel";
+import { useT } from "@/lib/i18n/I18nProvider";
 
 export default function ZonaMiembrosClient() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const t = useT();
 
   // SPEC 08 — Paso 6: animaciones de entrada con Anime.js v4
   // fade-up en paneles (24px, 700ms, outExpo)
@@ -99,7 +101,7 @@ export default function ZonaMiembrosClient() {
       <div
         className="w-full min-h-[760px] rounded-[14px] bg-surface overflow-hidden shadow-sm flex flex-col lg:flex-row relative"
         role="main"
-        aria-label="Zona de miembros"
+        aria-label={t("sections.zonaMiembros.ariaLabel")}
       >
         {/* LEFT COLUMN: Cinematic Visual Atmosphere */}
         <EditorialPanel />

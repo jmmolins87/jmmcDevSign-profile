@@ -6,15 +6,9 @@
 
 import { CHANNEL_LABEL } from "@/lib/data/orders";
 import type { OrderChannel } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 type ChannelFilter = OrderChannel | "all";
-
-const CHANNELS: { value: ChannelFilter; label: string }[] = [
-  { value: "all", label: "Todos los canales" },
-  { value: "web-directa", label: CHANNEL_LABEL["web-directa"] },
-  { value: "take-away", label: CHANNEL_LABEL["take-away"] },
-  { value: "delivery", label: CHANNEL_LABEL["delivery"] },
-];
 
 export default function Toolbar({
   total,
@@ -29,11 +23,21 @@ export default function Toolbar({
   onQuery: (value: string) => void;
   onChannel: (value: ChannelFilter) => void;
 }) {
+  const { demosPedidos } = useDict().sections;
+  const { toolbar } = demosPedidos;
+
+  const CHANNELS: { value: ChannelFilter; label: string }[] = [
+    { value: "all", label: toolbar.allChannels },
+    { value: "web-directa", label: CHANNEL_LABEL["web-directa"] },
+    { value: "take-away", label: CHANNEL_LABEL["take-away"] },
+    { value: "delivery", label: CHANNEL_LABEL["delivery"] },
+  ];
+
   return (
     <section className="w-full flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md pb-space-lg mb-space-lg border-b border-outline-variant">
       {/* Tabs de secciones */}
       <nav
-        aria-label="Secciones de comandas"
+        aria-label={toolbar.navAria}
         className="flex items-center gap-space-xl overflow-x-auto"
         data-anim="stagger-label"
       >
@@ -42,7 +46,7 @@ export default function Toolbar({
           aria-current="page"
           className="flex items-center gap-2 pb-space-sm -mb-px border-b-2 border-primary font-body-md text-body-md font-medium text-on-surface transition-colors focus:outline-none"
         >
-          <span>Pedidos</span>
+          <span>{toolbar.tabOrders}</span>
           <span className="px-1.5 py-0.2 rounded-full bg-primary text-on-primary font-mono-code text-[11px] leading-tight font-semibold tracking-normal">
             {total}
           </span>
@@ -52,7 +56,7 @@ export default function Toolbar({
           aria-disabled="true"
           className="flex items-center gap-2 pb-space-sm -mb-px border-b-2 border-transparent font-body-md text-body-md text-on-surface-variant cursor-default focus:outline-none"
         >
-          <span>Productos</span>
+          <span>{toolbar.tabProducts}</span>
           <span className="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-on-surface-variant font-mono-code text-[11px] leading-tight">
             42
           </span>
@@ -62,7 +66,7 @@ export default function Toolbar({
           aria-disabled="true"
           className="flex items-center gap-2 pb-space-sm -mb-px border-b-2 border-transparent font-body-md text-body-md text-on-surface-variant cursor-default focus:outline-none"
         >
-          <span>Ajustes</span>
+          <span>{toolbar.tabSettings}</span>
         </button>
       </nav>
 
@@ -76,8 +80,8 @@ export default function Toolbar({
             type="text"
             value={query}
             onChange={(event) => onQuery(event.target.value)}
-            placeholder="Buscar por ID, comensal..."
-            aria-label="Buscar por ID o comensal"
+            placeholder={toolbar.searchPlaceholder}
+            aria-label={toolbar.searchAria}
             className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface placeholder:text-on-surface-variant text-body-sm focus:border-outline focus:outline-none transition-colors"
           />
         </div>
@@ -85,7 +89,7 @@ export default function Toolbar({
           <select
             value={channel}
             onChange={(event) => onChannel(event.target.value as ChannelFilter)}
-            aria-label="Filtrar por canal"
+            aria-label={toolbar.channelAria}
             className="appearance-none pl-3 pr-8 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface font-label-caps text-label-caps uppercase tracking-wider cursor-pointer focus:outline-none focus:border-outline transition-colors"
           >
             {CHANNELS.map((option) => (

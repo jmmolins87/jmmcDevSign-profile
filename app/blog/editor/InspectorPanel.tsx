@@ -5,8 +5,11 @@
 
 import { useState } from "react";
 
+import { useDict } from "@/lib/i18n/I18nProvider";
+
 /* ---------- Language Module ---------- */
 function LanguageModule() {
+  const language = useDict().sections.editor.inspector.language;
   return (
     <div
       className="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3"
@@ -14,10 +17,10 @@ function LanguageModule() {
     >
       <div className="flex items-center justify-between">
         <span className="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">
-          Idioma del artículo
+          {language.label}
         </span>
         <span className="font-mono-code text-mono-code text-secondary">
-          ES · Activo
+          ES · {language.active}
         </span>
       </div>
       <div className="grid grid-cols-2 p-1 rounded-full bg-surface-container">
@@ -45,6 +48,7 @@ function SlugModule({
   slug: string;
 }) {
   const [copied, setCopied] = useState(false);
+  const slugDict = useDict().sections.editor.inspector.slug;
 
   const handleCopy = async () => {
     try {
@@ -66,7 +70,7 @@ function SlugModule({
           className="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant"
           htmlFor="post-slug"
         >
-          Slug permanente
+          {slugDict.label}
         </label>
         <button
           className="font-label-caps text-label-caps text-primary hover:underline flex items-center gap-1"
@@ -76,7 +80,7 @@ function SlugModule({
           <span className="material-symbols-outlined text-[13px]">
             {copied ? "check" : "content_copy"}
           </span>
-          <span>{copied ? "¡Copiado!" : "Copiar URL"}</span>
+          <span>{copied ? slugDict.copied : slugDict.copy}</span>
         </button>
       </div>
       <div className="flex items-center px-3 py-2 rounded-lg bg-surface-container font-mono-code text-mono-code text-on-surface">
@@ -90,7 +94,7 @@ function SlugModule({
         />
       </div>
       <span className="font-body-sm text-[12px] text-on-surface-variant">
-        Se actualizará automáticamente si modificas el título principal.
+        {slugDict.hint}
       </span>
     </div>
   );
@@ -114,6 +118,7 @@ function CategoryModule({
     "Tipografía & Arte Computacional",
     "Bitácora de Investigación",
   ];
+  const categoryDict = useDict().sections.editor.inspector.category;
 
   return (
     <div
@@ -123,7 +128,7 @@ function CategoryModule({
       {/* Category select */}
       <div className="flex flex-col gap-1.5">
         <label className="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">
-          Categoría editorial
+          {categoryDict.label}
         </label>
         <div className="relative">
           <select
@@ -146,7 +151,7 @@ function CategoryModule({
       {/* Tags */}
       <div className="flex flex-col gap-2 pt-1">
         <span className="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">
-          Etiquetas de indexación
+          {categoryDict.tagsLabel}
         </span>
         <div className="flex flex-wrap gap-1.5 items-center">
           {tags.map((tag) => (
@@ -156,7 +161,7 @@ function CategoryModule({
             >
               {tag}
               <button
-                aria-label={`Quitar tag ${tag}`}
+                aria-label={`${categoryDict.removeTag} ${tag}`}
                 className="hover:text-primary"
                 type="button"
                 onClick={() => onRemoveTag(tag)}
@@ -173,7 +178,7 @@ function CategoryModule({
             type="button"
           >
             <span className="material-symbols-outlined text-[13px]">add</span>
-            <span>Añadir</span>
+            <span>{categoryDict.addTag}</span>
           </button>
         </div>
       </div>
@@ -183,6 +188,7 @@ function CategoryModule({
 
 /* ---------- Publication Module ---------- */
 function PublicationModule() {
+  const publication = useDict().sections.editor.inspector.publication;
   return (
     <div
       className="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3"
@@ -190,10 +196,10 @@ function PublicationModule() {
     >
       <div className="flex items-center justify-between">
         <span className="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">
-          Publicación programada
+          {publication.label}
         </span>
         <span className="font-label-caps text-label-caps text-primary">
-          Programado
+          {publication.status}
         </span>
       </div>
       <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-surface-container">
@@ -210,12 +216,12 @@ function PublicationModule() {
         </div>
       </div>
       <div className="flex items-center justify-between pt-1 font-body-sm text-[13px] text-on-surface-variant">
-        <span>¿Publicar ahora?</span>
+        <span>{publication.publishNow}</span>
         <button
           className="text-primary hover:underline font-medium"
           type="button"
         >
-          Cambiar a inmediata
+          {publication.switchImmediate}
         </button>
       </div>
     </div>
@@ -232,6 +238,7 @@ function AltTextModule({
 }) {
   const charCount = coverAlt.length;
   const hasAlt = charCount > 10;
+  const alt = useDict().sections.editor.inspector.alt;
 
   return (
     <div
@@ -243,12 +250,12 @@ function AltTextModule({
           className="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant"
           htmlFor="cover-alt"
         >
-          Alt Text (Accesibilidad)
+          {alt.label}
         </label>
         <span
           className={`font-mono-code text-[11px] ${hasAlt ? "text-secondary" : "text-on-surface-variant"}`}
         >
-          {hasAlt ? "A11y OK" : `${charCount} chars`}
+          {hasAlt ? alt.a11yOk : `${charCount} ${alt.chars}`}
         </span>
       </div>
       <textarea
@@ -259,7 +266,7 @@ function AltTextModule({
         onChange={(e) => onChange(e.target.value)}
       />
       <span className="font-body-sm text-[11px] text-on-surface-variant">
-        Describe la portada para lectores de pantalla y buscadores.
+        {alt.hint}
       </span>
     </div>
   );
@@ -285,6 +292,7 @@ function SeoModule({
   const descLen = seoDescription.length;
   const titleOver = titleLen > 60;
   const descOver = descLen > 160;
+  const seo = useDict().sections.editor.inspector.seo;
 
   return (
     <div
@@ -294,11 +302,11 @@ function SeoModule({
       {/* Header */}
       <div className="flex items-center justify-between">
         <span className="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">
-          Optimización SEO
+          {seo.label}
         </span>
         <span className="inline-flex items-center gap-1 font-mono-code text-[11px] text-secondary">
           <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
-          Puntuación {seoScore}/100
+          {seo.score} {seoScore}/100
         </span>
       </div>
 
@@ -309,7 +317,7 @@ function SeoModule({
             className="font-label-caps text-label-caps text-on-surface-variant uppercase"
             htmlFor="seo-title"
           >
-            Meta Título
+            {seo.titleLabel}
           </label>
           <span
             className={`font-mono-code text-[11px] ${titleOver ? "text-error" : "text-secondary"}`}
@@ -333,7 +341,7 @@ function SeoModule({
             className="font-label-caps text-label-caps text-on-surface-variant uppercase"
             htmlFor="seo-desc"
           >
-            Meta Descripción
+            {seo.descLabel}
           </label>
           <span
             className={`font-mono-code text-[11px] ${descOver ? "text-error" : "text-secondary"}`}
@@ -353,7 +361,7 @@ function SeoModule({
       {/* Google Preview */}
       <div className="flex flex-col gap-1.5 pt-2">
         <span className="font-label-caps text-[10px] uppercase tracking-wider text-on-surface-variant">
-          Previsualización en Google
+          {seo.previewLabel}
         </span>
         <div className="p-3.5 rounded-lg bg-surface-container-high flex flex-col gap-1">
           <div className="flex items-center gap-1.5 text-[12px] font-mono-code text-on-surface-variant">
@@ -364,10 +372,10 @@ function SeoModule({
             <span className="truncate">{slug.slice(0, 30)}…</span>
           </div>
           <span className="font-body-md text-[15px] font-medium text-primary hover:underline cursor-pointer leading-tight line-clamp-2">
-            {seoTitle || "Título del artículo"}
+            {seoTitle || seo.titleFallback}
           </span>
           <p className="font-body-sm text-[12px] text-on-surface-variant line-clamp-2 leading-relaxed mt-0.5">
-            {seoDescription || "Descripción del artículo..."}
+            {seoDescription || seo.descFallback}
           </p>
         </div>
       </div>

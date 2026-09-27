@@ -3,8 +3,8 @@
 /* SPEC 10 — Paso 5: provider client con `useT()` / `useLocale()`. */
 
 import { createContext, useContext, type ReactNode } from "react";
-import type { Locale } from "./config";
-import type { Dictionary } from "./dictionaries";
+import { localizePath, type Locale } from "./config";
+import type { Dictionary, Paths } from "./dictionaries";
 
 type I18nContextValue = {
   locale: Locale;
@@ -19,14 +19,7 @@ export function I18nProvider({
   dict,
   children,
 }: Omit<I18nContextValue, "withLocale"> & { children: ReactNode }) {
-  /* Las rutas absolutas de EN van prefijadas con /en; los fragmentos (#…) y
-     rutas relativas no cambian. */
-  const withLocale = (path: string) => {
-    if (locale !== "en") return path;
-    if (path.startsWith("#") || !path.startsWith("/")) return path;
-    if (path.startsWith("/en")) return path;
-    return path === "/" ? "/en" : `/en${path}`;
-  };
+  const withLocale = (path: string) => localizePath(locale, path);
 
   return (
     <I18nContext.Provider value={{ locale, dict, withLocale }}>
@@ -49,11 +42,11 @@ export function useDict(): Dictionary {
   return useI18n().dict;
 }
 
-/* `t("hero.title")` — resuelve rutas anidadas del diccionario. */
-export function useT(): (key: string) => string {
+/* `t("hero.title")` — resuelve rutas anidadas del diccionario (tipado). */
+export function useT(): <K extends Paths<Dictionary>>(key: K) => string {
   const { dict } = useI18n();
-  return (key: string) => {
-    const value = key.split(".").reduce<unknown>((acc, part) => {
+  return <K extends Paths<Dictionary>>(key: K) => {
+    const value = key.split(".").reduce<unknown>((acc: unknown, part: string) => {
       if (acc && typeof acc === "object") return (acc as Record<string, unknown>)[part];
       return undefined;
     }, dict);

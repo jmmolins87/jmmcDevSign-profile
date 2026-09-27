@@ -3,6 +3,7 @@
 "use client";
 
 import type { Lead } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 function ringTone(lead: Lead, selected: boolean): string {
   if (selected) return "text-primary";
@@ -21,6 +22,7 @@ export default function LeadCard({
   onSelect: (id: string) => void;
 }) {
   const offset = (88 * (1 - lead.score / 100)).toFixed(1);
+  const { demosLeads } = useDict().sections;
 
   return (
     <div
@@ -42,7 +44,7 @@ export default function LeadCard({
     >
       {selected && (
         <div className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full bg-primary text-on-primary font-mono-code text-[9px] uppercase tracking-wider font-semibold">
-          Seleccionado
+          {demosLeads.selected}
         </div>
       )}
       <div className="flex items-start justify-between gap-1">

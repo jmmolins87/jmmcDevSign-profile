@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { getBrowserClient } from "@/lib/supabase/browser";
+import { useDict, useI18n } from "@/lib/i18n/I18nProvider";
 
 type AuthMode = "login" | "register";
 
@@ -19,29 +20,38 @@ interface AuthFormProps {
   mode: AuthMode;
 }
 
-const ERROR_MESSAGES: Record<string, string> = {
-  invalid_credentials:
-    "El correo o la contraseña no coinciden con los registros autorizados.",
-  user_already_exists: "Ya existe una cuenta registrada con este correo.",
-  email_not_confirmed:
-    "Confirma tu correo antes de entrar. Revisa tu bandeja de entrada.",
-  weak_password:
-    "La contraseña es demasiado débil: usa al menos 6 caracteres.",
-  signup_disabled: "El registro está cerrado en este momento.",
-  over_email_send_rate_limit:
-    "Demasiados intentos. Espera un minuto y vuelve a probar.",
-};
+/* Códigos de error de Supabase → claves del diccionario. */
+const ERROR_CODES = [
+  "invalid_credentials",
+  "user_already_exists",
+  "email_not_confirmed",
+  "weak_password",
+  "signup_disabled",
+  "over_email_send_rate_limit",
+] as const;
 
-function mapError(code: string | undefined, fallback: string): { message: string; code: string } {
+type ErrorCode = (typeof ERROR_CODES)[number];
+
+function isErrorCode(code: string | undefined): code is ErrorCode {
+  return !!code && (ERROR_CODES as readonly string[]).includes(code);
+}
+
+function mapError(
+  errors: Record<string, string>,
+  code: string | undefined,
+  fallback: string,
+): { message: string; code: string } {
   const key = code ?? "";
   return {
-    message: ERROR_MESSAGES[key] ?? fallback,
+    message: isErrorCode(key) ? errors[key] : fallback,
     code: key ? `AUTH_${key.toUpperCase()}` : "AUTH_ERROR",
   };
 }
 
 export default function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
+  const zone = useDict().sections.zonaMiembros;
+  const { withLocale } = useI18n();
 
   // El email recordado se guarda en localStorage; la sesión la gestiona
   // Supabase en cookies (refresh token de 30 días).
@@ -136,11 +146,11 @@ export default function AuthForm({ mode }: AuthFormProps) {
           password,
         });
         if (error) {
-          const mapped = mapError(error.code, error.message);
+          const mapped = mapError(zone.errors, error.code, error.message);
           showError(mapped.message, mapped.code);
           return;
         }
-        router.push("/blog/editor");
+        router.push(withLocale("/blog/editor"));
         return;
       }
 
@@ -149,21 +159,19 @@ export default function AuthForm({ mode }: AuthFormProps) {
         password,
       });
       if (error) {
-        const mapped = mapError(error.code, error.message);
+        const mapped = mapError(zone.errors, error.code, error.message);
         showError(mapped.message, mapped.code);
         return;
       }
       if (data.session) {
-        router.push("/blog/editor");
+        router.push(withLocale("/blog/editor"));
         return;
       }
       /* Confirmación de email activada en el proyecto: sin sesión aún. */
-      setNotice(
-        "Cuenta creada. Te hemos enviado un correo para confirmar tu acceso."
-      );
+      setNotice(zone.signupNotice);
       setErrorVisible(false);
     } catch {
-      showError("No se ha podido contactar con el servidor de autenticación.", "AUTH_NETWORK");
+      showError(zone.networkError, "AUTH_NETWORK");
     } finally {
       setIsSubmitting(false);
     }
@@ -176,11 +184,11 @@ export default function AuthForm({ mode }: AuthFormProps) {
     const supabase = getBrowserClient();
     const { error } = await supabase.auth.signInWithOtp({
       email: email.trim(),
-      options: { emailRedirectTo: `${window.location.origin}/blog/editor` },
+      options: { emailRedirectTo: `${window.location.origin}${withLocale("/blog/editor")}` },
     });
 
     if (error) {
-      const mapped = mapError(error.code, error.message);
+      const mapped = mapError(zone.errors, error.code, error.message);
       showError(mapped.message, mapped.code);
       return;
     }
@@ -203,15 +211,15 @@ export default function AuthForm({ mode }: AuthFormProps) {
             htmlFor="email-field"
             className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest"
           >
-            CORREO ELECTRÓNICO
+            {zone.emailLabel}
           </label>
-          <span className="font-mono-code text-[11px] text-on-surface-variant/70">ID DE AUTOR</span>
+          <span className="font-mono-code text-[11px] text-on-surface-variant/70">{zone.authorId}</span>
         </div>
         <div className="relative">
           <input
             className="w-full h-12 px-4 rounded-xl bg-surface-container-low text-on-surface placeholder:text-on-surface-variant/50 font-body-md text-body-md focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:outline-none transition-all"
             id="email-field"
-            placeholder="nombre@estudio.io"
+            placeholder={zone.emailPlaceholder}
             required
             type="email"
             value={email}
@@ -232,14 +240,14 @@ export default function AuthForm({ mode }: AuthFormProps) {
             htmlFor="password-field"
             className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest"
           >
-            CONTRASEÑA
+            {zone.passwordLabel}
           </label>
           {isLogin && (
             <a
               className="font-label-caps text-label-caps text-primary hover:text-primary-container transition-colors uppercase"
               href="#"
             >
-              ¿Olvidé mi contraseña?
+              {zone.forgotPassword}
             </a>
           )}
         </div>
@@ -260,7 +268,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           />
           <button
             type="button"
-            aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+            aria-label={showPassword ? zone.hidePassword : zone.showPassword}
             className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-on-surface rounded-full transition-colors"
             onClick={togglePasswordVisibility}
             disabled={isSubmitting}
@@ -288,10 +296,10 @@ export default function AuthForm({ mode }: AuthFormProps) {
             </p>
             <div className="flex items-center justify-between gap-2">
               <span className="font-mono-code text-[11px] text-on-surface-variant tracking-normal">
-                Código: <code className="font-semibold text-error">{errorCode}</code>
+                {zone.codeLabel} <code className="font-semibold text-error">{errorCode}</code>
               </span>
               <span className="font-mono-code text-[11px] bg-surface-container-lowest px-1.5 py-0.5 rounded text-error font-medium">
-                Intento {attempt}/3
+                {zone.attempt} {attempt}/3
               </span>
             </div>
           </div>
@@ -321,11 +329,11 @@ export default function AuthForm({ mode }: AuthFormProps) {
             disabled={isSubmitting}
           />
           <span className="font-body-sm text-body-sm text-on-surface-variant select-none">
-            Recordar este terminal
+            {zone.remember}
           </span>
         </label>
         <span className="font-mono-code text-[11px] text-on-surface-variant/80">
-          Sesión: 30 días
+          {zone.sessionDuration}
         </span>
       </div>
 
@@ -339,11 +347,11 @@ export default function AuthForm({ mode }: AuthFormProps) {
           {isSubmitting ? (
             <>
               <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
-              <span>Verificando...</span>
+              <span>{zone.verifying}</span>
             </>
           ) : (
             <>
-              <span>{isLogin ? "Acceder a la zona de miembros" : "Crear mi cuenta"}</span>
+              <span>{isLogin ? zone.submitLogin : zone.submitRegister}</span>
               <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">file_download</span>
             </>
           )}
@@ -362,14 +370,14 @@ export default function AuthForm({ mode }: AuthFormProps) {
             <>
               <span className="material-symbols-outlined text-[18px] text-secondary animate-bounce">mark_email_read</span>
               <span className="font-label-caps text-label-caps text-secondary uppercase tracking-wider">
-                ¡Enlace enviado a tu buzón!
+                {zone.magicSent}
               </span>
             </>
           ) : (
             <>
               <span className="material-symbols-outlined text-[18px] text-tertiary group-hover:rotate-12 transition-transform">auto_fix_high</span>
               <span className="font-label-caps text-label-caps uppercase tracking-wider group-hover:underline underline-offset-4">
-                Enviarme un enlace mágico
+                {zone.magicLink}
               </span>
             </>
           )}

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { getBrowserClient } from "@/lib/supabase/browser";
+import { useDict, useI18n } from "@/lib/i18n/I18nProvider";
 
 interface SessionPanelProps {
   email: string;
@@ -16,6 +17,8 @@ interface SessionPanelProps {
 export default function SessionPanel({ email, onSignedOut }: SessionPanelProps) {
   const router = useRouter();
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const zone = useDict().sections.zonaMiembros;
+  const { withLocale } = useI18n();
 
   const handleSignOut = async () => {
     if (isSigningOut) return;
@@ -34,7 +37,7 @@ export default function SessionPanel({ email, onSignedOut }: SessionPanelProps) 
         <span className="material-symbols-outlined text-[20px] mt-0.5 shrink-0">verified_user</span>
         <div className="min-w-0 space-y-1">
           <p className="font-body-sm text-body-sm font-medium leading-snug">
-            Sesión iniciada. Tienes acceso al gestor editorial.
+            {zone.sessionBanner}
           </p>
           <p className="font-mono-code text-[11px] break-all">{email}</p>
         </div>
@@ -43,10 +46,10 @@ export default function SessionPanel({ email, onSignedOut }: SessionPanelProps) 
       <div className="space-y-3">
         <button
           type="button"
-          onClick={() => router.push("/blog/editor")}
+          onClick={() => router.push(withLocale("/blog/editor"))}
           className="w-full h-12 rounded-xl bg-primary text-on-primary hover:bg-primary-container font-label-caps text-label-caps uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm hover:shadow transition-all group active:scale-[0.99]"
         >
-          <span>Ir al editor del blog</span>
+          <span>{zone.goToEditor}</span>
           <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">edit_note</span>
         </button>
 
@@ -58,7 +61,7 @@ export default function SessionPanel({ email, onSignedOut }: SessionPanelProps) 
         >
           <span className="material-symbols-outlined text-[18px] group-hover:rotate-12 transition-transform">logout</span>
           <span className="font-label-caps text-label-caps uppercase tracking-wider group-hover:underline underline-offset-4">
-            {isSigningOut ? "Cerrando sesión..." : "Cerrar sesión"}
+            {isSigningOut ? zone.signingOut : zone.signOut}
           </span>
         </button>
       </div>

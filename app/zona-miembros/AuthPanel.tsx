@@ -11,33 +11,26 @@ import { useEffect, useState } from "react";
 import AuthForm from "./AuthForm";
 import SessionPanel from "./SessionPanel";
 import { getBrowserClient } from "@/lib/supabase/browser";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 type AuthMode = "login" | "register";
 type SessionStatus = "loading" | "anon" | "authed";
-
-const MODE_CONFIG: Record<AuthMode, { title: string; description: string }> = {
-  login: {
-    title: "Entrar",
-    description:
-      "Introduce tus credenciales para acceder al gestor editorial, notas de taller y publicaciones privadas.",
-  },
-  register: {
-    title: "Crear cuenta",
-    description:
-      "Registra tu acceso al gestor editorial, notas de taller y publicaciones privadas.",
-  },
-};
-
-const AUTHED_CONFIG = {
-  title: "Sesión activa",
-  description:
-    "Ya estás dentro del gestor editorial. Puedes entrar al editor o cerrar la sesión en este terminal.",
-};
 
 export default function AuthPanel() {
   const [mode, setMode] = useState<AuthMode>("login");
   const [status, setStatus] = useState<SessionStatus>("loading");
   const [sessionEmail, setSessionEmail] = useState("");
+  const zone = useDict().sections.zonaMiembros;
+
+  const MODE_CONFIG: Record<AuthMode, { title: string; description: string }> = {
+    login: { title: zone.loginTitle, description: zone.loginDescription },
+    register: { title: zone.registerTitle, description: zone.registerDescription },
+  };
+
+  const AUTHED_CONFIG = {
+    title: zone.sessionTitle,
+    description: zone.sessionDescription,
+  };
 
   useEffect(() => {
     let active = true;
@@ -69,7 +62,7 @@ export default function AuthPanel() {
         <div className="mb-8" data-anim="fade-up">
           <div className="flex items-center justify-between mb-3">
             <span className="font-label-caps text-label-caps text-primary uppercase tracking-widest">
-              ZONA PRIVADA — PORTAFOLIO
+              {zone.privateZone}
             </span>
             <span className="font-mono-code text-[11px] text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">
               v2.6.4
@@ -87,7 +80,7 @@ export default function AuthPanel() {
         {status === "loading" && (
           <div className="p-1 rounded-full bg-surface-container mb-8 flex items-center justify-center" data-anim="stagger-label">
             <span className="font-mono-code text-[11px] text-on-surface-variant py-2 px-4">
-              VERIFICANDO SESIÓN...
+              {zone.checkingSession}
             </span>
           </div>
         )}
@@ -105,7 +98,7 @@ export default function AuthPanel() {
                 }`}
                 aria-current={mode === "login" ? "true" : "false"}
               >
-                Entrar
+                {zone.tabLogin}
               </button>
               <button
                 type="button"
@@ -117,7 +110,7 @@ export default function AuthPanel() {
                 }`}
                 aria-current={mode === "register" ? "true" : "false"}
               >
-                Crear cuenta
+                {zone.tabRegister}
               </button>
             </div>
 
@@ -140,24 +133,24 @@ export default function AuthPanel() {
           <div className="flex items-start gap-2.5">
             <span className="material-symbols-outlined text-[18px] text-on-surface-variant mt-0.5 shrink-0">info</span>
             <p className="font-body-sm text-[13px] text-on-surface-variant leading-relaxed">
-              Solo los miembros acreditados pueden publicar en el blog y acceder a las notas de versión previas. Si aún no tienes invitación, solicita acceso mediante el formulario de contacto oficial.
+              {zone.footnote}
             </p>
           </div>
           <div className="flex items-center justify-between text-on-surface-variant/80 pt-2 font-mono-code text-[11px]">
             <span className="inline-flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
-              Autenticación Cifrada
+              {zone.encrypted}
             </span>
             <a className="text-primary hover:underline uppercase font-label-caps text-label-caps" href="#">
-              Solicitar Invitación →
+              {zone.requestInvite}
             </a>
           </div>
         </div>
 
         {/* Bottom Session Meta Status */}
         <div className="mt-8 pt-4 flex items-center justify-between text-on-surface-variant font-mono-code text-[11px]" data-anim="fade-up">
-          <span>ZONA_EDITORIAL // ID: JMMC-SYS-89</span>
-          <span>ESTADO: SERVIDOR ACTIVO</span>
+          <span>{zone.metaLeft}</span>
+          <span>{zone.metaRight}</span>
         </div>
       </div>
     </div>

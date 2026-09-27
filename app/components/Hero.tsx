@@ -1,10 +1,12 @@
 /* SPEC 01 — Paso 3: hero con data-anim="hero-scrub" + hairline divisoria. */
 
 import { getSiteImage } from "@/lib/data";
+import { getDict } from "@/lib/i18n/server";
 import Section from "./ui/Section";
 
-export default function Hero() {
+export default async function Hero() {
   const image = getSiteImage("hero");
+  const { hero } = (await getDict()).sections;
   return (
     <Section anim="hero-scrub" padding="pt-space-xl pb-32" className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center min-h-[calc(100vh-140px)]">
@@ -16,23 +18,22 @@ export default function Hero() {
                 <span className="inline-block w-2 h-2 rounded-full bg-primary animate-ping" />
                 <span className="inline-block -ml-3 w-2 h-2 rounded-full bg-primary" />
                 <span className="font-mono-code text-mono-code tracking-[0.06em] text-on-surface-variant uppercase">
-                  Desarrollador web &amp; UI/UX — Disponible para proyectos
+                  {hero.eyebrow}
                 </span>
               </div>
               {/* Monumental Headline */}
               <h1 className="font-display-xl text-[52px] sm:text-[72px] lg:text-[80px] leading-[1.04] tracking-[-0.03em] text-on-surface font-normal">
-                Diseño y construyo
+                {hero.titleLine1}
                 <br />
-                interfaces que se sienten
+                {hero.titleLine2}
                 <br />
                 <span className="italic text-primary font-headline-lg text-[52px] sm:text-[88px] lg:text-[98px] leading-[0.95] tracking-tight">
-                  cinematográficas.
+                  {hero.titleAccent}
                 </span>
               </h1>
               {/* Subtitle */}
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-                Fullstack, diseño, automatización e IA. Del primer boceto al
-                deploy, orquestando sistemas robustos y estéticas de autor.
+                {hero.subtitle}
               </p>
               {/* CTAs */}
               <div className="flex flex-wrap items-center gap-space-lg pt-space-md">
@@ -40,13 +41,13 @@ export default function Hero() {
                   className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-on-surface text-surface font-mono-code text-mono-code font-medium hover:bg-primary transition-all duration-300 transform hover:-translate-y-0.5"
                   href="#proyectos"
                 >
-                  Ver proyectos
+                  {hero.ctaProjects}
                 </a>
                 <a
                   className="group inline-flex items-center gap-space-sm font-mono-code text-mono-code text-on-surface hover:text-primary transition-colors"
                   href="#contacto"
                 >
-                  <span>Hablemos</span>
+                  <span>{hero.ctaTalk}</span>
                   <span className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:translate-x-1">
                     arrow_forward
                   </span>
@@ -76,7 +77,7 @@ export default function Hero() {
               </div>
               <span className="text-outline-variant">|</span>
               <div className="flex items-center gap-space-xs text-[11px] uppercase tracking-widest text-on-surface-variant">
-                <span>Scroll</span>
+                <span>{hero.scroll}</span>
                 <div className="w-[1px] h-6 bg-outline-variant relative overflow-hidden">
                   <div className="w-full h-1/2 bg-primary absolute top-0 left-0 animate-bounce" />
                 </div>
@@ -110,11 +111,10 @@ export default function Hero() {
               <div className="flex items-end justify-between">
                 <div className="bg-surface/90 backdrop-blur-md p-4 rounded-xl max-w-[260px]">
                   <span className="font-label-caps text-label-caps text-primary uppercase block mb-1">
-                    Dirección de Arte
+                    {hero.hudLabel}
                   </span>
                   <p className="font-mono-code text-[12px] leading-tight text-on-surface">
-                    Arquitectura de sistemas orientada a la experiencia
-                    cinematográfica.
+                    {hero.hudBody}
                   </p>
                 </div>
                 <div className="w-10 h-10 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-on-surface">

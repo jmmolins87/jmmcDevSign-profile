@@ -12,3 +12,17 @@ export const dictionaries: Record<Locale, Dictionary> = { es, en: en satisfies D
 export function getDictionary(locale: Locale): Dictionary {
   return dictionaries[locale];
 }
+
+/* Rutas de hojas de texto (los arrays se tratan como hojas: se leen con
+   dict.<array>, no con t()). */
+export type Paths<T> = T extends string
+  ? never
+  : T extends readonly unknown[]
+    ? never
+    : {
+        [K in keyof T & string]: T[K] extends string
+          ? K
+          : T[K] extends readonly unknown[]
+            ? K
+            : `${K}.${Paths<T[K]>}`
+      }[keyof T & string];

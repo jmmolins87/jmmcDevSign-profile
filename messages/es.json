@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "JMMC — Diseño y desarrollo editorial",
+    "description": "Portafolio de JMMC: fullstack, diseño UI/UX, automatización e IA. Del primer boceto al deploy."
+  },
   "sections": {
     "header": {
       "openMenu": "Abrir navegación",
@@ -92,6 +96,331 @@
     "footer": {
       "tagline": "Fullstack & UI/UX",
       "backToTop": "Volver arriba"
+    },
+    "theme": {
+      "selector": "Selector de tema",
+      "menuLabel": "Apariencia",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    },
+    "zonaMiembros": {
+      "ariaLabel": "Zona de miembros",
+      "metaTitle": "Zona de miembros · JMMC",
+      "metaDescription": "Acceso editorial para autores y colaboradores",
+      "privateZone": "ZONA PRIVADA — PORTAFOLIO",
+      "checkingSession": "VERIFICANDO SESIÓN...",
+      "tabLogin": "Entrar",
+      "tabRegister": "Crear cuenta",
+      "loginTitle": "Entrar",
+      "loginDescription": "Introduce tus credenciales para acceder al gestor editorial, notas de taller y publicaciones privadas.",
+      "registerTitle": "Crear cuenta",
+      "registerDescription": "Registra tu acceso al gestor editorial, notas de taller y publicaciones privadas.",
+      "sessionTitle": "Sesión activa",
+      "sessionDescription": "Ya estás dentro del gestor editorial. Puedes entrar al editor o cerrar la sesión en este terminal.",
+      "sessionBanner": "Sesión iniciada. Tienes acceso al gestor editorial.",
+      "goToEditor": "Ir al editor del blog",
+      "signOut": "Cerrar sesión",
+      "signingOut": "Cerrando sesión...",
+      "emailLabel": "CORREO ELECTRÓNICO",
+      "authorId": "ID DE AUTOR",
+      "emailPlaceholder": "nombre@estudio.io",
+      "passwordLabel": "CONTRASEÑA",
+      "forgotPassword": "¿Olvidé mi contraseña?",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
+      "codeLabel": "Código:",
+      "attempt": "Intento",
+      "remember": "Recordar este terminal",
+      "sessionDuration": "Sesión: 30 días",
+      "verifying": "Verificando...",
+      "submitLogin": "Acceder a la zona de miembros",
+      "submitRegister": "Crear mi cuenta",
+      "magicSent": "¡Enlace enviado a tu buzón!",
+      "magicLink": "Enviarme un enlace mágico",
+      "signupNotice": "Cuenta creada. Te hemos enviado un correo para confirmar tu acceso.",
+      "networkError": "No se ha podido contactar con el servidor de autenticación.",
+      "errors": {
+        "invalid_credentials": "El correo o la contraseña no coinciden con los registros autorizados.",
+        "user_already_exists": "Ya existe una cuenta registrada con este correo.",
+        "email_not_confirmed": "Confirma tu correo antes de entrar. Revisa tu bandeja de entrada.",
+        "weak_password": "La contraseña es demasiado débil: usa al menos 6 caracteres.",
+        "signup_disabled": "El registro está cerrado en este momento.",
+        "over_email_send_rate_limit": "Demasiados intentos. Espera un minuto y vuelve a probar."
+      },
+      "footnote": "Solo los miembros acreditados pueden publicar en el blog y acceder a las notas de versión previas. Si aún no tienes invitación, solicita acceso mediante el formulario de contacto oficial.",
+      "encrypted": "Autenticación Cifrada",
+      "requestInvite": "Solicitar Invitación →",
+      "metaLeft": "ZONA_EDITORIAL // ID: JMMC-SYS-89",
+      "metaRight": "ESTADO: SERVIDOR ACTIVO",
+      "editorialBadge": "05 / ACCESO EDITORIAL",
+      "editorialPrivate": "REGISTRO PRIVADO",
+      "editorialRestricted": "Acceso restringido · Autores & Colaboradores",
+      "editorialQuote": "«Escribir también es diseñar.»",
+      "editorialTagline": "Notas sobre producto, arquitectura y código",
+      "editorialBackdropAlt": "Cinematic still of an intimate author writing desk in a moody dark library at twilight. An illuminated vintage brass banker lamp casts warm amber light across an open leather journal with fine handwritten ink calligraphy, alongside a glass ink bottle, fountain pen, and ceramic coffee cup. Atmospheric chiaroscuro, warm walnut wood, deep shadows, 35mm film grain aesthetic."
+    },
+    "demosLeads": {
+      "metaTitle": "Demo · Agente de leads — JMMC",
+      "metaDescription": "Sandbox ficticio del Agente de leads: pipeline, cualificación IA y actividad en vivo.",
+      "backToPortfolio": "Volver al portfolio",
+      "demoBadge": "Demo · datos ficticios",
+      "tabs": {
+        "pipeline": "Pipeline",
+        "activity": "Actividad del agente",
+        "settings": "Ajustes"
+      },
+      "agentActive": "Agente activo:",
+      "agentVersion": "Autopilot v2.4",
+      "agentPaused": "Agente pausado",
+      "filterButton": "Filtrar por origen",
+      "columns": {
+        "nuevo": "Nuevo",
+        "cualificado": "Cualificado",
+        "seguimiento": "Seguimiento",
+        "reunion": "Reunión"
+      },
+      "selected": "Seleccionado",
+      "panel": {
+        "title": "Detalle de cualificación (IA)",
+        "optionsAria": "Opciones de lead",
+        "priority": {
+          "alta": "Alta Prioridad",
+          "media": "Media Prioridad",
+          "baja": "Baja Prioridad"
+        },
+        "roleIn": "en",
+        "verdictExcellent": "Excelente fit predictivo",
+        "verdictGood": "Buen fit predictivo",
+        "verdictEvaluating": "Fit en evaluación",
+        "semanticEvaluation": "Evaluación semántica automática",
+        "scoreGlobal": "Score global",
+        "fitProfile": "Fit de perfil:",
+        "buySignals": "Señales de compra:",
+        "nextStep": "Próximo paso programado",
+        "preview": "Previsualizar",
+        "pause": "Pausar",
+        "sequence": "Secuencia del agente"
+      },
+      "feed": {
+        "title": "Actividad del agente en vivo",
+        "viewFullLog": "Ver registro completo"
+      },
+      "activity": {
+        "title": "Registro del agente",
+        "eventsToday": "148 eventos hoy"
+      },
+      "settings": {
+        "title": "Ajustes del agente",
+        "description": "Estado local de la demo — no se persiste."
+      }
+    },
+    "demosPedidos": {
+      "metaTitle": "Demo · Pedidos en tiempo real — JMMC",
+      "metaDescription": "Sandbox ficticio de pedidos en tiempo real: tablero de cocina con transiciones de estado y actualizaciones en vivo.",
+      "backToPortfolio": "Volver al portfolio",
+      "demoBadge": "Demo · datos ficticios",
+      "orderPrefix": "Pedido ",
+      "toolbar": {
+        "navAria": "Secciones de comandas",
+        "tabOrders": "Pedidos",
+        "tabProducts": "Productos",
+        "tabSettings": "Ajustes",
+        "searchPlaceholder": "Buscar por ID, comensal...",
+        "searchAria": "Buscar por ID o comensal",
+        "channelAria": "Filtrar por canal",
+        "allChannels": "Todos los canales"
+      },
+      "strip": {
+        "title": "Pedidos en tiempo real",
+        "live": "En vivo",
+        "syncedPrefix": "Sincronizado hace",
+        "syncedSuffix": "s",
+        "nuevos": "Nuevos",
+        "preparacion": "En preparación",
+        "listo": "Listos"
+      },
+      "columns": {
+        "nuevo": "Nuevo",
+        "preparacion": "En preparación",
+        "listo": "Listo"
+      },
+      "emptyColumn": "Sin pedidos en esta columna",
+      "emptyResults": "SIN RESULTADOS",
+      "emptyResultsPrefix": "SIN RESULTADOS PARA «",
+      "emptyResultsSuffix": "»",
+      "itemSingular": "artículo",
+      "itemPlural": "artículos",
+      "updatedBadge": "⚡ Actualizado ahora",
+      "states": {
+        "preparacion": "En preparación",
+        "listo": "Listo",
+        "cancelado": "Cancelado"
+      },
+      "dossier": {
+        "issuedPrefix": "Emitido hoy a las",
+        "issuedSuffix": "h",
+        "printAria": "Imprimir comanda",
+        "guest": "Comensal",
+        "detail": "Detalle de comanda",
+        "kitchenNote": "Nota de cocina",
+        "subtotal": "Subtotal",
+        "iva": "IVA inc. (10%)",
+        "total": "Total",
+        "markReady": "Marcar como listo",
+        "cancelOrder": "Cancelar pedido"
+      },
+      "toast": {
+        "justNow": "hace un instante",
+        "closeAria": "Cerrar notificación"
+      }
+    },
+    "demosSoftware": {
+      "metaTitle": "Demo · Software de gestión — JMMC",
+      "metaDescription": "Sandbox ficticio de Software de gestión: KPIs, facturación, inventario y citas.",
+      "backToPortfolio": "Volver al portfolio",
+      "demoBadge": "Demo · datos ficticios",
+      "tabs": {
+        "resumen": "RESUMEN",
+        "clientes": "CLIENTES",
+        "facturas": "FACTURAS",
+        "inventario": "INVENTARIO",
+        "ajustes": "AJUSTES"
+      },
+      "last30Days": "Últimos 30 días",
+      "exportButton": "EXPORTAR",
+      "newInvoiceButton": "NUEVA FACTURA",
+      "toastExport": "[placeholder] Exportar CSV",
+      "toastNewInvoice": "[placeholder] Nueva factura",
+      "comingSoon": "Próximamente en esta demo",
+      "headings": {
+        "chart": "EVOLUCIÓN DE INGRESOS Y COBROS",
+        "appointments": "CITAS DE HOY",
+        "invoices": "ÚLTIMAS FACTURAS EMITIDAS",
+        "stock": "ALERTAS DE INVENTARIO"
+      },
+      "kpis": {
+        "target": "Meta mensual: 92%"
+      },
+      "chart": {
+        "subtitle": "Conciliación de facturación neta versus liquidaciones efectivas",
+        "legendBilling": "Facturación",
+        "legendCollections": "Cobros",
+        "rangeDay": "D",
+        "rangeWeek": "S",
+        "rangeMonth": "M"
+      },
+      "appointments": {
+        "todayCount": "4 PARA HOY",
+        "meetTitle": "Iniciar Meet",
+        "inPerson": "PRESENCIAL",
+        "viewCalendar": "VER CALENDARIO COMPLETO"
+      },
+      "invoices": {
+        "subtitle": "Registro y trazabilidad de los cobros en curso",
+        "viewAll": "VER TODAS (142)",
+        "colId": "ID FACTURA",
+        "colClient": "CLIENTE / ENTIDAD",
+        "colIssued": "EMISIÓN",
+        "colDue": "VENCE",
+        "colAmount": "IMPORTE",
+        "colStatus": "ESTADO",
+        "downloadPdf": "Descargar PDF",
+        "showing": "Mostrando 4 de 142 registros"
+      },
+      "stock": {
+        "subtitle": "Bajo umbral mínimo de seguridad",
+        "critical": "4 CRÍTICOS",
+        "toastViewInventory": "[placeholder] Ver inventario completo",
+        "fullInventory": "INVENTARIO COMPLETO (84 ARTÍCULOS)"
+      }
+    },
+    "editor": {
+      "metaTitle": "Editor del blog · JMMC",
+      "metaDescription": "Crea y edita artículos del blog",
+      "topbar": {
+        "backToPortfolio": "← Volver al portfolio",
+        "restrictedBadge": "Acceso restringido · Solo miembros",
+        "backToBlog": "Volver al blog",
+        "draft": "Borrador",
+        "savedPrefix": "Guardado hace",
+        "savedSuffix": "s",
+        "preview": "Vista previa",
+        "save": "Guardar",
+        "publish": "Publicar"
+      },
+      "canvas": {
+        "changeImage": "Cambiar imagen",
+        "removeCover": "Eliminar imagen de portada",
+        "altConfigured": "Alt text configurado",
+        "altWords": "palabras",
+        "readTime": "min de lectura",
+        "titlePlaceholder": "Escribe el título del ensayo...",
+        "excerptPlaceholder": "Escribe una bajada o sumario editorial..."
+      },
+      "body": {
+        "bodyPlaceholder": "Empieza a escribir tu artículo...",
+        "pullQuoteLabel": "Fragmento destacado",
+        "revisionTitle": "Nota de revisión en curso"
+      },
+      "toolbar": {
+        "navLabel": "Herramientas de edición",
+        "heading": "Encabezado",
+        "bold": "Negrita",
+        "italic": "Cursiva",
+        "link": "Enlace",
+        "quote": "Cita en bloque",
+        "code": "Fragmento de código",
+        "image": "Insertar imagen",
+        "bulletList": "Lista con viñetas",
+        "numberedList": "Lista numerada",
+        "placeholderText": "texto",
+        "linkText": "texto del enlace",
+        "codeText": "código",
+        "imageText": "alt text",
+        "headingText": "Título",
+        "words": "palabras",
+        "min": "min"
+      },
+      "inspector": {
+        "language": {
+          "label": "Idioma del artículo",
+          "active": "Activo"
+        },
+        "slug": {
+          "label": "Slug permanente",
+          "copy": "Copiar URL",
+          "copied": "¡Copiado!",
+          "hint": "Se actualizará automáticamente si modificas el título principal."
+        },
+        "category": {
+          "label": "Categoría editorial",
+          "tagsLabel": "Etiquetas de indexación",
+          "addTag": "Añadir",
+          "removeTag": "Quitar tag"
+        },
+        "publication": {
+          "label": "Publicación programada",
+          "status": "Programado",
+          "publishNow": "¿Publicar ahora?",
+          "switchImmediate": "Cambiar a inmediata"
+        },
+        "alt": {
+          "label": "Alt Text (Accesibilidad)",
+          "a11yOk": "A11y OK",
+          "chars": "chars",
+          "hint": "Describe la portada para lectores de pantalla y buscadores."
+        },
+        "seo": {
+          "label": "Optimización SEO",
+          "score": "Puntuación",
+          "titleLabel": "Meta Título",
+          "descLabel": "Meta Descripción",
+          "previewLabel": "Previsualización en Google",
+          "titleFallback": "Título del artículo",
+          "descFallback": "Descripción del artículo..."
+        }
+      }
     }
   },
   "navItems": [

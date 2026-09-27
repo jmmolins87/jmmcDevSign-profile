@@ -3,23 +3,29 @@
    va como markup local, fuera del modelo de lib/content.ts. */
 
 import { getFeaturedPost, getPostPeeks } from "@/lib/data";
+import { getDict } from "@/lib/i18n/server";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
 
-const MONTHS_ES = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-
-function formatMeta(publishedAt: string, readingMinutes: number): string {
+function formatMeta(
+  publishedAt: string,
+  readingMinutes: number,
+  months: string[],
+  minRead: string,
+): string {
   const date = new Date(`${publishedAt}T00:00:00`);
-  return `${date.getDate()} ${MONTHS_ES[date.getMonth()]} ${date.getFullYear()} · ${readingMinutes} min lectura`;
+  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()} · ${readingMinutes} ${minRead}`;
 }
 
-export default function Blog() {
+export default async function Blog() {
   const [prev, next] = getPostPeeks();
   const post = getFeaturedPost();
+  const dict = await getDict();
+  const section = dict.sections.blog;
 
   return (
     <Section id="blog" anim="reveal-lines">
-      <SectionHeading index="06" name="Blog & Bitácora" />
+      <SectionHeading index="06" name={section.name} />
         {/* Carousel Container */}
         <div className="relative w-full overflow-hidden">
           <div className="flex items-center justify-center gap-6 py-4">
@@ -50,7 +56,12 @@ export default function Blog() {
                       {post.category}
                     </span>
                     <span className="font-mono-code text-[11px] text-outline">
-                      {formatMeta(post.publishedAt, post.readingMinutes)}
+                      {formatMeta(
+                        post.publishedAt,
+                        post.readingMinutes,
+                        section.months,
+                        section.minRead,
+                      )}
                     </span>
                   </div>
                   <h3 className="font-headline-md text-headline-md text-on-surface font-normal">
@@ -64,7 +75,7 @@ export default function Blog() {
                       className="inline-flex items-center gap-2 font-mono-code text-mono-code text-primary font-medium hover:underline"
                       href="#"
                     >
-                      <span>Leer artículo</span>
+                      <span>{section.readArticle}</span>
                       <span className="material-symbols-outlined text-[16px]">
                         arrow_forward
                       </span>
@@ -88,7 +99,7 @@ export default function Blog() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-12">
             <div className="flex items-center gap-4">
               <button
-                aria-label="Artículo anterior"
+                aria-label={section.prevPost}
                 aria-disabled="true"
                 type="button"
                 className="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:border-primary hover:text-primary transition-colors"
@@ -101,7 +112,7 @@ export default function Blog() {
                 02 / 06
               </span>
               <button
-                aria-label="Siguiente artículo"
+                aria-label={section.nextPost}
                 aria-disabled="true"
                 type="button"
                 className="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:border-primary hover:text-primary transition-colors"
@@ -123,7 +134,7 @@ export default function Blog() {
               className="font-mono-code text-mono-code text-on-surface-variant hover:text-primary flex items-center gap-1 transition-colors"
               href="#"
             >
-              <span>Zona de miembros</span>
+              <span>{section.membersZone}</span>
               <span className="material-symbols-outlined text-[16px]">
                 arrow_forward
               </span>

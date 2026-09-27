@@ -6,6 +6,8 @@
 
 import { forwardRef, type TextareaHTMLAttributes } from "react";
 
+import { useDict } from "@/lib/i18n/I18nProvider";
+
 // [placeholder] Portada de ejemplo (misma URL que references/06_editor_del_blog/code.html)
 const COVER_IMAGE =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuATVQ789tbuRmiDcC6GlvQ0M272jYv1EYCcD4h9DMCca1BdPpFhDWMVbLMskZ8fe0vslehzYfhtsMIQ4Blg7JtNO2rY6pSq9wOKkl3uUg1Nq6tuYt_0eZATCp74nWAYrucurF4OIHlpJCgVeP8-g1y_xiih-fp9NOpLW5yovoquDC2M0FOyiUCKCAEhlp5TFW0p0CMA2tiOD0d8xss7hY5FGU54C7EPNiH9Ar2UnZIoyG8BfF77CSQd";
@@ -26,6 +28,7 @@ function CoverImage({
   coverAlt: string;
   altWordCount: number;
 }) {
+  const canvas = useDict().sections.editor.canvas;
   return (
     <div
       className="relative group w-full rounded-xl overflow-hidden bg-surface-container aspect-[16/9]"
@@ -47,13 +50,13 @@ function CoverImage({
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface/90 backdrop-blur-md font-label-caps text-label-caps text-on-surface shadow-sm hover:bg-surface transition-colors"
           type="button"
         >
-          <span className="material-symbols-outlined text-[15px]">
-            photo_camera
-          </span>
-          <span>Cambiar imagen</span>
-        </button>
-        <button
-          aria-label="Eliminar imagen de portada"
+            <span className="material-symbols-outlined text-[15px]">
+              photo_camera
+            </span>
+            <span>{canvas.changeImage}</span>
+          </button>
+          <button
+            aria-label={canvas.removeCover}
           className="w-8 h-8 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-error hover:bg-error-container transition-colors shadow-sm"
           type="button"
         >
@@ -67,7 +70,7 @@ function CoverImage({
           <span className="material-symbols-outlined text-[13px] text-secondary-fixed">
             check_circle
           </span>
-          <span>Alt text configurado ({altWordCount} palabras)</span>
+          <span>{canvas.altConfigured} ({altWordCount} {canvas.altWords})</span>
         </span>
         <span className="hidden sm:inline-flex px-2 py-0.5 rounded-md bg-inverse-surface/60 backdrop-blur-sm text-[11px]">
           2140 × 1204 px · 16:9 {/* [placeholder] */}
@@ -122,6 +125,7 @@ function EssayHeader({
   onExcerptChange: (v: string) => void;
   readMin: number;
 }) {
+  const canvas = useDict().sections.editor.canvas;
   return (
     <header className="flex flex-col gap-4 pt-2" data-anim="fade-up">
       {/* Category / breadcrumb */}
@@ -130,19 +134,19 @@ function EssayHeader({
           Volumen IV · Ensayo {/* [placeholder] */}
         </span>
         <span className="text-outline-variant">/</span>
-        <span className="text-on-surface-variant">{readMin} min de lectura</span>
+        <span className="text-on-surface-variant">{readMin} {canvas.readTime}</span>
       </div>
 
       <EditableTitle
         value={title}
         onChange={(e) => onTitleChange(e.target.value)}
-        placeholder="Escribe el título del ensayo..."
+        placeholder={canvas.titlePlaceholder}
       />
 
       <EditableExcerpt
         value={excerpt}
         onChange={(e) => onExcerptChange(e.target.value)}
-        placeholder="Escribe una bajada o sumario editorial..."
+        placeholder={canvas.excerptPlaceholder}
       />
     </header>
   );
