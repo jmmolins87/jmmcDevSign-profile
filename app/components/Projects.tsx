@@ -13,6 +13,9 @@ export default async function Projects() {
     dict.demos.map(async (demo) => ({ ...demo, href: await withLocale(demo.href) })),
   );
   const section = dict.sections.projects;
+  const projectImages = await Promise.all(
+    projects.map((p) => getSiteImage(`project-${p.index}`))
+  );
   return (
     <Section id="proyectos" anim="stagger-in">
       <SectionHeading index="04" name={section.name} />
@@ -29,7 +32,7 @@ export default async function Projects() {
                   role="img"
                   aria-label={`${project.title} — ${project.category}`}
                   style={{
-                    backgroundImage: `url('${getSiteImage(`project-${project.index}`).url}')`,
+                    backgroundImage: `url('${projectImages[projects.indexOf(project)].url}')`,
                   }}
                 />
               </div>

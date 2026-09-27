@@ -1,5 +1,10 @@
 /* SPEC 03 — Tipos de la capa de datos. Espejan las tablas
-   `posts` e `images` de supabase/schema.sql. */
+   `posts`, `post_translations` e `images` de supabase/schema.sql.
+   SPEC 10 paso 7: `Post` pasa al modelo bilingüe (base + traducciones). */
+
+import type { Locale } from "@/lib/i18n/config";
+
+export type { Locale };
 
 export type SiteImage = {
   key: string;
@@ -7,17 +12,41 @@ export type SiteImage = {
   alt: string;
 };
 
-export type Post = {
-  slug: string;
-  category: string;
+export type PostTranslation = {
+  locale: Locale;
   title: string;
   excerpt: string;
+  body: string;
   readingMinutes: number;
-  publishedAt: string;
-  cover: SiteImage;
 };
 
-export type PostPeek = Pick<Post, "slug" | "category" | "title">;
+export type Post = {
+  slugBase: string;
+  category: string;
+  status: "draft" | "published";
+  publishedAt: string;
+  cover: SiteImage;
+  translations: Partial<Record<Locale, PostTranslation>>;
+};
+
+/* Post resuelto para un locale concreto: textos ya elegidos (con
+   fallback a ES) y slug listo para la URL (`base` o `base-en`). */
+export type ResolvedPost = {
+  slug: string;
+  slugBase: string;
+  category: string;
+  status: "draft" | "published";
+  publishedAt: string;
+  cover: SiteImage;
+  title: string;
+  excerpt: string;
+  body: string;
+  readingMinutes: number;
+  fallback: boolean; // true: se muestra ES en contexto EN (sin traducción)
+  available: Locale[]; // locales con traducción en BD (para hreflang)
+};
+
+export type PostPeek = Pick<ResolvedPost, "slug" | "category" | "title">;
 
 export type DataSource = "mock" | "supabase";
 

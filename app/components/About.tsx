@@ -6,7 +6,7 @@ import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
 
 export default async function About() {
-  const image = getSiteImage("portrait");
+  const image = await getSiteImage("portrait");
   const { about } = (await getDict()).sections;
   return (
     <Section id="sobre-mi" anim="reveal-lines">

@@ -1,9 +1,13 @@
 /* SPEC 01 — Paso 7: sección 06 — Blog (carousel peeking estático,
    controles inoperativos). La tarjeta destacada es un one-off editorial:
-   va como markup local, fuera del modelo de lib/content.ts. */
+   va como markup local. SPEC 10 paso 7: lee posts de la capa de datos
+   (mock o Supabase) resueltos para el locale actual. */
+
+import Link from "next/link";
 
 import { getFeaturedPost, getPostPeeks } from "@/lib/data";
-import { getDict } from "@/lib/i18n/server";
+import { localizePath } from "@/lib/i18n/config";
+import { getDict, getLocale } from "@/lib/i18n/server";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
 
@@ -18,8 +22,9 @@ function formatMeta(
 }
 
 export default async function Blog() {
-  const [prev, next] = getPostPeeks();
-  const post = getFeaturedPost();
+  const locale = await getLocale();
+  const [prev, next] = await getPostPeeks(locale);
+  const post = await getFeaturedPost(locale);
   const dict = await getDict();
   const section = dict.sections.blog;
 
@@ -27,9 +32,11 @@ export default async function Blog() {
     <Section id="blog" anim="reveal-lines">
       <SectionHeading index="06" name={section.name} />
         {/* Carousel Container */}
+        {post && (
         <div className="relative w-full overflow-hidden">
           <div className="flex items-center justify-center gap-6 py-4">
             {/* Previous Peeking Card */}
+            {prev && (
             <div className="hidden lg:block w-[18%] flex-shrink-0 opacity-40 scale-95 transition-all duration-500 rounded-2xl overflow-hidden bg-surface-container border border-outline-variant p-5 select-none pointer-events-none">
               <div className="w-full aspect-[16/10] bg-surface-variant rounded-lg mb-4" />
               <span className="font-mono-code text-[10px] text-outline uppercase">
@@ -39,6 +46,7 @@ export default async function Blog() {
                 {prev.title}
               </h4>
             </div>
+            )}
             {/* Active Centered Card */}
             <div className="w-full lg:w-[64%] flex-shrink-0 rounded-2xl bg-surface-container-low border border-outline-variant p-8 sm:p-10 shadow-lg transition-all duration-500">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
@@ -71,20 +79,21 @@ export default async function Blog() {
                     {post.excerpt}
                   </p>
                   <div className="pt-2">
-                    <a
+                    <Link
                       className="inline-flex items-center gap-2 font-mono-code text-mono-code text-primary font-medium hover:underline"
-                      href="#"
+                      href={localizePath(locale, `/blog/${post.slug}`)}
                     >
                       <span>{section.readArticle}</span>
                       <span className="material-symbols-outlined text-[16px]">
                         arrow_forward
                       </span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
             {/* Next Peeking Card */}
+            {next && (
             <div className="hidden lg:block w-[18%] flex-shrink-0 opacity-40 scale-95 transition-all duration-500 rounded-2xl overflow-hidden bg-surface-container border border-outline-variant p-5 select-none pointer-events-none">
               <div className="w-full aspect-[16/10] bg-surface-variant rounded-lg mb-4" />
               <span className="font-mono-code text-[10px] text-outline uppercase">
@@ -94,6 +103,7 @@ export default async function Blog() {
                 {next.title}
               </h4>
             </div>
+            )}
           </div>
           {/* Controls Row */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-12">
@@ -141,6 +151,7 @@ export default async function Blog() {
             </a>
           </div>
         </div>
+        )}
     </Section>
   );
 }

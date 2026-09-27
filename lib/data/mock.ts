@@ -1,8 +1,9 @@
 /* SPEC 03 — Implementación mock de la capa de datos.
    Reutiliza los valores actuales (hotlink asumido por SPEC 01).
+   SPEC 10 paso 7: posts en el modelo bilingüe (translations es/en).
    Todo contenido de ejemplo lleva // [placeholder]. */
 
-import type { Post, PostPeek, SiteImage } from "./types";
+import type { Post, SiteImage } from "./types";
 
 export const MOCK_IMAGES: Record<string, SiteImage> = {
   hero: {
@@ -42,27 +43,81 @@ export const MOCK_IMAGES: Record<string, SiteImage> = {
   },
 };
 
-export const MOCK_FEATURED_POST: Post = {
-  slug: "mas-alla-de-la-reactividad", // [placeholder]
-  category: "Arquitectura Frontend", // [placeholder]
-  title:
-    "Más allá de la reactividad: composición funcional y rendimiento en browsers modernos", // [placeholder]
-  excerpt:
-    "Un análisis pausado sobre por qué el exceso de capas de abstracción daña el Core Web Vitals y cómo recuperar la fluidez cinematográfica a 60 FPS.", // [placeholder]
-  readingMinutes: 6, // [placeholder]
-  publishedAt: "2026-02-14", // [placeholder]
-  cover: MOCK_IMAGES["post-featured"],
-};
-
-export const MOCK_POST_PEEKS: PostPeek[] = [
+export const MOCK_POSTS: Post[] = [
   {
-    slug: "sistemas-diseno-css-puro", // [placeholder]
-    category: "01 // Dev", // [placeholder]
-    title: "Sistemas de diseño dinámicos en CSS puro", // [placeholder]
+    slugBase: "mas-alla-de-la-reactividad", // [placeholder]
+    category: "Arquitectura Frontend", // [placeholder]
+    status: "published",
+    publishedAt: "2026-02-14", // [placeholder]
+    cover: MOCK_IMAGES["post-featured"],
+    translations: {
+      es: {
+        locale: "es",
+        title:
+          "Más allá de la reactividad: composición funcional y rendimiento en browsers modernos", // [placeholder]
+        excerpt:
+          "Un análisis pausado sobre por qué el exceso de capas de abstracción daña el Core Web Vitals y cómo recuperar la fluidez cinematográfica a 60 FPS.", // [placeholder]
+        body:
+          "Un análisis pausado sobre por qué el exceso de capas de abstracción daña el Core Web Vitals y cómo recuperar la fluidez cinematográfica a 60 FPS.\n\nCada framework añade una capa, y cada capa suma trabajo en el hilo principal. Este ensayo desmonta el coste real de la abstracción y propone un camino de vuelta a la composición simple.\n\nEl resultado no es solo un número mejor en Lighthouse: es recuperar la sensación de un interfaz que responde antes de que termines de pensar.", // [placeholder]
+        readingMinutes: 6,
+      },
+      en: {
+        locale: "en",
+        title:
+          "Beyond reactivity: functional composition and performance in modern browsers", // [placeholder]
+        excerpt:
+          "A measured look at why an excess of abstraction layers hurts Core Web Vitals and how to get cinematic 60 FPS fluidity back.", // [placeholder]
+        body:
+          "A measured look at why an excess of abstraction layers hurts Core Web Vitals and how to get cinematic 60 FPS fluidity back.\n\nEvery framework adds a layer, and every layer adds work to the main thread. This essay breaks down the real cost of abstraction and proposes a path back to simple composition.\n\nThe result is not just a better Lighthouse score: it is recovering the feeling of an interface that responds before you finish thinking.", // [placeholder]
+        readingMinutes: 6,
+      },
+    },
   },
   {
-    slug: "ollama-local-produccion", // [placeholder]
+    slugBase: "sistemas-diseno-css-puro", // [placeholder]
+    category: "01 // Dev", // [placeholder]
+    status: "published",
+    publishedAt: "2026-02-03", // [placeholder]
+    cover: MOCK_IMAGES["project-01"],
+    translations: {
+      es: {
+        locale: "es",
+        title: "Sistemas de diseño dinámicos en CSS puro", // [placeholder]
+        excerpt:
+          "Tokens, custom properties y `@layer` para mantener un sistema vivo sin arrastrar un runtime de JavaScript al navegador.", // [placeholder]
+        body:
+          "Tokens, custom properties y @layer para mantener un sistema vivo sin arrastrar un runtime de JavaScript al navegador.\n\nUn sistema de diseño no muere por falta de componentes: muere por exceso de acoplamiento. Con CSS puro se puede vivir, tematizarse y escalar sin peso extra.\n\nRecorremos la arquitectura de capas, la estrategia de tokens y los límites honestos de esta aproximación.", // [placeholder]
+        readingMinutes: 5,
+      },
+      en: {
+        locale: "en",
+        title: "Dynamic design systems in pure CSS", // [placeholder]
+        excerpt:
+          "Tokens, custom properties and @layer to keep a system alive without dragging a JavaScript runtime into the browser.", // [placeholder]
+        body:
+          "Tokens, custom properties and @layer to keep a system alive without dragging a JavaScript runtime into the browser.\n\nA design system does not die from a lack of components: it dies from excess coupling. With pure CSS you can live, theme and scale without extra weight.\n\nWe walk through the layer architecture, the token strategy and the honest limits of this approach.", // [placeholder]
+        readingMinutes: 5,
+      },
+    },
+  },
+  {
+    slugBase: "ollama-local-produccion", // [placeholder]
     category: "03 // IA", // [placeholder]
-    title: "Modelos locales en producción con Ollama", // [placeholder]
+    status: "published",
+    publishedAt: "2026-01-22", // [placeholder]
+    cover: MOCK_IMAGES["project-03"],
+    translations: {
+      es: {
+        locale: "es",
+        title: "Modelos locales en producción con Ollama", // [placeholder]
+        excerpt:
+          "Qué cambia cuando el modelo vive en tu servidor: latencia, coste, privacidad y las decisiones de infraestructura que nadie te cuenta.", // [placeholder]
+        body:
+          "Qué cambia cuando el modelo vive en tu servidor: latencia, coste, privacidad y las decisiones de infraestructura que nadie te cuenta.\n\nEjecutar modelos localmente no es solo ahorrar API: es asumir cargas, colas y versiones como cualquier otro servicio.\n\nGuía práctica desde el primer `ollama run` hasta un despliegue con métricas y expectativas realistas.", // [placeholder]
+        readingMinutes: 7,
+      },
+      // Sin traducción EN a propósito: fixture de fallback
+      // (`/en/blog/ollama-local-produccion` muestra ES con aviso).
+    },
   },
 ];

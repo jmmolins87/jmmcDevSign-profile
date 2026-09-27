@@ -5,7 +5,7 @@ import { getDict } from "@/lib/i18n/server";
 import Section from "./ui/Section";
 
 export default async function Hero() {
-  const image = getSiteImage("hero");
+  const image = await getSiteImage("hero");
   const { hero } = (await getDict()).sections;
   return (
     <Section anim="hero-scrub" padding="pt-space-xl pb-32" className="relative">

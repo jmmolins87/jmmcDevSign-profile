@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "JMMC — Editorial design and development",
-    "description": "JMMC's portfolio: fullstack, UI/UX design, automation and AI. From first sketch to deploy."
+    "description": "JMMC's portfolio: fullstack, UI/UX design, automation and AI. From first sketch to deploy.",
+    "blog": "Blog & Logbook — JMMC"
   },
   "sections": {
     "header": {
@@ -77,6 +78,15 @@
       "membersZone": "Members zone",
       "minRead": "min read",
       "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    },
+    "blogListing": {
+      "eyebrow": "JMMC // BLOG",
+      "intro": "Measured essays on code, design and the decisions in between.",
+      "empty": "No articles published yet."
+    },
+    "postPage": {
+      "backToBlog": "Back to blog",
+      "fallbackNotice": "Language unavailable — showing ES"
     },
     "contact": {
       "name": "Contact",
