@@ -355,9 +355,12 @@
         "draft": "Borrador",
         "savedPrefix": "Guardado hace",
         "savedSuffix": "s",
-        "preview": "Vista previa",
-        "save": "Guardar",
-        "publish": "Publicar"
+"preview": "Vista previa",
+  "save": "Guardar",
+  "saving": "Guardando…",
+  "published": "Publicado",
+  "publish": "Publicar",
+  "neverSaved": "Sin guardar"
       },
       "canvas": {
         "changeImage": "Cambiar imagen",

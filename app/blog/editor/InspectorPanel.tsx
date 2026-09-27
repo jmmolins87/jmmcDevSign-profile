@@ -1,15 +1,25 @@
 "use client";
 
-/* SPEC 09 — Paso 6: panel lateral del editor con 6 módulos.
-   Idioma, slug (auto-generado), categoría+tags, publicación, alt text, SEO. */
+/* SPEC 10 — Paso 9: panel lateral del editor con 6 módulos.
+   Idioma (funcional ES/EN), slug (auto-generado), categoría+tags, publicación, alt text, SEO. */
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import { useDict } from "@/lib/i18n/I18nProvider";
 
-/* ---------- Language Module ---------- */
-function LanguageModule() {
+/* ---------- Language Module (funcional ES/EN) ---------- */
+interface LanguageModuleProps {
+  editorLocale: "es" | "en";
+  onLocaleChange: (locale: "es" | "en") => void;
+}
+
+function LanguageModule({ editorLocale, onLocaleChange }: LanguageModuleProps) {
   const language = useDict().sections.editor.inspector.language;
+
+  const handleLocaleChange = (locale: "es" | "en") => {
+    onLocaleChange(locale);
+  };
+
   return (
     <div
       className="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-3"
@@ -20,18 +30,28 @@ function LanguageModule() {
           {language.label}
         </span>
         <span className="font-mono-code text-mono-code text-secondary">
-          ES · {language.active}
+          {editorLocale.toUpperCase()} · {language.active}
         </span>
       </div>
       <div className="grid grid-cols-2 p-1 rounded-full bg-surface-container">
         <button
-          className="py-1.5 rounded-full bg-surface-container-lowest font-label-caps text-label-caps text-on-surface shadow-xs font-semibold"
+          onClick={() => handleLocaleChange("es")}
+          className={`py-1.5 rounded-full font-label-caps text-label-caps transition-colors ${
+            editorLocale === "es"
+              ? "bg-surface-container-lowest text-on-surface shadow-xs font-semibold"
+              : "text-on-surface-variant hover:text-on-surface"
+          }`}
           type="button"
         >
           Español (ES)
         </button>
         <button
-          className="py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps transition-colors"
+          onClick={() => handleLocaleChange("en")}
+          className={`py-1.5 rounded-full font-label-caps text-label-caps transition-colors ${
+            editorLocale === "en"
+              ? "bg-surface-container-lowest text-on-surface shadow-xs font-semibold"
+              : "text-on-surface-variant hover:text-on-surface"
+          }`}
           type="button"
         >
           English (EN)
@@ -42,11 +62,11 @@ function LanguageModule() {
 }
 
 /* ---------- Slug Module ---------- */
-function SlugModule({
-  slug,
-}: {
+interface SlugModuleProps {
   slug: string;
-}) {
+}
+
+function SlugModule({ slug }: SlugModuleProps) {
   const [copied, setCopied] = useState(false);
   const slugDict = useDict().sections.editor.inspector.slug;
 
@@ -101,17 +121,21 @@ function SlugModule({
 }
 
 /* ---------- Category & Tags Module ---------- */
+interface CategoryModuleProps {
+  category: string;
+  onCategoryChange: (v: string) => void;
+  tags: string[];
+  onTagsChange: (tags: string[]) => void;
+  onRemoveTag: (tag: string) => void;
+}
+
 function CategoryModule({
   category,
   onCategoryChange,
   tags,
+  onTagsChange,
   onRemoveTag,
-}: {
-  category: string;
-  onCategoryChange: (v: string) => void;
-  tags: string[];
-  onRemoveTag: (tag: string) => void;
-}) {
+}: CategoryModuleProps) {
   const categories = [ // [placeholder]
     "Ensayos de Diseño & Arquitectura",
     "Ingeniería de Software & Frontend",
@@ -119,6 +143,15 @@ function CategoryModule({
     "Bitácora de Investigación",
   ];
   const categoryDict = useDict().sections.editor.inspector.category;
+  const [newTag, setNewTag] = useState("");
+
+  const handleAddTag = useCallback(() => {
+    const tag = newTag.trim();
+    if (tag && !tags.includes(tag)) {
+      onTagsChange([...tags, tag]);
+      setNewTag("");
+    }
+  }, [newTag, tags, onTagsChange]);
 
   return (
     <div
@@ -164,7 +197,7 @@ function CategoryModule({
                 aria-label={`${categoryDict.removeTag} ${tag}`}
                 className="hover:text-primary"
                 type="button"
-                onClick={() => onRemoveTag(tag)}
+                onClick={() => onTagsChange(tags.filter((t) => t !== tag))}
               >
                 <span className="material-symbols-outlined text-[13px]">
                   close
@@ -172,14 +205,24 @@ function CategoryModule({
               </button>
             </span>
           ))}
-          {/* Add tag pill (inert) */}
-          <button
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps transition-colors"
-            type="button"
-          >
-            <span className="material-symbols-outlined text-[13px]">add</span>
-            <span>{categoryDict.addTag}</span>
-          </button>
+          {/* Add tag input */}
+          <div className="flex items-center gap-1">
+            <input
+              type="text"
+              value={newTag}
+              onChange={(e) => setNewTag(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleAddTag()}
+              placeholder={categoryDict.addTag}
+              className="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps text-sm focus:outline-none focus:bg-surface-container w-32"
+            />
+            <button
+              onClick={handleAddTag}
+              className="inline-flex items-center justify-center p-1.5 rounded-full bg-surface-container-high hover:bg-surface-container transition-colors"
+              type="button"
+            >
+              <span className="material-symbols-outlined text-[13px]">add</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -187,7 +230,11 @@ function CategoryModule({
 }
 
 /* ---------- Publication Module ---------- */
-function PublicationModule() {
+interface PublicationModuleProps {
+  status: "draft" | "published";
+}
+
+function PublicationModule({ status }: PublicationModuleProps) {
   const publication = useDict().sections.editor.inspector.publication;
   return (
     <div
@@ -199,7 +246,7 @@ function PublicationModule() {
           {publication.label}
         </span>
         <span className="font-label-caps text-label-caps text-primary">
-          {publication.status}
+          {status === "published" ? "Publicado" : publication.status}
         </span>
       </div>
       <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-surface-container">
@@ -208,7 +255,7 @@ function PublicationModule() {
         </span>
         <div className="flex flex-col">
           <span className="font-body-sm text-body-sm font-medium text-on-surface">
-            24 Octubre 2026, 10:00 CEST {/* [placeholder] */}
+            {status === "published" ? "Publicado ahora" : "Pendiente de publicación"} {/* [placeholder] */}
           </span>
           <span className="font-mono-code text-[11px] text-on-surface-variant">
             Lanzamiento sincronizado con Newsletter {/* [placeholder] */}
@@ -229,13 +276,12 @@ function PublicationModule() {
 }
 
 /* ---------- Alt Text Module ---------- */
-function AltTextModule({
-  coverAlt,
-  onChange,
-}: {
+interface AltTextModuleProps {
   coverAlt: string;
   onChange: (v: string) => void;
-}) {
+}
+
+function AltTextModule({ coverAlt, onChange }: AltTextModuleProps) {
   const charCount = coverAlt.length;
   const hasAlt = charCount > 10;
   const alt = useDict().sections.editor.inspector.alt;
@@ -273,6 +319,15 @@ function AltTextModule({
 }
 
 /* ---------- SEO Module ---------- */
+interface SeoModuleProps {
+  seoTitle: string;
+  onSeoTitleChange: (v: string) => void;
+  seoDescription: string;
+  onSeoDescriptionChange: (v: string) => void;
+  seoScore: number;
+  slug: string;
+}
+
 function SeoModule({
   seoTitle,
   onSeoTitleChange,
@@ -280,14 +335,7 @@ function SeoModule({
   onSeoDescriptionChange,
   seoScore,
   slug,
-}: {
-  seoTitle: string;
-  onSeoTitleChange: (v: string) => void;
-  seoDescription: string;
-  onSeoDescriptionChange: (v: string) => void;
-  seoScore: number;
-  slug: string;
-}) {
+}: SeoModuleProps) {
   const titleLen = seoTitle.length;
   const descLen = seoDescription.length;
   const titleOver = titleLen > 60;
@@ -384,27 +432,14 @@ function SeoModule({
 }
 
 /* ---------- Main Inspector Panel ---------- */
-const DEFAULT_TAGS = ["UI/UX", "EDITORIAL", "TYPOGRAPHY", "SYSTEMS"]; // [placeholder]
-const DEFAULT_CATEGORY = "Ensayos de Diseño & Arquitectura"; // [placeholder]
-
-export default function InspectorPanel({
-  slug,
-  category,
-  onCategoryChange,
-  tags,
-  onRemoveTag,
-  coverAlt,
-  onCoverAltChange,
-  seoTitle,
-  onSeoTitleChange,
-  seoDescription,
-  onSeoDescriptionChange,
-  seoScore,
-}: {
+interface InspectorPanelProps {
+  editorLocale: "es" | "en";
+  onEditorLocaleChange: (locale: "es" | "en") => void;
   slug: string;
   category: string;
   onCategoryChange: (v: string) => void;
   tags: string[];
+  onTagsChange: (tags: string[]) => void;
   onRemoveTag: (tag: string) => void;
   coverAlt: string;
   onCoverAltChange: (v: string) => void;
@@ -413,21 +448,45 @@ export default function InspectorPanel({
   seoDescription: string;
   onSeoDescriptionChange: (v: string) => void;
   seoScore: number;
-}) {
+  status: "draft" | "published";
+}
+
+export default function InspectorPanel({
+  editorLocale,
+  onEditorLocaleChange,
+  slug,
+  category,
+  onCategoryChange,
+  tags,
+  onTagsChange,
+  onRemoveTag,
+  coverAlt,
+  onCoverAltChange,
+  seoTitle,
+  onSeoTitleChange,
+  seoDescription,
+  onSeoDescriptionChange,
+  seoScore,
+  status,
+}: InspectorPanelProps) {
   return (
     <aside
       className="lg:col-span-4 flex flex-col gap-6"
       data-anim="stagger-in"
     >
-      <LanguageModule />
+      <LanguageModule
+        editorLocale={editorLocale}
+        onLocaleChange={onEditorLocaleChange}
+      />
       <SlugModule slug={slug} />
       <CategoryModule
         category={category}
         onCategoryChange={onCategoryChange}
         tags={tags}
+        onTagsChange={onTagsChange}
         onRemoveTag={onRemoveTag}
       />
-      <PublicationModule />
+      <PublicationModule status={status} />
       <AltTextModule coverAlt={coverAlt} onChange={onCoverAltChange} />
       <SeoModule
         seoTitle={seoTitle}
@@ -440,5 +499,3 @@ export default function InspectorPanel({
     </aside>
   );
 }
-
-export { DEFAULT_TAGS, DEFAULT_CATEGORY };

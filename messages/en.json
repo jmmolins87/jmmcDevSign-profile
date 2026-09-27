@@ -355,9 +355,12 @@
         "draft": "Draft",
         "savedPrefix": "Saved",
         "savedSuffix": "s ago",
-        "preview": "Preview",
-        "save": "Save",
-        "publish": "Publish"
+"preview": "Preview",
+  "save": "Save",
+  "saving": "Saving…",
+  "published": "Published",
+  "publish": "Publish",
+  "neverSaved": "Never saved"
       },
       "canvas": {
         "changeImage": "Change image",
