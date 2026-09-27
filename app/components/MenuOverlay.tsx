@@ -97,8 +97,11 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
   }, []);
 
   // Scroll spy: la franja central (-45% / -50%) decide qué sección está activa.
+  // SPEC 09: navItems puede traer hrefs de ruta (p. ej. /blog/editor);
+  // solo los anclas (#…) son selectores CSS válidos para el spy.
   useEffect(() => {
     const sections = navItems
+      .filter((item) => item.href.startsWith("#"))
       .map((item) => document.querySelector(item.href))
       .filter((el): el is Element => el !== null);
     if (sections.length === 0) return;
