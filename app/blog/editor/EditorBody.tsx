@@ -12,6 +12,8 @@ import {
   useState,
 } from "react";
 
+import { useDict } from "@/lib/i18n/I18nProvider";
+
 // [placeholder] Contenido de ejemplo del cuerpo
 const DEFAULT_BODY = `Durante décadas, la industria del software ha tratado la interfaz de usuario como una mera capa de abstracción funcional: un conjunto prescindible de cajas ensambladas con el único propósito de despachar información transaccional. Sin embargo, cuando observamos las publicaciones editoriales del siglo XX —desde las partituras tipográficas de Emil Ruder hasta los volúmenes arquitectónicos de El Croquis—, descubrimos que cada espacio en blanco, cada modulación de ritmo y cada tensión asimétrica transmiten una intención estética inequívoca.
 
@@ -37,6 +39,7 @@ BodyTextarea.displayName = "BodyTextarea";
 
 /* ---------- Pull Quote Preview (debajo del textarea, referencia visual) ---------- */
 function PullQuotePreview({ body }: { body: string }) {
+  const pullQuoteLabel = useDict().sections.editor.body.pullQuoteLabel;
   // Muestra el pull quote si existe en el body
   const quoteMatch = body.match(/>[ \t]*«([^»]+)»/);
   if (!quoteMatch) return null;
@@ -49,7 +52,7 @@ function PullQuotePreview({ body }: { body: string }) {
       <div className="mt-3 flex items-center gap-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">
         <span>— Cuaderno de taller, 2026</span> {/* [placeholder] */}
         <span className="text-outline-variant">·</span>
-        <span className="text-secondary font-mono-code">Fragmento destacado</span>
+        <span className="text-secondary font-mono-code">{pullQuoteLabel}</span>
       </div>
     </div>
   );
@@ -57,6 +60,7 @@ function PullQuotePreview({ body }: { body: string }) {
 
 /* ---------- Revision Note Callout ---------- */
 function RevisionNote() {
+  const revisionTitle = useDict().sections.editor.body.revisionTitle;
   return (
     <div className="mt-4 p-5 rounded-xl bg-surface-container-low flex items-start gap-4">
       <span className="material-symbols-outlined text-primary text-[22px] mt-0.5">
@@ -64,7 +68,7 @@ function RevisionNote() {
       </span>
       <div className="flex flex-col gap-1">
         <span className="font-label-caps text-label-caps uppercase text-on-surface tracking-wider">
-          Nota de revisión en curso
+          {revisionTitle}
         </span>
         <p className="font-body-sm text-body-sm text-on-surface-variant">
           Pendiente de añadir un gráfico interactivo SVG con la correlación de
@@ -96,6 +100,7 @@ export default function EditorBody({
   const internalRef = useRef<HTMLTextAreaElement>(null);
   const ref = bodyRef || internalRef;
   const [showCursor, setShowCursor] = useState(true);
+  const bodyPlaceholder = useDict().sections.editor.body.bodyPlaceholder;
 
   // Ocultar cursor pulsante cuando el textarea tiene foco
   useEffect(() => {
@@ -117,7 +122,7 @@ export default function EditorBody({
         ref={ref}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Empieza a escribir tu artículo..."
+        placeholder={bodyPlaceholder}
         rows={16}
       />
       {/* Visual accent: pull quote preview + revision note */}

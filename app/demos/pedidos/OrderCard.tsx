@@ -8,6 +8,7 @@
 
 import { formatEUR, orderTotals } from "@/lib/data/orders";
 import type { Order } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 const BADGE_TONE: Record<string, string> = {
   ENTREGADO: "text-on-surface-variant bg-surface-container-highest",
@@ -34,6 +35,7 @@ export default function OrderCard({
   onSelect: (id: string) => void;
 }) {
   const { total } = orderTotals(order);
+  const { demosPedidos } = useDict().sections;
   const surface = selected
     ? "bg-surface border-outline"
     : updated
@@ -45,7 +47,7 @@ export default function OrderCard({
       role="button"
       tabIndex={0}
       aria-pressed={selected}
-      aria-label={`Pedido ${order.id}, ${order.guest}`}
+      aria-label={`${demosPedidos.orderPrefix}${order.id}, ${order.guest}`}
       onClick={() => onSelect(order.id)}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -72,7 +74,7 @@ export default function OrderCard({
         </div>
         {updated ? (
           <span className="px-2 py-0.5 rounded-full font-label-caps text-[10px] uppercase tracking-tight whitespace-nowrap text-primary bg-primary-fixed font-bold">
-            ⚡ Actualizado ahora
+            {demosPedidos.updatedBadge}
           </span>
         ) : (
           <span
@@ -89,7 +91,10 @@ export default function OrderCard({
 
       <div className="flex items-center justify-between text-body-sm text-on-surface-variant mb-3">
         <span>
-          {order.items.length} artículo{order.items.length === 1 ? "" : "s"}
+          {order.items.length}{" "}
+          {order.items.length === 1
+            ? demosPedidos.itemSingular
+            : demosPedidos.itemPlural}
         </span>
         <span className="font-mono-code text-on-surface font-semibold">
           {formatEUR(total)}

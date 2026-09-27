@@ -1,14 +1,20 @@
 /* SPEC 01 — Paso 5: sección 03 — Experiencia (data-anim="draw-line"). */
 
-import { timeline } from "@/lib/content";
+import { getDict } from "@/lib/i18n/server";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
 import Chip from "./ui/Chip";
 
-export default function Experience() {
+export default async function Experience() {
+  const dict = await getDict();
+  const timeline = dict.timeline;
   return (
     <Section id="experiencia" anim="draw-line">
-      <SectionHeading index="03" name="Experiencia" className="mb-20" />
+      <SectionHeading
+        index="03"
+        name={dict.sections.experience.name}
+        className="mb-20"
+      />
         {/* Timeline Wrapper */}
         <div className="relative">
           {/* Vertical Hairline Connector */}

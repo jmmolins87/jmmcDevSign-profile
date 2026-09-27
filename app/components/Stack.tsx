@@ -2,28 +2,30 @@
    Las barras llevan data-level con el % objetivo para el hook de
    animación del paso 9; sin JS muestran su ancho final. */
 
-import { stackGroups } from "@/lib/content";
+import { getDict } from "@/lib/i18n/server";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
 
-export default function Stack() {
+export default async function Stack() {
+  const dict = await getDict();
+  const { stack: stackSection } = dict.sections;
+  const stackGroups = dict.stackGroups;
   return (
     <Section id="stack" anim="fill-bar">
-      <SectionHeading index="02" name="Stack" />
+      <SectionHeading index="02" name={stackSection.name} />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Section Intro Sticky Left */}
           <div className="lg:col-span-4 space-y-4">
             <h2 className="font-headline-lg text-headline-lg text-on-surface font-normal">
-              Tecnologías y arquitectura
+              {stackSection.title}
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant">
-              Especialización técnica vertical combinada con una capacidad
-              holística de diseño de sistemas resilientes y escalables.
+              {stackSection.intro}
             </p>
             <div className="pt-4 flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-primary" />
               <span className="font-mono-code text-[11px] uppercase tracking-wider text-on-surface">
-                Dominio en producción
+                {stackSection.badge}
               </span>
             </div>
           </div>

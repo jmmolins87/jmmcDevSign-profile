@@ -3,15 +3,22 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getDict, withLocale } from "@/lib/i18n/server";
 import DemoShell from "./DemoShell";
 
-export const metadata: Metadata = {
-  title: "Demo · Agente de leads — JMMC",
-  description:
-    "Sandbox ficticio del Agente de leads: pipeline, cualificación IA y actividad en vivo.",
-};
+/* SPEC 10 — Paso 6: metadata localizada desde el diccionario. */
+export async function generateMetadata(): Promise<Metadata> {
+  const { demosLeads } = (await getDict()).sections;
+  return {
+    title: demosLeads.metaTitle,
+    description: demosLeads.metaDescription,
+  };
+}
 
-export default function LeadsDemoPage() {
+export default async function LeadsDemoPage() {
+  const { demosLeads } = (await getDict()).sections;
+  const backHref = await withLocale("/");
+
   return (
     <div className="flex flex-col w-full">
       {/* Sub-barra de demo */}
@@ -19,16 +26,16 @@ export default function LeadsDemoPage() {
         <div className="max-w-[1280px] mx-auto px-margin-mobile lg:px-margin h-12 flex items-center justify-between text-body-sm">
           <Link
             className="inline-flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors font-mono-code text-mono-code focus:outline-none"
-            href="/"
+            href={backHref}
           >
             <span className="material-symbols-outlined text-[16px]">
               arrow_back
             </span>
-            <span>Volver al portfolio</span>
+            <span>{demosLeads.backToPortfolio}</span>
           </Link>
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-outline-variant bg-surface font-mono-code text-label-caps uppercase tracking-wider text-on-surface-variant">
             <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
-            <span>Demo · datos ficticios</span>
+            <span>{demosLeads.demoBadge}</span>
           </div>
         </div>
       </div>

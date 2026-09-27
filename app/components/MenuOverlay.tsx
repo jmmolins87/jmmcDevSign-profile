@@ -11,7 +11,8 @@
    validada en screen.png, en Paper y en Night). */
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { demos, navItems } from "@/lib/content";
+import { usePathname } from "next/navigation";
+import { useDict, useI18n, useT } from "@/lib/i18n/I18nProvider";
 import ThemePopover from "./ThemePopover";
 
 /* Puntos de color por demo, en el orden de `demos` (teal / ochre / acento) */
@@ -23,7 +24,16 @@ type MenuOverlayProps = {
 
 export default function MenuOverlay({ onClose }: MenuOverlayProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const dict = useDict();
+  const t = useT();
+  const { locale, withLocale } = useI18n();
+  const pathname = usePathname();
+  const navItems = dict.navItems;
+  const demos = dict.demos.map((demo) => ({ ...demo, href: withLocale(demo.href) }));
   const [activeHref, setActiveHref] = useState<string>(navItems[0].href);
+
+  const esHref = locale === "en" ? pathname.replace(/^\/en/, "") || "/" : pathname;
+  const enHref = withLocale(pathname);
 
   // Bloquear el scroll de la página mientras el overlay está abierto.
   useEffect(() => {
@@ -118,7 +128,7 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
     );
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [navItems]);
 
   // ESC cierra (salvo que el popover de tema esté abierto: él se cierra solo)
   // y Tab queda atrapado dentro del diálogo.
@@ -166,7 +176,7 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
       ref={containerRef}
       role="dialog"
       aria-modal="true"
-      aria-label="Navegación"
+      aria-label={t("sections.menu.ariaLabel")}
       className="fixed inset-0 z-[60] bg-[#15120F] text-[#F4EFE6] overflow-y-auto"
     >
       {/* Barra de 72px del overlay (wordmark, ES|EN, tema, ✕, avatar) */}
@@ -182,26 +192,34 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
         </a>
         <div className="flex items-center gap-space-sm sm:gap-space-md">
           <div className="inline-flex items-center p-0.5 rounded-full border border-[#2B2723] bg-[#1E1A16]">
-            <button
-              type="button"
-              aria-current="true"
-              className="px-2 py-1 rounded-full font-label-caps text-label-caps uppercase bg-[#2B2723] text-[#F4EFE6] font-semibold focus:outline-none"
+            <a
+              href={esHref}
+              aria-current={locale === "es" ? "true" : undefined}
+              className={`px-2 py-1 rounded-full font-label-caps text-label-caps uppercase focus:outline-none ${
+                locale === "es"
+                  ? "bg-[#2B2723] text-[#F4EFE6] font-semibold"
+                  : "text-[#9E9085] hover:text-[#F4EFE6] transition-colors"
+              }`}
             >
               ES
-            </button>
+            </a>
             <span className="text-[#4E443B] text-[10px] select-none">|</span>
-            <button
-              type="button"
-              aria-disabled="true"
-              className="px-2 py-1 rounded-full font-label-caps text-label-caps uppercase text-[#9E9085] hover:text-[#F4EFE6] transition-colors focus:outline-none"
+            <a
+              href={enHref}
+              aria-current={locale === "en" ? "true" : undefined}
+              className={`px-2 py-1 rounded-full font-label-caps text-label-caps uppercase focus:outline-none ${
+                locale === "en"
+                  ? "bg-[#2B2723] text-[#F4EFE6] font-semibold"
+                  : "text-[#9E9085] hover:text-[#F4EFE6] transition-colors"
+              }`}
             >
               EN
-            </button>
+            </a>
           </div>
           <ThemePopover variant="overlay" />
           <button
             type="button"
-            aria-label="Cerrar navegación"
+            aria-label={t("sections.header.closeMenu")}
             onClick={onClose}
             className="w-9 h-9 rounded-full border border-[#FF6A45] flex items-center justify-center bg-[#E8482B]/10 text-[#FF6A45] hover:bg-[#E8482B]/20 transition-all focus:outline-none"
           >
@@ -226,9 +244,9 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
               data-anim="fade-up"
               className="font-label-caps text-label-caps uppercase text-[#8F7F72] tracking-wider mb-space-md block"
             >
-              01 / Mapa de navegación
+              {t("sections.menu.mapTitle")}
             </span>
-            <nav aria-label="Secciones">
+            <nav aria-label={t("sections.menu.sectionsAria")}>
               <ul data-anim="stagger-label" className="flex flex-col gap-2">
                 {navItems.map((item) => {
                   const active = item.href === activeHref;
@@ -258,7 +276,7 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
                         </span>
                         {active && (
                           <span className="ml-2 px-2 py-0.5 rounded border border-[#FF6A45] text-[#FF6A45] font-label-caps text-[10px] uppercase tracking-wider">
-                            Activo
+                            {t("sections.menu.active")}
                           </span>
                         )}
                       </a>
@@ -272,8 +290,8 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
             data-anim="fade-up"
             className="mt-space-lg pt-space-md border-t border-[#2B2723] flex items-center justify-between text-[#8F7F72] font-label-caps text-label-caps uppercase tracking-wider"
           >
-            <span>Disponible para Q2/Q3 2026</span>
-            <span>Madrid &amp; remoto</span>
+            <span>{t("sections.menu.availability")}</span>
+            <span>{t("sections.menu.location")}</span>
           </div>
         </div>
 
@@ -285,10 +303,10 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
           <div>
             <div className="flex items-center justify-between mb-space-md">
               <span className="font-label-caps text-label-caps uppercase text-[#8F7F72] tracking-wider">
-                02 / Demos en vivo
+                {t("sections.menu.demosTitle")}
               </span>
               <span className="text-[10px] text-[#9CEFE4] bg-[#9CEFE4]/10 px-2 py-0.5 rounded-full border border-[#9CEFE4]/20 font-label-caps text-label-caps uppercase tracking-wider">
-                3 interactivas
+                {t("sections.menu.demosCount")}
               </span>
             </div>
             <div className="flex flex-col gap-space-sm mb-space-xl">
@@ -346,19 +364,19 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
                 </span>
                 <div>
                   <div className="font-body-md text-body-md text-[#F4EFE6]">
-                    Zona de miembros
+                    {t("sections.menu.membersTitle")}
                   </div>
                   <div className="font-mono-code text-[13px] text-[#8F7F72]">
-                    Acceso con token o credenciales autorizadas
+                    {t("sections.menu.membersBody")}
                   </div>
                 </div>
               </div>
               <a
-                href="/zona-miembros"
+                href={withLocale("/zona-miembros")}
                 onClick={onClose}
                 className="font-label-caps text-label-caps text-[#FFDEAA] uppercase flex items-center gap-1 hover:text-[#FF6A45] transition-colors focus:outline-none"
               >
-                Entrar{" "}
+                {t("sections.menu.membersCta")}{" "}
                 <span className="material-symbols-outlined text-[14px]">
                   login
                 </span>
@@ -368,7 +386,7 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
 
           <div className="border-t border-[#2B2723] pt-space-md">
             <span className="font-label-caps text-label-caps uppercase text-[#8F7F72] tracking-wider block mb-space-sm">
-              03 / Conexiones &amp; contacto
+              {t("sections.menu.connectionsTitle")}
             </span>
             <div className="flex flex-wrap items-center gap-space-md text-[#C7BDB3] font-mono-code text-mono-code">
               <a

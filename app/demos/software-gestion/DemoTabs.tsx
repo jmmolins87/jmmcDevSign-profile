@@ -4,17 +4,10 @@
 
 "use client";
 
+import { useDict } from "@/lib/i18n/I18nProvider";
 import { useToast, ToastContainer } from "./useToast";
 
 export type SoftwareTab = "resumen" | "clientes" | "facturas" | "inventario" | "ajustes";
-
-const TABS: { id: SoftwareTab; label: string; count?: string }[] = [
-  { id: "resumen", label: "RESUMEN" },
-  { id: "clientes", label: "CLIENTES", count: "1.240" },
-  { id: "facturas", label: "FACTURAS", count: "38" },
-  { id: "inventario", label: "INVENTARIO", count: "4" },
-  { id: "ajustes", label: "AJUSTES" },
-];
 
 export default function DemoTabs({
   tab,
@@ -24,6 +17,17 @@ export default function DemoTabs({
   onTab: (tab: SoftwareTab) => void;
 }) {
   const { toasts, showToast } = useToast();
+  const { demosSoftware } = useDict().sections;
+  const tabs = demosSoftware.tabs;
+
+  const TABS: { id: SoftwareTab; label: string; count?: string }[] = [
+    { id: "resumen", label: tabs.resumen },
+    { id: "clientes", label: tabs.clientes, count: "1.240" },
+    { id: "facturas", label: tabs.facturas, count: "38" },
+    { id: "inventario", label: tabs.inventario, count: "4" },
+    { id: "ajustes", label: tabs.ajustes },
+  ];
+
 
   return (
     <>
@@ -67,7 +71,7 @@ export default function DemoTabs({
               calendar_today
             </span>
             <span className="font-mono-code text-mono-code text-on-surface mr-2">
-              Últimos 30 días
+              {demosSoftware.last30Days}
             </span>
             <span className="material-symbols-outlined text-[16px] text-on-surface-variant">
               expand_more
@@ -75,23 +79,23 @@ export default function DemoTabs({
           </div>
           <button
             type="button"
-            onClick={() => showToast("[placeholder] Exportar CSV")}
+            onClick={() => showToast(demosSoftware.toastExport)}
             className="h-9 px-3 rounded-full border border-outline-variant bg-surface hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface text-mono-code font-mono-code inline-flex items-center gap-1.5 transition-all"
           >
             <span className="material-symbols-outlined text-[16px]">
               file_download
             </span>
-            <span>EXPORTAR</span>
+            <span>{demosSoftware.exportButton}</span>
           </button>
           <button
             type="button"
-            onClick={() => showToast("[placeholder] Nueva factura")}
+            onClick={() => showToast(demosSoftware.toastNewInvoice)}
             className="h-9 px-3 rounded-full bg-primary text-on-primary font-mono-code text-mono-code inline-flex items-center gap-1.5 shadow-md hover:opacity-90 transition-opacity"
           >
             <span className="material-symbols-outlined text-[16px]">
               add
             </span>
-            <span>NUEVA FACTURA</span>
+            <span>{demosSoftware.newInvoiceButton}</span>
           </button>
         </div>
       </section>

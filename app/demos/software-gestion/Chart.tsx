@@ -4,6 +4,7 @@
 "use client";
 
 import { MOCK_CHART_DATA } from "@/lib/data/software";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 const CHART_WIDTH = 800;
 const CHART_HEIGHT = 240;
@@ -15,6 +16,8 @@ const yScale = (value: number) => CHART_HEIGHT - (value / Y_MAX) * CHART_HEIGHT 
 const xStep = CHART_WIDTH / (MOCK_CHART_DATA.length - 1);
 
 export default function Chart() {
+  const { demosSoftware } = useDict().sections;
+  const { chart } = demosSoftware;
   const highlighted = MOCK_CHART_DATA.find((d) => d.isHighlight);
   const highlightIndex = MOCK_CHART_DATA.findIndex((d) => d.isHighlight);
   const highlightX = highlightIndex >= 0 ? highlightIndex * xStep : CHART_WIDTH * 0.6;
@@ -39,24 +42,24 @@ export default function Chart() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md mb-6">
         <div>
           <p className="font-body-sm text-body-sm text-on-surface-variant">
-            Conciliación de facturación neta versus liquidaciones efectivas
+            {chart.subtitle}
           </p>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-4 text-[12px] font-label-caps">
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-primary" />
-              <span className="text-on-surface-variant">Facturación</span>
+              <span className="text-on-surface-variant">{chart.legendBilling}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-secondary" />
-              <span className="text-on-surface-variant">Cobros</span>
+              <span className="text-on-surface-variant">{chart.legendCollections}</span>
             </div>
           </div>
           <div className="bg-surface-container-low p-1 rounded-lg flex items-center font-mono-code text-[11px]">
-            <button className="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface" type="button">D</button>
-            <button className="px-2 py-0.5 rounded bg-surface shadow-xs font-semibold text-on-surface" type="button">S</button>
-            <button className="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface" type="button">M</button>
+            <button className="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface" type="button">{chart.rangeDay}</button>
+            <button className="px-2 py-0.5 rounded bg-surface shadow-xs font-semibold text-on-surface" type="button">{chart.rangeWeek}</button>
+            <button className="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface" type="button">{chart.rangeMonth}</button>
           </div>
         </div>
       </div>

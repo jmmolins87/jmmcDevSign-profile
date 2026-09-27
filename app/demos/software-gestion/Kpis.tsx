@@ -4,6 +4,7 @@
 
 import { MOCK_KPIS } from "@/lib/data/software";
 import type { Kpi } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 const BAR_TONES: Record<Kpi["barTone"], string> = {
   teal: "bg-secondary",
@@ -20,6 +21,8 @@ const DETAIL_TONES: Record<Kpi["detailTone"], string> = {
 };
 
 export default function Kpis() {
+  const { demosSoftware } = useDict().sections;
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter" data-anim="stagger-in">
       {MOCK_KPIS.map((kpi, idx) => {
@@ -49,7 +52,7 @@ export default function Kpis() {
               </div>
             </div>
             <div className="mt-5 pt-3 bg-surface-container-low px-3 py-2 rounded-lg flex items-center justify-between">
-              <span className="font-mono-code text-[11px] text-on-surface-variant">Meta mensual: 92%</span>
+              <span className="font-mono-code text-[11px] text-on-surface-variant">{demosSoftware.kpis.target}</span>
               <div className="w-16 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
                 <div
                   className={`${BAR_TONES[kpi.barTone]} h-full rounded-full`}

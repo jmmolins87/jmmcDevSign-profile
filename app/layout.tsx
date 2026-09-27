@@ -6,6 +6,9 @@ import Footer from "./components/Footer";
 import GrainOverlay from "./components/GrainOverlay";
 import ThemeProvider from "./components/ThemeProvider";
 import { themeInitScript } from "@/lib/theme";
+import { I18nProvider } from "@/lib/i18n/I18nProvider";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getLocale } from "@/lib/i18n/server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,16 +26,23 @@ const newsreader = Newsreader({
   style: ["normal", "italic"],
 });
 
-export const metadata: Metadata = {
-  title: "JMMC — Diseño y desarrollo editorial",
-  description:
-    "Portafolio de JMMC: fullstack, diseño UI/UX, automatización e IA. Del primer boceto al deploy.",
-};
+/* SPEC 10 — Paso 6: metadata localizada desde el diccionario. */
+export async function generateMetadata(): Promise<Metadata> {
+  const { meta } = getDictionary(await getLocale());
+  return {
+    title: meta.title,
+    description: meta.description,
+  };
+}
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  /* SPEC 10 — Paso 5: el locale lo fija proxy.ts vía header `x-locale`. */
+  const locale = await getLocale();
+  const dict = getDictionary(locale);
+
   return (
     <html
-      lang="es"
+      lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} h-full antialiased`}
       /* SPEC 05: el script anti-parpadeo fija data-theme antes de la
          hidratación; React no lo renderiza y este flag evita el warning. */
@@ -56,12 +66,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col bg-background text-on-surface font-body-md">
         <ThemeProvider>
-          <GrainOverlay />
-          <Header />
-          <main id="top" className="w-full pt-[72px] bg-background min-h-screen">
-            {children}
-          </main>
-          <Footer />
+          <I18nProvider locale={locale} dict={dict}>
+            <GrainOverlay />
+            <Header />
+            <main id="top" className="w-full pt-[72px] bg-background min-h-screen">
+              {children}
+            </main>
+            <Footer />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

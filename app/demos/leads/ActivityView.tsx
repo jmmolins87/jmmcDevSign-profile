@@ -1,18 +1,20 @@
 /* SPEC 04 — Paso 4: vista Actividad (feed expandido). */
 
 import { MOCK_FEED, MOCK_FEED_EXTRA } from "@/lib/data/leads";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 const ALL_EVENTS = [...MOCK_FEED_EXTRA, ...MOCK_FEED].reverse();
 
 export default function ActivityView() {
+  const { demosLeads } = useDict().sections;
   return (
     <section className="w-full rounded-[14px] bg-surface-container-low border border-outline-variant p-space-lg">
       <div className="flex items-center justify-between border-b border-outline-variant pb-space-sm mb-space-md">
         <span className="font-mono-code text-label-caps uppercase tracking-wider text-on-surface-variant font-semibold">
-          Registro del agente
+          {demosLeads.activity.title}
         </span>
         <span className="font-mono-code text-mono-code text-on-surface-variant">
-          148 eventos hoy
+          {demosLeads.activity.eventsToday}
         </span>
       </div>
       <ol className="relative pl-5 border-l border-outline-variant flex flex-col gap-4">

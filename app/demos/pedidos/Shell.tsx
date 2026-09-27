@@ -16,6 +16,7 @@ import {
   MOCK_ORDERS,
 } from "@/lib/data/orders";
 import type { Order, OrderChannel } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 import Toolbar from "./Toolbar";
 import SummaryStrip from "./SummaryStrip";
 import Kanban from "./Kanban";
@@ -25,6 +26,8 @@ import LiveToast, { type Toast } from "./LiveToast";
 type ChannelFilter = OrderChannel | "all";
 
 export default function Shell() {
+  const { demosPedidos } = useDict().sections;
+  const { states } = demosPedidos;
   const [query, setQuery] = useState("");
   const [channel, setChannel] = useState<ChannelFilter>("all");
   const [selectedId, setSelectedId] = useState("1043");
@@ -58,7 +61,9 @@ export default function Shell() {
       : channel !== "all"
         ? CHANNEL_LABEL[channel]
         : "";
-  const emptyMessage = term ? `SIN RESULTADOS PARA «${term}»` : "SIN RESULTADOS";
+  const emptyMessage = term
+    ? `${demosPedidos.emptyResultsPrefix}${term}${demosPedidos.emptyResultsSuffix}`
+    : demosPedidos.emptyResults;
 
   // Reloj de la píldora "Sincronizado hace N s" (texto: corre siempre).
   useEffect(() => {
@@ -114,12 +119,12 @@ export default function Shell() {
       flashUpdate(target.id);
       notify(
         target.id,
-        nextColumn === "preparacion" ? "En preparación" : "Listo",
+        nextColumn === "preparacion" ? states.preparacion : states.listo,
       );
     };
     const timer = setInterval(tick, 15000);
     return () => clearInterval(timer);
-  }, [orders, flashUpdate, notify]);
+  }, [orders, flashUpdate, notify, states]);
 
   const handleMarkReady = () => {
     if (!selected || selected.column === "listo") return;
@@ -131,7 +136,7 @@ export default function Shell() {
       ),
     );
     flashUpdate(selected.id);
-    notify(selected.id, "Listo");
+    notify(selected.id, states.listo);
   };
 
   const handleCancel = () => {
@@ -139,7 +144,7 @@ export default function Shell() {
     const id = selected.id;
     setOrders((prev) => prev.filter((order) => order.id !== id));
     if (updatedId === id) flashUpdate(null);
-    notify(id, "Cancelado");
+    notify(id, states.cancelado);
   };
 
   return (

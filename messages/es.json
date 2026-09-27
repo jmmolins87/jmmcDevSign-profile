@@ -1,0 +1,600 @@
+{
+  "meta": {
+    "title": "JMMC — Diseño y desarrollo editorial",
+    "description": "Portafolio de JMMC: fullstack, diseño UI/UX, automatización e IA. Del primer boceto al deploy.",
+    "blog": "Blog & Bitácora — JMMC"
+  },
+  "sections": {
+    "header": {
+      "openMenu": "Abrir navegación",
+      "closeMenu": "Cerrar navegación"
+    },
+    "menu": {
+      "ariaLabel": "Navegación",
+      "sectionsAria": "Secciones",
+      "mapTitle": "01 / Mapa de navegación",
+      "active": "Activo",
+      "availability": "Disponible para Q2/Q3 2026",
+      "location": "Madrid & remoto",
+      "demosTitle": "02 / Demos en vivo",
+      "demosCount": "3 interactivas",
+      "membersTitle": "Zona de miembros",
+      "membersBody": "Acceso con token o credenciales autorizadas",
+      "membersCta": "Entrar",
+      "connectionsTitle": "03 / Conexiones & contacto"
+    },
+    "hero": {
+      "eyebrow": "Desarrollador web & UI/UX — Disponible para proyectos",
+      "titleLine1": "Diseño y construyo",
+      "titleLine2": "interfaces que se sienten",
+      "titleAccent": "cinematográficas.",
+      "subtitle": "Fullstack, diseño, automatización e IA. Del primer boceto al deploy, orquestando sistemas robustos y estéticas de autor.",
+      "ctaProjects": "Ver proyectos",
+      "ctaTalk": "Hablemos",
+      "scroll": "Scroll",
+      "hudLabel": "Dirección de Arte",
+      "hudBody": "Arquitectura de sistemas orientada a la experiencia cinematográfica."
+    },
+    "about": {
+      "name": "Sobre mí",
+      "lead": "Concibo el software como una pieza editorial: cada línea de código sostiene una narrativa visual donde el rendimiento riguroso y la sensibilidad estética conviven sin fricción.",
+      "body": "Con base en España y operando a nivel global, me muevo entre la ingeniería fullstack y el diseño de interacción cinematográfica. Automatizo flujos complejos mediante modelos de IA mientras esculpo tipografías milimétricas y micro-interacciones que respiran calma.",
+      "quote": "“La precisión técnica es invisible cuando la experiencia conmueve.”",
+      "studio": "JMMC // Estudio Madrid",
+      "statExperienceLabel": "Experiencia",
+      "statExperienceValue": "7+",
+      "statExperienceUnit": "años",
+      "statExperienceRange": "[2018–2026]",
+      "statLocationLabel": "Ubicación",
+      "statLocationValue": "España",
+      "statLocationDetail": "Remoto / Híbrido",
+      "statLanguagesLabel": "Idiomas",
+      "statLanguagesValue": "ES / EN",
+      "statLanguagesDetail": "Bilingüe Prof."
+    },
+    "stack": {
+      "name": "Stack",
+      "title": "Tecnologías y arquitectura",
+      "intro": "Especialización técnica vertical combinada con una capacidad holística de diseño de sistemas resilientes y escalables.",
+      "badge": "Dominio en producción"
+    },
+    "experience": {
+      "name": "Experiencia"
+    },
+    "projects": {
+      "name": "Proyectos",
+      "demosTitle": "Demos en vivo",
+      "demosSubtitle": "Entornos Interactivos",
+      "explore": "Explorar sandbox"
+    },
+    "services": {
+      "name": "Servicios"
+    },
+    "blog": {
+      "name": "Blog & Bitácora",
+      "readArticle": "Leer artículo",
+      "prevPost": "Artículo anterior",
+      "nextPost": "Siguiente artículo",
+      "membersZone": "Zona de miembros",
+      "minRead": "min lectura",
+      "months": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    },
+    "blogListing": {
+      "eyebrow": "JMMC // BLOG",
+      "intro": "Ensayos pausados sobre código, diseño y las decisiones que hay entre ambos.",
+      "empty": "Todavía no hay artículos publicados."
+    },
+    "postPage": {
+      "backToBlog": "Volver al blog",
+      "fallbackNotice": "Idioma no disponible — mostrando ES"
+    },
+    "contact": {
+      "name": "Contacto",
+      "title": "¿Hablamos?",
+      "body": "¿Tienes un proyecto en mente, buscas consultoría de arquitectura o necesitas elevar el diseño de tu producto? Cuéntame y te responderé en menos de 24 horas.",
+      "location": "Madrid, España (UTC+1)",
+      "nameLabel": "Tu nombre *",
+      "namePlaceholder": "p. ej. Elena Navarro",
+      "emailLabel": "Tu email *",
+      "emailPlaceholder": "elena@empresa.com",
+      "messageLabel": "Sobre el proyecto *",
+      "messagePlaceholder": "Describe brevemente tus objetivos, plazos o el stack que tienes en mente...",
+      "responseNote": "Respuesta asegurada en <24h",
+      "submit": "Enviar mensaje",
+      "success": "Mensaje recibido — te responderé en menos de 24 horas."
+    },
+    "footer": {
+      "tagline": "Fullstack & UI/UX",
+      "backToTop": "Volver arriba"
+    },
+    "theme": {
+      "selector": "Selector de tema",
+      "menuLabel": "Apariencia",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    },
+    "zonaMiembros": {
+      "ariaLabel": "Zona de miembros",
+      "metaTitle": "Zona de miembros · JMMC",
+      "metaDescription": "Acceso editorial para autores y colaboradores",
+      "privateZone": "ZONA PRIVADA — PORTAFOLIO",
+      "checkingSession": "VERIFICANDO SESIÓN...",
+      "tabLogin": "Entrar",
+      "tabRegister": "Crear cuenta",
+      "loginTitle": "Entrar",
+      "loginDescription": "Introduce tus credenciales para acceder al gestor editorial, notas de taller y publicaciones privadas.",
+      "registerTitle": "Crear cuenta",
+      "registerDescription": "Registra tu acceso al gestor editorial, notas de taller y publicaciones privadas.",
+      "sessionTitle": "Sesión activa",
+      "sessionDescription": "Ya estás dentro del gestor editorial. Puedes entrar al editor o cerrar la sesión en este terminal.",
+      "sessionBanner": "Sesión iniciada. Tienes acceso al gestor editorial.",
+      "goToEditor": "Ir al editor del blog",
+      "signOut": "Cerrar sesión",
+      "signingOut": "Cerrando sesión...",
+      "emailLabel": "CORREO ELECTRÓNICO",
+      "authorId": "ID DE AUTOR",
+      "emailPlaceholder": "nombre@estudio.io",
+      "passwordLabel": "CONTRASEÑA",
+      "forgotPassword": "¿Olvidé mi contraseña?",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
+      "codeLabel": "Código:",
+      "attempt": "Intento",
+      "remember": "Recordar este terminal",
+      "sessionDuration": "Sesión: 30 días",
+      "verifying": "Verificando...",
+      "submitLogin": "Acceder a la zona de miembros",
+      "submitRegister": "Crear mi cuenta",
+      "magicSent": "¡Enlace enviado a tu buzón!",
+      "magicLink": "Enviarme un enlace mágico",
+      "signupNotice": "Cuenta creada. Te hemos enviado un correo para confirmar tu acceso.",
+      "networkError": "No se ha podido contactar con el servidor de autenticación.",
+      "errors": {
+        "invalid_credentials": "El correo o la contraseña no coinciden con los registros autorizados.",
+        "user_already_exists": "Ya existe una cuenta registrada con este correo.",
+        "email_not_confirmed": "Confirma tu correo antes de entrar. Revisa tu bandeja de entrada.",
+        "weak_password": "La contraseña es demasiado débil: usa al menos 6 caracteres.",
+        "signup_disabled": "El registro está cerrado en este momento.",
+        "over_email_send_rate_limit": "Demasiados intentos. Espera un minuto y vuelve a probar."
+      },
+      "footnote": "Solo los miembros acreditados pueden publicar en el blog y acceder a las notas de versión previas. Si aún no tienes invitación, solicita acceso mediante el formulario de contacto oficial.",
+      "encrypted": "Autenticación Cifrada",
+      "requestInvite": "Solicitar Invitación →",
+      "metaLeft": "ZONA_EDITORIAL // ID: JMMC-SYS-89",
+      "metaRight": "ESTADO: SERVIDOR ACTIVO",
+      "editorialBadge": "05 / ACCESO EDITORIAL",
+      "editorialPrivate": "REGISTRO PRIVADO",
+      "editorialRestricted": "Acceso restringido · Autores & Colaboradores",
+      "editorialQuote": "«Escribir también es diseñar.»",
+      "editorialTagline": "Notas sobre producto, arquitectura y código",
+      "editorialBackdropAlt": "Cinematic still of an intimate author writing desk in a moody dark library at twilight. An illuminated vintage brass banker lamp casts warm amber light across an open leather journal with fine handwritten ink calligraphy, alongside a glass ink bottle, fountain pen, and ceramic coffee cup. Atmospheric chiaroscuro, warm walnut wood, deep shadows, 35mm film grain aesthetic."
+    },
+    "demosLeads": {
+      "metaTitle": "Demo · Agente de leads — JMMC",
+      "metaDescription": "Sandbox ficticio del Agente de leads: pipeline, cualificación IA y actividad en vivo.",
+      "backToPortfolio": "Volver al portfolio",
+      "demoBadge": "Demo · datos ficticios",
+      "tabs": {
+        "pipeline": "Pipeline",
+        "activity": "Actividad del agente",
+        "settings": "Ajustes"
+      },
+      "agentActive": "Agente activo:",
+      "agentVersion": "Autopilot v2.4",
+      "agentPaused": "Agente pausado",
+      "filterButton": "Filtrar por origen",
+      "columns": {
+        "nuevo": "Nuevo",
+        "cualificado": "Cualificado",
+        "seguimiento": "Seguimiento",
+        "reunion": "Reunión"
+      },
+      "selected": "Seleccionado",
+      "panel": {
+        "title": "Detalle de cualificación (IA)",
+        "optionsAria": "Opciones de lead",
+        "priority": {
+          "alta": "Alta Prioridad",
+          "media": "Media Prioridad",
+          "baja": "Baja Prioridad"
+        },
+        "roleIn": "en",
+        "verdictExcellent": "Excelente fit predictivo",
+        "verdictGood": "Buen fit predictivo",
+        "verdictEvaluating": "Fit en evaluación",
+        "semanticEvaluation": "Evaluación semántica automática",
+        "scoreGlobal": "Score global",
+        "fitProfile": "Fit de perfil:",
+        "buySignals": "Señales de compra:",
+        "nextStep": "Próximo paso programado",
+        "preview": "Previsualizar",
+        "pause": "Pausar",
+        "sequence": "Secuencia del agente"
+      },
+      "feed": {
+        "title": "Actividad del agente en vivo",
+        "viewFullLog": "Ver registro completo"
+      },
+      "activity": {
+        "title": "Registro del agente",
+        "eventsToday": "148 eventos hoy"
+      },
+      "settings": {
+        "title": "Ajustes del agente",
+        "description": "Estado local de la demo — no se persiste."
+      }
+    },
+    "demosPedidos": {
+      "metaTitle": "Demo · Pedidos en tiempo real — JMMC",
+      "metaDescription": "Sandbox ficticio de pedidos en tiempo real: tablero de cocina con transiciones de estado y actualizaciones en vivo.",
+      "backToPortfolio": "Volver al portfolio",
+      "demoBadge": "Demo · datos ficticios",
+      "orderPrefix": "Pedido ",
+      "toolbar": {
+        "navAria": "Secciones de comandas",
+        "tabOrders": "Pedidos",
+        "tabProducts": "Productos",
+        "tabSettings": "Ajustes",
+        "searchPlaceholder": "Buscar por ID, comensal...",
+        "searchAria": "Buscar por ID o comensal",
+        "channelAria": "Filtrar por canal",
+        "allChannels": "Todos los canales"
+      },
+      "strip": {
+        "title": "Pedidos en tiempo real",
+        "live": "En vivo",
+        "syncedPrefix": "Sincronizado hace",
+        "syncedSuffix": "s",
+        "nuevos": "Nuevos",
+        "preparacion": "En preparación",
+        "listo": "Listos"
+      },
+      "columns": {
+        "nuevo": "Nuevo",
+        "preparacion": "En preparación",
+        "listo": "Listo"
+      },
+      "emptyColumn": "Sin pedidos en esta columna",
+      "emptyResults": "SIN RESULTADOS",
+      "emptyResultsPrefix": "SIN RESULTADOS PARA «",
+      "emptyResultsSuffix": "»",
+      "itemSingular": "artículo",
+      "itemPlural": "artículos",
+      "updatedBadge": "⚡ Actualizado ahora",
+      "states": {
+        "preparacion": "En preparación",
+        "listo": "Listo",
+        "cancelado": "Cancelado"
+      },
+      "dossier": {
+        "issuedPrefix": "Emitido hoy a las",
+        "issuedSuffix": "h",
+        "printAria": "Imprimir comanda",
+        "guest": "Comensal",
+        "detail": "Detalle de comanda",
+        "kitchenNote": "Nota de cocina",
+        "subtotal": "Subtotal",
+        "iva": "IVA inc. (10%)",
+        "total": "Total",
+        "markReady": "Marcar como listo",
+        "cancelOrder": "Cancelar pedido"
+      },
+      "toast": {
+        "justNow": "hace un instante",
+        "closeAria": "Cerrar notificación"
+      }
+    },
+    "demosSoftware": {
+      "metaTitle": "Demo · Software de gestión — JMMC",
+      "metaDescription": "Sandbox ficticio de Software de gestión: KPIs, facturación, inventario y citas.",
+      "backToPortfolio": "Volver al portfolio",
+      "demoBadge": "Demo · datos ficticios",
+      "tabs": {
+        "resumen": "RESUMEN",
+        "clientes": "CLIENTES",
+        "facturas": "FACTURAS",
+        "inventario": "INVENTARIO",
+        "ajustes": "AJUSTES"
+      },
+      "last30Days": "Últimos 30 días",
+      "exportButton": "EXPORTAR",
+      "newInvoiceButton": "NUEVA FACTURA",
+      "toastExport": "[placeholder] Exportar CSV",
+      "toastNewInvoice": "[placeholder] Nueva factura",
+      "comingSoon": "Próximamente en esta demo",
+      "headings": {
+        "chart": "EVOLUCIÓN DE INGRESOS Y COBROS",
+        "appointments": "CITAS DE HOY",
+        "invoices": "ÚLTIMAS FACTURAS EMITIDAS",
+        "stock": "ALERTAS DE INVENTARIO"
+      },
+      "kpis": {
+        "target": "Meta mensual: 92%"
+      },
+      "chart": {
+        "subtitle": "Conciliación de facturación neta versus liquidaciones efectivas",
+        "legendBilling": "Facturación",
+        "legendCollections": "Cobros",
+        "rangeDay": "D",
+        "rangeWeek": "S",
+        "rangeMonth": "M"
+      },
+      "appointments": {
+        "todayCount": "4 PARA HOY",
+        "meetTitle": "Iniciar Meet",
+        "inPerson": "PRESENCIAL",
+        "viewCalendar": "VER CALENDARIO COMPLETO"
+      },
+      "invoices": {
+        "subtitle": "Registro y trazabilidad de los cobros en curso",
+        "viewAll": "VER TODAS (142)",
+        "colId": "ID FACTURA",
+        "colClient": "CLIENTE / ENTIDAD",
+        "colIssued": "EMISIÓN",
+        "colDue": "VENCE",
+        "colAmount": "IMPORTE",
+        "colStatus": "ESTADO",
+        "downloadPdf": "Descargar PDF",
+        "showing": "Mostrando 4 de 142 registros"
+      },
+      "stock": {
+        "subtitle": "Bajo umbral mínimo de seguridad",
+        "critical": "4 CRÍTICOS",
+        "toastViewInventory": "[placeholder] Ver inventario completo",
+        "fullInventory": "INVENTARIO COMPLETO (84 ARTÍCULOS)"
+      }
+    },
+    "editor": {
+      "metaTitle": "Editor del blog · JMMC",
+      "metaDescription": "Crea y edita artículos del blog",
+      "topbar": {
+        "backToPortfolio": "← Volver al portfolio",
+        "restrictedBadge": "Acceso restringido · Solo miembros",
+        "backToBlog": "Volver al blog",
+        "draft": "Borrador",
+        "savedPrefix": "Guardado hace",
+        "savedSuffix": "s",
+"preview": "Vista previa",
+  "save": "Guardar",
+  "saving": "Guardando…",
+  "published": "Publicado",
+  "publish": "Publicar",
+  "neverSaved": "Sin guardar"
+      },
+      "canvas": {
+        "changeImage": "Cambiar imagen",
+        "removeCover": "Eliminar imagen de portada",
+        "altConfigured": "Alt text configurado",
+        "altWords": "palabras",
+        "readTime": "min de lectura",
+        "titlePlaceholder": "Escribe el título del ensayo...",
+        "excerptPlaceholder": "Escribe una bajada o sumario editorial..."
+      },
+      "body": {
+        "bodyPlaceholder": "Empieza a escribir tu artículo...",
+        "pullQuoteLabel": "Fragmento destacado",
+        "revisionTitle": "Nota de revisión en curso"
+      },
+      "toolbar": {
+        "navLabel": "Herramientas de edición",
+        "heading": "Encabezado",
+        "bold": "Negrita",
+        "italic": "Cursiva",
+        "link": "Enlace",
+        "quote": "Cita en bloque",
+        "code": "Fragmento de código",
+        "image": "Insertar imagen",
+        "bulletList": "Lista con viñetas",
+        "numberedList": "Lista numerada",
+        "placeholderText": "texto",
+        "linkText": "texto del enlace",
+        "codeText": "código",
+        "imageText": "alt text",
+        "headingText": "Título",
+        "words": "palabras",
+        "min": "min"
+      },
+      "inspector": {
+        "language": {
+          "label": "Idioma del artículo",
+          "active": "Activo"
+        },
+        "slug": {
+          "label": "Slug permanente",
+          "copy": "Copiar URL",
+          "copied": "¡Copiado!",
+          "hint": "Se actualizará automáticamente si modificas el título principal."
+        },
+        "category": {
+          "label": "Categoría editorial",
+          "tagsLabel": "Etiquetas de indexación",
+          "addTag": "Añadir",
+          "removeTag": "Quitar tag"
+        },
+        "publication": {
+          "label": "Publicación programada",
+          "status": "Programado",
+          "publishNow": "¿Publicar ahora?",
+          "switchImmediate": "Cambiar a inmediata"
+        },
+        "alt": {
+          "label": "Alt Text (Accesibilidad)",
+          "a11yOk": "A11y OK",
+          "chars": "chars",
+          "hint": "Describe la portada para lectores de pantalla y buscadores."
+        },
+        "seo": {
+          "label": "Optimización SEO",
+          "score": "Puntuación",
+          "titleLabel": "Meta Título",
+          "descLabel": "Meta Descripción",
+          "previewLabel": "Previsualización en Google",
+          "titleFallback": "Título del artículo",
+          "descFallback": "Descripción del artículo..."
+        }
+      }
+    }
+  },
+  "navItems": [
+    { "index": "01", "label": "Sobre mí", "href": "#sobre-mi" },
+    { "index": "02", "label": "Stack", "href": "#stack" },
+    { "index": "03", "label": "Experiencia", "href": "#experiencia" },
+    { "index": "04", "label": "Proyectos", "href": "#proyectos" },
+    { "index": "05", "label": "Servicios", "href": "#servicios" },
+    { "index": "06", "label": "Blog", "href": "/blog/editor" },
+    { "index": "07", "label": "Contacto", "href": "#contacto" }
+  ],
+  "stackGroups": [
+    {
+      "title": "Frameworks Front",
+      "note": "UI & Core",
+      "skills": [
+        { "name": "Angular", "level": 92, "tag": "Principal" },
+        { "name": "React", "level": 85 },
+        { "name": "Next.js", "level": 85 },
+        { "name": "Astro", "level": 70 }
+      ]
+    },
+    {
+      "title": "Backend",
+      "note": "APIs & Microservicios",
+      "skills": [
+        { "name": "Java (Spring Boot)", "level": 75 },
+        { "name": "Node.js / Express", "level": 82 },
+        { "name": "PostgreSQL & Prisma", "level": 80 }
+      ]
+    },
+    {
+      "title": "Devtools & CI/CD",
+      "note": "Infraestructura",
+      "skills": [
+        { "name": "Docker & Containers", "level": 80 },
+        { "name": "GitLab CI / Runners", "level": 80 },
+        { "name": "GitHub Actions", "level": 90 }
+      ]
+    },
+    {
+      "title": "Cloud & Automatización",
+      "note": "Inteligencia",
+      "skills": [
+        { "name": "Azure Cloud", "level": 70 },
+        { "name": "AWS (S3, Lambda, CloudFront)", "level": 65 },
+        { "name": "Automatizaciones & IA (LLMs, LangChain)", "level": 85 }
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "period": "2024 — Actualidad",
+      "role": "Senior Frontend & Creative Technologist",
+      "company": "Estudio Sintagma / Fintech Global",
+      "body": "Liderazgo de arquitectura de micro-frontends en Angular y React. Integración de pipelines analíticos en tiempo real y diseño de sistemas interactivos cinematográficos para banca corporativa.",
+      "tags": ["Angular", "TypeScript", "Design Systems"]
+    },
+    {
+      "period": "2022 — 2024",
+      "role": "Fullstack Engineer & UI Specialist",
+      "company": "Nexus Dynamics",
+      "body": "Desarrollo de servicios resilientes en Java Spring Boot con despliegue en contenedores Docker. Reingeniería del frontend principal a Next.js mejorando métricas Core Web Vitals en un 42%.",
+      "tags": ["Java Spring", "Next.js", "Docker"]
+    },
+    {
+      "period": "2020 — 2022",
+      "role": "Product Designer & Web Developer",
+      "company": "Agencia Hyperion",
+      "body": "Creación de experiencias inmersivas para clientes del sector lujo y retail. Implementación integral desde wireframes y prototipos Figma hasta código frontend con microanimaciones SVG y Canvas.",
+      "tags": ["Figma", "React", "Tailwind"]
+    },
+    {
+      "period": "2018 — 2020",
+      "role": "Junior Frontend Developer",
+      "company": "Vortex Labs",
+      "body": "Construcción de módulos interactivos en JavaScript modular, maquetación de interfaces responsivas e integración con REST APIs bajo metodologías ágiles.",
+      "tags": ["JavaScript ES6", "Git", "REST APIs"]
+    }
+  ],
+  "projects": [
+    {
+      "index": "01",
+      "category": "FinTech Analytics",
+      "title": "Kaelo Platform",
+      "body": "Plataforma de inteligencia financiera con visualización en tiempo real de liquidez multi-divisa y gestión de tesorería automatizada.",
+      "tags": ["Angular 17", "RxJS", "Tailwind"]
+    },
+    {
+      "index": "02",
+      "category": "E-Commerce Editorial",
+      "title": "Atelier Solstice",
+      "body": "Catálogo interactivo de diseño con checkout headless, microanimaciones cinemáticas y sincronización instantánea de stock global.",
+      "tags": ["Next.js", "Shopify Storefront", "Anime.js"]
+    },
+    {
+      "index": "03",
+      "category": "Automation & AI",
+      "title": "Synapse Core",
+      "body": "Motor de orquestación de prompts para equipos de operaciones legales, con extracción estructurada de contratos en segundos.",
+      "tags": ["Python", "OpenAI API", "FastAPI"]
+    },
+    {
+      "index": "04",
+      "category": "SaaS Enterprise",
+      "title": "Vesta Workspace",
+      "body": "Suite modular para despachos de arquitectura: control de presupuestos, horas por hito y renders en alta resolución integrados.",
+      "tags": ["React", "PostgreSQL", "Docker"]
+    }
+  ],
+  "services": [
+    {
+      "index": "01",
+      "icon": "draw",
+      "title": "Diseño UI/UX",
+      "body": "Sistemas visuales editoriales, prototipado fidedigno, pruebas con usuarios y directrices de accesibilidad AA/AAA.",
+      "meta": "Figma · Design Systems"
+    },
+    {
+      "index": "02",
+      "icon": "terminal",
+      "title": "Desarrollo web a medida",
+      "body": "Aplicaciones front-to-back de alto rendimiento construidas con Angular, Next.js, Java y bases de datos estructuradas.",
+      "meta": "Fullstack · TypeScript · APIs"
+    },
+    {
+      "index": "03",
+      "icon": "tune",
+      "title": "Automatización de procesos",
+      "body": "Conexión de pipelines comerciales, sincronización CRM, webhooks e infraestructura CI/CD sin puntos únicos de fallo.",
+      "meta": "Webhooks · CI/CD · Cloud"
+    },
+    {
+      "index": "04",
+      "icon": "psychology",
+      "title": "Integración de IA",
+      "body": "Despliegue de agentes RAG, modelos semánticos locales o en la nube para análisis predictivo y soporte automatizado.",
+      "meta": "LLMs · Embeddings · Agents"
+    }
+  ],
+  "demos": [
+    {
+      "badge": "En vivo",
+      "live": true,
+      "title": "Agente de leads",
+      "body": "Recibe leads, los cualifica y automatiza el seguimiento comercial mediante agentes conversacionales autónomos.",
+      "href": "/demos/leads"
+    },
+    {
+      "badge": "Demo",
+      "live": false,
+      "title": "Pedidos en tiempo real",
+      "body": "Sistema de pedidos para tiendas: los cambios de estado se sincronizan al instante vía WebSockets sin recargar.",
+      "href": "/demos/pedidos"
+    },
+    {
+      "badge": "Demo",
+      "live": false,
+      "title": "Software de gestión (SaaS)",
+      "body": "Gestiona tu negocio desde un único panel consolidado con facturación, clientes e inventario unificado.",
+      "href": "/demos/software-gestion"
+    }
+  ]
+}

@@ -4,6 +4,7 @@
 "use client";
 
 import { MOCK_STOCK_ALERTS, type StockAlert } from "@/lib/data/software";
+import { useDict } from "@/lib/i18n/I18nProvider";
 import { useToast } from "./useToast";
 
 const SEVERITY_STYLES: Record<StockAlert["severity"], { bar: string; count: string }> = {
@@ -18,15 +19,16 @@ const ACTION_STYLES: Record<string, string> = {
 
 export default function StockAlerts() {
   const { showToast } = useToast();
+  const { stock } = useDict().sections.demosSoftware;
 
   return (
     <>
       <div className="flex items-center justify-between mb-5">
         <p className="font-body-sm text-body-sm text-on-surface-variant">
-          Bajo umbral mínimo de seguridad
+          {stock.subtitle}
         </p>
         <span className="font-label-caps text-[10px] px-2 py-1 rounded bg-error-container text-on-error-container font-medium">
-          4 CRÍTICOS
+          {stock.critical}
         </span>
       </div>
       <div className="flex flex-col gap-4">
@@ -73,11 +75,11 @@ export default function StockAlerts() {
         ))}
       </div>
       <button
-        onClick={() => showToast("[placeholder] Ver inventario completo")}
+        onClick={() => showToast(stock.toastViewInventory)}
         className="mt-4 w-full py-2 bg-surface-container-high hover:bg-surface-container-highest rounded-lg text-on-surface font-label-caps text-label-caps tracking-widest text-center transition-colors"
         type="button"
       >
-        INVENTARIO COMPLETO (84 ARTÍCULOS)
+        {stock.fullInventory}
       </button>
     </>
   );

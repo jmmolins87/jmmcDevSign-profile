@@ -3,13 +3,9 @@
 
 "use client";
 
-export type DemoTab = "pipeline" | "activity" | "settings";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
-const TABS: { id: DemoTab; label: string; count?: string }[] = [
-  { id: "pipeline", label: "Pipeline", count: "32" },
-  { id: "activity", label: "Actividad del agente", count: "148" },
-  { id: "settings", label: "Ajustes" },
-];
+export type DemoTab = "pipeline" | "activity" | "settings";
 
 export default function DemoTabs({
   tab,
@@ -20,6 +16,14 @@ export default function DemoTabs({
   onTab: (tab: DemoTab) => void;
   agentActive: boolean;
 }) {
+  const { demosLeads } = useDict().sections;
+
+  const TABS: { id: DemoTab; label: string; count?: string }[] = [
+    { id: "pipeline", label: demosLeads.tabs.pipeline, count: "32" },
+    { id: "activity", label: demosLeads.tabs.activity, count: "148" },
+    { id: "settings", label: demosLeads.tabs.settings },
+  ];
+
   return (
     <section
       className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md border-b border-outline-variant pb-space-sm"
@@ -68,11 +72,11 @@ export default function DemoTabs({
           <span className="font-mono-code text-mono-code text-on-surface">
             {agentActive ? (
               <>
-                Agente activo:{" "}
-                <strong className="font-medium">Autopilot v2.4</strong>
+                {demosLeads.agentActive}{" "}
+                <strong className="font-medium">{demosLeads.agentVersion}</strong>
               </>
             ) : (
-              "Agente pausado"
+              demosLeads.agentPaused
             )}
           </span>
         </div>
@@ -84,7 +88,7 @@ export default function DemoTabs({
           <span className="material-symbols-outlined text-[16px]">
             filter_list
           </span>
-          <span>Filtrar por origen</span>
+          <span>{demosLeads.filterButton}</span>
         </button>
       </div>
     </section>

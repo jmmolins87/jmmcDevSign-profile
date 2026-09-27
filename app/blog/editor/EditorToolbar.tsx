@@ -7,6 +7,8 @@
 
 import { type RefObject, useCallback } from "react";
 
+import { useDict, useI18n } from "@/lib/i18n/I18nProvider";
+
 /* ---------- Markdown insertion helpers ---------- */
 
 /** Inserta wrappers de markdown alrededor del texto seleccionado o en el cursor. */
@@ -14,7 +16,7 @@ function insertMarkdown(
   textarea: HTMLTextAreaElement,
   prefix: string,
   suffix: string,
-  placeholder = "texto",
+  placeholder: string,
 ): void {
   const { selectionStart, selectionEnd, value } = textarea;
   const selected = value.slice(selectionStart, selectionEnd);
@@ -78,59 +80,62 @@ export default function EditorToolbar({
     [bodyRef],
   );
 
+  const toolbar = useDict().sections.editor.toolbar;
+  const { locale } = useI18n();
+
   const handleBold = useCallback(() => {
     const el = ta();
-    if (el) insertMarkdown(el, "**", "**");
-  }, [ta]);
+    if (el) insertMarkdown(el, "**", "**", toolbar.placeholderText);
+  }, [ta, toolbar]);
 
   const handleItalic = useCallback(() => {
     const el = ta();
-    if (el) insertMarkdown(el, "_", "_");
-  }, [ta]);
+    if (el) insertMarkdown(el, "_", "_", toolbar.placeholderText);
+  }, [ta, toolbar]);
 
   const handleLink = useCallback(() => {
     const el = ta();
-    if (el) insertMarkdown(el, "[", "](url)", "texto del enlace");
-  }, [ta]);
+    if (el) insertMarkdown(el, "[", "](url)", toolbar.linkText);
+  }, [ta, toolbar]);
 
   const handleQuote = useCallback(() => {
     const el = ta();
-    if (el) insertMarkdown(el, "> ", "");
-  }, [ta]);
+    if (el) insertMarkdown(el, "> ", "", toolbar.placeholderText);
+  }, [ta, toolbar]);
 
   const handleCode = useCallback(() => {
     const el = ta();
-    if (el) insertMarkdown(el, "`", "`", "código");
-  }, [ta]);
+    if (el) insertMarkdown(el, "`", "`", toolbar.codeText);
+  }, [ta, toolbar]);
 
   const handleImage = useCallback(() => {
     const el = ta();
-    if (el) insertMarkdown(el, "![", "](url)", "alt text");
-  }, [ta]);
+    if (el) insertMarkdown(el, "![", "](url)", toolbar.imageText);
+  }, [ta, toolbar]);
 
   const handleBulletList = useCallback(() => {
     const el = ta();
-    if (el) insertMarkdown(el, "- ", "");
-  }, [ta]);
+    if (el) insertMarkdown(el, "- ", "", toolbar.placeholderText);
+  }, [ta, toolbar]);
 
   const handleNumberedList = useCallback(() => {
     const el = ta();
-    if (el) insertMarkdown(el, "1. ", "");
-  }, [ta]);
+    if (el) insertMarkdown(el, "1. ", "", toolbar.placeholderText);
+  }, [ta, toolbar]);
 
   // Criterio de aceptación: los headings insertan markdown (# / ## / ###)
   const handleHeading = useCallback(
     (level: 1 | 2 | 3) => {
       const el = ta();
-      if (el) insertMarkdown(el, "#".repeat(level) + " ", "", "Título");
+      if (el) insertMarkdown(el, "#".repeat(level) + " ", "", toolbar.headingText);
     },
-    [ta],
+    [ta, toolbar],
   );
 
   return (
     <div className="sticky top-[80px] z-30 w-full py-1">
       <nav
-        aria-label="Herramientas de edición"
+        aria-label={toolbar.navLabel}
         className="w-full bg-surface/95 backdrop-blur-md rounded-xl px-3 py-2 flex items-center justify-between shadow-md overflow-x-auto gap-2"
       >
         {/* Heading levels */}
@@ -142,7 +147,7 @@ export default function EditorToolbar({
                 level === 2 ? "bg-surface-container-high text-primary" : ""
               }`}
               type="button"
-              title={`Encabezado H${level}`}
+              title={`${toolbar.heading} H${level}`}
               onClick={() => handleHeading(level)}
             >
               {`H${level}`}
@@ -154,22 +159,22 @@ export default function EditorToolbar({
 
         {/* Formatting */}
         <div className="flex items-center gap-0.5">
-          <TBtn onClick={handleBold} title="Negrita">
+          <TBtn onClick={handleBold} title={toolbar.bold}>
             <span className="material-symbols-outlined text-[17px]">format_bold</span>
           </TBtn>
-          <TBtn onClick={handleItalic} title="Cursiva">
+          <TBtn onClick={handleItalic} title={toolbar.italic}>
             <span className="material-symbols-outlined text-[17px]">format_italic</span>
           </TBtn>
-          <TBtn onClick={handleLink} title="Enlace">
+          <TBtn onClick={handleLink} title={toolbar.link}>
             <span className="material-symbols-outlined text-[17px]">link</span>
           </TBtn>
-          <TBtn onClick={handleQuote} title="Cita en bloque" active>
+          <TBtn onClick={handleQuote} title={toolbar.quote} active>
             <span className="material-symbols-outlined text-[17px]">format_quote</span>
           </TBtn>
-          <TBtn onClick={handleCode} title="Fragmento de código">
+          <TBtn onClick={handleCode} title={toolbar.code}>
             <span className="material-symbols-outlined text-[17px]">code</span>
           </TBtn>
-          <TBtn onClick={handleImage} title="Insertar imagen">
+          <TBtn onClick={handleImage} title={toolbar.image}>
             <span className="material-symbols-outlined text-[17px]">add_photo_alternate</span>
           </TBtn>
         </div>
@@ -178,10 +183,10 @@ export default function EditorToolbar({
 
         {/* Lists */}
         <div className="flex items-center gap-0.5">
-          <TBtn onClick={handleBulletList} title="Lista con viñetas">
+          <TBtn onClick={handleBulletList} title={toolbar.bulletList}>
             <span className="material-symbols-outlined text-[17px]">format_list_bulleted</span>
           </TBtn>
-          <TBtn onClick={handleNumberedList} title="Lista numerada">
+          <TBtn onClick={handleNumberedList} title={toolbar.numberedList}>
             <span className="material-symbols-outlined text-[17px]">format_list_numbered</span>
           </TBtn>
         </div>
@@ -190,7 +195,7 @@ export default function EditorToolbar({
         <div className="ml-auto pl-2 flex items-center gap-2 font-mono-code text-mono-code text-on-surface-variant whitespace-nowrap">
           <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
           <span>
-            {wordCount.toLocaleString("es-ES")} palabras · {readMin} min
+            {wordCount.toLocaleString(locale)} {toolbar.words} · {readMin} {toolbar.min}
           </span>
         </div>
       </nav>

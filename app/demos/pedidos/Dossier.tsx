@@ -8,6 +8,7 @@
 
 import { CHANNEL_LABEL, formatEUR, orderTotals } from "@/lib/data/orders";
 import type { Order } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 export default function Dossier({
   order,
@@ -20,6 +21,7 @@ export default function Dossier({
 }) {
   const { subtotal, iva, total } = orderTotals(order);
   const canAdvance = order.column !== "listo";
+  const { dossier } = useDict().sections.demosPedidos;
 
   return (
     <aside
@@ -38,13 +40,14 @@ export default function Dossier({
             </span>
           </div>
           <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">
-            Emitido hoy a las {order.issuedAt} h
+            {dossier.issuedPrefix} {order.issuedAt}
+            {dossier.issuedSuffix ? ` ${dossier.issuedSuffix}` : ""}
           </span>
         </div>
         <button
           type="button"
           aria-disabled="true"
-          aria-label="Imprimir comanda"
+          aria-label={dossier.printAria}
           className="w-8 h-8 shrink-0 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center text-on-surface-variant cursor-default focus:outline-none"
         >
           <span className="material-symbols-outlined text-[18px]">print</span>
@@ -54,7 +57,7 @@ export default function Dossier({
       {/* Comensal */}
       <div className="flex flex-col gap-1 pb-space-md border-b border-outline-variant">
         <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">
-          Comensal
+          {dossier.guest}
         </span>
         <h3 className="font-headline-sm text-headline-sm text-on-surface">
           {order.guest}
@@ -73,7 +76,7 @@ export default function Dossier({
       {/* Detalle de comanda */}
       <div className="flex flex-col gap-space-sm pb-space-md border-b border-outline-variant">
         <span className="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">
-          Detalle de comanda
+          {dossier.detail}
         </span>
         {order.items.map((item) => (
           <div
@@ -99,7 +102,7 @@ export default function Dossier({
           <div className="flex items-center gap-1.5 text-primary mb-1">
             <span className="material-symbols-outlined text-[16px]">info</span>
             <span className="font-label-caps text-label-caps uppercase font-bold tracking-wider">
-              Nota de cocina
+              {dossier.kitchenNote}
             </span>
           </div>
           <p className="text-body-sm text-on-surface-variant italic">
@@ -111,16 +114,16 @@ export default function Dossier({
       {/* Desglose */}
       <div className="flex flex-col gap-1.5 pt-1">
         <div className="flex justify-between text-body-sm text-on-surface-variant">
-          <span>Subtotal</span>
+          <span>{dossier.subtotal}</span>
           <span className="font-mono-code">{formatEUR(subtotal)}</span>
         </div>
         <div className="flex justify-between text-body-sm text-on-surface-variant">
-          <span>IVA inc. (10%)</span>
+          <span>{dossier.iva}</span>
           <span className="font-mono-code">{formatEUR(iva)}</span>
         </div>
         <div className="flex justify-between items-baseline pt-2 mt-1 border-t border-outline-variant">
           <span className="font-headline-sm text-[20px] text-on-surface">
-            Total
+            {dossier.total}
           </span>
           <span className="font-mono-code text-[24px] font-bold text-on-surface">
             {formatEUR(total)}
@@ -143,14 +146,14 @@ export default function Dossier({
           <span className="material-symbols-outlined text-[18px]">
             check_circle
           </span>
-          <span>Marcar como listo</span>
+          <span>{dossier.markReady}</span>
         </button>
         <button
           type="button"
           onClick={onCancel}
           className="w-full py-2.5 rounded-full border border-outline-variant text-error hover:bg-error-container/20 font-label-caps text-label-caps uppercase tracking-wider transition-colors focus:outline-none"
         >
-          Cancelar pedido
+          {dossier.cancelOrder}
         </button>
       </div>
     </aside>

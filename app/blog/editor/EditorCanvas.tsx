@@ -1,10 +1,13 @@
 "use client";
 
-/* SPEC 09 — Paso 3: panel principal — portada editorial + header editable.
+/* SPEC 10 — Paso 9: panel principal — portada editorial + header editable.
    Imagen de portada 16:9 con overlay hover (cambiar/eliminar), badge alt text, dimensiones.
-   Header: breadcrumb, título editable (textarea), excerpt editable (textarea cursiva). */
+   Header: breadcrumb, título editable (textarea), excerpt editable (textarea cursiva).
+   Upload de portada a Storage funcional. */
 
 import { forwardRef, type TextareaHTMLAttributes } from "react";
+
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 // [placeholder] Portada de ejemplo (misma URL que references/06_editor_del_blog/code.html)
 const COVER_IMAGE =
@@ -19,13 +22,22 @@ const DEFAULT_COVER_ALT =
   "Fotografía arquitectónica en tonos cálidos con estudio de diseño y biblioteca iluminada al atardecer.";
 
 /* ---------- Cover Image ---------- */
+interface CoverImageProps {
+  coverAlt: string;
+  altWordCount: number;
+  coverImageUrl: string;
+  onCoverUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 function CoverImage({
   coverAlt,
   altWordCount,
-}: {
-  coverAlt: string;
-  altWordCount: number;
-}) {
+  coverImageUrl,
+  onCoverUpload,
+}: CoverImageProps) {
+  const canvas = useDict().sections.editor.canvas;
+  const imageSrc = coverImageUrl || COVER_IMAGE;
+
   return (
     <div
       className="relative group w-full rounded-xl overflow-hidden bg-surface-container aspect-[16/9]"
@@ -33,7 +45,7 @@ function CoverImage({
     >
       <div
         className="w-full h-full bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-        style={{ backgroundImage: `url('${COVER_IMAGE}')` }}
+        style={{ backgroundImage: `url('${imageSrc}')` }}
         data-alt={coverAlt}
         role="img"
         aria-label={coverAlt}
@@ -43,17 +55,20 @@ function CoverImage({
 
       {/* Hover toolbar */}
       <div className="absolute top-4 right-4 flex items-center gap-2 opacity-95 group-hover:opacity-100 transition-opacity">
-        <button
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface/90 backdrop-blur-md font-label-caps text-label-caps text-on-surface shadow-sm hover:bg-surface transition-colors"
-          type="button"
-        >
+        <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface/90 backdrop-blur-md font-label-caps text-label-caps text-on-surface shadow-sm hover:bg-surface transition-colors cursor-pointer">
           <span className="material-symbols-outlined text-[15px]">
             photo_camera
           </span>
-          <span>Cambiar imagen</span>
-        </button>
+          <span>{canvas.changeImage}</span>
+          <input
+            type="file"
+            accept="image/*"
+            className="sr-only"
+            onChange={onCoverUpload}
+          />
+        </label>
         <button
-          aria-label="Eliminar imagen de portada"
+          aria-label={canvas.removeCover}
           className="w-8 h-8 rounded-full bg-surface/90 backdrop-blur-md flex items-center justify-center text-error hover:bg-error-container transition-colors shadow-sm"
           type="button"
         >
@@ -67,7 +82,7 @@ function CoverImage({
           <span className="material-symbols-outlined text-[13px] text-secondary-fixed">
             check_circle
           </span>
-          <span>Alt text configurado ({altWordCount} palabras)</span>
+          <span>{canvas.altConfigured} ({altWordCount} {canvas.altWords})</span>
         </span>
         <span className="hidden sm:inline-flex px-2 py-0.5 rounded-md bg-inverse-surface/60 backdrop-blur-sm text-[11px]">
           2140 × 1204 px · 16:9 {/* [placeholder] */}
@@ -109,19 +124,22 @@ const EditableExcerpt = forwardRef<
 EditableExcerpt.displayName = "EditableExcerpt";
 
 /* ---------- Essay Header ---------- */
+interface EssayHeaderProps {
+  title: string;
+  onTitleChange: (v: string) => void;
+  excerpt: string;
+  onExcerptChange: (v: string) => void;
+  readMin: number;
+}
+
 function EssayHeader({
   title,
   onTitleChange,
   excerpt,
   onExcerptChange,
   readMin,
-}: {
-  title: string;
-  onTitleChange: (v: string) => void;
-  excerpt: string;
-  onExcerptChange: (v: string) => void;
-  readMin: number;
-}) {
+}: EssayHeaderProps) {
+  const canvas = useDict().sections.editor.canvas;
   return (
     <header className="flex flex-col gap-4 pt-2" data-anim="fade-up">
       {/* Category / breadcrumb */}
@@ -130,47 +148,60 @@ function EssayHeader({
           Volumen IV · Ensayo {/* [placeholder] */}
         </span>
         <span className="text-outline-variant">/</span>
-        <span className="text-on-surface-variant">{readMin} min de lectura</span>
+        <span className="text-on-surface-variant">{readMin} {canvas.readTime}</span>
       </div>
 
       <EditableTitle
         value={title}
         onChange={(e) => onTitleChange(e.target.value)}
-        placeholder="Escribe el título del ensayo..."
+        placeholder={canvas.titlePlaceholder}
       />
 
       <EditableExcerpt
         value={excerpt}
         onChange={(e) => onExcerptChange(e.target.value)}
-        placeholder="Escribe una bajada o sumario editorial..."
+        placeholder={canvas.excerptPlaceholder}
       />
     </header>
   );
 }
 
 /* ---------- Export ---------- */
+interface EditorCanvasProps {
+  title: string;
+  onTitleChange: (v: string) => void;
+  excerpt: string;
+  onExcerptChange: (v: string) => void;
+  coverAlt: string;
+  onCoverAltChange: (v: string) => void;
+  coverImageUrl: string;
+  onCoverUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  readMin: number;
+}
+
 export default function EditorCanvas({
   title,
   onTitleChange,
   excerpt,
   onExcerptChange,
   coverAlt,
+  onCoverAltChange,
+  coverImageUrl,
+  onCoverUpload,
   readMin,
-}: {
-  title: string;
-  onTitleChange: (v: string) => void;
-  excerpt: string;
-  onExcerptChange: (v: string) => void;
-  coverAlt: string;
-  readMin: number;
-}) {
+}: EditorCanvasProps) {
   const altWordCount = coverAlt.trim()
     ? coverAlt.trim().split(/\s+/).length
     : 0;
 
   return (
     <article className="lg:col-span-8 flex flex-col gap-6" data-anim="fade-up">
-      <CoverImage coverAlt={coverAlt} altWordCount={altWordCount} />
+      <CoverImage
+        coverAlt={coverAlt}
+        altWordCount={altWordCount}
+        coverImageUrl={coverImageUrl}
+        onCoverUpload={onCoverUpload}
+      />
       <EssayHeader
         title={title}
         onTitleChange={onTitleChange}

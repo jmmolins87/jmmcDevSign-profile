@@ -5,14 +5,9 @@
    sin tocar el número para conservar el pad. */
 
 import type { Order, OrderColumn } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 const pad = (value: number): string => String(value).padStart(2, "0");
-
-const METRICS: { label: string; column: OrderColumn; tone: string }[] = [
-  { label: "Nuevos", column: "nuevo", tone: "text-tertiary" },
-  { label: "En preparación", column: "preparacion", tone: "text-primary" },
-  { label: "Listos", column: "listo", tone: "text-secondary" },
-];
 
 export default function SummaryStrip({
   orders,
@@ -21,8 +16,17 @@ export default function SummaryStrip({
   orders: Order[];
   syncedAgo: number;
 }) {
+  const { demosPedidos } = useDict().sections;
+  const { strip } = demosPedidos;
+
   const countOf = (column: OrderColumn): number =>
     orders.filter((order) => order.column === column).length;
+
+  const METRICS: { label: string; column: OrderColumn; tone: string }[] = [
+    { label: strip.nuevos, column: "nuevo", tone: "text-tertiary" },
+    { label: strip.preparacion, column: "preparacion", tone: "text-primary" },
+    { label: strip.listo, column: "listo", tone: "text-secondary" },
+  ];
 
   return (
     <section
@@ -32,7 +36,7 @@ export default function SummaryStrip({
       {/* Título + estado de conexión */}
       <div className="flex items-center gap-space-md flex-wrap">
         <h1 className="font-headline-md text-headline-md text-on-surface tracking-tight">
-          Pedidos en tiempo real
+          {strip.title}
         </h1>
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant">
           <span className="relative flex h-2 w-2">
@@ -40,7 +44,7 @@ export default function SummaryStrip({
             <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary" />
           </span>
           <span className="font-label-caps text-label-caps uppercase text-secondary font-semibold tracking-wider">
-            En vivo · Sincronizado hace {syncedAgo} s
+            {strip.live} · {strip.syncedPrefix} {syncedAgo} {strip.syncedSuffix}
           </span>
         </div>
       </div>

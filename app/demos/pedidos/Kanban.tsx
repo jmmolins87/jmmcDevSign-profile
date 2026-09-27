@@ -7,41 +7,8 @@
 "use client";
 
 import type { Order, OrderColumn } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 import OrderCard from "./OrderCard";
-
-const COLUMNS: {
-  id: OrderColumn;
-  label: string;
-  icon: string;
-  labelTone: string;
-  countTone: string;
-  iconTone: string;
-}[] = [
-  {
-    id: "nuevo",
-    label: "Nuevo",
-    icon: "fiber_manual_record",
-    labelTone: "text-on-surface",
-    countTone: "bg-surface-container-highest text-on-surface-variant",
-    iconTone: "text-on-surface-variant",
-  },
-  {
-    id: "preparacion",
-    label: "En preparación",
-    icon: "local_fire_department",
-    labelTone: "text-primary",
-    countTone: "bg-primary-fixed text-on-primary-fixed font-bold",
-    iconTone: "text-primary",
-  },
-  {
-    id: "listo",
-    label: "Listo",
-    icon: "check_circle",
-    labelTone: "text-secondary",
-    countTone: "bg-secondary-fixed text-on-secondary-fixed",
-    iconTone: "text-secondary",
-  },
-];
 
 export default function Kanban({
   orders,
@@ -56,6 +23,42 @@ export default function Kanban({
   onSelect: (id: string) => void;
   emptyMessage: string;
 }) {
+  const { demosPedidos } = useDict().sections;
+
+  const COLUMNS: {
+    id: OrderColumn;
+    label: string;
+    icon: string;
+    labelTone: string;
+    countTone: string;
+    iconTone: string;
+  }[] = [
+    {
+      id: "nuevo",
+      label: demosPedidos.columns.nuevo,
+      icon: "fiber_manual_record",
+      labelTone: "text-on-surface",
+      countTone: "bg-surface-container-highest text-on-surface-variant",
+      iconTone: "text-on-surface-variant",
+    },
+    {
+      id: "preparacion",
+      label: demosPedidos.columns.preparacion,
+      icon: "local_fire_department",
+      labelTone: "text-primary",
+      countTone: "bg-primary-fixed text-on-primary-fixed font-bold",
+      iconTone: "text-primary",
+    },
+    {
+      id: "listo",
+      label: demosPedidos.columns.listo,
+      icon: "check_circle",
+      labelTone: "text-secondary",
+      countTone: "bg-secondary-fixed text-on-secondary-fixed",
+      iconTone: "text-secondary",
+    },
+  ];
+
   // Sin ninguna coincidencia: un único panel a todo el ancho.
   if (orders.length === 0) {
     return (
@@ -99,7 +102,7 @@ export default function Kanban({
             <div className="flex flex-col gap-space-sm">
               {list.length === 0 ? (
                 <p className="px-3 py-space-sm border border-outline-variant rounded-[14px] text-center font-mono-code text-label-caps uppercase text-on-surface-variant">
-                  Sin pedidos en esta columna
+                  {demosPedidos.emptyColumn}
                 </p>
               ) : (
                 list.map((order) => (

@@ -3,6 +3,7 @@
 "use client";
 
 import { MOCK_INVOICES, type Invoice } from "@/lib/data/software";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 const STATUS_STYLES: Record<Invoice["status"], string> = {
   pagada: "bg-secondary-container/40 text-on-secondary-container",
@@ -11,14 +12,16 @@ const STATUS_STYLES: Record<Invoice["status"], string> = {
 };
 
 export default function InvoicesTable() {
+  const { invoices } = useDict().sections.demosSoftware;
+
   return (
     <>
       <div className="flex items-center justify-between mb-5">
         <p className="font-body-sm text-body-sm text-on-surface-variant">
-          Registro y trazabilidad de los cobros en curso
+          {invoices.subtitle}
         </p>
         <a className="font-label-caps text-label-caps tracking-wider text-primary hover:text-primary-container flex items-center gap-1 transition-colors" href="#">
-          <span>VER TODAS (142)</span>
+          <span>{invoices.viewAll}</span>
           <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
         </a>
       </div>
@@ -26,12 +29,12 @@ export default function InvoicesTable() {
         <table className="w-full text-left">
           <thead>
             <tr className="bg-surface-container-low text-on-surface-variant font-label-caps text-[11px] tracking-wider">
-              <th className="py-2.5 px-3 rounded-l-lg">ID FACTURA</th>
-              <th className="py-2.5 px-3">CLIENTE / ENTIDAD</th>
-              <th className="py-2.5 px-3">EMISIÓN</th>
-              <th className="py-2.5 px-3">VENCE</th>
-              <th className="py-2.5 px-3 text-right">IMPORTE</th>
-              <th className="py-2.5 px-3 text-center">ESTADO</th>
+              <th className="py-2.5 px-3 rounded-l-lg">{invoices.colId}</th>
+              <th className="py-2.5 px-3">{invoices.colClient}</th>
+              <th className="py-2.5 px-3">{invoices.colIssued}</th>
+              <th className="py-2.5 px-3">{invoices.colDue}</th>
+              <th className="py-2.5 px-3 text-right">{invoices.colAmount}</th>
+              <th className="py-2.5 px-3 text-center">{invoices.colStatus}</th>
               <th className="py-2.5 px-2 rounded-r-lg text-right"></th>
             </tr>
           </thead>
@@ -53,7 +56,7 @@ export default function InvoicesTable() {
                   </span>
                 </td>
                 <td className="py-3 px-2 text-right">
-                  <button className="text-on-surface-variant hover:text-primary transition-colors" title="Descargar PDF" type="button">
+                  <button className="text-on-surface-variant hover:text-primary transition-colors" title={invoices.downloadPdf} type="button">
                     <span className="material-symbols-outlined text-[16px]">download</span>
                   </button>
                 </td>
@@ -63,7 +66,7 @@ export default function InvoicesTable() {
         </table>
       </div>
       <div className="mt-4 pt-3 flex items-center justify-between text-mono-code text-[12px] text-on-surface-variant">
-        <span>Mostrando 4 de 142 registros</span>
+        <span>{invoices.showing}</span>
         <div className="flex items-center gap-2">
           <button className="p-1 rounded hover:bg-surface-container" disabled type="button">
             <span className="material-symbols-outlined text-[18px] opacity-40">chevron_left</span>

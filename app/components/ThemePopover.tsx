@@ -7,12 +7,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "./ThemeProvider";
+import { useDict } from "@/lib/i18n/I18nProvider";
 import type { ThemePreference } from "@/lib/theme";
 
-const OPTIONS: { value: ThemePreference; label: string; icon: string }[] = [
-  { value: "light", label: "Claro", icon: "light_mode" },
-  { value: "dark", label: "Oscuro", icon: "dark_mode" },
-  { value: "system", label: "Sistema", icon: "desktop_windows" },
+const OPTIONS: { value: ThemePreference; key: "light" | "dark" | "system"; icon: string }[] = [
+  { value: "light", key: "light", icon: "light_mode" },
+  { value: "dark", key: "dark", icon: "dark_mode" },
+  { value: "system", key: "system", icon: "desktop_windows" },
 ];
 
 type ThemePopoverProps = {
@@ -25,6 +26,7 @@ export default function ThemePopover({
   variant = "header",
 }: ThemePopoverProps) {
   const { theme, resolved, setTheme } = useTheme();
+  const themeDict = useDict().sections.theme;
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -61,7 +63,7 @@ export default function ThemePopover({
     >
       <button
         type="button"
-        aria-label="Selector de tema"
+        aria-label={themeDict.selector}
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
@@ -90,11 +92,11 @@ export default function ThemePopover({
       {open && (
         <div
           role="menu"
-          aria-label="Apariencia"
+          aria-label={themeDict.menuLabel}
           className="absolute right-0 top-11 w-[188px] rounded-[14px] border border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md py-1.5 z-30"
         >
           <div className="px-3 py-1 font-label-caps text-[10px] uppercase text-outline tracking-wider border-b border-outline-variant/50 mb-1">
-            Apariencia
+            {themeDict.menuLabel}
           </div>
           {OPTIONS.map((option) => {
             const active = theme === option.value;
@@ -126,7 +128,7 @@ export default function ThemePopover({
                       active ? "font-semibold" : ""
                     }`}
                   >
-                    {option.label}
+                    {themeDict[option.key]}
                   </span>
                 </span>
                 {active && (

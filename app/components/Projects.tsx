@@ -1,15 +1,24 @@
 /* SPEC 01 — Paso 6: sección 04 — Proyectos + demos (data-anim="stagger-in"). */
 
-import { demos, projects } from "@/lib/content";
 import { getSiteImage } from "@/lib/data";
+import { getDict, withLocale } from "@/lib/i18n/server";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
 import Chip from "./ui/Chip";
 
-export default function Projects() {
+export default async function Projects() {
+  const dict = await getDict();
+  const projects = dict.projects;
+  const demos = await Promise.all(
+    dict.demos.map(async (demo) => ({ ...demo, href: await withLocale(demo.href) })),
+  );
+  const section = dict.sections.projects;
+  const projectImages = await Promise.all(
+    projects.map((p) => getSiteImage(`project-${p.index}`))
+  );
   return (
     <Section id="proyectos" anim="stagger-in">
-      <SectionHeading index="04" name="Proyectos" />
+      <SectionHeading index="04" name={section.name} />
         {/* 2x2 Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {projects.map((project) => (
@@ -23,7 +32,7 @@ export default function Projects() {
                   role="img"
                   aria-label={`${project.title} — ${project.category}`}
                   style={{
-                    backgroundImage: `url('${getSiteImage(`project-${project.index}`).url}')`,
+                    backgroundImage: `url('${projectImages[projects.indexOf(project)].url}')`,
                   }}
                 />
               </div>
@@ -57,10 +66,10 @@ export default function Projects() {
         <div className="mt-24 pt-12 border-t border-outline-variant space-y-8">
           <div className="flex items-baseline justify-between">
             <h3 className="font-headline-md text-headline-md text-on-surface font-normal">
-              Demos en vivo
+              {section.demosTitle}
             </h3>
             <span className="font-mono-code text-[11px] text-outline uppercase tracking-wider">
-              Entornos Interactivos
+              {section.demosSubtitle}
             </span>
           </div>
           <div className="space-y-0">
@@ -93,7 +102,7 @@ export default function Projects() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2 font-mono-code text-[13px] text-on-surface group-hover:text-primary transition-colors">
-                  <span>Explorar sandbox</span>
+                  <span>{section.explore}</span>
                   <span className="material-symbols-outlined text-[20px] group-hover:translate-x-1.5 transition-transform">
                     arrow_forward
                   </span>

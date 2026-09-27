@@ -8,12 +8,21 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import MenuOverlay from "./MenuOverlay";
 import ThemePopover from "./ThemePopover";
+import { useI18n, useT } from "@/lib/i18n/I18nProvider";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const t = useT();
+  const { locale, withLocale } = useI18n();
+  const pathname = usePathname();
+
+  /* Selector ES | EN: conserva la ruta actual en el otro idioma. */
+  const esHref = locale === "en" ? pathname.replace(/^\/en/, "") || "/" : pathname;
+  const enHref = withLocale(pathname);
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -36,29 +45,37 @@ export default function Header() {
           </div>
           <div className="flex items-center gap-space-sm sm:gap-space-md">
             <div className="inline-flex items-center p-0.5 rounded-full border border-outline-variant bg-surface-container-low">
-              <button
-                type="button"
-                aria-current="true"
-                className="px-2 py-1 rounded-full font-label-caps text-label-caps uppercase bg-surface text-on-surface font-semibold shadow-xs focus:outline-none"
+              <a
+                href={esHref}
+                aria-current={locale === "es" ? "true" : undefined}
+                className={`px-2 py-1 rounded-full font-label-caps text-label-caps uppercase focus:outline-none ${
+                  locale === "es"
+                    ? "bg-surface text-on-surface font-semibold shadow-xs"
+                    : "text-on-surface-variant hover:text-on-surface transition-colors"
+                }`}
               >
                 ES
-              </button>
+              </a>
               <span className="text-outline-variant text-[10px] select-none">
                 |
               </span>
-              <button
-                type="button"
-                aria-disabled="true"
-                className="px-2 py-1 rounded-full font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-on-surface transition-colors focus:outline-none"
+              <a
+                href={enHref}
+                aria-current={locale === "en" ? "true" : undefined}
+                className={`px-2 py-1 rounded-full font-label-caps text-label-caps uppercase focus:outline-none ${
+                  locale === "en"
+                    ? "bg-surface text-on-surface font-semibold shadow-xs"
+                    : "text-on-surface-variant hover:text-on-surface transition-colors"
+                }`}
               >
                 EN
-              </button>
+              </a>
             </div>
             <ThemePopover />
             <button
               ref={hamburgerRef}
               type="button"
-              aria-label="Abrir navegación"
+              aria-label={t("sections.header.openMenu")}
               aria-haspopup="dialog"
               aria-expanded={menuOpen}
               aria-controls="menu-overlay"

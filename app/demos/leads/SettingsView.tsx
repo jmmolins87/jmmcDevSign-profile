@@ -4,6 +4,7 @@
 "use client";
 
 import { MOCK_SETTINGS } from "@/lib/data/leads";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 export default function SettingsView({
   values,
@@ -12,14 +13,16 @@ export default function SettingsView({
   values: Record<string, boolean>;
   onToggle: (id: string) => void;
 }) {
+  const { demosLeads } = useDict().sections;
+
   return (
     <section className="w-full rounded-[14px] bg-surface-container-low border border-outline-variant p-space-lg flex flex-col gap-space-md">
       <div className="border-b border-outline-variant pb-space-sm">
         <span className="font-mono-code text-label-caps uppercase tracking-wider text-on-surface-variant font-semibold">
-          Ajustes del agente
+          {demosLeads.settings.title}
         </span>
         <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-          Estado local de la demo — no se persiste.
+          {demosLeads.settings.description}
         </p>
       </div>
       <ul className="flex flex-col divide-y divide-outline-variant/60">

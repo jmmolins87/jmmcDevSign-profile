@@ -6,10 +6,12 @@
 import { useEffect, useState } from "react";
 import { MOCK_FEED, MOCK_FEED_EXTRA } from "@/lib/data/leads";
 import type { FeedEvent } from "@/lib/data/types";
+import { useDict } from "@/lib/i18n/I18nProvider";
 
 const TONE_CYCLE = ["text-primary", "text-secondary", "text-tertiary"];
 
 export default function Feed({ agentActive }: { agentActive: boolean }) {
+  const { demosLeads } = useDict().sections;
   const [events, setEvents] = useState<{ key: string; event: FeedEvent }[]>(
     MOCK_FEED.map((event) => ({ key: `${event.time}-${event.title}`, event }))
   );
@@ -50,11 +52,11 @@ export default function Feed({ agentActive }: { agentActive: boolean }) {
             />
           </span>
           <span className="font-mono-code text-label-caps uppercase tracking-wider text-on-surface font-semibold">
-            Actividad del agente en vivo
+            {demosLeads.feed.title}
           </span>
         </div>
         <span className="font-mono-code text-mono-code text-on-surface-variant inline-flex items-center gap-1">
-          <span>Ver registro completo</span>
+          <span>{demosLeads.feed.viewFullLog}</span>
           <span className="material-symbols-outlined text-[14px]">
             arrow_forward
           </span>
