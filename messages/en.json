@@ -1,0 +1,258 @@
+{
+  "sections": {
+    "header": {
+      "openMenu": "Open navigation",
+      "closeMenu": "Close navigation"
+    },
+    "menu": {
+      "ariaLabel": "Navigation",
+      "sectionsAria": "Sections",
+      "mapTitle": "01 / Navigation map",
+      "active": "Active",
+      "availability": "Available for Q2/Q3 2026",
+      "location": "Madrid & remote",
+      "demosTitle": "02 / Live demos",
+      "demosCount": "3 interactive",
+      "membersTitle": "Members zone",
+      "membersBody": "Access with token or authorized credentials",
+      "membersCta": "Enter",
+      "connectionsTitle": "03 / Connections & contact"
+    },
+    "hero": {
+      "eyebrow": "Web developer & UI/UX — Available for projects",
+      "titleLine1": "I design and build",
+      "titleLine2": "interfaces that feel",
+      "titleAccent": "cinematic.",
+      "subtitle": "Fullstack, design, automation and AI. From first sketch to deploy, orchestrating robust systems with an author's aesthetic.",
+      "ctaProjects": "See projects",
+      "ctaTalk": "Let's talk",
+      "scroll": "Scroll",
+      "hudLabel": "Art Direction",
+      "hudBody": "Systems architecture oriented toward a cinematic experience."
+    },
+    "about": {
+      "name": "About me",
+      "lead": "I conceive software as an editorial piece: every line of code sustains a visual narrative where rigorous performance and aesthetic sensibility coexist without friction.",
+      "body": "Based in Spain and operating worldwide, I move between fullstack engineering and cinematic interaction design. I automate complex workflows with AI models while sculpting millimetric typography and micro-interactions that breathe calm.",
+      "quote": "\u201cTechnical precision is invisible when the experience moves you.\u201d",
+      "studio": "JMMC // Madrid Studio",
+      "statExperienceLabel": "Experience",
+      "statExperienceValue": "7+",
+      "statExperienceUnit": "years",
+      "statExperienceRange": "[2018–2026]",
+      "statLocationLabel": "Location",
+      "statLocationValue": "Spain",
+      "statLocationDetail": "Remote / Hybrid",
+      "statLanguagesLabel": "Languages",
+      "statLanguagesValue": "ES / EN",
+      "statLanguagesDetail": "Bilingual Prof."
+    },
+    "stack": {
+      "name": "Stack",
+      "title": "Technologies and architecture",
+      "intro": "Vertical technical specialization combined with a holistic ability to design resilient, scalable systems.",
+      "badge": "Production mastery"
+    },
+    "experience": {
+      "name": "Experience"
+    },
+    "projects": {
+      "name": "Projects",
+      "demosTitle": "Live demos",
+      "demosSubtitle": "Interactive Environments",
+      "explore": "Explore sandbox"
+    },
+    "services": {
+      "name": "Services"
+    },
+    "blog": {
+      "name": "Blog & Logbook",
+      "readArticle": "Read article",
+      "prevPost": "Previous article",
+      "nextPost": "Next article",
+      "membersZone": "Members zone",
+      "minRead": "min read",
+      "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    },
+    "contact": {
+      "name": "Contact",
+      "title": "Shall we talk?",
+      "body": "Have a project in mind, need architecture consulting, or want to level up your product's design? Tell me about it and I'll reply within 24 hours.",
+      "location": "Madrid, Spain (UTC+1)",
+      "nameLabel": "Your name *",
+      "namePlaceholder": "e.g. Elena Navarro",
+      "emailLabel": "Your email *",
+      "emailPlaceholder": "elena@company.com",
+      "messageLabel": "About the project *",
+      "messagePlaceholder": "Briefly describe your goals, deadlines, or the stack you have in mind...",
+      "responseNote": "Reply guaranteed in <24h",
+      "submit": "Send message",
+      "success": "Message received — I'll reply within 24 hours."
+    },
+    "footer": {
+      "tagline": "Fullstack & UI/UX",
+      "backToTop": "Back to top"
+    }
+  },
+  "navItems": [
+    { "index": "01", "label": "About", "href": "#sobre-mi" },
+    { "index": "02", "label": "Stack", "href": "#stack" },
+    { "index": "03", "label": "Experience", "href": "#experiencia" },
+    { "index": "04", "label": "Projects", "href": "#proyectos" },
+    { "index": "05", "label": "Services", "href": "#servicios" },
+    { "index": "06", "label": "Blog", "href": "/blog/editor" },
+    { "index": "07", "label": "Contact", "href": "#contacto" }
+  ],
+  "stackGroups": [
+    {
+      "title": "Front frameworks",
+      "note": "UI & Core",
+      "skills": [
+        { "name": "Angular", "level": 92, "tag": "Primary" },
+        { "name": "React", "level": 85 },
+        { "name": "Next.js", "level": 85 },
+        { "name": "Astro", "level": 70 }
+      ]
+    },
+    {
+      "title": "Backend",
+      "note": "APIs & Microservices",
+      "skills": [
+        { "name": "Java (Spring Boot)", "level": 75 },
+        { "name": "Node.js / Express", "level": 82 },
+        { "name": "PostgreSQL & Prisma", "level": 80 }
+      ]
+    },
+    {
+      "title": "Devtools & CI/CD",
+      "note": "Infrastructure",
+      "skills": [
+        { "name": "Docker & Containers", "level": 80 },
+        { "name": "GitLab CI / Runners", "level": 80 },
+        { "name": "GitHub Actions", "level": 90 }
+      ]
+    },
+    {
+      "title": "Cloud & Automation",
+      "note": "Intelligence",
+      "skills": [
+        { "name": "Azure Cloud", "level": 70 },
+        { "name": "AWS (S3, Lambda, CloudFront)", "level": 65 },
+        { "name": "Automation & AI (LLMs, LangChain)", "level": 85 }
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "period": "2024 — Present",
+      "role": "Senior Frontend & Creative Technologist",
+      "company": "Estudio Sintagma / Global Fintech",
+      "body": "Leading micro-frontend architecture in Angular and React. Integrating real-time analytics pipelines and designing cinematic interactive systems for corporate banking.",
+      "tags": ["Angular", "TypeScript", "Design Systems"]
+    },
+    {
+      "period": "2022 — 2024",
+      "role": "Fullstack Engineer & UI Specialist",
+      "company": "Nexus Dynamics",
+      "body": "Building resilient services in Java Spring Boot with containerized deployment on Docker. Reengineering the main frontend to Next.js, improving Core Web Vitals metrics by 42%.",
+      "tags": ["Java Spring", "Next.js", "Docker"]
+    },
+    {
+      "period": "2020 — 2022",
+      "role": "Product Designer & Web Developer",
+      "company": "Hyperion Agency",
+      "body": "Creating immersive experiences for luxury and retail clients. End-to-end delivery from wireframes and Figma prototypes to frontend code with SVG and Canvas micro-animations.",
+      "tags": ["Figma", "React", "Tailwind"]
+    },
+    {
+      "period": "2018 — 2020",
+      "role": "Junior Frontend Developer",
+      "company": "Vortex Labs",
+      "body": "Building interactive modules in modular JavaScript, laying out responsive interfaces and integrating REST APIs under agile methodologies.",
+      "tags": ["JavaScript ES6", "Git", "REST APIs"]
+    }
+  ],
+  "projects": [
+    {
+      "index": "01",
+      "category": "FinTech Analytics",
+      "title": "Kaelo Platform",
+      "body": "Financial intelligence platform with real-time visualization of multi-currency liquidity and automated treasury management.",
+      "tags": ["Angular 17", "RxJS", "Tailwind"]
+    },
+    {
+      "index": "02",
+      "category": "E-Commerce Editorial",
+      "title": "Atelier Solstice",
+      "body": "Interactive design catalog with headless checkout, cinematic micro-animations and instant global stock sync.",
+      "tags": ["Next.js", "Shopify Storefront", "Anime.js"]
+    },
+    {
+      "index": "03",
+      "category": "Automation & AI",
+      "title": "Synapse Core",
+      "body": "Prompt orchestration engine for legal operations teams, with structured contract extraction in seconds.",
+      "tags": ["Python", "OpenAI API", "FastAPI"]
+    },
+    {
+      "index": "04",
+      "category": "SaaS Enterprise",
+      "title": "Vesta Workspace",
+      "body": "Modular suite for architecture studios: budget control, milestone-based hours and integrated high-res renders.",
+      "tags": ["React", "PostgreSQL", "Docker"]
+    }
+  ],
+  "services": [
+    {
+      "index": "01",
+      "icon": "draw",
+      "title": "UI/UX Design",
+      "body": "Editorial visual systems, high-fidelity prototyping, user testing and AA/AAA accessibility guidelines.",
+      "meta": "Figma · Design Systems"
+    },
+    {
+      "index": "02",
+      "icon": "terminal",
+      "title": "Custom web development",
+      "body": "High-performance front-to-back applications built with Angular, Next.js, Java and structured databases.",
+      "meta": "Fullstack · TypeScript · APIs"
+    },
+    {
+      "index": "03",
+      "icon": "tune",
+      "title": "Process automation",
+      "body": "Connecting commercial pipelines, CRM sync, webhooks and CI/CD infrastructure with no single points of failure.",
+      "meta": "Webhooks · CI/CD · Cloud"
+    },
+    {
+      "index": "04",
+      "icon": "psychology",
+      "title": "AI integration",
+      "body": "Deploying RAG agents and local or cloud semantic models for predictive analysis and automated support.",
+      "meta": "LLMs · Embeddings · Agents"
+    }
+  ],
+  "demos": [
+    {
+      "badge": "Live",
+      "live": true,
+      "title": "Lead agent",
+      "body": "Receives leads, qualifies them and automates commercial follow-up through autonomous conversational agents.",
+      "href": "/demos/leads"
+    },
+    {
+      "badge": "Demo",
+      "live": false,
+      "title": "Real-time orders",
+      "body": "Ordering system for stores: status changes sync instantly via WebSockets without reloading.",
+      "href": "/demos/pedidos"
+    },
+    {
+      "badge": "Demo",
+      "live": false,
+      "title": "Management software (SaaS)",
+      "body": "Run your business from a single consolidated panel with billing, clients and unified inventory.",
+      "href": "/demos/software-gestion"
+    }
+  ]
+}
