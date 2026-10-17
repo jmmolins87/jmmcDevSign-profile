@@ -8,6 +8,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+## Domain & contact
+- Production domain: **`jmmcdevsign.es`** (web in `apps/web`, API in `apps/api`).
+- Contact email used across the app (`MAIL_FROM`, `ADMIN_EMAIL`): **`hola@jmmcdevsign.es`**.
+- All environment variables are documented in `.env.example` (§12 of the guidelines) — that file is the single source of truth for provisioning.
+
 ## Specs (build in this order; each spec maps to one Stitch screen)
 
 Each spec below is a summary of the Stitch prompt for that screen. The Stitch project is the visual source of truth (read it through the Stitch MCP); this text explains the intent, behavior and states behind each screen. Every spec follows the global rules of Spec 00. Never add, split or duplicate screens: steps, themes, menu, loading, empty and error states are states of these specs, not new routes.
