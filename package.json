@@ -10,7 +10,7 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "biome check .",
-    "stylelint": "stylelint \"**/*.css\" --ignore-path .gitignore",
+    "stylelint": "stylelint \"**/*.css\"",
     "typecheck": "turbo run typecheck",
     "test": "vitest run",
     "db:migrate": "pnpm --filter @jmmcdev/api db:migrate",
@@ -18,7 +18,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.0",
+    "lefthook": "^2.0.0",
     "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^40.0.0",
     "turbo": "^2.0.0",
     "typescript": "^5.0.0"
   }
