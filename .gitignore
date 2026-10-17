@@ -15,6 +15,10 @@ coverage
 .next/
 out/
 
+# builds
+dist/
+.output/
+
 # production
 build
 
