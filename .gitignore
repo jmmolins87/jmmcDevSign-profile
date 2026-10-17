@@ -25,6 +25,10 @@ dist/
 # production
 build
 
+# supabase
+supabase/.temp
+supabase/.branches
+
 # turbo
 .turbo
 
