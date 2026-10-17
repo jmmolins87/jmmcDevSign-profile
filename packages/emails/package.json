@@ -1,0 +1,16 @@
+{
+  "name": "@jmmcdev/emails",
+  "version": "0.1.0",
+  "private": true,
+  "description": "React Email templates (Admin Approval Email, notifications).",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-email/components": "^0.5.5"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "typescript": "^5.0.0"
+  }
+}

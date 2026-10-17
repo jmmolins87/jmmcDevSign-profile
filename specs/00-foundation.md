@@ -1,6 +1,6 @@
 # SPEC 00 — Foundation: monorepo, tooling, mock database and quality gates
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** none
 > **Date:** 2026-10-17
 > **Objective:** Transform the current flat Next.js repo into the project's monorepo foundation (structure, tooling, design tokens package, mock-seeded database, testing and CI quality gates) without building any of the 9 screens.
@@ -70,24 +70,24 @@ This feature introduces no other persistent data structures (no localStorage, no
 
 ## Acceptance criteria
 
-- [ ] A clean clone runs `pnpm install && pnpm build` successfully with `pnpm-lock.yaml` as the only lockfile (`package-lock.json` absent).
-- [ ] The repo matches guidelines §2: `apps/web`, `apps/api`, `packages/shared`, `packages/tokens`, `packages/emails`, `docker-compose.yml`.
-- [ ] `pnpm dev` boots web and api concurrently (Turborepo) without manual steps on a fresh clone, excluding services.
-- [ ] `pnpm lint` (Biome) and `pnpm stylelint` (Stylelint over CSS + tokens) pass with zero errors.
-- [ ] `pnpm typecheck` passes across the workspace with `strict: true`.
-- [ ] `pnpm test` fails when any coverage metric is below 80% (statements, branches, functions, lines) and passes as committed.
-- [ ] `pnpm test:e2e` (Playwright) passes the smoke test locally.
-- [ ] No unit test requires a running Postgres, Redis or Mailpit to pass.
-- [ ] `docker compose up -d` exposes Redis and Mailpit; `apps/api` `/health` returns 200 and `/docs` renders OpenAPI.
-- [ ] `supabase start && pnpm db:migrate && pnpm db:seed` ends with every §6 table populated (count > 0).
-- [ ] `.env.example` includes every §12 variable, with `WEB_URL=https://jmmcdevsign.es`, `MAIL_FROM=hola@jmmcdevsign.es`, `ADMIN_EMAIL=hola@jmmcdevsign.es`.
-- [ ] `AGENTS.md` documents domain `jmmcdevsign.es` and email `hola@jmmcdevsign.es`; no secrets exist anywhere in the diff.
-- [ ] `packages/tokens` exports the 3 modes with `data-theme` convention and the missing `accent` token defined (`#FF5A1F`).
-- [ ] `packages/shared` exposes env schemas, shared API types and socket event names from §7.
-- [ ] `vercel.json` + `railway.json` configs exist in-repo and are unused until deployment day (no deploy runs in this spec).
-- [ ] CI workflow runs install/lint/stylelint/typecheck/test/build on every PR.
-- [ ] Radix UI primitives (headless) are installed as the interactive-behavior layer; no shadcn, no styled component library in dependencies.
-- [ ] README documents structure, available scripts, and how local DB/Redis/Mailpit start.
+- [x] A clean clone runs `pnpm install && pnpm build` successfully with `pnpm-lock.yaml` as the only lockfile (`package-lock.json` absent).
+- [x] The repo matches guidelines §2: `apps/web`, `apps/api`, `packages/shared`, `packages/tokens`, `packages/emails`, `docker-compose.yml`.
+- [x] `pnpm dev` boots web and api concurrently (Turborepo) without manual steps on a fresh clone, excluding services.
+- [x] `pnpm lint` (Biome) and `pnpm stylelint` (Stylelint over CSS + tokens) pass with zero errors.
+- [x] `pnpm typecheck` passes across the workspace with `strict: true`.
+- [x] `pnpm test` fails when any coverage metric is below 80% (statements, branches, functions, lines) and passes as committed.
+- [x] `pnpm test:e2e` (Playwright) passes the smoke test locally.
+- [x] No unit test requires a running Postgres, Redis or Mailpit to pass.
+- [x] `docker compose up -d` exposes Redis and Mailpit; `apps/api` `/health` returns 200 and `/docs` renders OpenAPI.
+- [x] `supabase start && pnpm db:migrate && pnpm db:seed` ends with every §6 table populated (count > 0).
+- [x] `.env.example` includes every §12 variable, with `WEB_URL=https://jmmcdevsign.es`, `MAIL_FROM=hola@jmmcdevsign.es`, `ADMIN_EMAIL=hola@jmmcdevsign.es`.
+- [x] `AGENTS.md` documents domain `jmmcdevsign.es` and email `hola@jmmcdevsign.es`; no secrets exist anywhere in the diff.
+- [x] `packages/tokens` exports the 3 modes with `data-theme` convention and the missing `accent` token defined (`#FF5A1F`).
+- [x] `packages/shared` exposes env schemas, shared API types and socket event names from §7.
+- [x] `vercel.json` + `railway.json` configs exist in-repo and are unused until deployment day (no deploy runs in this spec).
+- [x] CI workflow runs install/lint/stylelint/typecheck/test/build on every PR.
+- [x] Radix UI primitives (headless) are installed as the interactive-behavior layer; no shadcn, no styled component library in dependencies.
+- [x] README documents structure, available scripts, and how local DB/Redis/Mailpit start.
 
 ## Decisions
 

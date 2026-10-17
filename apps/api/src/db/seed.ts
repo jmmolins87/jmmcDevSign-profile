@@ -621,7 +621,7 @@ async function main() {
       }
     }
 
-    console.log("Seed finished:\n" + lines.join("\n"))
+    console.log(`Seed finished:\n${lines.join("\n")}`)
 
     if (failures.length > 0) {
       throw new Error(`Seed verification FAILED: empty tables [${failures.join(", ")}]`)
