@@ -1,27 +1,7 @@
-import Fastify from "fastify"
-import type { FastifyInstance } from "fastify"
+import { buildServer } from "./app.js"
 
-import { healthRoutes } from "./routes/health.js"
-import { loadEnv } from "./env.js"
-import { registerCommonPlugins } from "./plugins.js"
-
-/** Builds a fully configured Fastify instance (no listening). Used by tests. */
-export async function buildServer(
-  envSource: NodeJS.ProcessEnv = process.env,
-): Promise<FastifyInstance> {
-  const env = loadEnv(envSource)
-
-  const app = Fastify({
-    logger: env.NODE_ENV === "production" ? { level: "info" } : { level: "warn" },
-  })
-
-  await registerCommonPlugins(app, env)
-  await app.register(healthRoutes)
-
-  return app
-}
-
-async function start(): Promise<void> {
+/** Bootstrap entry point: bind and listen. Not exercised by unit tests. */
+export async function start(): Promise<void> {
   const app = await buildServer()
   await app.listen({ port: Number(process.env.PORT ?? 4000), host: "0.0.0.0" })
 }

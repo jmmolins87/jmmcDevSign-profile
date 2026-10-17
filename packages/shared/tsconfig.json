@@ -11,5 +11,5 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true
   },
-  "include": ["src/**/*.ts", "tsup.config.ts"]
+  "include": ["src/**/*.ts", "tests/**/*.ts", "tsup.config.ts"]
 }
