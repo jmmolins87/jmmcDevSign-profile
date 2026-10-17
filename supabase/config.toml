@@ -1,0 +1,26 @@
+# Supabase CLI local configuration.
+# Postgres: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+# Schema changes happen ONLY through Drizzle migrations (apps/api) — never
+# through the Supabase Studio SQL editor or the Supabase MCP (read-only).
+project_id = "jmmcdev-sign"
+
+# Logging analytics (logflare/vector) disabled locally: heavy images,
+# localhost-only stack. DB/API/Auth/Studio/Storage are what development needs.
+[analytics]
+enabled = false
+
+[api]
+enabled = true
+port = 54321
+
+[db]
+port = 54322
+major_version = 17
+
+[studio]
+enabled = true
+port = 54323
+
+[storage]
+enabled = true
+file_size_limit = "1GiB"
