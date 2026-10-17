@@ -2,25 +2,30 @@
   "name": "jmmcdevsign-profile",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+  "packageManager": "pnpm@12.6.0",
+  "engines": {
+    "node": ">=24"
   },
-  "dependencies": {
-    "next": "16.4.2",
-    "react": "19.3.0",
-    "react-dom": "19.3.0"
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "biome check .",
+    "stylelint": "stylelint \"**/*.css\"",
+    "typecheck": "turbo run typecheck",
+    "test": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "db:migrate": "pnpm --filter @jmmcdev/api db:migrate",
+    "db:seed": "pnpm --filter @jmmcdev/api db:seed"
   },
   "devDependencies": {
-    "@tailwindcss/turbopack": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.4.2",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@biomejs/biome": "^2.0.0",
+    "@playwright/test": "^1.64.1",
+    "@vitest/coverage-v8": "^5.0.5",
+    "lefthook": "^2.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^40.0.0",
+    "turbo": "^2.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^5.0.5"
   }
 }

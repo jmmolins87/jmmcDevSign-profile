@@ -1,0 +1,148 @@
+/*
+ * @jmmcdev/tokens — Brutalist Editorial Architecture
+ * Source of truth:
+ *   - resources/brutalist_editorial_architecture/DESIGN.md (front-matter YAML)
+ *   - resources/00-JMMC-project-guidelines.md §8
+ * Audit note: `accent: #FF5A1F` is documented in DESIGN.md prose and §8 but was
+ * missing from the YAML color list; it is added explicitly below.
+ *
+ * Theme modes: Oscuro (default), Claro, Sistema — applied via the
+ * `data-theme="dark|light|system"` attribute on `<html>`.
+ */
+
+:root,
+[data-theme="dark"] {
+  /* Semantic (§8) */
+  --color-bg: #0c0c0e;
+  --color-surface: #131316;
+  --color-text: #efebe3;
+  --color-muted: #8a867d;
+  --color-line: #26262b;
+  --color-accent: #ff5a1f;
+  --color-accent-text: #ff5a1f;
+
+  /* Extended surface scale (DESIGN.md) */
+  --color-surface-dim: #131315;
+  --color-surface-bright: #39393b;
+  --color-surface-lowest: #0e0e10;
+  --color-surface-low: #1b1b1d;
+  --color-surface-container: #201f21;
+  --color-surface-container-high: #2a2a2c;
+  --color-surface-container-highest: #353437;
+  --color-on-surface: #e5e1e4;
+  --color-on-surface-variant: #cac6bd;
+  --color-outline: #939188;
+  --color-outline-variant: #484740;
+
+  /* Interactive states (§8: instant color inversion, never elevation) */
+  --color-on-accent: #0c0c0e;
+  --color-invert-bg: #efebe3;
+  --color-invert-text: #0c0c0e;
+}
+
+[data-theme="light"] {
+  /* Semantic (§8) */
+  --color-bg: #efebe3;
+  --color-surface: #e6e1d7;
+  --color-text: #0c0c0e;
+  --color-muted: #6b675f;
+  --color-line: #d3cec3;
+  --color-accent: #ff5a1f;
+  --color-accent-text: #b8350a;
+
+  /* Interactive states */
+  --color-on-accent: #0c0c0e;
+  --color-invert-bg: #0c0c0e;
+  --color-invert-text: #efebe3;
+}
+
+[data-theme="system"] {
+  /* Semantic (§8) */
+  --color-bg: #0c0c0e;
+  --color-surface: #131316;
+  --color-text: #efebe3;
+  --color-muted: #8a867d;
+  --color-line: #26262b;
+  --color-accent: #ff5a1f;
+  --color-accent-text: #ff5a1f;
+
+  /* Interactive states */
+  --color-on-accent: #0c0c0e;
+  --color-invert-bg: #efebe3;
+  --color-invert-text: #0c0c0e;
+}
+
+@media (prefers-color-scheme: light) {
+  [data-theme="system"] {
+    --color-bg: #efebe3;
+    --color-surface: #e6e1d7;
+    --color-text: #0c0c0e;
+    --color-muted: #6b675f;
+    --color-line: #d3cec3;
+    --color-accent: #ff5a1f;
+    --color-accent-text: #b8350a;
+    --color-on-accent: #0c0c0e;
+    --color-invert-bg: #0c0c0e;
+    --color-invert-text: #efebe3;
+  }
+}
+
+/* Typography (DESIGN.md) */
+:root {
+  --font-display: "Oswald", "Arial Narrow", sans-serif;
+  --font-text: "Hanken Grotesk", "Helvetica Neue", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", monospace;
+
+  /* Display scale — desktop */
+  --text-display-hero: 96px;
+  --text-display-hero-line: 92px;
+  --text-display-hero-ls: -0.02em;
+  --text-headline-xl: 64px;
+  --text-headline-xl-line: 64px;
+  --text-headline-lg: 36px;
+  --text-headline-lg-line: 40px;
+  --text-headline-md: 26px;
+  --text-headline-md-line: 30px;
+
+  /* Display scale — mobile */
+  --text-display-hero-mobile: 52px;
+  --text-display-hero-mobile-line: 52px;
+  --text-headline-xl-mobile: 38px;
+  --text-headline-xl-mobile-line: 40px;
+
+  /* Body scale */
+  --text-body-lg: 18px;
+  --text-body-lg-line: 28px;
+  --text-body-md: 15px;
+  --text-body-md-line: 24px;
+  --text-body-sm: 13px;
+  --text-body-sm-line: 20px;
+
+  /* Mono scale */
+  --text-mono-bracket: 14px;
+  --text-mono-bracket-line: 18px;
+  --text-mono-bracket-ls: 0.04em;
+  --text-mono-code: 12px;
+  --text-mono-code-line: 16px;
+  --text-mono-code-ls: 0.02em;
+  --text-label-caps: 14px;
+  --text-label-caps-line: 16px;
+  --text-label-caps-ls: 0.08em;
+
+  /* Spacing (DESIGN.md) */
+  --space-gutter: 1rem;
+  --space-gutter-desktop: 1.5rem;
+  --space-margin: 1rem;
+  --space-margin-tablet: 2rem;
+  --space-margin-desktop: 3rem;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 3rem;
+  --space-2xl: 5rem;
+
+  /* Shape: 0px everywhere, hairlines 1px (§8, no soft shadows) */
+  --radius: 0px;
+  --border-hairline: 1px;
+}
