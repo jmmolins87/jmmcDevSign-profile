@@ -7,3 +7,30 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Referencias
+resources/
+
+## Reglas básicas
+- Responder siempre en español.
+- Una vez te de permiso para seguir con la siguiente fase harás commit descriptivo de los cambios realizados en la fase anterior.
+- Una vez revisadas los archivos temp y las capturas de playwright se borraran y nunca se comitearán al igual que los archivos de la carpeta /.playwright-mcp.
+- Al terminar las prubas con playwright debes bajar siempre el servidor o utilizar otro puerto que esté libre
+- Los test deben estar al >80% en las cutaro métricas
+- Stylint debe pasar
+- Typecheck
+- Sonarqube (local de momento)
+- Lint
+
+## Reglas de código
+- Usar código limpio, nombres, funciones, variables, etc en inglés.
+- Si un mock (o cualquier código) deja de utilizarse, se borra; no se dejan archivos ni imports muertos.
+- Los links serán componente Link de next.js, con cursor pointer
+- las rutas seran con [slug] para SEO en rrss.
+
+## Agentes
+- `spec-verifier` (definido en `.opencode/agents/spec-verifier.md`, versionado en el repo): agente verificador de los "Acceptance criteria" de un spec.
+- Localiza el spec (`specs/`, `docs/`, `*.spec.md`…), revisa cada criterio, verifica en el código y en UI (Playwright) y en la doc actual (Context7) si se cumple.
+- Corrige lo que haga falta y solo marca `- [x]` los criterios realmente verificados; los no verificados quedan en `- [ ]` con el motivo.
+- Termina con un resumen: cumplidos, pendientes y correcciones realizadas.
+- Responde en español y usa nombres en inglés en el código.
