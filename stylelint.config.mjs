@@ -19,5 +19,6 @@ export default {
       },
     ],
     "annotation-no-unknown": null,
+    "import-notation": "string",
   },
 }

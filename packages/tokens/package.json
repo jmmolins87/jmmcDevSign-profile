@@ -1,0 +1,19 @@
+{
+  "name": "@jmmcdev/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Design tokens (CSS variables) for the JMMC portfolio — Brutalist Editorial Architecture.",
+  "main": "./tokens.css",
+  "exports": {
+    ".": {
+      "style": "./tokens.css",
+      "default": "./tokens.css"
+    },
+    "./tokens.css": {
+      "style": "./tokens.css",
+      "default": "./tokens.css"
+    },
+    "./package.json": "./package.json"
+  },
+  "style": "./tokens.css"
+}
