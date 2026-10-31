@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>JMMC // Fullstack Developer &amp; Designer</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Oswald:wght@200..700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}#custom-cursor{pointer-events:none;transform:translate(-50%,-50%);transition:transform 0.08s ease-out,opacity 0.2s ease;}#preloader.loaded{opacity:0;pointer-events:none;visibility:hidden;transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1),visibility 0.6s;}#curtain-menu.open{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);pointer-events:auto;}#curtain-menu{clip-path:polygon(0 0,100% 0,100% 0,0 0);transition:clip-path 0.55s cubic-bezier(0.77,0,0.175,1);pointer-events:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"hairline-dark":"#26262B","surface":"#131315","background":"#131315","inverse-surface":"#e5e1e4","error-container":"#93000a","primary-fixed-dim":"#cac6bf","on-background":"#e5e1e4","outline":"#939188","on-secondary-container":"#b9b5ab","primary-container":"#e6e2da","secondary-fixed-dim":"#cbc6bc","on-secondary":"#333029","on-secondary-fixed":"#1d1b15","on-primary-fixed":"#1c1c17","on-tertiary-fixed":"#3a0b00","tertiary-fixed-dim":"#ffb59e","on-surface":"#e5e1e4","bg-light":"#EFEBE3","inverse-on-surface":"#313032","surface-tint":"#cac6bf","on-error":"#690005","on-primary":"#31302b","surface-container":"#201f21","on-tertiary-container":"#b83600","surface-container-highest":"#353437","on-primary-container":"#66645e","surface-container-lowest":"#0e0e10","secondary-fixed":"#e8e2d7","on-tertiary-fixed-variant":"#852400","surface-dim":"#131315","surface-container-high":"#2a2a2c","surface-light":"#E6E1D7","on-tertiary":"#5e1700","text-light":"#0C0C0E","on-error-container":"#ffdad6","inverse-primary":"#605e58","secondary-container":"#49473f","tertiary-fixed":"#ffdbd0","on-secondary-fixed-variant":"#49473f","hairline-light":"#D3CEC3","primary":"#ffffff","surface-container-low":"#1b1b1d","muted-light":"#6B675F","secondary":"#cbc6bc","on-surface-variant":"#cac6bd","accent-text-light":"#B8350A","on-primary-fixed-variant":"#484741","surface-variant":"#353437","tertiary-container":"#ffdbd0","surface-bright":"#39393b","surface-dark":"#131316","outline-variant":"#484740","tertiary":"#ffffff","error":"#ffb4ab","primary-fixed":"#e6e2da"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-lg":"1.5rem","margin-tablet":"2rem","margin":"1rem","space-xl":"3rem","space-sm":"0.5rem","gutter-desktop":"1.5rem","margin-desktop":"3rem","space-xs":"0.25rem","gutter":"1rem","space-2xl":"5rem","space-md":"1rem"},"fontFamily":{"body-sm":["Hanken Grotesk"],"body-lg":["Hanken Grotesk"],"label-caps":["Oswald"],"mono-code":["JetBrains Mono"],"headline-xl":["Oswald"],"display-hero":["Oswald"],"headline-xl-mobile":["Oswald"],"display-hero-mobile":["Oswald"],"body-md":["Hanken Grotesk"],"headline-lg":["Oswald"],"headline-md":["Oswald"],"mono-bracket":["JetBrains Mono"]},"fontSize":{"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-caps":["14px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"600"}],"mono-code":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-xl":["64px",{"lineHeight":"64px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-hero":["96px",{"lineHeight":"92px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl-mobile":["38px",{"lineHeight":"40px","letterSpacing":"0em","fontWeight":"600"}],"display-hero-mobile":["52px",{"lineHeight":"52px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-lg":["36px",{"lineHeight":"40px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-md":["26px",{"lineHeight":"30px","letterSpacing":"0.02em","fontWeight":"500"}],"mono-bracket":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}]}}}};</script></head><body class="bg-surface text-on-surface antialiased selection:bg-surface-container-highest selection:text-primary relative"><div class="fixed z-[9999] top-0 left-0 hidden lg:flex items-center justify-center text-[#FF5A1F] text-lg select-none" id="custom-cursor"><span class="text-[#FF5A1F]">✦</span></div><div class="fixed inset-0 z-[100] bg-surface flex flex-col items-center justify-center" id="preloader"><div class="flex items-center gap-4 text-headline-xl font-headline-xl text-primary"><span class="animate-pulse text-on-surface-variant">{</span><span class="text-[#FF5A1F] animate-spin text-3xl">✦</span><span class="animate-pulse text-on-surface-variant">}</span></div><p class="mt-4 font-mono-code text-mono-code tracking-widest uppercase text-on-surface-variant">[ INITIALIZING KERNEL // JMMC ]</p></div><header class="fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b border-hairline-dark bg-surface/55 backdrop-blur-[14px]" id="editorial-header"><div class="h-20 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-space-sm"><a class="flex items-center gap-3 group focus:outline-none" data-path="presentacion" href="#"><img alt="JMMC Logo Monogram" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W7Q8ch4goYy3xKHqNi5PX7Fhy_pjdITenyi3S4QUV_9v6eHBBaL2xpNyK0bKxJPFobMhDJm5SsEAPTIygf3fZW0LbBtWvQwyvrrKkvPLHdprLO5Lo37ZyL3kQbLwAi2Gwr9lILBU6NdK2nLFE7kfPMegY4UH21JYZCyblgy9nfH89tS2DOTuuFC7JmFdr5qdAbrBeXp0nnINiuq5X571RhvOziZpFTg6pNS6XTji-1UnmAOCT32osEqQ"/><span class="font-mono-code text-mono-code uppercase tracking-widest text-on-surface-variant group-hover:text-primary transition-colors">{JM} ARCHITECTURE</span></a></div><div class="flex items-center gap-space-sm lg:gap-space-md"><div class="hidden lg:flex items-center border border-hairline-dark divide-x divide-hairline-dark"><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors focus:outline-none" onclick="document.documentElement.classList.remove('dark');" title="Tema Claro" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">light_mode</span></button><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-primary bg-surface-container-high focus:outline-none" onclick="document.documentElement.classList.add('dark');" title="Tema Oscuro" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">dark_mode</span></button><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors focus:outline-none" onclick="if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}" title="Tema Sistema" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">desktop_windows</span></button></div><div class="hidden lg:flex items-center border border-hairline-dark font-mono-code text-mono-code px-2 py-1 gap-1 text-on-surface-variant"><button class="text-primary font-bold hover:text-primary focus:outline-none" type="button">ES</button><span class="text-outline-variant">|</span><button class="text-on-surface-variant hover:text-primary focus:outline-none" type="button">EN</button></div><a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 border border-hairline-dark font-label-caps text-label-caps uppercase text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all" data-path="login" href="#">[ ACCEDER ]</a><button class="flex items-center gap-2 px-3.5 py-1.5 border border-hairline-dark font-label-caps text-label-caps uppercase text-primary hover:bg-surface-container-high transition-all focus:outline-none" onclick="document.getElementById('curtain-menu').classList.toggle('open');" type="button"><span class="text-[#FF5A1F]">✦</span><span>MENÚ</span><span class="font-mono-code text-mono-code text-on-surface-variant">{ || }</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><div class="fixed inset-0 z-[60] bg-surface flex flex-col justify-between p-margin md:p-margin-tablet lg:p-margin-desktop overflow-y-auto" id="curtain-menu"><div class="flex items-center justify-between border-b border-hairline-dark pb-space-md"><div class="flex items-center gap-3"><img alt="JMMC Logo Monogram" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W7Q8ch4goYy3xKHqNi5PX7Fhy_pjdITenyi3S4QUV_9v6eHBBaL2xpNyK0bKxJPFobMhDJm5SsEAPTIygf3fZW0LbBtWvQwyvrrKkvPLHdprLO5Lo37ZyL3kQbLwAi2Gwr9lILBU6NdK2nLFE7kfPMegY4UH21JYZCyblgy9nfH89tS2DOTuuFC7JmFdr5qdAbrBeXp0nnINiuq5X571RhvOziZpFTg6pNS6XTji-1UnmAOCT32osEqQ"/><span class="font-mono-code text-mono-code tracking-widest uppercase text-on-surface-variant">[ DOSSIER REGISTRY // 2025 ]</span></div><button class="px-3 py-1.5 border border-hairline-dark font-mono-code text-mono-code uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all flex items-center gap-2 focus:outline-none" onclick="document.getElementById('curtain-menu').classList.remove('open');" type="button"><span class="text-[#FF5A1F]">✦</span><span>CERRAR { X }</span></button></div><nav class="my-auto py-space-xl flex flex-col gap-2" data-active-classes="text-primary"><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="presentacion" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">01</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">PRESENTACIÓN</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="demos" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">02</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">DEMOS</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="skills" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">03</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">SKILLS</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="trayectoria" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">04</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">TRAYECTORIA</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="blog" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">05</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">BLOG</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="contacto" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">06</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">CONTACTO</span></span></a></nav><div class="pt-space-md border-t border-hairline-dark flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md font-mono-code text-mono-code text-on-surface-variant"><div class="flex items-center gap-4"><a class="hover:text-primary transition-colors" href="#">[ GITHUB ]</a><a class="hover:text-primary transition-colors" href="#">[ LINKEDIN ]</a><a class="hover:text-primary transition-colors" href="#">[ TWITTER/X ]</a></div><div class="flex lg:hidden items-center gap-space-md"><div class="flex items-center border border-hairline-dark"><button class="px-2 py-1 hover:text-primary" onclick="document.documentElement.classList.remove('dark');" type="button"><span class="material-symbols-outlined text-[14px]">light_mode</span></button><button class="px-2 py-1 text-primary bg-surface-container-high" onclick="document.documentElement.classList.add('dark');" type="button"><span class="material-symbols-outlined text-[14px]">dark_mode</span></button><button class="px-2 py-1 hover:text-primary" onclick="if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}" type="button"><span class="material-symbols-outlined text-[14px]">desktop_windows</span></button></div><div class="border border-hairline-dark px-2 py-1"><button class="text-primary font-bold" type="button">ES</button> | <button class="text-on-surface-variant" type="button">EN</button></div></div><div class="text-on-surface-variant text-[11px] tracking-widest uppercase">{ STATUS: ALL SYSTEMS OPERATIONAL ✦ }</div></div></div><main class="w-full pt-20 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- WORKBENCH INSPECTOR SHELL -->
+<section class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-md lg:py-space-lg flex flex-col gap-space-lg">
+<!-- SUB-NAV / CRUMBS & ACTIONS BAR -->
+<div class="w-full flex flex-col md:flex-row md:items-center justify-between gap-space-sm bg-surface-container-lowest p-space-sm border border-hairline-dark">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-mono-code text-mono-code text-[#FF5A1F] flex items-center gap-1.5">
+<span>✦</span>
+<span class="text-on-surface-variant">{ 03 / 09 // NOTIFICACIÓN TRANSACCIONAL // SISTEMA }</span>
+</span>
+<span class="hidden sm:inline font-mono-code text-mono-code text-outline-variant">|</span>
+<span class="hidden sm:inline-flex items-center gap-1 font-mono-code text-mono-code text-on-surface-variant">
+          [ MIME: RFC-822 / MULTIPART ]
+        </span>
+</div>
+<div class="flex items-center gap-2 flex-wrap">
+<!-- THEME PREVIEW SELECTOR -->
+<div class="flex items-center border border-hairline-dark bg-surface-container">
+<button class="px-2.5 py-1 font-mono-code text-mono-code bg-surface-container-highest text-primary transition-colors flex items-center gap-1" id="emailThemeBoneBtn" onclick="switchEmailTheme('bone')" type="button">
+<span class="text-[#FF5A1F]">●</span> VISTA CLARO
+          </button>
+<button class="px-2.5 py-1 font-mono-code text-mono-code text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1" id="emailThemeDarkBtn" onclick="switchEmailTheme('dark')" type="button">
+<span>○</span> VISTA OSCURO
+          </button>
+</div>
+<!-- CLIENT UTILITIES -->
+<button class="px-2.5 py-1 font-label-caps text-label-caps uppercase border border-hairline-dark bg-surface-container text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1" onclick="toggleRawHeaders()" type="button">
+<span class="material-symbols-outlined text-[14px]">data_object</span>
+<span>[ VER CABECERAS ]</span>
+</button>
+<span class="px-2 py-1 font-mono-code text-mono-code text-[#FF5A1F] bg-surface-container-high border border-hairline-dark flex items-center gap-1">
+<span>✦</span>
+<span>{ ESTADO: ACCIÓN REQUERIDA }</span>
+</span>
+</div>
+</div>
+<!-- EMAIL HEADER META INSPECTOR -->
+<div class="w-full bg-surface-container-lowest border border-hairline-dark p-space-md flex flex-col gap-space-sm">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-sm text-body-sm">
+<div class="md:col-span-6 flex flex-col gap-1">
+<div class="flex items-baseline gap-2">
+<span class="font-mono-code text-mono-code text-outline-variant uppercase w-20 shrink-0">[ REMITENTE ]:</span>
+<span class="font-mono-code text-mono-code text-primary select-all">"JMMC" &lt;auth@jmmc.dev&gt;</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-code text-mono-code text-outline-variant uppercase w-20 shrink-0">[ DESTINO ]:</span>
+<span class="font-mono-code text-mono-code text-primary select-all">"admin@jmmc.dev"</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-code text-mono-code text-outline-variant uppercase w-20 shrink-0">[ ASUNTO ]:</span>
+<span class="font-headline-md text-body-lg text-primary font-bold">Nueva solicitud de acceso</span>
+</div>
+</div>
+<div class="md:col-span-6 flex flex-col justify-between gap-2 border-t md:border-t-0 md:border-l border-hairline-dark pt-2 md:pt-0 md:pl-space-md">
+<div class="flex items-center justify-between">
+<span class="font-mono-code text-mono-code text-outline-variant uppercase">[ PROTOCOLO ]:</span>
+<span class="font-mono-code text-mono-code text-on-surface-variant">TLS 1.3 / DKIM: PASS / SPF: PASS</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-mono-code text-mono-code text-outline-variant uppercase">[ MARCA TEMPORAL ]:</span>
+<span class="font-mono-code text-mono-code text-primary">Hoy, 14:32:08 UTC</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-mono-code text-mono-code text-outline-variant uppercase">[ ID TRANSACCIÓN ]:</span>
+<span class="font-mono-code text-mono-code text-[#FF5A1F]">msg_01JMQ9X0V7KP8</span>
+</div>
+</div>
+</div>
+<!-- COLLAPSIBLE RAW MIME DRAWER -->
+<div class="hidden mt-2 pt-2 border-t border-hairline-dark font-mono-code text-mono-code text-on-surface-variant bg-surface-container p-3 overflow-x-auto leading-relaxed" id="rawHeadersDrawer">
+<div>Received: from mail.jmmc.dev (mail.jmmc.dev [198.51.100.24]) by mx.jmmc.dev with ESMTP; Fri, 28 Feb 2025 14:32:08 +0000</div>
+<div>ARC-Authentication-Results: i=1; mx.jmmc.dev; dkim=pass (2048-bit key) header.d=jmmc.dev; spf=pass</div>
+<div>X-Entity-ID: JMMC-AUTH-SUBSYSTEM-2025-V2</div>
+<div>Content-Type: text/html; charset=UTF-8</div>
+</div>
+</div>
+<!-- WORKBENCH PREVIEW VIEWPORT -->
+<div class="w-full bg-surface-container-low border border-hairline-dark p-3 sm:p-6 md:p-12 flex justify-center items-center">
+<!-- ================= EMAIL CONTAINER (STRICT 600px MAX CANVAS) ================= -->
+<div class="w-full max-w-[600px] transition-colors duration-200 bg-[#EFEBE3] text-[#0C0C0E] border border-[#D3CEC3] p-6 sm:p-10 font-body-md select-text" id="emailContainer">
+<!-- EMAIL HEADER -->
+<div class="w-full border-b pb-5 mb-8 flex flex-col gap-3 transition-colors duration-200 border-[#D3CEC3]" id="emailHairlineHeader">
+<div class="flex items-center justify-between">
+<!-- MONOGRAM {JM} SVG LOGO -->
+<div class="flex items-center gap-2 tracking-tighter">
+<span class="font-headline-xl text-[28px] leading-none font-bold tracking-tight">{JM}</span>
+<span class="text-[#FF5A1F] text-xl font-bold leading-none">✦</span>
+</div>
+<!-- ARCHITECTURAL REGISTER ID -->
+<span class="font-mono-code text-mono-code uppercase opacity-70">
+              [ SEC-ID // 4096-B ]
+            </span>
+</div>
+<div class="font-mono-code text-mono-code uppercase tracking-wider text-[#B8350A]" id="emailSystemTag">
+            { SISTEMA DE AUTORIZACIÓN AUTOMATIZADA }
+          </div>
+</div>
+<!-- HEADLINE & INTRO -->
+<div class="flex flex-col gap-2 mb-8">
+<h1 class="font-headline-lg text-[32px] sm:text-[38px] leading-[1.05] uppercase font-bold tracking-tight">
+            { NUEVA SOLICITUD DE ACCESO }
+          </h1>
+<p class="font-body-lg text-body-lg opacity-85 leading-snug">
+            Alguien quiere entrar en el área de miembros.
+          </p>
+</div>
+<!-- DETAILS TABLE -->
+<div class="w-full mb-8 border-t transition-colors duration-200 border-[#D3CEC3]" id="emailTableBorderTop">
+<!-- ROW 1 -->
+<div class="flex flex-col sm:flex-row sm:items-baseline justify-between py-2.5 border-b transition-colors duration-200 border-[#D3CEC3]" id="emailRow1">
+<span class="font-mono-code text-mono-code uppercase opacity-65 w-44 shrink-0">[ NOMBRE ]</span>
+<span class="font-body-md text-body-md font-semibold text-right sm:text-right">Carlos Mendonça</span>
+</div>
+<!-- ROW 2 -->
+<div class="flex flex-col sm:flex-row sm:items-baseline justify-between py-2.5 border-b transition-colors duration-200 border-[#D3CEC3]" id="emailRow2">
+<span class="font-mono-code text-mono-code uppercase opacity-65 w-44 shrink-0">[ CORREO ]</span>
+<span class="font-mono-code text-mono-code font-bold text-right sm:text-right">carlos@organismo.com</span>
+</div>
+<!-- ROW 3 -->
+<div class="flex flex-col sm:flex-row sm:items-baseline justify-between py-2.5 border-b transition-colors duration-200 border-[#D3CEC3]" id="emailRow3">
+<span class="font-mono-code text-mono-code uppercase opacity-65 w-44 shrink-0">[ MÉTODO REGISTRO ]</span>
+<div class="flex items-center gap-2 justify-end mt-1 sm:mt-0">
+<span class="font-mono-code text-[11px] px-1.5 py-0.5 border uppercase font-semibold border-current">
+                GitHub OAuth
+              </span>
+<span class="font-mono-code text-mono-code opacity-50 text-[10px] hidden sm:inline">(correo / Google / Apple / GitHub)</span>
+</div>
+</div>
+<!-- ROW 4 -->
+<div class="flex flex-col sm:flex-row sm:items-baseline justify-between py-2.5 border-b transition-colors duration-200 border-[#D3CEC3]" id="emailRow4">
+<span class="font-mono-code text-mono-code uppercase opacity-65 w-44 shrink-0">[ FECHA Y HORA ]</span>
+<span class="font-mono-code text-mono-code text-right sm:text-right">28 FEB 2025 — 14:32 UTC</span>
+</div>
+<!-- ROW 5 -->
+<div class="flex flex-col sm:flex-row sm:items-baseline justify-between py-2.5 border-b transition-colors duration-200 border-[#D3CEC3]" id="emailRow5">
+<span class="font-mono-code text-mono-code uppercase opacity-65 w-44 shrink-0">[ CIUDAD APROXIMADA ]</span>
+<span class="font-body-md text-body-md text-right sm:text-right">Madrid, España <span class="font-mono-code text-mono-code opacity-70">(IP: 88.24.19.102)</span></span>
+</div>
+<!-- ROW 6 -->
+<div class="flex flex-col sm:flex-row sm:items-baseline justify-between py-2.5 border-b transition-colors duration-200 border-[#D3CEC3]" id="emailRow6">
+<span class="font-mono-code text-mono-code uppercase opacity-65 w-44 shrink-0">[ DISPOSITIVO ]</span>
+<span class="font-mono-code text-mono-code text-right sm:text-right">macOS Sonoma · Chrome 133 · Desktop</span>
+</div>
+</div>
+<!-- CONFIRMATION CODE BLOCK -->
+<div class="w-full mb-8 flex flex-col items-center justify-center p-5 border text-center transition-colors duration-200 border-[#D3CEC3]" id="emailCodeBox">
+<div class="font-mono-code text-mono-code uppercase opacity-65 mb-2">
+            { CÓDIGO DE VERIFICACIÓN // KERNEL ACCESS }
+          </div>
+<div class="font-mono-code text-[32px] sm:text-[40px] tracking-[0.35em] font-bold py-2 select-all flex items-center justify-center gap-1">
+<span class="text-[#FF5A1F] text-2xl tracking-normal">{</span>
+<span>8</span>
+<span>4</span>
+<span>9</span>
+<span>2</span>
+<span>0</span>
+<span>1</span>
+<span class="text-[#FF5A1F] text-2xl tracking-normal">}</span>
+</div>
+<div class="font-mono-code text-[11px] sm:text-mono-code opacity-75 mt-2 flex items-center gap-1.5">
+<span class="text-[#FF5A1F]">✦</span>
+<span>Código de confirmación, válido durante 15 minutos</span>
+</div>
+</div>
+<!-- ACTION BUTTONS -->
+<div class="w-full flex flex-col sm:flex-row items-stretch gap-3 mb-8">
+<!-- PRIMARY: SOLID BRUTALIST ORANGE -->
+<a class="flex-1 bg-[#FF5A1F] text-white hover:bg-[#d94812] active:bg-[#0C0C0E] transition-colors py-4 px-6 text-center font-label-caps text-label-caps uppercase font-bold tracking-wider flex items-center justify-center gap-2" href="#aprobar" onclick="event.preventDefault(); triggerActionAlert('aprobada');">
+<span>✦</span>
+<span>Aprobar acceso</span>
+</a>
+<!-- SECONDARY: HAIRLINE OUTLINE -->
+<a class="sm:w-44 border py-4 px-6 text-center font-label-caps text-label-caps uppercase font-semibold tracking-wider transition-colors border-current hover:bg-black/10 active:opacity-60 flex items-center justify-center" href="#rechazar" onclick="event.preventDefault(); triggerActionAlert('rechazada');">
+            [ Rechazar ]
+          </a>
+</div>
+<!-- SECURITY NOTICE -->
+<div class="p-3 mb-8 font-mono-code text-[11px] sm:text-mono-code border-l-2 border-[#FF5A1F] bg-black/5" id="emailSecurityBanner">
+<span class="font-bold text-[#FF5A1F]">{ SEGURIDAD }</span> Si no esperabas esta solicitud, rechaza o ignora este correo.
+        </div>
+<!-- EMAIL FOOTER -->
+<div class="w-full pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3 font-mono-code text-[11px] transition-colors duration-200 border-[#D3CEC3]" id="emailFooter">
+<div class="flex items-center gap-2">
+<span class="font-bold tracking-tight">{JM}</span>
+<span class="text-[#FF5A1F]">✦</span>
+<a class="underline underline-offset-2 hover:text-[#FF5A1F] transition-colors" href="https://jmmc.dev" target="_blank">https://jmmc.dev</a>
+</div>
+<div class="opacity-60 text-center sm:text-right">
+            Identificador de evento: evt_9941a87c02b // Criptografía PGP Verificada
+          </div>
+</div>
+</div>
+<!-- ================= /EMAIL CONTAINER ================= -->
+</div>
+<!-- TECHNICAL ANNOTATIONS LEDGER -->
+<div class="w-full grid grid-cols-1 md:grid-cols-3 gap-space-sm font-mono-code text-mono-code text-on-surface-variant border-t border-hairline-dark pt-space-md">
+<div class="flex flex-col gap-1">
+<span class="text-primary font-bold uppercase">{ ANÁLISIS DE ENTREGABILIDAD }</span>
+<p class="text-body-sm opacity-80">Render compatible con motores WebKit, Outlook 365, Apple Mail y clientes basados en Chromium sin pérdida de geometría tabular ni fallos de wrapping.</p>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-primary font-bold uppercase">{ POLÍTICA ZERO-SKEUOMORPHISM }</span>
+<p class="text-body-sm opacity-80">Sin gradientes pesados ni sombras difusas; la profundidad y jerarquía se obtienen mediante líneas de corte de 1px y bloques tipográficos con alto contraste.</p>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-primary font-bold uppercase">{ PROTOCOLO DE SEGURIDAD }</span>
+<p class="text-body-sm opacity-80">Token OTP estático invalidable por caducidad temporal (15 min) o uso único con enlace con firma criptográfica HMAC-SHA256.</p>
+</div>
+</div>
+</section>
+<!-- INTERACTIVE CLIENT SCRIPT -->
+<script>
+    function switchEmailTheme(theme) {
+      const container = document.getElementById('emailContainer');
+      const hairlineHeader = document.getElementById('emailHairlineHeader');
+      const systemTag = document.getElementById('emailSystemTag');
+      const tableBorderTop = document.getElementById('emailTableBorderTop');
+      const codeBox = document.getElementById('emailCodeBox');
+      const securityBanner = document.getElementById('emailSecurityBanner');
+      const footer = document.getElementById('emailFooter');
+      const boneBtn = document.getElementById('emailThemeBoneBtn');
+      const darkBtn = document.getElementById('emailThemeDarkBtn');
+
+      const rows = [1, 2, 3, 4, 5, 6].map(i => document.getElementById('emailRow' + i));
+
+      if (theme === 'dark') {
+        // Dark variant adaptation
+        container.style.backgroundColor = '#0C0C0E';
+        container.style.color = '#EFEBE3';
+        container.style.borderColor = '#26262B';
+
+        hairlineHeader.style.borderColor = '#26262B';
+        tableBorderTop.style.borderColor = '#26262B';
+        codeBox.style.borderColor = '#26262B';
+        footer.style.borderColor = '#26262B';
+        securityBanner.style.backgroundColor = '#161618';
+        systemTag.style.color = '#FF5A1F';
+
+        rows.forEach(r => {
+          if (r) r.style.borderColor = '#26262B';
+        });
+
+        darkBtn.classList.add('bg-surface-container-highest', 'text-primary');
+        darkBtn.classList.remove('text-on-surface-variant');
+        darkBtn.querySelector('span').textContent = '●';
+        darkBtn.querySelector('span').classList.add('text-[#FF5A1F]');
+
+        boneBtn.classList.remove('bg-surface-container-highest', 'text-primary');
+        boneBtn.classList.add('text-on-surface-variant');
+        boneBtn.querySelector('span').textContent = '○';
+        boneBtn.querySelector('span').classList.remove('text-[#FF5A1F]');
+
+      } else {
+        // Bone light variant
+        container.style.backgroundColor = '#EFEBE3';
+        container.style.color = '#0C0C0E';
+        container.style.borderColor = '#D3CEC3';
+
+        hairlineHeader.style.borderColor = '#D3CEC3';
+        tableBorderTop.style.borderColor = '#D3CEC3';
+        codeBox.style.borderColor = '#D3CEC3';
+        footer.style.borderColor = '#D3CEC3';
+        securityBanner.style.backgroundColor = 'rgba(0,0,0,0.05)';
+        systemTag.style.color = '#B8350A';
+
+        rows.forEach(r => {
+          if (r) r.style.borderColor = '#D3CEC3';
+        });
+
+        boneBtn.classList.add('bg-surface-container-highest', 'text-primary');
+        boneBtn.classList.remove('text-on-surface-variant');
+        boneBtn.querySelector('span').textContent = '●';
+        boneBtn.querySelector('span').classList.add('text-[#FF5A1F]');
+
+        darkBtn.classList.remove('bg-surface-container-highest', 'text-primary');
+        darkBtn.classList.add('text-on-surface-variant');
+        darkBtn.querySelector('span').textContent = '○';
+        darkBtn.querySelector('span').classList.remove('text-[#FF5A1F]');
+      }
+    }
+
+    function toggleRawHeaders() {
+      const drawer = document.getElementById('rawHeadersDrawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function triggerActionAlert(action) {
+      alert('[ ACCIÓN KERNEL // JMMC ] Solicitud de acceso ' + action.toUpperCase() + ' correctamente.');
+    }
+  </script>
+</div></main><footer class="w-full border-t border-hairline-dark bg-surface-container-lowest"><div class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md font-mono-code text-mono-code"><div class="flex items-center gap-3"><span class="text-[#FF5A1F]">✦</span><span class="text-on-surface-variant uppercase">JUANMA (JMMC) // BRUTALIST ARCHITECTURAL RUNTIME</span></div><div class="flex items-center gap-space-md text-on-surface-variant"><a class="hover:text-primary transition-colors" data-path="presentacion" href="#">{ MANIFIESTO }</a><a class="hover:text-primary transition-colors" data-path="demos" href="#">{ LAB }</a><a class="hover:text-primary transition-colors" data-path="contacto" href="#">{ TRANSMIT }</a></div><div class="text-outline-variant text-[11px]">© 2025 JMMC. NO RIGHTS RESERVED. CODE IS LAW.</div></div></footer><script>window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('preloader')?.classList.add('loaded');},650);});document.addEventListener('mousemove',(e)=>{const cursor=document.getElementById('custom-cursor');if(cursor){cursor.style.left=`${e.clientX}px`;cursor.style.top=`${e.clientY}px`;}});</script></body></html>

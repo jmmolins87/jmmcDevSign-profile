@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>JMMC // Fullstack Developer &amp; Designer</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Oswald:wght@200..700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}#custom-cursor{pointer-events:none;transform:translate(-50%,-50%);transition:transform 0.08s ease-out,opacity 0.2s ease;}#preloader.loaded{opacity:0;pointer-events:none;visibility:hidden;transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1),visibility 0.6s;}#curtain-menu.open{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);pointer-events:auto;}#curtain-menu{clip-path:polygon(0 0,100% 0,100% 0,0 0);transition:clip-path 0.55s cubic-bezier(0.77,0,0.175,1);pointer-events:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"hairline-dark":"#26262B","surface":"#131315","background":"#131315","inverse-surface":"#e5e1e4","error-container":"#93000a","primary-fixed-dim":"#cac6bf","on-background":"#e5e1e4","outline":"#939188","on-secondary-container":"#b9b5ab","primary-container":"#e6e2da","secondary-fixed-dim":"#cbc6bc","on-secondary":"#333029","on-secondary-fixed":"#1d1b15","on-primary-fixed":"#1c1c17","on-tertiary-fixed":"#3a0b00","tertiary-fixed-dim":"#ffb59e","on-surface":"#e5e1e4","bg-light":"#EFEBE3","inverse-on-surface":"#313032","surface-tint":"#cac6bf","on-error":"#690005","on-primary":"#31302b","surface-container":"#201f21","on-tertiary-container":"#b83600","surface-container-highest":"#353437","on-primary-container":"#66645e","surface-container-lowest":"#0e0e10","secondary-fixed":"#e8e2d7","on-tertiary-fixed-variant":"#852400","surface-dim":"#131315","surface-container-high":"#2a2a2c","surface-light":"#E6E1D7","on-tertiary":"#5e1700","text-light":"#0C0C0E","on-error-container":"#ffdad6","inverse-primary":"#605e58","secondary-container":"#49473f","tertiary-fixed":"#ffdbd0","on-secondary-fixed-variant":"#49473f","hairline-light":"#D3CEC3","primary":"#ffffff","surface-container-low":"#1b1b1d","muted-light":"#6B675F","secondary":"#cbc6bc","on-surface-variant":"#cac6bd","accent-text-light":"#B8350A","on-primary-fixed-variant":"#484741","surface-variant":"#353437","tertiary-container":"#ffdbd0","surface-bright":"#39393b","surface-dark":"#131316","outline-variant":"#484740","tertiary":"#ffffff","error":"#ffb4ab","primary-fixed":"#e6e2da"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-lg":"1.5rem","margin-tablet":"2rem","margin":"1rem","space-xl":"3rem","space-sm":"0.5rem","gutter-desktop":"1.5rem","margin-desktop":"3rem","space-xs":"0.25rem","gutter":"1rem","space-2xl":"5rem","space-md":"1rem"},"fontFamily":{"body-sm":["Hanken Grotesk"],"body-lg":["Hanken Grotesk"],"label-caps":["Oswald"],"mono-code":["JetBrains Mono"],"headline-xl":["Oswald"],"display-hero":["Oswald"],"headline-xl-mobile":["Oswald"],"display-hero-mobile":["Oswald"],"body-md":["Hanken Grotesk"],"headline-lg":["Oswald"],"headline-md":["Oswald"],"mono-bracket":["JetBrains Mono"]},"fontSize":{"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-caps":["14px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"600"}],"mono-code":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-xl":["64px",{"lineHeight":"64px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-hero":["96px",{"lineHeight":"92px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl-mobile":["38px",{"lineHeight":"40px","letterSpacing":"0em","fontWeight":"600"}],"display-hero-mobile":["52px",{"lineHeight":"52px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-lg":["36px",{"lineHeight":"40px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-md":["26px",{"lineHeight":"30px","letterSpacing":"0.02em","fontWeight":"500"}],"mono-bracket":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}]}}}};</script></head><body class="bg-surface text-on-surface antialiased selection:bg-surface-container-highest selection:text-primary relative"><div class="fixed z-[9999] top-0 left-0 hidden lg:flex items-center justify-center text-[#FF5A1F] text-lg select-none" id="custom-cursor"><span class="text-[#FF5A1F]">✦</span></div><div class="fixed inset-0 z-[100] bg-surface flex flex-col items-center justify-center" id="preloader"><div class="flex items-center gap-4 text-headline-xl font-headline-xl text-primary"><span class="animate-pulse text-on-surface-variant">{</span><span class="text-[#FF5A1F] animate-spin text-3xl">✦</span><span class="animate-pulse text-on-surface-variant">}</span></div><p class="mt-4 font-mono-code text-mono-code tracking-widest uppercase text-on-surface-variant">[ INITIALIZING KERNEL // JMMC ]</p></div><header class="fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b border-hairline-dark bg-surface/85 backdrop-blur-[14px]" id="editorial-header"><div class="h-20 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-space-sm"><a class="flex items-center gap-3 group focus:outline-none" data-path="presentacion" href="#"><img alt="JMMC Logo Monogram" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W7Q8ch4goYy3xKHqNi5PX7Fhy_pjdITenyi3S4QUV_9v6eHBBaL2xpNyK0bKxJPFobMhDJm5SsEAPTIygf3fZW0LbBtWvQwyvrrKkvPLHdprLO5Lo37ZyL3kQbLwAi2Gwr9lILBU6NdK2nLFE7kfPMegY4UH21JYZCyblgy9nfH89tS2DOTuuFC7JmFdr5qdAbrBeXp0nnINiuq5X571RhvOziZpFTg6pNS6XTji-1UnmAOCT32osEqQ"/><span class="font-mono-code text-mono-code uppercase tracking-widest text-on-surface-variant group-hover:text-primary transition-colors">{JM} ARCHITECTURE</span></a></div><div class="flex items-center gap-space-sm lg:gap-space-md"><div class="hidden lg:flex items-center border border-hairline-dark divide-x divide-hairline-dark"><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors focus:outline-none" onclick="document.documentElement.classList.remove('dark');" title="Tema Claro" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">light_mode</span></button><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-primary bg-surface-container-high focus:outline-none" onclick="document.documentElement.classList.add('dark');" title="Tema Oscuro" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">dark_mode</span></button><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors focus:outline-none" onclick="if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}" title="Tema Sistema" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">desktop_windows</span></button></div><div class="hidden lg:flex items-center border border-hairline-dark font-mono-code text-mono-code px-2 py-1 gap-1 text-on-surface-variant"><button class="text-primary font-bold hover:text-primary focus:outline-none" type="button">ES</button><span class="text-outline-variant">|</span><button class="text-on-surface-variant hover:text-primary focus:outline-none" type="button">EN</button></div><a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 border border-hairline-dark font-label-caps text-label-caps uppercase text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all" data-path="04-post-editor" href="#">[ EDITOR STUDIO ]</a><button class="flex items-center gap-2 px-3.5 py-1.5 border border-hairline-dark font-label-caps text-label-caps uppercase text-primary hover:bg-surface-container-high transition-all focus:outline-none" onclick="document.getElementById('curtain-menu').classList.toggle('open');" type="button"><span class="text-[#FF5A1F]">✦</span><span>MENÚ</span><span class="font-mono-code text-mono-code text-on-surface-variant">{ || }</span></button><div class="flex items-center gap-2 pl-2 border-l border-hairline-dark"><div class="w-8 h-8 rounded-none border border-hairline-dark bg-surface-container-high flex items-center justify-center shrink-0 text-primary font-mono-code text-[11px] font-bold ring-1 ring-[#FF5A1F]/40">JM</div></div></div></div></header><div class="fixed inset-0 z-[60] bg-surface flex flex-col justify-between p-margin md:p-margin-tablet lg:p-margin-desktop overflow-y-auto" id="curtain-menu"><div class="flex items-center justify-between border-b border-hairline-dark pb-space-md"><div class="flex items-center gap-3"><img alt="JMMC Logo Monogram" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W7Q8ch4goYy3xKHqNi5PX7Fhy_pjdITenyi3S4QUV_9v6eHBBaL2xpNyK0bKxJPFobMhDJm5SsEAPTIygf3fZW0LbBtWvQwyvrrKkvPLHdprLO5Lo37ZyL3kQbLwAi2Gwr9lILBU6NdK2nLFE7kfPMegY4UH21JYZCyblgy9nfH89tS2DOTuuFC7JmFdr5qdAbrBeXp0nnINiuq5X571RhvOziZpFTg6pNS6XTji-1UnmAOCT32osEqQ"/><span class="font-mono-code text-mono-code tracking-widest uppercase text-on-surface-variant">[ DOSSIER REGISTRY // 2025 ]</span></div><button class="px-3 py-1.5 border border-hairline-dark font-mono-code text-mono-code uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all flex items-center gap-2 focus:outline-none" onclick="document.getElementById('curtain-menu').classList.remove('open');" type="button"><span class="text-[#FF5A1F]">✦</span><span>CERRAR { X }</span></button></div><nav class="my-auto py-space-xl flex flex-col gap-2" data-active-classes="text-primary"><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="presentacion" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">01</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">PRESENTACIÓN</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="demos" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">02</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">DEMOS</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="03-admin-approval-email" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">03</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">APROBACIONES</span></span></a><a aria-current="page" class="group flex items-baseline gap-space-sm font-headline-xl uppercase tracking-tight transition-colors text-primary" data-path="04-post-editor" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">04</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">POST EDITOR</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="skills" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">05</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">SKILLS</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="trayectoria" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">06</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">TRAYECTORIA</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="contacto" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">07</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">CONTACTO</span></span></a></nav><div class="pt-space-md border-t border-hairline-dark flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md font-mono-code text-mono-code text-on-surface-variant"><div class="flex items-center gap-4"><a class="hover:text-primary transition-colors" href="#">[ GITHUB ]</a><a class="hover:text-primary transition-colors" href="#">[ LINKEDIN ]</a><a class="hover:text-primary transition-colors" href="#">[ TWITTER/X ]</a></div><div class="flex lg:hidden items-center gap-space-md"><div class="flex items-center border border-hairline-dark"><button class="px-2 py-1 hover:text-primary" onclick="document.documentElement.classList.remove('dark');" type="button"><span class="material-symbols-outlined text-[14px]">light_mode</span></button><button class="px-2 py-1 text-primary bg-surface-container-high" onclick="document.documentElement.classList.add('dark');" type="button"><span class="material-symbols-outlined text-[14px]">dark_mode</span></button><button class="px-2 py-1 hover:text-primary" onclick="if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}" type="button"><span class="material-symbols-outlined text-[14px]">desktop_windows</span></button></div><div class="border border-hairline-dark px-2 py-1"><button class="text-primary font-bold" type="button">ES</button> | <button class="text-on-surface-variant" type="button">EN</button></div></div><div class="text-on-surface-variant text-[11px] tracking-widest uppercase">{ MEMBER STATUS: VERIFIED AUTH // JM }</div></div></div><main class="w-full pt-20 bg-surface min-h-screen"><div class="flex flex-col w-full text-on-surface">
+<!-- COMMAND BAR (SUB-HEADER) -->
+<div class="w-full bg-surface-container-lowest border-b border-hairline-dark px-margin md:px-margin-tablet lg:px-margin-desktop py-space-sm flex flex-wrap items-center justify-between gap-space-md sticky top-20 z-30">
+<div class="flex items-center gap-space-md">
+<a class="group inline-flex items-center gap-2 font-mono-code text-mono-code text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="group-hover:text-[#FF5A1F] transition-colors">←</span>
+<span class="tracking-wider group-hover:before:content-['{_'] group-hover:after:content-['_}']">VOLVER AL PANEL</span>
+</a>
+<span class="text-hairline-dark hidden sm:inline">|</span>
+<span class="font-mono-code text-[11px] uppercase tracking-widest text-outline hidden sm:inline">{ 04 / 09 // POST_EDITOR_CORE }</span>
+</div>
+<!-- Center Status Ribbon -->
+<div class="flex items-center gap-space-md">
+<div class="font-mono-code text-mono-code uppercase px-2.5 py-1 bg-surface-container border border-hairline-dark text-on-surface flex items-center gap-2" id="status-badge">
+<span class="text-[#FF5A1F]">✦</span>
+<span id="status-text">{ ESTADO: BORRADOR }</span>
+</div>
+<div class="hidden md:flex items-center gap-1.5 font-mono-code text-[11px] uppercase tracking-wider text-outline" id="autosave-indicator">
+<span class="text-[#FF5A1F] text-xs">✦</span>
+<span>AUTOGUARDADO A LAS 14:38 UTC</span>
+</div>
+</div>
+<!-- Actions & Avatar -->
+<div class="flex items-center gap-space-sm sm:gap-space-md">
+<button class="px-3.5 py-1.5 border border-hairline-dark font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary hover:border-outline transition-colors bg-transparent" id="btn-save-draft" onclick="triggerSaveDraft()" type="button">
+        [ GUARDAR BORRADOR ]
+      </button>
+<button class="px-4 py-1.5 bg-[#FF5A1F] hover:bg-[#e04d16] text-[#0C0C0E] font-label-caps text-label-caps uppercase font-bold tracking-wider transition-colors flex items-center gap-2" id="btn-publish" onclick="togglePublishFlow()" type="button">
+<span class="hidden text-sm animate-spin leading-none" id="publish-spinner">✦</span>
+<span id="publish-label">PUBLICAR</span>
+</button>
+<div class="h-8 w-8 border border-hairline-dark bg-surface-container-high flex items-center justify-center font-mono-code text-xs text-primary ring-1 ring-hairline-dark" title="Sesión: Juanma (JMMC)">
+        JM
+      </div>
+</div>
+</div>
+<!-- DEV / STATE SWITCHER TOOLBAR -->
+<div class="w-full bg-surface-container border-b border-hairline-dark px-margin md:px-margin-tablet lg:px-margin-desktop py-2 overflow-x-auto">
+<div class="flex items-center gap-2 font-mono-code text-[11px] whitespace-nowrap min-w-max">
+<span class="text-outline uppercase mr-2 tracking-widest">{ SIMULADOR DE ESTADOS }:</span>
+<button class="px-2.5 py-1 bg-surface-container-highest text-primary border border-hairline-dark hover:border-[#FF5A1F] transition-colors" id="btn-state-editing" onclick="setState('editing')" type="button">
+        [ 01. EDITANDO (ESTÁNDAR) ]
+      </button>
+<button class="px-2.5 py-1 bg-surface-container-low text-on-surface-variant border border-hairline-dark hover:text-primary hover:border-[#FF5A1F] transition-colors" id="btn-state-saved" onclick="setState('saved')" type="button">
+        [ 02. ESTADO GUARDADO ]
+      </button>
+<button class="px-2.5 py-1 bg-surface-container-low text-on-surface-variant border border-hairline-dark hover:text-primary hover:border-[#FF5A1F] transition-colors" id="btn-state-publishing" onclick="setState('publishing')" type="button">
+        [ 03. PUBLICANDO (LOADER {✦}) ]
+      </button>
+<button class="px-2.5 py-1 bg-surface-container-low text-on-surface-variant border border-hairline-dark hover:text-primary hover:border-error transition-colors" id="btn-state-validation" onclick="setState('validation_error')" type="button">
+        [ 04. ERRORES DE VALIDACIÓN ]
+      </button>
+<button class="px-2.5 py-1 bg-surface-container-low text-on-surface-variant border border-hairline-dark hover:text-primary hover:border-[#FF5A1F] transition-colors" id="btn-state-empty" onclick="setState('empty')" type="button">
+        [ 05. ESTADO VACÍO ]
+      </button>
+</div>
+</div>
+<!-- VALIDATION ERROR ALERT BOX (HIDDEN BY DEFAULT) -->
+<div class="hidden w-full bg-error-container/20 border-b border-error px-margin md:px-margin-tablet lg:px-margin-desktop py-space-sm font-mono-code text-mono-code text-error flex items-center justify-between" id="validation-alert">
+<div class="flex items-center gap-2">
+<span class="text-base font-bold">⚠</span>
+<span>[ ERROR_SCHEMA_VIOLATION ]: SE REQUIERE COMPLETAR EL TÍTULO CANÓNICO Y AL MENOS 1 ETIQUETA INDEXABLE PARA COMPILAR LA EDICIÓN.</span>
+</div>
+<button class="text-xs uppercase hover:underline" onclick="document.getElementById('validation-alert').classList.add('hidden')" type="button">
+      { DESCARTAR }
+    </button>
+</div>
+<!-- SAVED FLASH NOTIFICATION (HIDDEN BY DEFAULT) -->
+<div class="hidden w-full bg-[#FF5A1F]/10 border-b border-[#FF5A1F] px-margin md:px-margin-tablet lg:px-margin-desktop py-2 font-mono-code text-mono-code text-[#FF5A1F] flex items-center justify-between" id="saved-notification">
+<div class="flex items-center gap-2">
+<span class="animate-pulse">✦</span>
+<span>{ REVISIÓN DE ESCRITURA CONFIRMADA // REGISTRO SERIALIZADO EN BUFFER POSTGRESQL }</span>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono-code">HASH: #8F0A21</span>
+</div>
+<!-- MAIN TWO-COLUMN WORKSPACE -->
+<div class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- LEFT / MAIN CANVAS (~68% width -> lg:col-span-8) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Metadata Tag / Category Breadcrumb -->
+<div class="flex items-center justify-between border-b border-hairline-dark pb-2 font-mono-code text-mono-code">
+<span class="text-[#FF5A1F] uppercase tracking-wider" id="breadcrumb-category">{ CATEGORÍA: ARQUITECTURA DISTRIBUIDA }</span>
+<span class="text-outline uppercase text-[11px] hidden sm:inline">{ SCHEMA_V2.5 // STRICT_MARKDOWN }</span>
+</div>
+<!-- Massive Title Input -->
+<div class="flex flex-col gap-1">
+<div class="relative" id="title-wrapper">
+<textarea class="w-full bg-transparent border-0 border-b-2 border-hairline-dark focus:border-[#FF5A1F] rounded-none p-0 pb-2 font-headline-xl text-headline-xl-mobile md:text-headline-xl uppercase text-primary placeholder:text-outline-variant focus:outline-none resize-none transition-colors leading-[1.05]" id="post-title" placeholder="ESCRIBE EL TÍTULO DEL ARTÍCULO..." rows="2">EL OCASO DE LOS MICROSERVICIOS CAÓTICOS: VOLVIENDO AL MONOLITO DETERMINISTA</textarea>
+<div class="hidden font-mono-code text-[11px] text-error mt-1" id="title-error-msg">
+            { ERROR: EL TÍTULO NO PUEDE ESTAR VACÍO. LONGITUD MÍNIMA: 10 CARACTERES }
+          </div>
+</div>
+</div>
+<!-- Cover Image Slot -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between font-mono-code text-[11px] text-outline uppercase tracking-wider">
+<span>[ 01 // FRAME DE CABECERA TÉCNICA ]</span>
+<span id="cover-ratio-label">{ RATIO: 21:9 CINEMATIC MONOCHROME }</span>
+</div>
+<!-- Populated Cover Image Container -->
+<div class="w-full border border-hairline-dark relative group bg-surface-container-lowest" id="cover-populated">
+<div class="relative w-full h-64 md:h-80 overflow-hidden">
+<img alt="Vista previa de cabecera técnica" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500" data-alt="Brutalist architectural blueprint render of an intricate distributed computer cluster network, high-contrast dark graphite monochrome wireframe with subtle fiery orange schematic lines, technical annotations, raw isometric hardware layout." id="cover-img-preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaEfAmNDHL4HPgbbE5UuPJxdKw7nhXdSxU-gkAkATS4A4ZDWW0clgIH_ZJwhNVHUzDGBLFLCw1PWCgche1yQxhF2LXrr9yEG7tb2yHhZ5rPy9mfiB0m_SnASn4wI-gPWsiSIiMEKiWpZ0HrTaDf7J5Nt_X8W7MYeuYfWrFh8wowpn5B3ZFAKPtjter_VAoLGDCcp9uLwEa5YU2EvQBMzJAd48GyZlpmDYZEx6Z80ZxSONDzPVzCjs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark via-transparent to-transparent opacity-80 pointer-events-none"></div>
+<!-- Focal Point Indicator Crosshair -->
+<div class="absolute top-4 left-4 font-mono-code text-[10px] text-primary/80 bg-surface/80 px-2 py-0.5 border border-hairline-dark">
+              { FOCUS: X:50% Y:40% }
+            </div>
+<div class="absolute bottom-3 right-3 flex items-center gap-2">
+<button class="px-2.5 py-1 bg-surface-dark/90 hover:bg-surface border border-hairline-dark text-on-surface font-mono-code text-mono-code uppercase transition-colors" onclick="replaceCover()" type="button">
+                [ REEMPLAZAR IMAGEN ]
+              </button>
+<button class="px-2.5 py-1 bg-surface-dark/90 hover:bg-error/20 border border-hairline-dark hover:border-error text-error font-mono-code text-mono-code uppercase transition-colors" onclick="removeCover()" type="button">
+                { ELIMINAR }
+              </button>
+</div>
+</div>
+</div>
+<!-- Empty State Cover Container (Hidden by default) -->
+<div class="hidden w-full border border-dashed border-hairline-dark hover:border-[#FF5A1F] bg-surface-container-low p-8 text-center transition-colors cursor-pointer" id="cover-empty" onclick="uploadCoverSim()">
+<div class="flex flex-col items-center justify-center gap-2 font-mono-code">
+<span class="text-2xl text-[#FF5A1F]">✦</span>
+<span class="text-mono-code uppercase text-primary">[ ARRASTRA UNA IMAGEN O HAZ CLIC PARA SUBIR ]</span>
+<span class="text-[11px] text-outline uppercase">{ FORMATOS PERMITIDOS: RAW, SVG, PNG, WEBP // MAX 12MB }</span>
+</div>
+</div>
+</div>
+<!-- Floating Rich Text Formatting Toolbar (Sharp Brutalist Bar) -->
+<div class="sticky top-32 z-20 w-full bg-surface-container-high border border-hairline-dark px-space-sm py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-none">
+<div class="flex items-center gap-1 font-mono-code text-mono-code divide-x divide-hairline-dark">
+<div class="flex items-center gap-0.5 pr-2">
+<button class="px-2 py-1 hover:bg-surface-container-highest text-on-surface hover:text-primary uppercase font-bold" onclick="insertFormat('h1')" title="Cabecera 1" type="button">H1</button>
+<button class="px-2 py-1 hover:bg-surface-container-highest text-on-surface hover:text-primary uppercase font-bold" onclick="insertFormat('h2')" title="Cabecera 2" type="button">H2</button>
+</div>
+<div class="flex items-center gap-0.5 px-2">
+<button class="px-2 py-1 hover:bg-surface-container-highest text-on-surface hover:text-primary font-bold" onclick="insertFormat('bold')" title="Negrita" type="button">B</button>
+<button class="px-2 py-1 hover:bg-surface-container-highest text-on-surface hover:text-primary italic" onclick="insertFormat('italic')" title="Cursiva" type="button">I</button>
+<button class="px-2 py-1 hover:bg-surface-container-highest text-outline line-through" onclick="insertFormat('strike')" title="Tachado" type="button">S</button>
+</div>
+<div class="flex items-center gap-0.5 px-2">
+<button class="px-2 py-1 hover:bg-surface-container-highest text-on-surface hover:text-primary flex items-center gap-1" onclick="insertFormat('link')" title="Vincular Enlace" type="button">
+<span class="material-symbols-outlined text-[16px]">link</span>
+</button>
+<button class="px-2 py-1 hover:bg-surface-container-highest text-[#FF5A1F] font-bold" onclick="insertFormat('quote')" title="Cita Enmarcada { }" type="button">{ " }</button>
+<button class="px-2 py-1 hover:bg-surface-container-highest text-on-surface hover:text-primary font-mono-code" onclick="insertFormat('code')" title="Bloque Código" type="button">&lt; / &gt;</button>
+<button class="px-2 py-1 hover:bg-surface-container-highest text-on-surface hover:text-primary" onclick="insertFormat('image')" title="Insertar Asset Gráfico" type="button">
+<span class="material-symbols-outlined text-[16px]">image</span>
+</button>
+</div>
+<div class="pl-2 flex items-center">
+<button class="px-2 py-1 hover:bg-surface-container-highest text-[#FF5A1F]" onclick="insertFormat('star-divider')" title="Divisor Astral Brutalista" type="button">✦ ──</button>
+</div>
+</div>
+<div class="font-mono-code text-[11px] text-outline uppercase flex items-center gap-2">
+<span class="hidden md:inline">LINEA: 42</span>
+<span>COL: 18</span>
+<span class="text-hairline-dark">|</span>
+<span class="text-[#FF5A1F]">MD_ACTIVE</span>
+</div>
+</div>
+<!-- Content Body Area (Rich Technical Content & Editing Surface) -->
+<div class="flex flex-col gap-space-lg bg-surface-container-lowest border border-hairline-dark p-space-md md:p-space-lg" id="content-body-container">
+<!-- Editable Technical Content Container -->
+<div class="flex flex-col gap-space-md font-body-md text-body-md text-on-surface leading-relaxed" id="editor-workspace">
+<!-- Abstract Lead-in with Drop Tag -->
+<div class="p-space-md bg-surface-container border-l-2 border-[#FF5A1F]">
+<div class="font-mono-code text-mono-code text-[#FF5A1F] uppercase mb-1">{ ABSTRACT // DISCOVERY_LEAD }</div>
+<p class="text-primary font-medium">
+              Los sistemas distribuidos contemporáneos han alcanzado un umbral crítico de complejidad accidental. Lo que nació como una promesa de escalabilidad desacoplada ha mutado en una hidra de topologías de red frágiles, sincronizaciones asíncronas no deterministas y sobrecostes astronómicos de computación perimetral. Es imperativo reevaluar la arquitectura monolítica modular compilada con rigor estático.
+            </p>
+</div>
+<!-- Section Heading -->
+<h2 class="font-headline-lg text-headline-lg uppercase text-primary pt-space-sm tracking-wide">
+            01. EL MITO DE LA RESILIENCIA INDEPENDIENTE
+          </h2>
+<p class="text-on-surface">
+            Al segmentar un sistema transaccional en veintisiete microservicios orquestados mediante HTTP/JSON sobre Kubernetes, no hemos eliminado los puntos únicos de falla; meramente hemos sustituido las llamadas a métodos locales en el stack de memoria interna por peticiones de red sometidas a latencia estocástica, caída de paquetes y desincronización de clocks vectoriales.
+          </p>
+<!-- Technical Callout Box with Hairlines -->
+<div class="border border-hairline-dark bg-surface-container-low p-space-md font-mono-code text-mono-code flex flex-col gap-2">
+<div class="flex items-center justify-between text-outline text-[11px] uppercase border-b border-hairline-dark pb-1">
+<span>[ BENCHMARK: LOCAL IPC VS OVERLAY NETWORK ]</span>
+<span class="text-[#FF5A1F]">DIFFERENTIAL: 340X</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center pt-2">
+<div class="bg-surface-container p-2 border border-hairline-dark">
+<div class="text-[10px] text-outline">MONOLITH IPC</div>
+<div class="text-primary text-sm font-bold">142 ns</div>
+</div>
+<div class="bg-surface-container p-2 border border-hairline-dark">
+<div class="text-[10px] text-outline">G-RPC K8S</div>
+<div class="text-primary text-sm font-bold">4.8 ms</div>
+</div>
+<div class="bg-surface-container p-2 border border-hairline-dark">
+<div class="text-[10px] text-outline">MARSHAL COST</div>
+<div class="text-primary text-sm font-bold">1.2 µs</div>
+</div>
+<div class="bg-surface-container p-2 border border-hairline-dark">
+<div class="text-[10px] text-outline">PACKET DROPS</div>
+<div class="text-[#FF5A1F] text-sm font-bold">0.00% vs 0.4%</div>
+</div>
+</div>
+</div>
+<!-- Brutalist Monospaced Code Block -->
+<div class="w-full bg-surface-dark border border-hairline-dark">
+<div class="px-space-md py-1.5 border-b border-hairline-dark bg-surface-container flex items-center justify-between font-mono-code text-[11px] text-outline uppercase">
+<div class="flex items-center gap-2">
+<span class="text-[#FF5A1F]">●</span>
+<span>crates/consensus/src/engine.rs</span>
+</div>
+<span>RUST 2024 EDITION</span>
+</div>
+<pre class="p-space-md overflow-x-auto font-mono-code text-mono-code text-primary leading-tight"><code><span class="text-outline">// Algoritmo de verificación determinista en nodo único coordinado</span>
+<span class="text-[#FF5A1F]">pub fn</span> <span class="text-primary">verify_consensus_latency</span>(node_id: &amp;<span class="text-[#cac6bd]">str</span>) -&gt; <span class="text-[#cac6bd]">Result</span>&lt;LatencyReport, EngineError&gt; {
+    <span class="text-outline">let</span> start_tick = Instant::now();
+    <span class="text-outline">let</span> local_state = StateRegistry::acquire_lock(node_id)?;
+    
+    <span class="text-outline">if</span> !local_state.is_quiescent() {
+        <span class="text-[#FF5A1F]">return Err</span>(EngineError::StateDivergence { 
+            expected: ConsensusVector::Unified, 
+            observed: local_state.divergent_tick() 
+        });
+    }
+
+    <span class="text-outline">let</span> elapsed = start_tick.elapsed();
+    <span class="text-[#FF5A1F]">Ok</span>(LatencyReport::from_nanos(elapsed.as_nanos()))
+}</code></pre>
+</div>
+<!-- Brutalist Editorial Blockquote framed by curly braces -->
+<div class="my-space-sm p-space-md bg-surface-container-high/40 border border-hairline-dark flex items-start gap-space-md">
+<div class="font-mono-code text-headline-xl text-[#FF5A1F] leading-none select-none">{</div>
+<div class="flex flex-col gap-1">
+<p class="font-headline-md text-headline-md uppercase text-primary italic leading-snug">
+                "NO NECESITAS UN CLÚSTER DISTRIBUIDO DE 100 INSTANCIAS PARA PROCESAR TRANSACCIONES QUE UNA SOLA MÁQUINA BARE-METAL PUEDE RESOLVER EN EL CACHÉ L3."
+              </p>
+<span class="font-mono-code text-mono-code text-outline uppercase tracking-wider">— DICTAMEN DE INGENIERÍA // JMMC ARCHITECTURE DEPT.</span>
+</div>
+<div class="font-mono-code text-headline-xl text-[#FF5A1F] leading-none select-none">}</div>
+</div>
+<p class="text-on-surface">
+            Al unificar el modelo de datos en una instancia centralizada respaldada por replicación asíncrona Raft puramente para tolerancia a fallos, la superficie de ataque se reduce drásticamente, los tiempos de build disminuyen en un 80% y el rastreo de incidencias vuelve a ser determinista.
+          </p>
+</div>
+<!-- Raw Textarea for Markdown Input (Visible in Empty State) -->
+<div class="hidden flex-col gap-2" id="empty-content-textarea">
+<label class="font-mono-code text-mono-code text-outline uppercase tracking-wider">{ CONTENIDO MARKDOWN EN BRUTO // COMPILACIÓN AUTOMÁTICA }</label>
+<textarea class="w-full bg-surface-container-low border border-hairline-dark p-space-md font-mono-code text-mono-code text-primary placeholder:text-outline-variant focus:outline-none focus:border-[#FF5A1F] resize-y" placeholder="Escribe o pega aquí el contenido técnico en formato Markdown..." rows="14"></textarea>
+</div>
+</div>
+<!-- Canvas Footer Metadata -->
+<div class="border-t border-hairline-dark pt-2 flex flex-wrap items-center justify-between font-mono-code text-[11px] text-outline uppercase">
+<div class="flex items-center gap-space-md">
+<span>{ CODIFICACIÓN: UTF-8 STRICT }</span>
+<span>{ CARACTERES: 9.840 }</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-[#FF5A1F]">✦</span>
+<span>COMPILADOR LISTO PARA REVISIÓN</span>
+</div>
+</div>
+</div>
+<!-- RIGHT SIDE PANEL / INSPECTOR (~32% width -> lg:col-span-4) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg" id="inspector-panel">
+<!-- Panel Header -->
+<div class="bg-surface-container-lowest border border-hairline-dark p-space-md flex items-center justify-between">
+<div class="flex items-center gap-2 font-label-caps text-label-caps uppercase text-primary tracking-widest">
+<span class="text-[#FF5A1F]">✦</span>
+<span>[ PARÁMETROS DE PUBLICACIÓN ]</span>
+</div>
+<span class="font-mono-code text-[10px] text-outline uppercase tracking-widest">{ CFG_PANEL }</span>
+</div>
+<!-- Parameter Card: Metadata & Taxonomy -->
+<div class="bg-surface-container-low border border-hairline-dark p-space-md flex flex-col gap-space-md">
+<!-- Categoría Selector -->
+<div class="flex flex-col gap-1.5">
+<label class="font-mono-code text-mono-code text-outline uppercase flex items-center justify-between" for="select-category">
+<span>CATEGORÍA PRINCIPAL</span>
+<span class="text-[#FF5A1F]">*OBLIGATORIO</span>
+</label>
+<div class="relative">
+<select class="w-full bg-surface-dark border border-hairline-dark text-primary font-mono-code text-mono-code px-3 py-2.5 rounded-none appearance-none focus:outline-none focus:border-[#FF5A1F]" id="select-category">
+<option selected="" value="distribuidos">ARQUITECTURA DISTRIBUIDA</option>
+<option value="sistemas">SISTEMAS DETERMINISTAS</option>
+<option value="gpu">RENDIMIENTO GPU &amp; COMPUTE</option>
+<option value="automatizacion">AUTOMATIZACIÓN &amp; KERNEL</option>
+<option value="critica">CRÍTICA EDITORIAL TECH</option>
+</select>
+<span class="absolute right-3 top-3 pointer-events-none font-mono-code text-xs text-outline">▼</span>
+</div>
+</div>
+<!-- Etiquetas / Tags Section -->
+<div class="flex flex-col gap-2">
+<label class="font-mono-code text-mono-code text-outline uppercase flex items-center justify-between">
+<span>ETIQUETAS INDEXABLES</span>
+<span class="text-on-surface-variant" id="tags-count-label">{ 4 / 6 }</span>
+</label>
+<div class="flex flex-wrap gap-1.5 p-2 bg-surface-container border border-hairline-dark min-h-[46px]" id="tags-container">
+<span class="tag-chip font-mono-code text-[11px] px-2 py-0.5 bg-surface-container-high border border-hairline-dark text-primary flex items-center gap-1.5">
+<span>{ #RUST }</span>
+<button class="text-outline hover:text-error text-xs" onclick="removeTag(this)" type="button">×</button>
+</span>
+<span class="tag-chip font-mono-code text-[11px] px-2 py-0.5 bg-surface-container-high border border-hairline-dark text-primary flex items-center gap-1.5">
+<span>{ #KAFKA }</span>
+<button class="text-outline hover:text-error text-xs" onclick="removeTag(this)" type="button">×</button>
+</span>
+<span class="tag-chip font-mono-code text-[11px] px-2 py-0.5 bg-surface-container-high border border-hairline-dark text-primary flex items-center gap-1.5">
+<span>{ #DETERMINISMO }</span>
+<button class="text-outline hover:text-error text-xs" onclick="removeTag(this)" type="button">×</button>
+</span>
+<span class="tag-chip font-mono-code text-[11px] px-2 py-0.5 bg-surface-container-high border border-hairline-dark text-primary flex items-center gap-1.5">
+<span>{ #PERFORMANCE }</span>
+<button class="text-outline hover:text-error text-xs" onclick="removeTag(this)" type="button">×</button>
+</span>
+</div>
+<div class="flex items-center gap-1">
+<input class="w-full bg-surface-dark border border-hairline-dark px-3 py-1.5 font-mono-code text-mono-code text-primary focus:outline-none focus:border-[#FF5A1F] rounded-none" id="new-tag-input" placeholder="Añadir slug de etiqueta..." type="text"/>
+<button class="px-3 py-1.5 bg-surface-container border border-hairline-dark text-on-surface hover:text-primary font-mono-code text-mono-code whitespace-nowrap" onclick="addCustomTag()" type="button">
+              + AÑADIR
+            </button>
+</div>
+<div class="hidden font-mono-code text-[11px] text-error" id="tag-error-msg">
+            { ERROR: DEBE ASIGNAR AL MENOS UNA ETIQUETA }
+          </div>
+</div>
+<!-- Canonical Slug / Permalink -->
+<div class="flex flex-col gap-1.5">
+<label class="font-mono-code text-mono-code text-outline uppercase" for="post-slug">
+            CANONICAL SLUG / URL PERMANENTE
+          </label>
+<div class="flex items-center bg-surface-dark border border-hairline-dark px-2 font-mono-code text-mono-code">
+<span class="text-outline select-none">/blog/</span>
+<input class="w-full bg-transparent border-0 py-2 text-primary focus:outline-none rounded-none" id="post-slug" type="text" value="el-ocaso-de-los-microservicios"/>
+</div>
+</div>
+<!-- Extracto / SEO Abstract -->
+<div class="flex flex-col gap-1.5">
+<label class="font-mono-code text-mono-code text-outline uppercase flex items-center justify-between" for="post-excerpt">
+<span>RESUMEN EJECUTIVO (SEO &amp; RSS)</span>
+<span class="text-[11px] text-outline">MAX 160C</span>
+</label>
+<textarea class="w-full bg-surface-dark border border-hairline-dark p-2.5 font-mono-code text-mono-code text-primary placeholder:text-outline-variant focus:outline-none focus:border-[#FF5A1F] rounded-none resize-none" id="post-excerpt" rows="3">Análisis riguroso de la sobrecarga de latencia y complejidad accidental en clústeres de microservicios y el retorno empírico a arquitecturas monolíticas deterministas.</textarea>
+</div>
+</div>
+<!-- Parameter Card: Publishing Schedule & Visibility -->
+<div class="bg-surface-container-low border border-hairline-dark p-space-md flex flex-col gap-space-md">
+<div class="font-mono-code text-[11px] text-outline uppercase tracking-wider border-b border-hairline-dark pb-1">
+          [ CRONOLOGÍA &amp; DERECHOS ]
+        </div>
+<!-- Date & Mode Switch -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between font-mono-code text-mono-code">
+<span class="text-outline uppercase">FECHA DE REGISTRO:</span>
+<span class="text-primary font-bold">28 FEB 2025</span>
+</div>
+<div class="grid grid-cols-2 gap-1 border border-hairline-dark p-1 bg-surface-dark">
+<button class="py-1.5 px-2 bg-surface-container-highest text-primary font-mono-code text-[11px] uppercase tracking-wider text-center" id="btn-pub-immediate" onclick="setPublishMode('immediate')" type="button">
+              INMEDIATA
+            </button>
+<button class="py-1.5 px-2 bg-transparent text-outline hover:text-primary font-mono-code text-[11px] uppercase tracking-wider text-center" id="btn-pub-schedule" onclick="setPublishMode('scheduled')" type="button">
+              PROGRAMAR
+            </button>
+</div>
+<div class="hidden flex-col gap-1.5 pt-2" id="schedule-inputs">
+<label class="font-mono-code text-[10px] text-outline uppercase">TIMESTAMP OBJETIVO (UTC):</label>
+<input class="w-full bg-surface-dark border border-hairline-dark p-2 font-mono-code text-mono-code text-primary focus:outline-none" type="datetime-local" value="2025-03-01T08:00"/>
+</div>
+</div>
+<!-- Telemetry Stats -->
+<div class="border border-hairline-dark bg-surface-container p-space-sm flex flex-col gap-1 font-mono-code text-mono-code">
+<div class="flex items-center justify-between text-outline text-[11px]">
+<span>TELEMETRÍA DE LECTURA</span>
+<span class="text-[#FF5A1F]">ANALYZED</span>
+</div>
+<div class="text-primary font-bold tracking-wider pt-1">
+            { 1.420 PALABRAS // ~7 MIN LECTURA }
+          </div>
+<div class="text-outline text-[10px] tracking-tight">
+            NIVEL TÉCNICO: AVANZADO // SYSTEM ARCHITECT
+          </div>
+</div>
+<!-- Visibilidad y Acceso -->
+<div class="flex items-center justify-between font-mono-code text-mono-code pt-1">
+<span class="text-outline uppercase">ACCESO MIEMBROS:</span>
+<span class="text-primary px-2 py-0.5 bg-surface-container border border-hairline-dark text-xs">
+            { ACCESO PÚBLICO // CC-BY-4.0 }
+          </span>
+</div>
+</div>
+<!-- Parameter Card: Danger Zone -->
+<div class="border border-hairline-dark bg-surface-container-lowest p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between font-mono-code text-[11px] text-error uppercase tracking-wider">
+<span>[ ZONA CRÍTICA // RUNTIME DANGER ]</span>
+<span>0xDEAD</span>
+</div>
+<p class="font-mono-code text-[11px] text-outline">
+          La purga de este documento es irreversible y revocará todas las copias en CDN y cachés perimetrales.
+        </p>
+<button class="w-full py-2 bg-transparent hover:bg-error/10 border border-error/50 hover:border-error text-error font-mono-code text-mono-code uppercase tracking-wider transition-colors text-center" onclick="confirmDeletePost()" type="button">
+          { ELIMINAR PUBLICACIÓN }
+        </button>
+</div>
+</div>
+</div>
+<!-- FLOATING MOBILE INSPECTOR TOGGLE (VISIBLE ON MOBILE ONLY) -->
+<div class="lg:hidden fixed bottom-6 right-6 z-40">
+<button class="px-4 py-3 bg-[#FF5A1F] text-[#0C0C0E] border border-primary font-mono-code text-mono-code font-bold uppercase shadow-2xl flex items-center gap-2" onclick="toggleMobileInspector()" type="button">
+<span class="text-base">⚙</span>
+<span>AJUSTES [ PARÁMETROS ]</span>
+</button>
+</div>
+<!-- INTERACTIVE LOGIC & STATE HANDLING SCRIPT -->
+<script>
+    let currentState = 'editing';
+    let isPublishing = false;
+
+    function setState(state) {
+      currentState = state;
+      
+      // Reset button states
+      const buttons = ['editing', 'saved', 'publishing', 'validation', 'empty'];
+      buttons.forEach(b => {
+        const el = document.getElementById('btn-state-' + b);
+        if (el) {
+          el.classList.remove('bg-surface-container-highest', 'text-primary');
+          el.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+        }
+      });
+
+      const activeBtn = document.getElementById('btn-state-' + (state === 'validation_error' ? 'validation' : state));
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+        activeBtn.classList.add('bg-surface-container-highest', 'text-primary');
+      }
+
+      // Hide alerts by default
+      document.getElementById('validation-alert').classList.add('hidden');
+      document.getElementById('saved-notification').classList.add('hidden');
+      document.getElementById('title-error-msg').classList.add('hidden');
+      document.getElementById('tag-error-msg').classList.add('hidden');
+      document.getElementById('post-title').classList.remove('border-error');
+      
+      const publishSpinner = document.getElementById('publish-spinner');
+      const publishLabel = document.getElementById('publish-label');
+      const statusBadge = document.getElementById('status-badge');
+      const statusText = document.getElementById('status-text');
+
+      if (state === 'editing') {
+        publishSpinner.classList.add('hidden');
+        publishLabel.textContent = 'PUBLICAR';
+        statusText.textContent = '{ ESTADO: BORRADOR }';
+        restoreFullContent();
+      } else if (state === 'saved') {
+        publishSpinner.classList.add('hidden');
+        publishLabel.textContent = 'PUBLICAR';
+        statusText.textContent = '{ ESTADO: SINCRONIZADO }';
+        document.getElementById('saved-notification').classList.remove('hidden');
+        restoreFullContent();
+      } else if (state === 'publishing') {
+        publishSpinner.classList.remove('hidden');
+        publishLabel.textContent = 'PUBLICANDO...';
+        statusText.textContent = '{ ESTADO: TRANSMITIENDO }';
+        restoreFullContent();
+      } else if (state === 'validation_error') {
+        publishSpinner.classList.add('hidden');
+        publishLabel.textContent = 'PUBLICAR';
+        statusText.textContent = '{ ESTADO: ERROR SCHEMA }';
+        document.getElementById('validation-alert').classList.remove('hidden');
+        document.getElementById('title-error-msg').classList.remove('hidden');
+        document.getElementById('tag-error-msg').classList.remove('hidden');
+        document.getElementById('post-title').classList.add('border-error');
+        document.getElementById('post-title').value = '';
+      } else if (state === 'empty') {
+        publishSpinner.classList.add('hidden');
+        publishLabel.textContent = 'PUBLICAR';
+        statusText.textContent = '{ ESTADO: NUEVO DOCUMENTO }';
+        applyEmptyContent();
+      }
+    }
+
+    function restoreFullContent() {
+      document.getElementById('post-title').value = "EL OCASO DE LOS MICROSERVICIOS CAÓTICOS: VOLVIENDO AL MONOLITO DETERMINISTA";
+      document.getElementById('cover-populated').classList.remove('hidden');
+      document.getElementById('cover-empty').classList.add('hidden');
+      document.getElementById('editor-workspace').classList.remove('hidden');
+      document.getElementById('empty-content-textarea').classList.add('hidden');
+      document.getElementById('post-slug').value = "el-ocaso-de-los-microservicios";
+      document.getElementById('post-excerpt').value = "Análisis riguroso de la sobrecarga de latencia y complejidad accidental en clústeres de microservicios y el retorno empírico a arquitecturas monolíticas deterministas.";
+    }
+
+    function applyEmptyContent() {
+      document.getElementById('post-title').value = "";
+      document.getElementById('cover-populated').classList.add('hidden');
+      document.getElementById('cover-empty').classList.remove('hidden');
+      document.getElementById('editor-workspace').classList.add('hidden');
+      document.getElementById('empty-content-textarea').classList.remove('hidden');
+      document.getElementById('post-slug').value = "";
+      document.getElementById('post-excerpt').value = "";
+    }
+
+    function togglePublishFlow() {
+      if (currentState === 'publishing') {
+        setState('editing');
+      } else {
+        setState('publishing');
+        setTimeout(() => {
+          if (currentState === 'publishing') {
+            setState('saved');
+            const statusText = document.getElementById('status-text');
+            statusText.textContent = '{ ESTADO: PUBLICADO }';
+          }
+        }, 2200);
+      }
+    }
+
+    function triggerSaveDraft() {
+      setState('saved');
+      setTimeout(() => {
+        document.getElementById('saved-notification').classList.add('hidden');
+      }, 4000);
+    }
+
+    function removeCover() {
+      document.getElementById('cover-populated').classList.add('hidden');
+      document.getElementById('cover-empty').classList.remove('hidden');
+    }
+
+    function replaceCover() {
+      alert('[ RUNTIME_DIALOG ]: Selecciona archivo RAW/WebP desde el explorador de archivos local.');
+    }
+
+    function uploadCoverSim() {
+      document.getElementById('cover-empty').classList.add('hidden');
+      document.getElementById('cover-populated').classList.remove('hidden');
+    }
+
+    function removeTag(buttonEl) {
+      const chip = buttonEl.closest('.tag-chip');
+      if (chip) chip.remove();
+    }
+
+    function addCustomTag() {
+      const input = document.getElementById('new-tag-input');
+      const val = input.value.trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '');
+      if (!val) return;
+      
+      const container = document.getElementById('tags-container');
+      const newChip = document.createElement('span');
+      newChip.className = 'tag-chip font-mono-code text-[11px] px-2 py-0.5 bg-surface-container-high border border-hairline-dark text-primary flex items-center gap-1.5';
+      newChip.innerHTML = `<span>{ #${val} }</span><button type="button" onclick="removeTag(this)" class="text-outline hover:text-error text-xs">×</button>`;
+      container.appendChild(newChip);
+      input.value = '';
+    }
+
+    function setPublishMode(mode) {
+      const btnImm = document.getElementById('btn-pub-immediate');
+      const btnSch = document.getElementById('btn-pub-schedule');
+      const scheduleBox = document.getElementById('schedule-inputs');
+      
+      if (mode === 'immediate') {
+        btnImm.classList.remove('bg-transparent', 'text-outline');
+        btnImm.classList.add('bg-surface-container-highest', 'text-primary');
+        btnSch.classList.remove('bg-surface-container-highest', 'text-primary');
+        btnSch.classList.add('bg-transparent', 'text-outline');
+        scheduleBox.classList.add('hidden');
+      } else {
+        btnSch.classList.remove('bg-transparent', 'text-outline');
+        btnSch.classList.add('bg-surface-container-highest', 'text-primary');
+        btnImm.classList.remove('bg-surface-container-highest', 'text-primary');
+        btnImm.classList.add('bg-transparent', 'text-outline');
+        scheduleBox.classList.remove('hidden');
+        scheduleBox.classList.add('flex');
+      }
+    }
+
+    function confirmDeletePost() {
+      if (confirm('[ CONFIRMACIÓN CRÍTICA ]: ¿Deseas purgar permanentemente esta entrada de la base de datos indexada? Esta operación no puede deshacerse.')) {
+        setState('empty');
+      }
+    }
+
+    function insertFormat(type) {
+      console.log('Inserting markdown format token:', type);
+    }
+
+    function toggleMobileInspector() {
+      const inspector = document.getElementById('inspector-panel');
+      inspector.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</div></main><footer class="w-full border-t border-hairline-dark bg-surface-container-lowest"><div class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md font-mono-code text-mono-code"><div class="flex items-center gap-3"><span class="text-[#FF5A1F]">✦</span><span class="text-on-surface-variant uppercase">JUANMA (JMMC) // BRUTALIST ARCHITECTURAL RUNTIME</span></div><div class="flex items-center gap-space-md text-on-surface-variant"><a class="hover:text-primary transition-colors" data-path="presentacion" href="#">{ MANIFIESTO }</a><a class="hover:text-primary transition-colors" data-path="04-post-editor" href="#">{ STUDIO }</a><a class="hover:text-primary transition-colors" data-path="contacto" href="#">{ TRANSMIT }</a></div><div class="text-outline-variant text-[11px]">© 2025 JMMC. NO RIGHTS RESERVED. CODE IS LAW.</div></div></footer><script>window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('preloader')?.classList.add('loaded');},650);});document.addEventListener('mousemove',(e)=>{const cursor=document.getElementById('custom-cursor');if(cursor){cursor.style.left=`${e.clientX}px`;cursor.style.top=`${e.clientY}px`;}});</script></body></html>

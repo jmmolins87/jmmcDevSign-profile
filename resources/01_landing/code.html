@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>JMMC // Fullstack Developer &amp; Designer</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Oswald:wght@200..700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}#custom-cursor{pointer-events:none;transform:translate(-50%,-50%);transition:transform 0.08s ease-out,opacity 0.2s ease;}#preloader.loaded{opacity:0;pointer-events:none;visibility:hidden;transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1),visibility 0.6s;}#curtain-menu.open{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);pointer-events:auto;}#curtain-menu{clip-path:polygon(0 0,100% 0,100% 0,0 0);transition:clip-path 0.55s cubic-bezier(0.77,0,0.175,1);pointer-events:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"hairline-dark":"#26262B","surface":"#131315","background":"#131315","inverse-surface":"#e5e1e4","error-container":"#93000a","primary-fixed-dim":"#cac6bf","on-background":"#e5e1e4","outline":"#939188","on-secondary-container":"#b9b5ab","primary-container":"#e6e2da","secondary-fixed-dim":"#cbc6bc","on-secondary":"#333029","on-secondary-fixed":"#1d1b15","on-primary-fixed":"#1c1c17","on-tertiary-fixed":"#3a0b00","tertiary-fixed-dim":"#ffb59e","on-surface":"#e5e1e4","bg-light":"#EFEBE3","inverse-on-surface":"#313032","surface-tint":"#cac6bf","on-error":"#690005","on-primary":"#31302b","surface-container":"#201f21","on-tertiary-container":"#b83600","surface-container-highest":"#353437","on-primary-container":"#66645e","surface-container-lowest":"#0e0e10","secondary-fixed":"#e8e2d7","on-tertiary-fixed-variant":"#852400","surface-dim":"#131315","surface-container-high":"#2a2a2c","surface-light":"#E6E1D7","on-tertiary":"#5e1700","text-light":"#0C0C0E","on-error-container":"#ffdad6","inverse-primary":"#605e58","secondary-container":"#49473f","tertiary-fixed":"#ffdbd0","on-secondary-fixed-variant":"#49473f","hairline-light":"#D3CEC3","primary":"#ffffff","surface-container-low":"#1b1b1d","muted-light":"#6B675F","secondary":"#cbc6bc","on-surface-variant":"#cac6bd","accent-text-light":"#B8350A","on-primary-fixed-variant":"#484741","surface-variant":"#353437","tertiary-container":"#ffdbd0","surface-bright":"#39393b","surface-dark":"#131316","outline-variant":"#484740","tertiary":"#ffffff","error":"#ffb4ab","primary-fixed":"#e6e2da"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-lg":"1.5rem","margin-tablet":"2rem","margin":"1rem","space-xl":"3rem","space-sm":"0.5rem","gutter-desktop":"1.5rem","margin-desktop":"3rem","space-xs":"0.25rem","gutter":"1rem","space-2xl":"5rem","space-md":"1rem"},"fontFamily":{"body-sm":["Hanken Grotesk"],"body-lg":["Hanken Grotesk"],"label-caps":["Oswald"],"mono-code":["JetBrains Mono"],"headline-xl":["Oswald"],"display-hero":["Oswald"],"headline-xl-mobile":["Oswald"],"display-hero-mobile":["Oswald"],"body-md":["Hanken Grotesk"],"headline-lg":["Oswald"],"headline-md":["Oswald"],"mono-bracket":["JetBrains Mono"]},"fontSize":{"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-caps":["14px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"600"}],"mono-code":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-xl":["64px",{"lineHeight":"64px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-hero":["96px",{"lineHeight":"92px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl-mobile":["38px",{"lineHeight":"40px","letterSpacing":"0em","fontWeight":"600"}],"display-hero-mobile":["52px",{"lineHeight":"52px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-lg":["36px",{"lineHeight":"40px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-md":["26px",{"lineHeight":"30px","letterSpacing":"0.02em","fontWeight":"500"}],"mono-bracket":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}]}}}};</script></head><body class="bg-surface text-on-surface antialiased selection:bg-surface-container-highest selection:text-primary relative"><div class="fixed z-[9999] top-0 left-0 hidden lg:flex items-center justify-center text-[#FF5A1F] text-lg select-none" id="custom-cursor"><span class="text-[#FF5A1F]">✦</span></div><div class="fixed inset-0 z-[100] bg-surface flex flex-col items-center justify-center" id="preloader"><div class="flex items-center gap-4 text-headline-xl font-headline-xl text-primary"><span class="animate-pulse text-on-surface-variant">{</span><span class="text-[#FF5A1F] animate-spin text-3xl">✦</span><span class="animate-pulse text-on-surface-variant">}</span></div><p class="mt-4 font-mono-code text-mono-code tracking-widest uppercase text-on-surface-variant">[ INITIALIZING KERNEL // JMMC ]</p></div><header class="fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b border-hairline-dark bg-surface/55 backdrop-blur-[14px]" id="editorial-header"><div class="h-20 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-space-sm"><a class="flex items-center gap-3 group focus:outline-none" data-path="presentacion" href="#"><img alt="JMMC Logo Monogram" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W7Q8ch4goYy3xKHqNi5PX7Fhy_pjdITenyi3S4QUV_9v6eHBBaL2xpNyK0bKxJPFobMhDJm5SsEAPTIygf3fZW0LbBtWvQwyvrrKkvPLHdprLO5Lo37ZyL3kQbLwAi2Gwr9lILBU6NdK2nLFE7kfPMegY4UH21JYZCyblgy9nfH89tS2DOTuuFC7JmFdr5qdAbrBeXp0nnINiuq5X571RhvOziZpFTg6pNS6XTji-1UnmAOCT32osEqQ"/><span class="font-mono-code text-mono-code uppercase tracking-widest text-on-surface-variant group-hover:text-primary transition-colors">{JM} ARCHITECTURE</span></a></div><div class="flex items-center gap-space-sm lg:gap-space-md"><div class="hidden lg:flex items-center border border-hairline-dark divide-x divide-hairline-dark"><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors focus:outline-none" onclick="document.documentElement.classList.remove('dark');" title="Tema Claro" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">light_mode</span></button><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-primary bg-surface-container-high focus:outline-none" onclick="document.documentElement.classList.add('dark');" title="Tema Oscuro" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">dark_mode</span></button><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors focus:outline-none" onclick="if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}" title="Tema Sistema" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">desktop_windows</span></button></div><div class="hidden lg:flex items-center border border-hairline-dark font-mono-code text-mono-code px-2 py-1 gap-1 text-on-surface-variant"><button class="text-primary font-bold hover:text-primary focus:outline-none" type="button">ES</button><span class="text-outline-variant">|</span><button class="text-on-surface-variant hover:text-primary focus:outline-none" type="button">EN</button></div><a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 border border-hairline-dark font-label-caps text-label-caps uppercase text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all" data-path="login" href="#">[ ACCEDER ]</a><button class="flex items-center gap-2 px-3.5 py-1.5 border border-hairline-dark font-label-caps text-label-caps uppercase text-primary hover:bg-surface-container-high transition-all focus:outline-none" onclick="document.getElementById('curtain-menu').classList.toggle('open');" type="button"><span class="text-[#FF5A1F]">✦</span><span>MENÚ</span><span class="font-mono-code text-mono-code text-on-surface-variant">{ || }</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><div class="fixed inset-0 z-[60] bg-surface flex flex-col justify-between p-margin md:p-margin-tablet lg:p-margin-desktop overflow-y-auto" id="curtain-menu"><div class="flex items-center justify-between border-b border-hairline-dark pb-space-md"><div class="flex items-center gap-3"><img alt="JMMC Logo Monogram" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W7Q8ch4goYy3xKHqNi5PX7Fhy_pjdITenyi3S4QUV_9v6eHBBaL2xpNyK0bKxJPFobMhDJm5SsEAPTIygf3fZW0LbBtWvQwyvrrKkvPLHdprLO5Lo37ZyL3kQbLwAi2Gwr9lILBU6NdK2nLFE7kfPMegY4UH21JYZCyblgy9nfH89tS2DOTuuFC7JmFdr5qdAbrBeXp0nnINiuq5X571RhvOziZpFTg6pNS6XTji-1UnmAOCT32osEqQ"/><span class="font-mono-code text-mono-code tracking-widest uppercase text-on-surface-variant">[ DOSSIER REGISTRY // 2025 ]</span></div><button class="px-3 py-1.5 border border-hairline-dark font-mono-code text-mono-code uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all flex items-center gap-2 focus:outline-none" onclick="document.getElementById('curtain-menu').classList.remove('open');" type="button"><span class="text-[#FF5A1F]">✦</span><span>CERRAR { X }</span></button></div><nav class="my-auto py-space-xl flex flex-col gap-2" data-active-classes="text-primary"><a aria-current="page" class="group flex items-baseline gap-space-sm font-headline-xl uppercase tracking-tight transition-colors text-primary" data-path="presentacion" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">01</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">PRESENTACIÓN</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="demos" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">02</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">DEMOS</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="skills" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">03</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">SKILLS</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="trayectoria" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">04</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">TRAYECTORIA</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="blog" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">05</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">BLOG</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="contacto" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">06</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">CONTACTO</span></span></a></nav><div class="pt-space-md border-t border-hairline-dark flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md font-mono-code text-mono-code text-on-surface-variant"><div class="flex items-center gap-4"><a class="hover:text-primary transition-colors" href="#">[ GITHUB ]</a><a class="hover:text-primary transition-colors" href="#">[ LINKEDIN ]</a><a class="hover:text-primary transition-colors" href="#">[ TWITTER/X ]</a></div><div class="flex lg:hidden items-center gap-space-md"><div class="flex items-center border border-hairline-dark"><button class="px-2 py-1 hover:text-primary" onclick="document.documentElement.classList.remove('dark');" type="button"><span class="material-symbols-outlined text-[14px]">light_mode</span></button><button class="px-2 py-1 text-primary bg-surface-container-high" onclick="document.documentElement.classList.add('dark');" type="button"><span class="material-symbols-outlined text-[14px]">dark_mode</span></button><button class="px-2 py-1 hover:text-primary" onclick="if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}" type="button"><span class="material-symbols-outlined text-[14px]">desktop_windows</span></button></div><div class="border border-hairline-dark px-2 py-1"><button class="text-primary font-bold" type="button">ES</button> | <button class="text-on-surface-variant" type="button">EN</button></div></div><div class="text-on-surface-variant text-[11px] tracking-widest uppercase">{ STATUS: ALL SYSTEMS OPERATIONAL ✦ }</div></div></div><main class="w-full pt-20 bg-surface min-h-screen"><div class="flex flex-col w-full text-on-surface select-none relative overflow-x-hidden">
+<!-- ==========================================
+       SECTION 01: HERO (CINEMÁTICA MID-WARP)
+       ========================================== -->
+<section class="relative w-full h-screen min-h-[700px] flex flex-col justify-between overflow-hidden bg-surface-container-lowest">
+<!-- Hyperspace Warp Rays Canvas Background -->
+<div class="absolute inset-0 pointer-events-none z-0">
+<svg class="w-full h-full opacity-65" fill="none" preserveaspectratio="xMidYMid slice" viewbox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="warpGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#EFEBE3" stop-opacity="0.1"></stop>
+<stop offset="60%" stop-color="#FF5A1F" stop-opacity="0.6"></stop>
+<stop offset="100%" stop-color="#FF5A1F" stop-opacity="0.95"></stop>
+</lineargradient>
+</defs>
+<!-- Constellation Lines: J M M C nodes -->
+<g opacity="0.35" stroke="#939188" stroke-dasharray="3 3" stroke-width="0.75">
+<line x1="220" x2="310" y1="280" y2="280"></line>
+<line x1="310" x2="310" y1="280" y2="460"></line>
+<line x1="310" x2="240" y1="460" y2="470"></line>
+<line x1="480" x2="480" y1="480" y2="300"></line>
+<line x1="480" x2="550" y1="300" y2="390"></line>
+<line x1="550" x2="620" y1="390" y2="300"></line>
+<line x1="620" x2="620" y1="300" y2="480"></line>
+<line x1="820" x2="820" y1="480" y2="300"></line>
+<line x1="820" x2="890" y1="300" y2="390"></line>
+<line x1="890" x2="960" y1="390" y2="300"></line>
+<line x1="960" x2="960" y1="300" y2="480"></line>
+<line x1="1200" x2="1120" y1="310" y2="380"></line>
+<line x1="1120" x2="1130" y1="380" y2="470"></line>
+<line x1="1130" x2="1210" y1="470" y2="480"></line>
+</g>
+<!-- Star streaks converging to center (720, 450) -->
+<g stroke="url(#warpGrad)" stroke-width="1.2">
+<line opacity="0.4" stroke-width="1.5" x1="0" x2="680" y1="0" y2="430"></line>
+<line opacity="0.4" stroke-width="1.5" x1="1440" x2="760" y1="0" y2="430"></line>
+<line opacity="0.4" stroke-width="1.5" x1="0" x2="680" y1="900" y2="470"></line>
+<line opacity="0.4" stroke-width="1.5" x1="1440" x2="760" y1="900" y2="470"></line>
+<line opacity="0.7" x1="720" x2="720" y1="0" y2="360"></line>
+<line opacity="0.7" x1="720" x2="720" y1="900" y2="540"></line>
+<line opacity="0.7" x1="0" x2="620" y1="450" y2="450"></line>
+<line opacity="0.7" x1="1440" x2="820" y1="450" y2="450"></line>
+<line opacity="0.3" x1="180" x2="690" y1="90" y2="435"></line>
+<line opacity="0.3" x1="1260" x2="750" y1="90" y2="435"></line>
+<line opacity="0.3" x1="180" x2="690" y1="810" y2="465"></line>
+<line opacity="0.3" x1="1260" x2="750" y1="810" y2="465"></line>
+</g>
+</svg>
+</div>
+<!-- Spatial & Realtime Metadata Overlines -->
+<div class="relative z-10 w-full px-margin md:px-margin-tablet lg:px-margin-desktop pt-6 flex justify-between items-center font-mono-code text-mono-code text-on-surface-variant">
+<div class="flex items-center gap-3">
+<span class="text-[#FF5A1F]">✦</span>
+<span>{ COORD: 40.4168° N, 3.7038° W }</span>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<span>{ VELOCITY: C_WARP_0.98 }</span>
+<span>{ VECTOR: KERNEL_PRODUCTION }</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-block w-2 h-2 bg-[#FF5A1F] animate-ping"></span>
+<span id="hero-clock">{ TIME: 23:42:15 UTC }</span>
+</div>
+</div>
+<!-- Giant Titanic Display Stage: { JM ✦ MC } -->
+<div class="relative z-10 my-auto w-full flex items-center justify-between px-2 md:px-6 overflow-hidden">
+<!-- Outward-facing Left Bracket { -->
+<div class="font-headline-xl text-[140px] md:text-[240px] lg:text-[340px] leading-none text-outline-variant font-light select-none transform -translate-x-3 md:-translate-x-8">
+        {
+      </div>
+<!-- Core Monogram with Central Singularity -->
+<div class="flex-1 flex items-center justify-center gap-2 md:gap-8 lg:gap-14">
+<div class="font-display-hero text-[72px] sm:text-[120px] md:text-[180px] lg:text-[230px] leading-none tracking-tighter text-on-surface font-extrabold uppercase">
+          JM
+        </div>
+<!-- Monumental 4-Point Star Singularity (Central Sun) -->
+<div class="relative flex items-center justify-center shrink-0">
+<div class="absolute w-24 h-24 md:w-48 md:h-48 rounded-full bg-[#FF5A1F]/20 blur-xl animate-pulse"></div>
+<svg class="w-14 h-14 sm:w-24 sm:h-24 md:w-36 md:h-36 lg:w-44 lg:h-44 text-[#FF5A1F] transition-transform duration-700 hover:rotate-90" fill="currentColor" viewbox="0 0 100 100">
+<polygon points="50,0 59,41 100,50 59,59 50,100 41,59 0,50 41,41"></polygon>
+</svg>
+</div>
+<div class="font-display-hero text-[72px] sm:text-[120px] md:text-[180px] lg:text-[230px] leading-none tracking-tighter text-on-surface font-extrabold uppercase">
+          MC
+        </div>
+</div>
+<!-- Outward-facing Right Bracket } -->
+<div class="font-headline-xl text-[140px] md:text-[240px] lg:text-[340px] leading-none text-outline-variant font-light select-none transform translate-x-3 md:translate-x-8">
+        }
+      </div>
+</div>
+<!-- Bottom Portal Peek & Scroll Invitation -->
+<div class="relative z-10 w-full px-margin md:px-margin-tablet lg:px-margin-desktop pb-8 flex flex-col items-center justify-center gap-4">
+<div class="flex items-center gap-3 font-mono-code text-mono-code tracking-widest uppercase text-on-surface-variant">
+<span>[ SCROLL DOWN PARA PENETRAR EL NÚCLEO ]</span>
+<span class="material-symbols-outlined text-sm text-[#FF5A1F] animate-bounce">south</span>
+</div>
+<!-- Star portal peek cut-out overlay -->
+<div class="w-12 h-12 flex items-center justify-center opacity-80">
+<svg class="w-8 h-8 text-[#FF5A1F]" fill="currentColor" viewbox="0 0 100 100">
+<polygon points="50,10 56,44 90,50 56,56 50,90 44,56 10,50 44,44"></polygon>
+</svg>
+</div>
+</div>
+</section>
+<!-- ==========================================
+       SECTION 02: PRESENTACIÓN (DOSSIER & BIO)
+       ========================================== -->
+<section class="relative w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-2xl bg-surface" id="presentacion">
+<!-- Header dossier metadata -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-space-lg mb-space-xl">
+<div>
+<span class="font-mono-code text-mono-code text-[#FF5A1F] tracking-widest uppercase">[ SECTION // 01 ]</span>
+<h2 class="font-headline-xl text-headline-xl md:text-display-hero uppercase tracking-tight text-on-surface mt-1">
+          PRESENTACIÓN
+        </h2>
+</div>
+<div class="font-mono-code text-mono-code text-on-surface-variant text-right">
+        { REF: ARCH-2025 // BIO_V1.4 }<br/>
+        { OPERATIONAL_STATUS: DISPONIBLE PARA CONTRATOS CLAVE }
+      </div>
+</div>
+<!-- Asymmetric Editorial 12-Column Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- 7 Columns: Editorial Manifesto -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="bg-surface-container-low p-space-lg md:p-space-xl">
+<p class="font-headline-md text-headline-md uppercase text-primary leading-snug">
+            Diseño sistemas que responden al impacto, construyo infraestructura de escala brutal y entreno flujos que no se rompen cuando el tráfico se multiplica.
+          </p>
+<p class="font-body-lg text-body-lg text-secondary mt-space-md">
+            Opero en la intersección exacta entre la ingeniería de sistemas distribuidos, el modelado determinista con agentes de inteligencia artificial y la dirección de arte editorial hiper-estructurada. Sin concesiones a la estética vacía: cada trazo, cada milisegundo de ejecución y cada contrato de API responde a una lógica de producción innegociable.
+          </p>
+<div class="mt-space-lg pt-space-md flex flex-wrap items-center gap-space-md font-mono-code text-mono-code text-on-surface-variant">
+<span>{ BASE: MADRID / REMOTE }</span>
+<span class="text-[#FF5A1F]">✦</span>
+<span>{ PARADIGMA: EVENT-DRIVEN &amp; SYSTEMIC }</span>
+<span class="text-[#FF5A1F]">✦</span>
+<span>{ RUNTIME: BUN / NODE / PY }</span>
+</div>
+</div>
+<!-- Metric Trio With Star Bullets -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="bg-surface-container p-space-md flex flex-col justify-between h-36">
+<div class="flex items-center justify-between font-mono-code text-mono-code text-on-surface-variant">
+<span>{ STAT_01 }</span>
+<span class="text-[#FF5A1F]">✦</span>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">+9 AÑOS</div>
+<p class="font-mono-code text-body-sm text-secondary uppercase">Construyendo arquitectura fullstack</p>
+</div>
+</div>
+<div class="bg-surface-container p-space-md flex flex-col justify-between h-36">
+<div class="flex items-center justify-between font-mono-code text-mono-code text-on-surface-variant">
+<span>{ STAT_02 }</span>
+<span class="text-[#FF5A1F]">✦</span>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-[#FF5A1F] font-bold tracking-tight">100%</div>
+<p class="font-mono-code text-body-sm text-secondary uppercase">Entregas sin deuda técnica estructural</p>
+</div>
+</div>
+<div class="bg-surface-container p-space-md flex flex-col justify-between h-36">
+<div class="flex items-center justify-between font-mono-code text-mono-code text-on-surface-variant">
+<span>{ STAT_03 }</span>
+<span class="text-[#FF5A1F]">✦</span>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">&lt;80ms</div>
+<p class="font-mono-code text-body-sm text-secondary uppercase">Latencia p99 media en producción</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 5 Columns: Asymmetric Gritty Editorial Portrait Framed by Thin Brackets -->
+<div class="lg:col-span-5 flex items-stretch">
+<div class="relative w-full bg-surface-container-low p-space-md flex flex-col justify-between">
+<!-- Top ledger ribbon -->
+<div class="flex items-center justify-between font-mono-code text-mono-code text-on-surface-variant pb-space-sm mb-space-sm">
+<span>{ PORTRAIT // ARCHIVE_2025 }</span>
+<span class="text-[#FF5A1F]">● LIVE</span>
+</div>
+<!-- Bracketed Image Slot -->
+<div class="relative flex items-center justify-between my-auto py-2">
+<span class="font-headline-xl text-headline-xl text-outline-variant font-light select-none">{</span>
+<div class="relative flex-1 mx-3 aspect-[4/5] overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover filter grayscale contrast-125" data-alt="Editorial black and white portrait of a sharp European male tech architect Juanma, wearing technical minimalist apparel, harsh architectural directional lighting, intense gaze, high-contrast monochrome tones, analog film grain, brutalist shadows, dark studio backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAosqWlVdVjos5ag0KVzfo7fGTuVNKyDxRb1nwn0jpFjf8E-Xw4IWjxRAQXsexml-pF3I3w6RRNwcjOZkA5qVtxQ-tgKef9p0PEpQ5d-2_H9HPHmpxuBx36X7Dj1a0LeBNY6Zba86oYvvGXLGtJ34dK0SodVClfVOBa1AoskO_lskvyg6fQPoSRHr8_JcwxGOcQ9Ocyn69XgU7eiIlOog8ZkHIE83eIa3BIg8HyUsRNMMCOUzV5qRk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-3 left-3 font-mono-code text-mono-code text-primary bg-surface/80 px-2 py-1">
+                JMMC // ARCHITECT
+              </div>
+</div>
+<span class="font-headline-xl text-headline-xl text-outline-variant font-light select-none">}</span>
+</div>
+<!-- Bottom Ledger Stamp -->
+<div class="pt-space-sm flex items-center justify-between font-mono-code text-[11px] text-on-surface-variant">
+<span>HASH: 8F92-C1A0-77B4</span>
+<span class="text-[#FF5A1F]">✦ ENCRYPTED SIGNATURE</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==========================================
+       SECTION 03: DEMOS (PINNED STACK CON SCROLL DEPTH)
+       ========================================== -->
+<section class="relative w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-2xl bg-surface-container-lowest" id="demos">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-space-lg mb-space-xl">
+<div>
+<span class="font-mono-code text-mono-code text-[#FF5A1F] tracking-widest uppercase">[ SECTION // 02 ]</span>
+<h2 class="font-headline-xl text-headline-xl md:text-display-hero uppercase tracking-tight text-on-surface mt-1">
+          DEMOS INTERACTIVAS
+        </h2>
+</div>
+<div class="font-mono-code text-mono-code text-on-surface-variant text-right">
+        { STACK_DEPTH: 5 EXPERIMENTS }<br/>
+        { RENDER: DETERMINISTIC SIMULATION }
+      </div>
+</div>
+<!-- Card Stack Simulation Container -->
+<div class="relative w-full max-w-6xl mx-auto flex flex-col items-center">
+<!-- Ghost Background Layer 03 (Scale 84%, Opacity 20%, Deep Blur) -->
+<div class="w-full bg-surface-container-highest/20 p-6 md:p-8 transform scale-[0.88] -translate-y-12 opacity-20 filter blur-sm pointer-events-none hidden md:block">
+<div class="flex justify-between font-mono-code text-mono-code text-outline mb-4">
+<span>{ 03 } CUALIFICA Y SIGUE TUS LEADS</span>
+<span>PIPELINE_AGENT</span>
+</div>
+<div class="h-44 bg-surface-container-low/40"></div>
+</div>
+<!-- Ghost Background Layer 02 (Scale 93%, Opacity 45%, Moderate Blur) -->
+<div class="w-full bg-surface-container-high p-6 md:p-8 transform scale-[0.94] -translate-y-8 opacity-40 filter blur-[1px] pointer-events-none">
+<div class="flex justify-between font-mono-code text-mono-code text-on-surface-variant mb-4">
+<span>{ 02 } AGENTE DE LEADS EN TIEMPO REAL</span>
+<span>AUTONOMOUS_SOCKET</span>
+</div>
+<div class="h-56 bg-surface-container-low flex items-center justify-center">
+<span class="font-mono-code text-outline">[ BUFFERING TELEMETRY STREAM... ]</span>
+</div>
+</div>
+<!-- Active Foreground Dossier: "Crea tu agente" { 01 } -->
+<div class="relative z-20 w-full bg-surface-container p-space-md md:p-space-xl">
+<!-- Technical Ribbon Top Header -->
+<div class="flex flex-wrap items-center justify-between gap-4 pb-space-md mb-space-lg">
+<div class="flex items-center gap-3">
+<span class="bg-[#FF5A1F] text-surface-lowest px-2 py-0.5 font-mono-code text-mono-code font-bold">{ 01 }</span>
+<span class="font-headline-md text-headline-md text-primary uppercase">CREA TU AGENTE AUTÓNOMO</span>
+</div>
+<div class="flex items-center gap-4 font-mono-code text-mono-code text-on-surface-variant">
+<span class="text-[#FF5A1F]">✦ STACK: LLM / LANGCHAIN / POSTGRES</span>
+<span>{ RUNTIME: ACTIVE }</span>
+</div>
+</div>
+<!-- Interactive Demo Workspace Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-center">
+<!-- Left Specs Column -->
+<div class="lg:col-span-5 flex flex-col justify-between gap-space-md">
+<div>
+<p class="font-body-md text-body-md text-secondary">
+                Motor orquestador que provisiona agentes conversacionales con memoria vectorial episódica, tool-calling determinista y validación estricta de esquemas Zod en milisegundos.
+              </p>
+<div class="mt-space-md space-y-2 font-mono-code text-mono-code text-on-surface-variant">
+<div class="flex justify-between py-1">
+<span>LATENCIA_INFERENCIA:</span>
+<span class="text-primary font-bold">142ms</span>
+</div>
+<div class="flex justify-between py-1">
+<span>RETRIEVAL_ACCURACY:</span>
+<span class="text-primary font-bold">99.4%</span>
+</div>
+<div class="flex justify-between py-1">
+<span>VECTOR_STORE:</span>
+<span class="text-primary font-bold">PGVECTOR / 1536 DIM</span>
+</div>
+</div>
+</div>
+<!-- Trigger Action -->
+<div class="pt-space-md flex flex-wrap items-center gap-space-md">
+<a class="inline-flex items-center gap-3 px-space-md py-3 bg-primary text-text-light font-label-caps text-label-caps uppercase hover:bg-surface-container-highest hover:text-primary transition-colors" href="#">
+<span class="text-[#FF5A1F]">✦</span>
+<span>INICIAR DEMO INTERACTIVA</span>
+<span class="font-mono-code text-mono-code">[ EXEC ]</span>
+</a>
+<span class="font-mono-code text-mono-code text-on-surface-variant">{ CÓDIGO FUENTE AUDITABLE }</span>
+</div>
+</div>
+<!-- Right Mock Canvas: Agent Playground Window -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-space-md">
+<!-- Window Bar -->
+<div class="flex items-center justify-between pb-3 mb-3 text-on-surface-variant font-mono-code text-[11px]">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-[#FF5A1F]"></span>
+<span class="w-2.5 h-2.5 bg-outline-variant"></span>
+<span class="w-2.5 h-2.5 bg-outline-variant"></span>
+<span class="ml-2 text-primary">AGENT_NODE_RUNNER.PY</span>
+</div>
+<span>PORT: 8080 // SECURE</span>
+</div>
+<!-- Visual Graph Terminal Simulation -->
+<div class="space-y-3 font-mono-code text-mono-code">
+<div class="p-2.5 bg-surface-container text-on-surface-variant flex items-center justify-between">
+<span>[IN] PROMPT: "Configurar agente de soporte Nivel 2 con fallback a humano"</span>
+<span class="text-[#FF5A1F]">OK</span>
+</div>
+<div class="p-2.5 bg-surface-container-low text-secondary">
+<div class="text-[#FF5A1F] text-[11px] mb-1">{ ✦ KERNEL DEPLOYMENT SEQUENCE }</div>
+<div class="text-[12px] text-on-surface leading-tight">
+                  &gt; Vector store initialized at namespace: tenant_9021<br/>
+                  &gt; Tools registered: [sql_query, stripe_refund, slack_dispatch]<br/>
+                  &gt; System prompt compiled (tokens: 412, safety_guard: ON)
+                </div>
+</div>
+<!-- Mini SVG Graph of Nodes -->
+<div class="py-2 flex items-center justify-center">
+<svg class="w-full max-w-sm h-16" fill="none" viewbox="0 0 320 60">
+<rect fill="#201f21" height="30" width="70" x="10" y="15"></rect>
+<text fill="#cac6bd" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="45" y="34">INPUT</text>
+<line stroke="#FF5A1F" stroke-dasharray="2 2" stroke-width="1.5" x1="80" x2="120" y1="30" y2="30"></line>
+<rect fill="#2a2a2c" height="30" width="80" x="120" y="15"></rect>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="160" y="34">LLM ROUTER</text>
+<line stroke="#FF5A1F" stroke-width="1.5" x1="200" x2="240" y1="30" y2="30"></line>
+<rect fill="#201f21" height="30" width="70" x="240" y="15"></rect>
+<text fill="#cac6bd" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="275" y="34">TOOL EXEC</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Mini Ledger of Remaining 4 Demos -->
+<div class="mt-space-lg pt-space-md grid grid-cols-2 md:grid-cols-4 gap-2 font-mono-code text-mono-code">
+<div class="p-2 bg-surface-container-low text-on-surface-variant flex flex-col justify-between">
+<span class="text-[#FF5A1F]">{ 02 }</span>
+<span class="text-primary truncate">LEADS EN VIVO</span>
+</div>
+<div class="p-2 bg-surface-container-low text-on-surface-variant flex flex-col justify-between">
+<span class="text-[#FF5A1F]">{ 03 }</span>
+<span class="text-primary truncate">CUALIFICACIÓN IA</span>
+</div>
+<div class="p-2 bg-surface-container-low text-on-surface-variant flex flex-col justify-between">
+<span class="text-[#FF5A1F]">{ 04 }</span>
+<span class="text-primary truncate">COMANDAS REALTIME</span>
+</div>
+<div class="p-2 bg-surface-container-low text-on-surface-variant flex flex-col justify-between">
+<span class="text-[#FF5A1F]">{ 05 }</span>
+<span class="text-primary truncate">ERP INTERNO</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==========================================
+       SECTION 04: SKILLS (TELEMETRÍA & GAUGE RINGS)
+       ========================================== -->
+<section class="relative w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-2xl bg-surface" id="skills">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-space-lg mb-space-xl">
+<div>
+<span class="font-mono-code text-mono-code text-[#FF5A1F] tracking-widest uppercase">[ SECTION // 03 ]</span>
+<h2 class="font-headline-xl text-headline-xl md:text-display-hero uppercase tracking-tight text-on-surface mt-1">
+          CAPACIDADES TÉCNICAS
+        </h2>
+</div>
+<div class="font-mono-code text-mono-code text-on-surface-variant text-right">
+        { MATRIX: SENIOR FULLSTACK &amp; DESIGN }<br/>
+        { STANDARDS: RIGOR DE SISTEMAS }
+      </div>
+</div>
+<!-- 4 Disciplines Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<!-- Area 1: Frontend Architecture (Linear Gauge Rails with Brackets & Terminal Star) -->
+<div class="bg-surface-container-low p-space-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm mb-space-md">
+<h3 class="font-headline-md text-headline-md uppercase text-primary">01 // FRONTEND ARCHITECTURE</h3>
+<span class="font-mono-code text-mono-code text-[#FF5A1F]">{ GSAP / REACT }</span>
+</div>
+<p class="font-body-md text-body-md text-secondary mb-space-md">
+            Interfaces deterministas ultra-rápidas, control milimétrico de frame rates, shaders WebGL y tipografía fluida de escala editorial.
+          </p>
+<!-- Gauge Bars -->
+<div class="space-y-4 font-mono-code text-mono-code">
+<!-- React & Next.js -->
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span>REACT / NEXT.JS / TS</span>
+<span class="text-[#FF5A1F]">98%</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-outline-variant select-none">{</span>
+<div class="relative flex-1 h-3 bg-surface-container-highest">
+<div class="h-full bg-primary relative" style="width: 98%;">
+<span class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 text-[#FF5A1F] text-[11px] leading-none">✦</span>
+</div>
+</div>
+<span class="text-outline-variant select-none">}</span>
+</div>
+</div>
+<!-- GSAP & Canvas Rendering -->
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span>GSAP / SMOOTH SCROLL / THREE</span>
+<span class="text-[#FF5A1F]">94%</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-outline-variant select-none">{</span>
+<div class="relative flex-1 h-3 bg-surface-container-highest">
+<div class="h-full bg-primary relative" style="width: 94%;">
+<span class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 text-[#FF5A1F] text-[11px] leading-none">✦</span>
+</div>
+</div>
+<span class="text-outline-variant select-none">}</span>
+</div>
+</div>
+<!-- Web Performance & A11y -->
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span>CORE WEB VITALS OPTIMIZATION</span>
+<span class="text-[#FF5A1F]">96%</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="text-outline-variant select-none">{</span>
+<div class="relative flex-1 h-3 bg-surface-container-highest">
+<div class="h-full bg-primary relative" style="width: 96%;">
+<span class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 text-[#FF5A1F] text-[11px] leading-none">✦</span>
+</div>
+</div>
+<span class="text-outline-variant select-none">}</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-3 font-mono-code text-[11px] text-on-surface-variant flex justify-between">
+<span>PARADIGM: ZERO-LAYOUT-SHIFT</span>
+<span>FPS: CONSTANT_60</span>
+</div>
+</div>
+<!-- Area 2: Backend & Distributed Data (Donut Gauges & Stream Nodes) -->
+<div class="bg-surface-container-low p-space-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm mb-space-md">
+<h3 class="font-headline-md text-headline-md uppercase text-primary">02 // BACKEND &amp; DISTRIBUTED DATA</h3>
+<span class="font-mono-code text-mono-code text-[#FF5A1F]">{ NODE / PG / REDIS }</span>
+</div>
+<p class="font-body-md text-body-md text-secondary mb-space-md">
+            Pipelines transaccionales resistentes a particiones de red, cachés multi-capa y modelos relacionales normalizados con sharding.
+          </p>
+<!-- Metric Circular Gauges Row -->
+<div class="grid grid-cols-3 gap-2 py-2">
+<!-- Ring 1 -->
+<div class="flex flex-col items-center text-center p-2 bg-surface-container">
+<svg class="w-16 h-16 transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="95, 100" stroke-width="3"></path>
+</svg>
+<span class="mt-2 font-mono-code text-mono-code text-primary font-bold">95%</span>
+<span class="font-mono-code text-[10px] text-on-surface-variant">POSTGRESQL</span>
+</div>
+<!-- Ring 2 -->
+<div class="flex flex-col items-center text-center p-2 bg-surface-container">
+<svg class="w-16 h-16 transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-[#FF5A1F]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="92, 100" stroke-width="3"></path>
+</svg>
+<span class="mt-2 font-mono-code text-mono-code text-[#FF5A1F] font-bold">92%</span>
+<span class="font-mono-code text-[10px] text-on-surface-variant">REDIS / QUEUES</span>
+</div>
+<!-- Ring 3 -->
+<div class="flex flex-col items-center text-center p-2 bg-surface-container">
+<svg class="w-16 h-16 transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="90, 100" stroke-width="3"></path>
+</svg>
+<span class="mt-2 font-mono-code text-mono-code text-primary font-bold">90%</span>
+<span class="font-mono-code text-[10px] text-on-surface-variant">NODE / WEBSOCKETS</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-3 font-mono-code text-[11px] text-on-surface-variant flex justify-between">
+<span>UPTIME: 99.99%</span>
+<span>CONCURRENCY: HORIZONTAL_SCALE</span>
+</div>
+</div>
+<!-- Area 3: AI Orchestration & Automations -->
+<div class="bg-surface-container-low p-space-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm mb-space-md">
+<h3 class="font-headline-md text-headline-md uppercase text-primary">03 // IA &amp; AUTOMATION WORKFLOWS</h3>
+<span class="font-mono-code text-mono-code text-[#FF5A1F]">{ N8N / LLM AGENTS }</span>
+</div>
+<p class="font-body-md text-body-md text-secondary mb-space-md">
+            Integraciones heterogéneas complejas, extracción semántica de datos no estructurados y orquestación con agentes autónomos en loop cerrado.
+          </p>
+<div class="space-y-2 font-mono-code text-mono-code">
+<div class="p-2.5 bg-surface-container flex items-center justify-between">
+<span>N8N AUTOMATION PIPELINES</span>
+<span class="text-primary font-bold">[ SENIOR LEVEL ]</span>
+</div>
+<div class="p-2.5 bg-surface-container flex items-center justify-between">
+<span>FUNCTION CALLING &amp; EMBEDDINGS</span>
+<span class="text-primary font-bold">[ PRODUCTION ]</span>
+</div>
+<div class="p-2.5 bg-surface-container flex items-center justify-between">
+<span>CUSTOM MCP PROTOCOL SERVERS</span>
+<span class="text-[#FF5A1F] font-bold">[ CERTIFIED ]</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-3 font-mono-code text-[11px] text-on-surface-variant flex justify-between">
+<span>PIPELINE_FLOWS: DETERMINISTIC</span>
+<span>AUDITABLE: TRUE</span>
+</div>
+</div>
+<!-- Area 4: Editorial Design Systems & Direction -->
+<div class="bg-surface-container-low p-space-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm mb-space-md">
+<h3 class="font-headline-md text-headline-md uppercase text-primary">04 // SISTEMAS DE DISEÑO &amp; DIRECCIÓN</h3>
+<span class="font-mono-code text-mono-code text-[#FF5A1F]">{ FIGMA / EDITORIAL }</span>
+</div>
+<p class="font-body-md text-body-md text-secondary mb-space-md">
+            Tokens de diseño tipográfico estricto, rejillas suizas asimétricas, micro-interacciones sin fricción y entrega sin pérdida de fidelidad a código.
+          </p>
+<div class="space-y-2 font-mono-code text-mono-code">
+<div class="p-2.5 bg-surface-container flex items-center justify-between">
+<span>ATOMIC DESIGN TOKENS (FIGMA TO CSS)</span>
+<span class="text-primary font-bold">[ 1:1 CODE SYNC ]</span>
+</div>
+<div class="p-2.5 bg-surface-container flex items-center justify-between">
+<span>BRUTALIST ARCHITECTURAL COMPOSITION</span>
+<span class="text-[#FF5A1F] font-bold">[ SIGNATURE ]</span>
+</div>
+<div class="p-2.5 bg-surface-container flex items-center justify-between">
+<span>MICRO-INTERACTION ENGINEERING</span>
+<span class="text-primary font-bold">[ ZERO FLUFF ]</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-3 font-mono-code text-[11px] text-on-surface-variant flex justify-between">
+<span>SPEC: TYPOGRAPHIC_TENSION</span>
+<span>PIXEL_GRID: 4PT_SNAP</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ==========================================
+       SECTION 05: TRAYECTORIA (TIMELINE VERTICAL)
+       ========================================== -->
+<section class="relative w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-2xl bg-surface-container-lowest" id="trayectoria">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-space-lg mb-space-xl">
+<div>
+<span class="font-mono-code text-mono-code text-[#FF5A1F] tracking-widest uppercase">[ SECTION // 04 ]</span>
+<h2 class="font-headline-xl text-headline-xl md:text-display-hero uppercase tracking-tight text-on-surface mt-1">
+          TRAYECTORIA
+        </h2>
+</div>
+<div class="font-mono-code text-mono-code text-on-surface-variant text-right">
+        { TIMELINE // 2016 — 2025 }<br/>
+        { CHRONOLOGY: INVERSE REGISTER }
+      </div>
+</div>
+<!-- Central Vertical Spine Timeline -->
+<div class="relative w-full max-w-5xl mx-auto py-8">
+<!-- Hairline Center Track -->
+<div class="absolute top-0 bottom-0 left-4 md:left-1/2 w-px bg-surface-container-highest -translate-x-1/2"></div>
+<!-- Item 01 (Right on desktop) -->
+<div class="relative flex flex-col md:flex-row items-start mb-16 group">
+<!-- Node Star Indicator -->
+<div class="absolute left-4 md:left-1/2 w-6 h-6 -translate-x-1/2 bg-surface flex items-center justify-center text-[#FF5A1F] text-base z-10">
+          ✦
+        </div>
+<div class="hidden md:block md:w-1/2 pr-12 text-right">
+<span class="font-mono-code text-mono-code text-[#FF5A1F] font-bold">{ 2024 — PRESENTE }</span>
+<div class="font-headline-md text-headline-md uppercase text-primary mt-1">ARCHITECT &amp; LEAD FOUNDER</div>
+<div class="font-mono-code text-mono-code text-on-surface-variant">JMMC SYSTEMS LAB</div>
+</div>
+<div class="w-full md:w-1/2 pl-12 md:pl-12">
+<div class="md:hidden mb-2">
+<span class="font-mono-code text-mono-code text-[#FF5A1F] font-bold">{ 2024 — PRESENTE }</span>
+<div class="font-headline-md text-headline-md uppercase text-primary">ARCHITECT &amp; LEAD FOUNDER</div>
+<div class="font-mono-code text-mono-code text-on-surface-variant">JMMC SYSTEMS LAB</div>
+</div>
+<div class="bg-surface-container p-space-md">
+<p class="font-body-md text-body-md text-secondary">
+              Liderando el despliegue de infraestructuras deterministas con agentes de IA autónomos y software de misión crítica para firmas internacionales en finanzas y operaciones logísticas.
+            </p>
+<div class="mt-3 flex flex-wrap gap-2 font-mono-code text-[11px] text-on-surface-variant">
+<span class="px-2 py-0.5 bg-surface-container-high">[ DISTRIBUTED SYSTEMS ]</span>
+<span class="px-2 py-0.5 bg-surface-container-high">[ LLM ORCHESTRATION ]</span>
+<span class="px-2 py-0.5 bg-surface-container-high">[ DESIGN DIRECTION ]</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 02 (Left on desktop) -->
+<div class="relative flex flex-col md:flex-row items-start mb-16 group">
+<!-- Node Star Indicator -->
+<div class="absolute left-4 md:left-1/2 w-6 h-6 -translate-x-1/2 bg-surface flex items-center justify-center text-[#FF5A1F] text-base z-10">
+          ✦
+        </div>
+<div class="w-full md:w-1/2 md:pr-12 md:text-right pl-12 md:pl-0 order-2 md:order-1">
+<div class="md:hidden mb-2">
+<span class="font-mono-code text-mono-code text-[#FF5A1F] font-bold">{ 2021 — 2024 }</span>
+<div class="font-headline-md text-headline-md uppercase text-primary">STAFF FULLSTACK ENGINEER</div>
+<div class="font-mono-code text-mono-code text-on-surface-variant">SCALE TECH HOLDINGS</div>
+</div>
+<div class="bg-surface-container p-space-md text-left md:text-right">
+<p class="font-body-md text-body-md text-secondary">
+              Rediseño completo de la arquitectura front-to-back de plataforma fintech procesando más de 12.000 tx/seg. Reducción del tiempo de respuesta p95 de 420ms a 78ms con migración a arquitectura event-driven.
+            </p>
+<div class="mt-3 flex flex-wrap md:justify-end gap-2 font-mono-code text-[11px] text-on-surface-variant">
+<span class="px-2 py-0.5 bg-surface-container-high">[ KAFKA / REDIS ]</span>
+<span class="px-2 py-0.5 bg-surface-container-high">[ NEXT.JS ENTERPRISE ]</span>
+<span class="px-2 py-0.5 bg-surface-container-high">[ POSTGRES SHARDS ]</span>
+</div>
+</div>
+</div>
+<div class="hidden md:block md:w-1/2 pl-12 order-1 md:order-2">
+<span class="font-mono-code text-mono-code text-[#FF5A1F] font-bold">{ 2021 — 2024 }</span>
+<div class="font-headline-md text-headline-md uppercase text-primary mt-1">STAFF FULLSTACK ENGINEER</div>
+<div class="font-mono-code text-mono-code text-on-surface-variant">SCALE TECH HOLDINGS</div>
+</div>
+</div>
+<!-- Item 03 (Right on desktop) -->
+<div class="relative flex flex-col md:flex-row items-start group">
+<!-- Node Star Indicator -->
+<div class="absolute left-4 md:left-1/2 w-6 h-6 -translate-x-1/2 bg-surface flex items-center justify-center text-[#FF5A1F] text-base z-10">
+          ✦
+        </div>
+<div class="hidden md:block md:w-1/2 pr-12 text-right">
+<span class="font-mono-code text-mono-code text-[#FF5A1F] font-bold">{ 2017 — 2021 }</span>
+<div class="font-headline-md text-headline-md uppercase text-primary mt-1">SENIOR PRODUCT DESIGNER &amp; DEV</div>
+<div class="font-mono-code text-mono-code text-on-surface-variant">AVANT-GARDE STUDIO</div>
+</div>
+<div class="w-full md:w-1/2 pl-12 md:pl-12">
+<div class="md:hidden mb-2">
+<span class="font-mono-code text-mono-code text-[#FF5A1F] font-bold">{ 2017 — 2021 }</span>
+<div class="font-headline-md text-headline-md uppercase text-primary">SENIOR PRODUCT DESIGNER &amp; DEV</div>
+<div class="font-mono-code text-mono-code text-on-surface-variant">AVANT-GARDE STUDIO</div>
+</div>
+<div class="bg-surface-container p-space-md">
+<p class="font-body-md text-body-md text-secondary">
+              Creación de experiencias digitales ganadoras de múltiples reconocimientos Awwwards Site of the Year y FWA of the Day. Implementación de sistemas de diseño corporativos adoptados por +40 equipos de producto.
+            </p>
+<div class="mt-3 flex flex-wrap gap-2 font-mono-code text-[11px] text-on-surface-variant">
+<span class="px-2 py-0.5 bg-surface-container-high">[ DESIGN SYSTEMS ]</span>
+<span class="px-2 py-0.5 bg-surface-container-high">[ WEBGL SHADERS ]</span>
+<span class="px-2 py-0.5 bg-surface-container-high">[ INTERACTIVE CANVAS ]</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==========================================
+       SECTION 06: BLOG EDITORIAL SLIDER
+       ========================================== -->
+<section class="relative w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-2xl bg-surface" id="blog">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-space-lg mb-space-xl">
+<div>
+<span class="font-mono-code text-mono-code text-[#FF5A1F] tracking-widest uppercase">[ SECTION // 05 ]</span>
+<h2 class="font-headline-xl text-headline-xl md:text-display-hero uppercase tracking-tight text-on-surface mt-1">
+          PUBLICACIONES TÉCNICAS
+        </h2>
+</div>
+<div class="flex items-center gap-4">
+<a class="font-mono-code text-mono-code text-on-surface-variant hover:text-[#FF5A1F] transition-colors" href="#">
+          { ACCESO MIEMBROS [✦] }
+        </a>
+</div>
+</div>
+<!-- Editorial Carousel Frame with Flanking Teasers -->
+<div class="relative w-full grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-center">
+<!-- Previous Teaser Peek (Left Column, De-emphasized, Desktop only) -->
+<div class="hidden lg:flex lg:col-span-2 flex-col opacity-30 filter blur-[1px] transform scale-95 pointer-events-none">
+<div class="bg-surface-container-high p-4 h-80 flex flex-col justify-between">
+<span class="font-mono-code text-mono-code text-[#FF5A1F]">{ PREV_POST }</span>
+<div>
+<span class="font-mono-code text-[11px] text-outline">[ SHADERS ]</span>
+<div class="font-headline-md text-headline-md uppercase text-on-surface-variant mt-1 leading-none">Matemática del renderizado en GPU</div>
+</div>
+<span class="font-mono-code text-[10px] text-outline">READ: 8 MIN</span>
+</div>
+</div>
+<!-- Main Featured Article in Crisp Focus (Center 8 Columns) -->
+<div class="lg:col-span-8 bg-surface-container p-space-md md:p-space-xl">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter-desktop items-center">
+<!-- Article Gritty Image -->
+<div class="md:col-span-5 relative aspect-[4/3] bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover filter grayscale contrast-125" data-alt="Monochrome architectural brutalist concrete structure with severe geometric diagonals, dramatic sharp shadows, industrial technical mood, high-contrast black and white photography with heavy grain." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ1FrxJ_7DWcVMz1YTa-jOyfABRIsIpQPnyb5CwsMmaSWkNzzIA5j5y4IO5NzzqSyNW-Jh0XyA2PhYWkNPaaw9m_ojX4TDvCoOe4ez5ELZRmBUAIxTU8SoWtdZNPFiHVWYUv5wl9AEpAB1XC74chHfY3yD9bQpEBxFqFZPrZT8yKnHAsXXIZ_HQgYRbY8ayIrgFqkc5ya-AI0EC55OtDequEmAUg4IPuIqFOocyeD-F9B13-_BW5w"/>
+<div class="absolute top-2 left-2 bg-surface/90 px-2 py-1 font-mono-code text-mono-code text-[#FF5A1F]">
+              { 01 // FEATURED }
+            </div>
+</div>
+<!-- Article Editorial Body -->
+<div class="md:col-span-7 flex flex-col justify-between h-full">
+<div>
+<div class="flex items-center justify-between font-mono-code text-mono-code text-on-surface-variant mb-2">
+<span class="text-[#FF5A1F]">{ ARQUITECTURA DISTRIBUIDA }</span>
+<span>28 FEB 2025</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg uppercase text-primary leading-tight hover:text-[#FF5A1F] transition-colors cursor-pointer">
+                EL OCASO DE LOS MICROSERVICIOS CAÓTICOS: VOLVIENDO AL MONOLITO MODULAR DETERMINISTA
+              </h3>
+<p class="font-body-md text-body-md text-secondary mt-space-sm">
+                Un análisis exhaustivo sobre el coste oculto de latencia de red, overhead cognitivo de infraestructura y orquestación cuando se fragmentan dominios antes de tiempo.
+              </p>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between font-mono-code text-mono-code">
+<span class="text-on-surface-variant">{ TIEMPO DE LECTURA: 14 MIN }</span>
+<a class="inline-flex items-center gap-1.5 text-primary hover:text-[#FF5A1F] transition-colors" href="#">
+<span>[ LEER DOSSIER ]</span>
+<span class="text-[#FF5A1F]">→</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Carousel Pagination Bar & Controls -->
+<div class="mt-space-lg pt-space-md flex flex-wrap items-center justify-between gap-4 font-mono-code text-mono-code">
+<div class="flex items-center gap-2">
+<span class="text-[#FF5A1F]">✦</span>
+<div class="flex items-center gap-1.5">
+<span class="w-8 h-1 bg-[#FF5A1F]"></span>
+<span class="w-3 h-1 bg-surface-container-highest"></span>
+<span class="w-3 h-1 bg-surface-container-highest"></span>
+<span class="w-3 h-1 bg-surface-container-highest"></span>
+</div>
+<span class="text-on-surface-variant text-[11px] ml-2">INDEX: 01 / 04</span>
+</div>
+<!-- Flat Chevron Buttons -->
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-surface-container-high text-on-surface hover:text-primary hover:bg-surface-container-highest transition-colors font-mono-code text-mono-code">
+              [ &lt; ANTERIOR ]
+            </button>
+<button class="px-3 py-1.5 bg-surface-container-high text-on-surface hover:text-primary hover:bg-surface-container-highest transition-colors font-mono-code text-mono-code">
+              [ SIGUIENTE &gt; ]
+            </button>
+</div>
+</div>
+</div>
+<!-- Next Teaser Peek (Right Column, De-emphasized, Desktop only) -->
+<div class="hidden lg:flex lg:col-span-2 flex-col opacity-30 filter blur-[1px] transform scale-95 pointer-events-none">
+<div class="bg-surface-container-high p-4 h-80 flex flex-col justify-between">
+<span class="font-mono-code text-mono-code text-[#FF5A1F]">{ NEXT_POST }</span>
+<div>
+<span class="font-mono-code text-[11px] text-outline">[ AI AGENTS ]</span>
+<div class="font-headline-md text-headline-md uppercase text-on-surface-variant mt-1 leading-none">Validación de esquemas Zod en streaming</div>
+</div>
+<span class="font-mono-code text-[10px] text-outline">READ: 11 MIN</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ==========================================
+       SECTION 07: CONTACTO EDITORIAL
+       ========================================== -->
+<section class="relative w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-2xl bg-surface-container-lowest" id="contacto">
+<!-- Big Section Stamp -->
+<div class="text-center max-w-4xl mx-auto mb-space-xl">
+<span class="font-mono-code text-mono-code text-[#FF5A1F] tracking-widest uppercase">[ SECTION // 06 // TRANSMISIÓN DIRECTA ]</span>
+<h2 class="font-headline-xl text-headline-xl md:text-display-hero uppercase tracking-tight text-on-surface mt-2">
+        { CONSTRUYAMOS ALGO QUE PERDURE }
+      </h2>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl mx-auto mt-space-sm">
+        Disponible para liderazgo de arquitectura técnica, auditorías de rendimiento crítico y contratos de ingeniería avanzada.
+      </p>
+</div>
+<!-- Contact Dossier & Form 12-Column -->
+<div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- 5 Cols: Coordinates & Direct Channels -->
+<div class="lg:col-span-5 bg-surface-container p-space-lg flex flex-col justify-between gap-space-lg">
+<div>
+<div class="font-mono-code text-mono-code text-[#FF5A1F] pb-space-sm mb-space-md">
+            { TELEMETRÍA DE CONTACTO }
+          </div>
+<div class="space-y-4 font-mono-code text-mono-code">
+<div>
+<div class="text-on-surface-variant text-[11px] uppercase">DIRECT DISPATCH:</div>
+<a class="text-headline-md text-headline-md text-primary hover:text-[#FF5A1F] transition-colors" href="mailto:contact@jmmc.dev">
+                contact@jmmc.dev
+              </a>
+</div>
+<div>
+<div class="text-on-surface-variant text-[11px] uppercase">LOCALIZACIÓN / HORARIO:</div>
+<div class="text-secondary text-body-md">MADRID, ESPAÑA // UTC+1</div>
+</div>
+<div>
+<div class="text-on-surface-variant text-[11px] uppercase">RESPUESTA PROMEDIO:</div>
+<div class="text-secondary text-body-md">&lt; 6 HORAS EN DÍAS HÁBILES</div>
+</div>
+</div>
+</div>
+<div class="pt-space-md">
+<div class="font-mono-code text-mono-code text-on-surface-variant mb-2">[ REDES SIN RUIDO ]</div>
+<div class="flex flex-wrap gap-2 font-mono-code text-mono-code">
+<a class="px-2.5 py-1 bg-surface-container-high text-on-surface hover:text-primary hover:bg-surface-container-highest transition-colors" href="#">[ GITHUB ]</a>
+<a class="px-2.5 py-1 bg-surface-container-high text-on-surface hover:text-primary hover:bg-surface-container-highest transition-colors" href="#">[ LINKEDIN ]</a>
+<a class="px-2.5 py-1 bg-surface-container-high text-on-surface hover:text-primary hover:bg-surface-container-highest transition-colors" href="#">[ X / TWITTER ]</a>
+</div>
+</div>
+</div>
+<!-- 7 Cols: Planar Editorial Form (No rounded, hairline focus) -->
+<div class="lg:col-span-7 bg-surface-container p-space-lg md:p-space-xl">
+<form class="space-y-space-md" id="contact-form" onsubmit="event.preventDefault(); document.getElementById('form-submit-state').innerText = '{ TRANSMITIDO CON ÉXITO ✦ }';">
+<!-- Field: Name -->
+<div>
+<label class="block font-mono-code text-mono-code text-on-surface-variant mb-1 uppercase">
+              { 01 } IDENTIFICACIÓN / NOMBRE *
+            </label>
+<input class="w-full bg-surface-container-low px-4 py-3 font-mono-code text-mono-code text-on-surface placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-highest transition-colors" placeholder="p. ej. Carlos Mendonça // VP de Ingeniería" required="" type="text"/>
+</div>
+<!-- Field: Email -->
+<div>
+<label class="block font-mono-code text-mono-code text-on-surface-variant mb-1 uppercase">
+              { 02 } CORREO ELECTRÓNICO *
+            </label>
+<input class="w-full bg-surface-container-low px-4 py-3 font-mono-code text-mono-code text-on-surface placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-highest transition-colors" placeholder="carlos@organizacion.com" required="" type="email"/>
+</div>
+<!-- Field: Scope / Budget Dropdown -->
+<div>
+<label class="block font-mono-code text-mono-code text-on-surface-variant mb-1 uppercase">
+              { 03 } ENVERGADURA DEL PROYECTO
+            </label>
+<select class="w-full bg-surface-container-low px-4 py-3 font-mono-code text-mono-code text-on-surface focus:outline-none focus:bg-surface-container-highest transition-colors">
+<option value="audit">[ AUDITORÍA DE ARQUITECTURA / CORE REFACTOR ]</option>
+<option value="ai-agent">[ SISTEMA AUTÓNOMO IA MULTI-AGENTE ]</option>
+<option value="enterprise-fullstack">[ PLATAFORMA FULLSTACK DE ALTA ESCALA ]</option>
+<option value="advisory">[ ADVISORY TÉCNICO CONTINUO ]</option>
+</select>
+</div>
+<!-- Field: Message -->
+<div>
+<label class="block font-mono-code text-mono-code text-on-surface-variant mb-1 uppercase">
+              { 04 } DESCRIPCIÓN DEL REQUERIMIENTO *
+            </label>
+<textarea class="w-full bg-surface-container-low px-4 py-3 font-mono-code text-mono-code text-on-surface placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-highest transition-colors resize-none" placeholder="Describe los desafíos de infraestructura, volumen esperado y fechas objetivo..." required="" rows="4"></textarea>
+</div>
+<!-- Submit Button & Inline Loader -->
+<div class="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<button class="inline-flex items-center gap-3 px-space-xl py-3 bg-primary text-text-light font-label-caps text-label-caps uppercase hover:bg-surface-container-highest hover:text-primary transition-colors cursor-pointer" type="submit">
+<span class="text-[#FF5A1F]">✦</span>
+<span>ENVIAR TRANSMISIÓN</span>
+<span class="font-mono-code text-mono-code">[ POST ]</span>
+</button>
+<div class="font-mono-code text-mono-code text-[#FF5A1F]" id="form-submit-state">
+              { LISTO PARA ENVIAR }
+            </div>
+</div>
+</form>
+</div>
+</div>
+</section>
+<!-- ==========================================
+       SECTION 08: FOOTER EDITORIAL INTERNO
+       ========================================== -->
+<section class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl bg-surface-container-lowest">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg pb-space-lg">
+<div class="flex items-center gap-4">
+<span class="text-headline-lg font-headline-lg text-primary font-bold tracking-tight">JMMC</span>
+<span class="font-mono-code text-mono-code text-on-surface-variant uppercase">
+          // BRUTALIST ARCHITECTURAL RUNTIME
+        </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-md font-mono-code text-mono-code text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#presentacion">{ PRESENTACIÓN }</a>
+<a class="hover:text-primary transition-colors" href="#demos">{ DEMOS }</a>
+<a class="hover:text-primary transition-colors" href="#skills">{ SKILLS }</a>
+<a class="hover:text-primary transition-colors" href="#trayectoria">{ TRAYECTORIA }</a>
+<a class="hover:text-primary transition-colors" href="#blog">{ BLOG }</a>
+<a class="hover:text-primary transition-colors" href="#contacto">{ CONTACTO }</a>
+</div>
+</div>
+<div class="pt-space-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono-code text-[11px] text-outline-variant">
+<div>
+        © 2025 JUANMA (JMMC). ESTRICTAMENTE ESTRUCTURADO. SIN RUIDO NI DEUDA TÉCNICA.
+      </div>
+<div class="flex items-center gap-4">
+<span>LOC: MAD_01</span>
+<span class="text-[#FF5A1F]">✦ ALL NODES OPERATIONAL</span>
+</div>
+</div>
+</section>
+<!-- Client-side Hero Realtime Clock Script -->
+<script>
+    function updateHeroClock() {
+      const el = document.getElementById('hero-clock');
+      if (!el) return;
+      const now = new Date();
+      const h = String(now.getUTCHours()).padStart(2, '0');
+      const m = String(now.getUTCMinutes()).padStart(2, '0');
+      const s = String(now.getUTCSeconds()).padStart(2, '0');
+      el.textContent = `{ TIME: ${h}:${m}:${s} UTC }`;
+    }
+    setInterval(updateHeroClock, 1000);
+    updateHeroClock();
+  </script>
+</div></main><footer class="w-full border-t border-hairline-dark bg-surface-container-lowest"><div class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md font-mono-code text-mono-code"><div class="flex items-center gap-3"><span class="text-[#FF5A1F]">✦</span><span class="text-on-surface-variant uppercase">JUANMA (JMMC) // BRUTALIST ARCHITECTURAL RUNTIME</span></div><div class="flex items-center gap-space-md text-on-surface-variant"><a class="hover:text-primary transition-colors" data-path="presentacion" href="#">{ MANIFIESTO }</a><a class="hover:text-primary transition-colors" data-path="demos" href="#">{ LAB }</a><a class="hover:text-primary transition-colors" data-path="contacto" href="#">{ TRANSMIT }</a></div><div class="text-outline-variant text-[11px]">© 2025 JMMC. NO RIGHTS RESERVED. CODE IS LAW.</div></div></footer><script>window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('preloader')?.classList.add('loaded');},650);});document.addEventListener('mousemove',(e)=>{const cursor=document.getElementById('custom-cursor');if(cursor){cursor.style.left=`${e.clientX}px`;cursor.style.top=`${e.clientY}px`;}});</script></body></html>
