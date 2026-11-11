@@ -22,7 +22,7 @@ export function SiteShell({ children }: SiteShellProps) {
       <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background">{/* taste-skill-ignore: fixed shell rule from DESIGN.md */}
         <div className="mx-auto flex min-h-16 w-full max-w-[var(--layout-content-max)] items-center justify-between gap-space-lg px-margin sm:px-margin-tablet lg:px-margin-desktop">
           <Link
-            aria-label="JMMC, volver al portfolio"
+            aria-label="JMMC Architecture, volver al portfolio"
             className="flex min-h-10 items-center gap-space-sm text-primary"
             href="/es/"
           >
