@@ -8,7 +8,7 @@ export default function LeadsWorkflowPage() {
       description="Mueve leads entre etapas, filtra por responsable y deja una traza clara de cada transición."
       eyebrow="06 / lead operations"
       id="leads-workflow-title"
-      title="Workflow de leads"
+      title="Flujo de leads"
     >
       <WorkflowPanel />
     </DemoPageShell>

@@ -274,7 +274,7 @@
   }
 
   ::selection {
-    background: var(--sys-color-accent);
+    background: var(--sys-color-surface-high);
     color: var(--sys-color-primary-foreground);
   }
 

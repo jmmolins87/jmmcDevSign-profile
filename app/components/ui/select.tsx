@@ -35,7 +35,7 @@ export function SelectField({
     <div className="grid gap-space-sm">
       <label className="font-headline text-label-caps uppercase tracking-[0.08em] text-primary" htmlFor={selectId}>
         {label}
-        {required ? <span aria-hidden="true" className="ms-space-xs text-accent">*</span> : null}
+        {required ? <span aria-hidden="true" className="ms-space-xs text-error">*</span> : null}
       </label>
       <select
         aria-describedby={describedBy}

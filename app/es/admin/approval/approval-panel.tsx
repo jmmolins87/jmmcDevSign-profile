@@ -110,7 +110,7 @@ export function ApprovalPanel() {
       <div className="grid gap-space-lg md:grid-cols-3">
         <Card>
           <CardContent className="grid gap-space-sm">
-            <CardMeta>Queue / pending</CardMeta>
+            <CardMeta>Cola / pendientes</CardMeta>
             <CardTitle>{requests.filter((request) => request.status === "pending").length.toString().padStart(2, "0")}</CardTitle> {/* taste-skill-ignore: metric index format from DESIGN.md */}
             <StatusIndicator label="REQUIEREN REVISIÓN" />
           </CardContent>

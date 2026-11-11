@@ -72,7 +72,7 @@ export function LoginPanel() {
           <p className="text-body-md text-on-surface-variant">{roleDescriptions[session.role]}</p>
         </div>
         <div className="grid gap-space-sm border-t border-border pt-space-lg">{/* taste-skill-ignore: session metadata rule from DESIGN.md */}
-          <CardMeta>Persistencia / local mock</CardMeta>
+          <CardMeta>Persistencia / demo local</CardMeta>
           <p className="text-body-sm text-on-surface-variant">
             Esta sesión se conserva en este navegador y no realiza llamadas a Supabase.
           </p>
@@ -155,10 +155,10 @@ export function LoginAside() {
     <Card>
       <CardHeader>
         <div>
-          <CardMeta>Session protocol / roles</CardMeta>
+          <CardMeta>Protocolo de sesión / roles</CardMeta>
           <CardTitle className="mt-space-sm">Tres permisos, una sesión</CardTitle>
         </div>
-        <Badge>MOCK</Badge>
+        <Badge>DEMO</Badge>
       </CardHeader>
       <CardContent className="grid gap-space-md">
         {loginProfiles.map((profile) => (

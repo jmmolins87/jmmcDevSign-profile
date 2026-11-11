@@ -9,7 +9,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   primary: "border border-primary bg-primary text-primary-foreground hover:border-primary hover:bg-background hover:text-primary",
   secondary: "border border-border-strong bg-transparent text-primary hover:border-accent hover:text-primary",
   ghost: "border border-transparent bg-transparent text-on-surface-variant hover:border-border hover:text-primary",
-  accent: "border border-accent bg-accent text-primary-foreground hover:border-accent-text hover:bg-background hover:text-accent-text",
+  accent: "border border-primary bg-primary text-primary-foreground hover:border-accent hover:bg-background hover:text-primary",
   danger: "border border-error bg-transparent text-error hover:bg-error-container hover:text-primary",
 };
 

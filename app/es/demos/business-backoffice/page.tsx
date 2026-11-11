@@ -6,9 +6,9 @@ export default function BusinessBackofficePage() {
     <DemoPageShell
       allowedRoles={["admin"]}
       description="Consulta métricas de negocio, filtra la cola operativa y marca incidencias revisadas."
-      eyebrow="09 / control room"
+      eyebrow="09 / sala de control"
       id="business-backoffice-title"
-      title="Backoffice empresarial"
+      title="Gestión empresarial"
       tone="base"
     >
       <BackofficePanel />

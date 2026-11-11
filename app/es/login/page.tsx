@@ -6,7 +6,7 @@ export default function LoginPage() {
     <main className="min-h-[calc(100svh-4rem)] bg-surface-lowest px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop">
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
         <header className="grid gap-space-md border-b border-border pb-space-lg">{/* taste-skill-ignore: auth header rule from DESIGN.md */}
-          <CardMeta>02 / auth protocol</CardMeta>
+          <CardMeta>02 / protocolo de acceso</CardMeta>
           <h1 className="max-w-4xl font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-primary lg:text-display-hero">
             Acceso al sistema
           </h1>
@@ -19,7 +19,7 @@ export default function LoginPage() {
           <Card>
             <CardHeader>
               <div>
-                <CardMeta>Entrada / sesión mock</CardMeta>
+                <CardMeta>Entrada / sesión de demo</CardMeta>
                 <CardTitle className="mt-space-sm">Identifícate para continuar</CardTitle>
               </div>
             </CardHeader>

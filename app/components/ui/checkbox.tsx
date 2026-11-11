@@ -29,7 +29,7 @@ export function CheckboxField({
         <input
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : undefined}
-          className={cn("mt-1 size-4 shrink-0 accent-accent", className)}
+          className={cn("mt-space-xs size-4 shrink-0 accent-accent", className)}
           id={checkboxId}
           type="checkbox"
           {...props}

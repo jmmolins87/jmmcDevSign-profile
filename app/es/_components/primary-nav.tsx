@@ -7,7 +7,7 @@ const primaryNavItems = [
   { href: "/es/", label: "Inicio" },
   { href: "/es/demos", label: "Demos" },
   { href: "/es/blog/editor", label: "Editor" },
-  { href: "/es/admin/approval", label: "Admin" },
+  { href: "/es/admin/approval", label: "Administración" },
 ] as const;
 
 function normalizePath(pathname: string) {

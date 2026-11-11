@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { Badge, Card, CardContent, CardMeta, ErrorState } from "@/app/components/ui";
 import { useMockSession, type UserRole } from "@/app/es/auth/mock-session";
+import { InterfaceStateControls } from "@/app/es/auth/interface-state-controls";
 
 type ProtectedSurfaceProps = {
   allowedRoles: readonly UserRole[];
@@ -54,5 +55,10 @@ export function ProtectedSurface({ allowedRoles, children }: ProtectedSurfacePro
     );
   }
 
-  return <>{children}</>;
+  return (
+    <div className="grid gap-space-lg">
+      <InterfaceStateControls />
+      {children}
+    </div>
+  );
 }

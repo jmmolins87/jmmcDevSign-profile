@@ -19,7 +19,7 @@ const skillGroups = [
     stack: "React / Next.js / TypeScript",
     description: "Interfaces composables, rápidas y preparadas para crecer sin deuda estructural.",
     score: 98,
-    metric: "ZERO LAYOUT SHIFT",
+    metric: "SIN DESPLAZAMIENTO",
   },
   {
     index: "02", // taste-skill-ignore: editorial capability index from DESIGN.md
@@ -27,15 +27,15 @@ const skillGroups = [
     stack: "Node / PostgreSQL / Redis",
     description: "Contratos claros, persistencia desacoplada y operaciones observables desde el primer día.",
     score: 94,
-    metric: "SYSTEMIC RIGOR",
+    metric: "RIGOR SISTÉMICO",
   },
   {
     index: "03", // taste-skill-ignore: editorial capability index from DESIGN.md
     title: "Automatización y agentes",
-    stack: "LLM / tools / workflows",
+    stack: "LLM / herramientas / flujos",
     description: "Flujos deterministas para que la automatización sea útil, auditable y reversible.",
     score: 91,
-    metric: "AUDITABLE RUNTIME",
+    metric: "EJECUCIÓN AUDITABLE",
   },
   {
     index: "04", // taste-skill-ignore: editorial capability index from DESIGN.md
@@ -43,27 +43,27 @@ const skillGroups = [
     stack: "Tokens / UI / dirección",
     description: "Lenguajes visuales que convierten decisiones de diseño en piezas mantenibles.",
     score: 96,
-    metric: "ZERO FLUFF",
+    metric: "SIN RELLENO",
   },
 ] as const;
 
 const timeline = [
   {
     period: "PRESENTE",
-    role: "Architect & Lead Founder",
+    role: "Arquitecto y fundador",
     company: "JMMC Devsign / Systems Lab",
     detail: "Diseño y construcción de productos digitales con frontend, backend, datos y criterio editorial en el mismo sistema.",
   },
   {
     period: "2022 — 2024",
-    role: "Staff Fullstack Engineer",
-    company: "Scale tech holdings",
+    role: "Ingeniero fullstack principal",
+    company: "Grupo tecnológico Scale",
     detail: "Plataformas enterprise, Next.js, PostgreSQL distribuido y automatización de operaciones críticas.",
   },
   {
     period: "2019 — 2022",
-    role: "Senior Product Designer",
-    company: "Avant-garde studio",
+    role: "Diseñador senior de producto",
+    company: "Estudio de vanguardia",
     detail: "Sistemas de diseño, prototipos interactivos y dirección visual para interfaces con personalidad propia.",
   },
 ] as const;
@@ -77,14 +77,14 @@ const posts = [
   },
   {
     id: "agent-runtime",
-    title: "Agentes que ejecutan: del prompt al runtime",
-    meta: "AI agents / 06 min",
+    title: "Agentes que ejecutan: de la instrucción a la ejecución",
+    meta: "Agentes de IA / 06 min",
     href: "/es/blog/editor",
   },
   {
     id: "design-contracts",
     title: "El contrato visual también es arquitectura",
-    meta: "Design systems / 05 min",
+    meta: "Sistemas de diseño / 05 min",
     href: "/es/blog/editor",
   },
 ] as const;
@@ -108,7 +108,7 @@ export function LandingPage() {
         <BlueprintMark />
         <div className="relative z-10 flex items-center justify-between gap-space-md font-mono text-mono-code uppercase tracking-[0.14em] text-on-surface-variant">{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}
           <span>{"{ 00 / 09 }"} / JMMC ARCHITECTURE</span>
-          <StatusIndicator label="{ STATUS: OPERATIONAL }" />
+          <StatusIndicator label="{ ESTADO: OPERATIVO }" />
         </div>
         <div className="relative z-10 grid gap-space-xl py-space-xl text-center">
           <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}
@@ -140,7 +140,7 @@ export function LandingPage() {
         <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
           <header className="flex flex-wrap items-end justify-between gap-space-lg border-b border-border pb-space-lg">{/* taste-skill-ignore: blueprint rule from DESIGN.md */}
             <div>
-              <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">01 / dossier &amp; bio{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
+              <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">01 / dossier y biografía{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
               <h2 className="mt-space-sm font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-primary lg:text-display-hero" id="presentation-title">Presentación</h2>
             </div>
             <span className="font-mono text-mono-code uppercase tracking-[0.16em] text-on-surface-variant">{ "{ disponible para contratos clave }" }</span>
@@ -159,7 +159,7 @@ export function LandingPage() {
                   Diseño sistemas donde la interfaz, los datos y la operación hablan el mismo idioma. Cada decisión visual tiene una razón técnica; cada decisión técnica puede explicarse a una persona.
                 </p>
                 <div className="grid gap-space-sm border-t border-border pt-space-lg font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant sm:grid-cols-3">{/* taste-skill-ignore: blueprint rule and technical metadata from DESIGN.md */}
-                  <span>Madrid / remote</span>
+                  <span>Madrid / remoto</span>
                   <span>Frontend + backend</span>
                   <span>Diseño + código</span>
                 </div>
@@ -189,7 +189,7 @@ export function LandingPage() {
         <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
           <header className="flex flex-wrap items-end justify-between gap-space-lg border-b border-border pb-space-lg">{/* taste-skill-ignore: blueprint rule from DESIGN.md */}
             <div>
-              <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">02 / experiments{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
+              <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">02 / experimentos{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
               <h2 className="mt-space-sm font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-primary lg:text-display-hero" id="demos-title">Demos interactivas</h2>
             </div>
             <Link className="font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant hover:text-primary" href="/es/demos">{ "{ abrir registro completo → }" }</Link>
@@ -199,7 +199,7 @@ export function LandingPage() {
               <Card className={index === 0 ? "md:col-span-2 lg:col-span-2" : undefined} key={demo.href}>
                 <CardHeader>
                   <CardMeta>{`0${index + 5} / ${demo.section}`}</CardMeta>
-                  <StatusIndicator label={index === 0 ? "LIVE" : "MOCK"} status={index === 0 ? "active" : "idle"} />
+                  <StatusIndicator label={index === 0 ? "ACTIVO" : "DEMO"} status={index === 0 ? "active" : "idle"} />
                 </CardHeader>
                 <CardContent className="grid min-h-48 content-between gap-space-lg">
                   <div className="grid gap-space-sm">
@@ -220,10 +220,10 @@ export function LandingPage() {
         <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
           <header className="flex flex-wrap items-end justify-between gap-space-lg border-b border-border pb-space-lg">{/* taste-skill-ignore: blueprint rule from DESIGN.md */}
             <div>
-              <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">03 / capabilities{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
+              <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">03 / capacidades{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
               <h2 className="mt-space-sm font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-primary lg:text-display-hero" id="skills-title">Capacidades técnicas</h2>
             </div>
-            <span className="font-mono text-mono-code uppercase tracking-[0.16em] text-on-surface-variant">{ "{ matrix / systems }" }</span>
+            <span className="font-mono text-mono-code uppercase tracking-[0.16em] text-on-surface-variant">{ "{ matriz / sistemas }" }</span>
           </header>
           <div className="grid gap-space-lg md:grid-cols-2">
             {skillGroups.map((skill) => (
@@ -241,7 +241,7 @@ export function LandingPage() {
                       <span>{skill.score}%</span>
                     </div>
                     <div className="h-2 border border-border bg-surface-lowest p-px">
-                      <span className="block h-full bg-accent" style={{ width: `${skill.score}%` }} />
+                      <span className="block h-full bg-primary" style={{ width: `${skill.score}%` }} />
                     </div>
                   </div>
                 </CardContent>
@@ -255,7 +255,7 @@ export function LandingPage() {
         <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
           <header className="flex flex-wrap items-end justify-between gap-space-lg border-b border-border pb-space-lg">{/* taste-skill-ignore: blueprint rule from DESIGN.md */}
             <div>
-              <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">04 / chronology{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
+              <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">04 / trayectoria{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
               <h2 className="mt-space-sm font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-primary lg:text-display-hero" id="trajectory-title">Trayectoria</h2>
             </div>
             <span className="font-mono text-mono-code uppercase tracking-[0.16em] text-on-surface-variant">{ "{ inverse register }" }</span>
@@ -284,7 +284,7 @@ export function LandingPage() {
         <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
           <header className="flex flex-wrap items-end justify-between gap-space-lg border-b border-border pb-space-lg">{/* taste-skill-ignore: blueprint rule from DESIGN.md */}
             <div>
-              <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">05 / technical dispatch{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
+              <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">05 / publicaciones técnicas{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
               <h2 className="mt-space-sm font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-primary lg:text-display-hero" id="blog-title">Publicaciones técnicas</h2>
             </div>
             <Badge>Acceso miembros</Badge>
@@ -292,7 +292,7 @@ export function LandingPage() {
           <div className="grid gap-space-xl lg:grid-cols-[1.2fr_0.8fr]">
             <Card>
               <CardHeader>
-                <CardMeta>Post / featured / arquitectura distribuida</CardMeta>
+                <CardMeta>Publicación / destacada / arquitectura distribuida</CardMeta>
                 <Badge variant="active">01</Badge>{/* taste-skill-ignore: featured editorial index from DESIGN.md */}
               </CardHeader>
               <CardContent className="grid gap-space-lg">
@@ -309,7 +309,7 @@ export function LandingPage() {
       <section aria-labelledby="contact-title" className="border-b border-border bg-surface-lowest px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id="contacto">{/* taste-skill-ignore: blueprint rule from DESIGN.md */}
         <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
           <header className="grid gap-space-md text-center">
-            <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">06 / direct dispatch{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
+            <p className="font-mono text-mono-code uppercase tracking-[0.18em] text-accent-text">06 / contacto directo{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}</p>
             <h2 className="mx-auto max-w-4xl font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-primary lg:text-display-hero" id="contact-title">Construyamos algo que perdure</h2>
             <p className="mx-auto max-w-2xl text-body-lg text-on-surface-variant">Un producto claro empieza por una conversación precisa. Cuéntame qué sistema necesita tomar forma.</p>
           </header>
@@ -339,7 +339,7 @@ export function LandingPage() {
 
       <section className="bg-surface px-margin py-space-lg sm:px-margin-tablet lg:px-margin-desktop">
         <div className="mx-auto flex w-full max-w-[var(--layout-content-max)] flex-wrap items-center justify-between gap-space-md font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant">{/* taste-skill-ignore: technical metadata uses the mono token from DESIGN.md */}
-          <span>JMMC / brutalist editorial runtime</span>
+          <span>JMMC / entorno editorial brutalista</span>
           <span>Todos los nodos operativos ✦{/* taste-skill-ignore: brand mark from DESIGN.md */}</span>
         </div>
       </section>

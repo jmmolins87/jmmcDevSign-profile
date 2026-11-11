@@ -57,10 +57,10 @@ export function AgentBuilderPanel() {
     <Card>
       <CardHeader>
         <div>
-          <CardMeta>Agent / configuration</CardMeta>
+          <CardMeta>Agente / configuración</CardMeta>
           <CardTitle className="mt-space-sm">Definir comportamiento</CardTitle>
         </div>
-        <Badge variant="active">MOCK</Badge>
+        <Badge variant="active">DEMO</Badge>
       </CardHeader>
       <CardContent>
         <form className="grid gap-space-lg" onSubmit={(event) => { event.preventDefault(); saveAgent(); }}>
@@ -84,7 +84,7 @@ export function AgentBuilderPanel() {
             ]}
             value={agent.temperature}
           />
-          <TextareaField label="System prompt" onChange={(event) => updateAgent("systemPrompt", event.target.value)} required value={agent.systemPrompt} />
+          <TextareaField label="Instrucciones del sistema" onChange={(event) => updateAgent("systemPrompt", event.target.value)} required value={agent.systemPrompt} />
           <fieldset className="grid gap-space-md border-t border-border pt-space-lg">{/* taste-skill-ignore: form section rule from DESIGN.md */}
             <legend className="font-headline text-label-caps uppercase tracking-[0.08em] text-primary">Herramientas disponibles</legend>
             <div className="grid gap-space-md">
@@ -113,10 +113,10 @@ export function AgentBuilderPanel() {
       <Card>
         <CardHeader>
           <div>
-            <CardMeta>Runtime / execution trace</CardMeta>
+          <CardMeta>Ejecución / traza operativa</CardMeta>
             <CardTitle className="mt-space-sm">Prueba controlada</CardTitle>
           </div>
-          <StatusIndicator label="READY" status="active" />
+          <StatusIndicator label="LISTO" status="active" />
         </CardHeader>
         <CardContent className="grid gap-space-lg">
           <p className="text-body-lg text-on-surface-variant">La prueba usa solo datos locales y muestra qué herramientas entrarían en la ejecución.</p>
@@ -124,7 +124,7 @@ export function AgentBuilderPanel() {
             {agent.tools.filter((tool) => tool.enabled).map((tool, index) => (
               <div className="flex items-center justify-between gap-space-md border border-border px-space-md py-space-sm" key={tool.id}>
                 <span className="font-headline text-headline-md uppercase text-primary">{tool.label}</span>
-                <Badge>{`STEP ${index + 1}`}</Badge>
+                <Badge>{`PASO ${index + 1}`}</Badge>
               </div>
             ))}
           </div>
@@ -135,7 +135,7 @@ export function AgentBuilderPanel() {
         <CardContent className="grid gap-space-md">
           <CardMeta>Salida / observabilidad</CardMeta>
           <p aria-live="polite" className="text-body-md text-on-surface-variant">{feedback}</p>
-          <StatusIndicator label={`${agent.tools.filter((tool) => tool.enabled).length} TOOLS ENABLED`} />
+          <StatusIndicator label={`${agent.tools.filter((tool) => tool.enabled).length} HERRAMIENTAS ACTIVAS`} />
         </CardContent>
       </Card>
     </div>
@@ -158,9 +158,9 @@ export function AgentBuilderPanel() {
         title="Traza de ejecución mock"
       >
         <div className="grid gap-space-md">
-          <StatusIndicator label="EXECUTION COMPLETE" status="active" />
+          <StatusIndicator label="EJECUCIÓN COMPLETA" status="active" />
           <p className="text-body-md text-on-surface-variant">{agent.name} procesaría la entrada con {agent.tools.filter((tool) => tool.enabled).length} herramientas activas y temperatura {agent.temperature}.</p>
-          <CardMeta>Resultado / ready for next phase</CardMeta>
+          <CardMeta>Resultado / listo para la siguiente fase</CardMeta>
         </div>
       </Modal>
     </div>

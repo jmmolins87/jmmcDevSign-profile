@@ -5,10 +5,10 @@ export default function OrdersRealtimePage() {
   return (
     <DemoPageShell
       allowedRoles={["admin", "editor", "lector"]}
-      description="Observa pedidos, filtra por estado y emite eventos realtime mock de forma determinista."
+      description="Observa pedidos, filtra por estado y emite eventos en tiempo real de forma determinista."
       eyebrow="08 / order stream"
       id="orders-realtime-title"
-      title="Pedidos realtime"
+      title="Pedidos en tiempo real"
     >
       <OrdersPanel />
     </DemoPageShell>

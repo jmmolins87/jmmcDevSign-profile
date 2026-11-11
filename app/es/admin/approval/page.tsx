@@ -8,7 +8,7 @@ export default function ApprovalPage() {
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
         <SurfaceHeader
           description="Revisa solicitudes de acceso y cambia su estado sin salir del registro operativo."
-          eyebrow="03 / approval desk"
+          eyebrow="03 / panel de aprobaciones"
           id="approval-title"
           title="Aprobación de accesos"
         />

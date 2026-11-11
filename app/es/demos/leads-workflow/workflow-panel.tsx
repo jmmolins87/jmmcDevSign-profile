@@ -55,7 +55,7 @@ export function WorkflowPanel() {
       <Card>
         <CardContent className="grid gap-space-md md:grid-cols-[1fr_auto] md:items-end">
           <div className="grid gap-space-xs">
-            <CardMeta>Workflow / filtros</CardMeta>
+            <CardMeta>Flujo / filtros</CardMeta>
             <p className="text-body-md text-on-surface-variant">Filtra por responsable y selecciona una tarjeta para inspeccionar la siguiente transición.</p>
           </div>
           <SelectField
@@ -121,7 +121,7 @@ export function WorkflowPanel() {
               <p aria-live="polite" className="text-body-sm text-on-surface-variant">{feedback}</p>
             </div>
             <Button disabled={selectedLead.stage === "won"} onClick={advanceLead} type="button" variant="accent">
-              {selectedLead.stage === "won" ? "Workflow completado" : "Mover a siguiente etapa"}
+              {selectedLead.stage === "won" ? "Flujo completado" : "Mover a siguiente etapa"}
             </Button>
           </CardContent>
         </Card>

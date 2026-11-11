@@ -87,7 +87,7 @@ export function BackofficePanel() {
       <Card>
         <CardContent className="grid gap-space-lg md:grid-cols-[1fr_auto_auto] md:items-end">
           <div className="grid gap-space-xs">
-            <CardMeta>Backoffice / control room</CardMeta>
+            <CardMeta>Gestión / sala de control</CardMeta>
             <p aria-live="polite" className="text-body-md text-on-surface-variant">{feedback}</p>
           </div>
           <SelectField
@@ -101,7 +101,7 @@ export function BackofficePanel() {
             ]}
             value={period}
           />
-          <Button onClick={exportSnapshot} type="button" variant="accent">Preparar snapshot</Button>
+          <Button onClick={exportSnapshot} type="button" variant="accent">Preparar instantánea</Button>
         </CardContent>
       </Card>
 
@@ -120,10 +120,10 @@ export function BackofficePanel() {
       <Card>
         <CardHeader>
           <div>
-            <CardMeta>Operations / review queue</CardMeta>
+            <CardMeta>Operaciones / cola de revisión</CardMeta>
             <CardTitle className="mt-space-sm">Cola operativa</CardTitle>
           </div>
-          <StatusIndicator label="CONTROLLED" status="active" />
+          <StatusIndicator label="CONTROLADO" status="active" />
         </CardHeader>
         <CardContent className="grid gap-space-md md:grid-cols-[1fr_auto] md:items-end">
           <p className="text-body-md text-on-surface-variant">Marca cada incidencia después de revisar su contexto operativo.</p>

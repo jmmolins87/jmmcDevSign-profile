@@ -35,7 +35,7 @@ export function OrdersPanel() {
   const orders = useMockRepository(ordersRepository);
   const events = useMockRepository(orderEventsRepository);
   const [statusFilter, setStatusFilter] = useState("all");
-  const [feedback, setFeedback] = useState("Canal realtime mock conectado.");
+  const [feedback, setFeedback] = useState("Canal de tiempo real conectado.");
 
   async function advanceOrder(orderId?: string) {
     const order = orders.find((candidate) => candidate.id === orderId) ?? orders.find((candidate) => candidate.status !== "delivered");
@@ -91,13 +91,13 @@ export function OrdersPanel() {
         <Card>
           <CardContent className="flex flex-wrap items-center justify-between gap-space-md">
             <div className="grid gap-space-xs">
-              <CardMeta>Stream / mock channel</CardMeta>
+              <CardMeta>Flujo / canal de demo</CardMeta>
               <CardTitle>Pedidos en operación</CardTitle>
             </div>
-            <StatusIndicator label="LIVE MOCK" status="active" />
+              <StatusIndicator label="CANAL ACTIVO" status="active" />
           </CardContent>
         </Card>
-        <Button onClick={simulateEvent} type="button" variant="accent">Simular evento realtime</Button>
+        <Button onClick={simulateEvent} type="button" variant="accent">Simular evento en tiempo real</Button>
       </div>
 
       <Card>
@@ -120,7 +120,7 @@ export function OrdersPanel() {
       </Card>
 
       <DataTable
-        caption="Pedidos realtime mock"
+        caption="Pedidos en tiempo real de demo"
         columns={columns}
         emptyMessage="No hay pedidos con este estado."
         getRowKey={(order) => order.id}
@@ -129,7 +129,7 @@ export function OrdersPanel() {
 
       <Card>
         <CardContent className="grid gap-space-md">
-          <CardMeta>Event log / latest first</CardMeta>
+          <CardMeta>Registro de eventos / recientes primero</CardMeta>
           <div className="grid gap-space-sm">
             {events.slice(0, 5).map((event) => (
               <div className="flex flex-wrap items-center justify-between gap-space-md border border-border px-space-md py-space-sm" key={event.id}>

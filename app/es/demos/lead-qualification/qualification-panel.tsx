@@ -66,16 +66,16 @@ export function QualificationPanel() {
       ),
     },
     {
-      header: "Score",
+      header: "Puntuación",
       key: "score",
       render: (lead) => (
-        <div aria-label={`Score ${lead.score} de 100`} className="grid min-w-28 gap-space-xs" role="img">
+        <div aria-label={`Puntuación ${lead.score} de 100`} className="grid min-w-28 gap-space-xs" role="img">
           <div className="flex items-center justify-between gap-space-sm">
-            <span className="text-body-sm text-on-surface-variant">Fit</span>
+            <span className="text-body-sm text-on-surface-variant">Encaje</span>
             <span className="font-headline text-headline-md text-primary">{lead.score}</span>
           </div>
           <div className="h-2 border border-border bg-surface-lowest p-px">
-            <span className="block h-full bg-accent" style={{ width: `${lead.score}%` }} />
+            <span className="block h-full bg-primary" style={{ width: `${lead.score}%` }} />
           </div>
         </div>
       ),
@@ -106,16 +106,16 @@ export function QualificationPanel() {
       <div className="grid gap-space-lg md:grid-cols-3">
         <Card>
           <CardContent className="grid gap-space-sm">
-            <CardMeta>Pipeline / leads</CardMeta>
+            <CardMeta>Flujo / leads</CardMeta>
             <CardTitle>{leads.length}</CardTitle>
             <p className="text-body-sm text-on-surface-variant">Candidatos en la cola local.</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="grid gap-space-sm">
-            <CardMeta>Fit / alto</CardMeta>
+            <CardMeta>Encaje / alto</CardMeta>
             <CardTitle>{leads.filter((lead) => lead.score >= 80).length}</CardTitle>
-            <p className="text-body-sm text-on-surface-variant">Score igual o superior a 80.</p>
+            <p className="text-body-sm text-on-surface-variant">Puntuación igual o superior a 80.</p>
           </CardContent>
         </Card>
         <Card>

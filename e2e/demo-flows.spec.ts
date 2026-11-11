@@ -25,7 +25,7 @@ test("the admin can exercise the protected demo families", async ({ page }) => {
   await page.goto("/es/demos/agent-builder");
   await page.getByRole("tab", { name: "Prueba mock" }).click();
   await page.getByRole("button", { name: "Ejecutar prueba mock" }).click();
-  await expect(page.getByText("EXECUTION COMPLETE")).toBeVisible();
+  await expect(page.getByText("EJECUCIÓN COMPLETA")).toBeVisible();
 
   await page.goto("/es/demos/leads-workflow");
   await page.getByRole("button", { name: "Mover a siguiente etapa" }).first().click();
@@ -36,10 +36,10 @@ test("the admin can exercise the protected demo families", async ({ page }) => {
   await expect(page.getByText(/estado actualizado a cualificado/)).toBeVisible();
 
   await page.goto("/es/demos/orders-realtime");
-  await page.getByRole("button", { name: "Simular evento realtime" }).click();
+  await page.getByRole("button", { name: "Simular evento en tiempo real" }).click();
   await expect(page.getByText(/evento recibido/)).toBeVisible();
 
   await page.goto("/es/demos/business-backoffice");
-  await page.getByRole("button", { name: "Preparar snapshot" }).click();
+  await page.getByRole("button", { name: "Preparar instantánea" }).click();
   await expect(page.getByText("Snapshot today preparado.")).toBeVisible();
 });

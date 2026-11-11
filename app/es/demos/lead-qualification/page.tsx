@@ -5,7 +5,7 @@ export default function LeadQualificationPage() {
   return (
     <DemoPageShell
       allowedRoles={["admin", "editor"]}
-      description="Evalúa el fit de cada lead, filtra la cola y cambia el estado de cualificación con datos explicables."
+      description="Evalúa el encaje de cada lead, filtra la cola y cambia el estado de cualificación con datos explicables."
       eyebrow="07 / qualification desk"
       id="lead-qualification-title"
       title="Cualificación de leads"

@@ -49,7 +49,7 @@ export function InputField({
     <div className="grid gap-space-sm">
       <label className="font-headline text-label-caps uppercase tracking-[0.08em] text-primary" htmlFor={inputId}>
         {label}
-        {required ? <span aria-hidden="true" className="ms-space-xs text-accent">*</span> : null}
+        {required ? <span aria-hidden="true" className="ms-space-xs text-error">*</span> : null}
       </label>
       <input
         aria-describedby={describedBy}
@@ -96,7 +96,7 @@ export function TextareaField({
     <div className="grid gap-space-sm">
       <label className="font-headline text-label-caps uppercase tracking-[0.08em] text-primary" htmlFor={textareaId}>
         {label}
-        {required ? <span aria-hidden="true" className="ms-space-xs text-accent">*</span> : null}
+        {required ? <span aria-hidden="true" className="ms-space-xs text-error">*</span> : null}
       </label>
       <textarea
         aria-describedby={describedBy}

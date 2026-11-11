@@ -8,9 +8,9 @@ export default function PostEditorPage() {
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
         <SurfaceHeader
           description="Edita, revisa y publica una pieza editorial con cambios locales y preview accesible."
-          eyebrow="04 / post editor"
+          eyebrow="04 / editor de publicaciones"
           id="editor-title"
-          title="Editor de posts"
+          title="Editor de publicaciones"
         />
         <ProtectedSurface allowedRoles={["admin", "editor"]}>
           <PostEditorPanel />

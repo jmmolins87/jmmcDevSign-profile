@@ -91,4 +91,19 @@ describe("UI primitives", () => {
     expect(screen.getByRole("heading", { name: "Sin resultados" })).toBeInTheDocument();
     expect(screen.getByRole("alert")).toHaveTextContent("Se agotó el tiempo");
   });
+
+  it("lets a user verify each interface state from the shared controls", async () => {
+    const user = userEvent.setup();
+    const { InterfaceStateControls } = await import("@/app/es/auth/interface-state-controls");
+
+    render(<InterfaceStateControls />);
+    await user.click(screen.getByRole("button", { name: "Carga" }));
+    expect(screen.getByRole("status")).toHaveTextContent("Cargando datos mock");
+
+    await user.click(screen.getByRole("button", { name: "Vacío" }));
+    expect(screen.getByRole("heading", { name: "Sin resultados" })).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Error" }));
+    expect(screen.getByRole("alert")).toHaveTextContent("Error de demostración");
+  });
 });
