@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>JMMC // Brutalist Editorial Architecture</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Oswald:wght@200..700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-fixed": "#1d1b15", "hairline-light": "#D3CEC3", "muted-light": "#6B675F", "inverse-primary": "#605e58", "secondary": "#cbc6bc", "surface-bright": "#39393b", "surface-container-lowest": "#0e0e10", "surface-light": "#E6E1D7", "tertiary-fixed-dim": "#ffb59e", "on-surface-variant": "#cac6bd", "surface-dim": "#131315", "hairline-dark": "#26262B", "on-background": "#e5e1e4", "surface-container-high": "#2a2a2c", "inverse-on-surface": "#313032", "accent-text-light": "#B8350A", "surface-container-highest": "#353437", "on-tertiary-container": "#b83600", "surface": "#131315", "on-secondary": "#333029", "outline-variant": "#484740", "surface-dark": "#131316", "tertiary": "#ffffff", "secondary-fixed": "#e8e2d7", "secondary-fixed-dim": "#cbc6bc", "surface-container": "#201f21", "on-error": "#690005", "surface-container-low": "#1b1b1d", "inverse-surface": "#e5e1e4", "primary-fixed": "#e6e2da", "on-tertiary-fixed": "#3a0b00", "outline": "#939188", "on-error-container": "#ffdad6", "error-container": "#93000a", "on-tertiary": "#5e1700", "surface-variant": "#353437", "on-primary": "#31302b", "on-primary-fixed": "#1c1c17", "secondary-container": "#49473f", "tertiary-fixed": "#ffdbd0", "on-tertiary-fixed-variant": "#852400", "primary": "#ffffff", "tertiary-container": "#ffdbd0", "on-secondary-fixed-variant": "#49473f", "primary-fixed-dim": "#cac6bf", "on-primary-fixed-variant": "#484741", "on-surface": "#e5e1e4", "text-light": "#0C0C0E", "surface-tint": "#cac6bf", "primary-container": "#e6e2da", "on-primary-container": "#66645e", "error": "#ffb4ab", "bg-light": "#EFEBE3", "on-secondary-container": "#b9b5ab", "background": "#131315" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "margin-tablet": "2rem", "margin": "1rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "space-md": "1rem", "space-xs": "0.25rem", "margin-desktop": "3rem", "space-2xl": "5rem", "gutter": "1rem", "space-xl": "3rem" }, "fontFamily": { "mono-bracket": [ "JetBrains Mono" ], "body-lg": [ "Hanken Grotesk" ], "headline-xl": [ "Oswald" ], "headline-lg": [ "Oswald" ], "body-md": [ "Hanken Grotesk" ], "display-hero": [ "Oswald" ], "label-caps": [ "Oswald" ], "headline-xl-mobile": [ "Oswald" ], "body-sm": [ "Hanken Grotesk" ], "display-hero-mobile": [ "Oswald" ], "mono-code": [ "JetBrains Mono" ], "headline-md": [ "Oswald" ] }, "fontSize": { "mono-bracket": [ "14px", { "lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "500" } ], "body-lg": [ "18px", { "lineHeight": "28px", "fontWeight": "400" } ], "headline-xl": [ "64px", { "lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-lg": [ "36px", { "lineHeight": "40px", "letterSpacing": "0.02em", "fontWeight": "500" } ], "body-md": [ "15px", { "lineHeight": "24px", "fontWeight": "400" } ], "display-hero": [ "96px", { "lineHeight": "92px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-caps": [ "14px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600" } ], "headline-xl-mobile": [ "38px", { "lineHeight": "40px", "letterSpacing": "0em", "fontWeight": "600" } ], "body-sm": [ "13px", { "lineHeight": "20px", "fontWeight": "400" } ], "display-hero-mobile": [ "52px", { "lineHeight": "52px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "mono-code": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" } ], "headline-md": [ "26px", { "lineHeight": "30px", "letterSpacing": "0.02em", "fontWeight": "500" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-on-tertiary-container selection:text-primary"><header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface-dark border-b border-hairline-dark"><div class="h-16 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm group text-primary" data-path="index" href="#"><span class="font-mono-code text-mono-code text-tertiary-fixed-dim group-hover:text-primary transition-colors">{JM}</span><span class="font-label-caps text-label-caps uppercase tracking-wider text-primary border-l border-hairline-dark pl-space-sm">ARCHITECTURE</span></a><div class="hidden xl:flex items-center gap-space-xs font-mono-code text-mono-code text-on-surface-variant border-l border-hairline-dark pl-space-lg"><svg class="w-3 h-3 text-on-tertiary-container fill-current animate-pulse" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg><span class="uppercase tracking-wider">STATUS: PRODUCTION READY</span><span class="text-outline ml-space-xs">[40.7128° N, 74.0060° W]</span></div></div><nav class="flex items-center gap-space-md lg:gap-space-lg" data-active-classes="text-primary border-b-2 border-on-tertiary-container"><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors py-2" data-path="index" href="#">Index</a><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors py-2" data-path="archive" href="#">Dossier &amp; Archive</a><a aria-current="page" class="font-label-caps uppercase transition-colors py-2 text-primary border-b-2 border-on-tertiary-container" data-path="system" href="#">Systems &amp; Specs</a><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors py-2" data-path="intel" href="#">Intel / About</a><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors py-2" data-path="transmission" href="#">Dispatch</a></nav><div class="flex items-center gap-space-md pl-space-md border-l border-hairline-dark"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full text-on-surface">
+<!-- TOP COMMAND / CONTROL BAR -->
+<section class="w-full bg-surface-container-lowest border-b border-hairline-dark px-margin md:px-margin-tablet lg:px-margin-desktop py-space-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm">
+<div class="flex items-center flex-wrap gap-space-md">
+<a class="inline-flex items-center gap-space-xs font-mono-code text-mono-code text-on-surface hover:text-on-tertiary-container transition-colors" data-path="index" href="#">
+<span class="text-on-tertiary-container">←</span>
+<span>VOLVER AL PORTFOLIO</span>
+</a>
+<span class="text-hairline-dark hidden md:inline">|</span>
+<span class="font-mono-code text-mono-code text-outline tracking-wider">{ 07 / 09 // DEMO_LEAD_QUALIFICATION }</span>
+</div>
+<div class="flex items-center gap-space-md w-full md:w-auto justify-between md:justify-end">
+<div class="inline-flex items-center gap-space-xs font-mono-code text-mono-code text-primary bg-surface-container-low px-2.5 py-1 border border-hairline-dark">
+<svg class="w-3 h-3 text-on-tertiary-container fill-current animate-pulse" viewbox="0 0 24 24">
+<polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon>
+</svg>
+<span class="tracking-wider">{ EN VIVO // MOTOR DE INFERENCIA DE LEADS }</span>
+</div>
+<div class="font-mono-code text-mono-code text-outline hidden lg:block">SYS_ID: LQM-409A</div>
+</div>
+</section>
+<!-- STATE SIMULATOR BAR (DEV TOGGLE) -->
+<section class="w-full bg-surface-dark border-b border-hairline-dark px-margin md:px-margin-tablet lg:px-margin-desktop py-2 flex items-center justify-between overflow-x-auto">
+<div class="flex items-center gap-space-xs font-mono-code text-mono-code flex-nowrap shrink-0">
+<span class="text-outline uppercase mr-2 tracking-widest">{ SIMULADOR_ESTADO }:</span>
+<button class="px-2.5 py-1 text-primary bg-surface-container border border-on-tertiary-container font-medium hover:bg-surface-bright transition-colors" id="btn-state-1" onclick="switchState(1)">
+        [ 01. EN VIVO (ESTÁNDAR) ]
+      </button>
+<button class="px-2.5 py-1 text-on-surface-variant hover:text-primary bg-surface-container-lowest border border-hairline-dark hover:border-outline transition-colors" id="btn-state-2" onclick="switchState(2)">
+        [ 02. CALIFICANDO EN DIRECTO (✦) ]
+      </button>
+<button class="px-2.5 py-1 text-on-surface-variant hover:text-primary bg-surface-container-lowest border border-hairline-dark hover:border-outline transition-colors" id="btn-state-3" onclick="switchState(3)">
+        [ 03. BANDEJA VACÍA ]
+      </button>
+<button class="px-2.5 py-1 text-on-surface-variant hover:text-primary bg-surface-container-lowest border border-hairline-dark hover:border-outline transition-colors" id="btn-state-4" onclick="switchState(4)">
+        [ 04. ESQUELETOS (SKELETONS) ]
+      </button>
+</div>
+<div class="hidden xl:flex items-center gap-2 font-mono-code text-mono-code text-outline shrink-0 ml-4">
+<span class="inline-block w-2 h-2 bg-on-tertiary-container"></span>
+<span>LATENCIA DETERMINISTA: 142ms</span>
+</div>
+</section>
+<!-- TOP KPIS RAIL -->
+<section class="w-full border-b border-hairline-dark bg-surface-container-lowest">
+<div class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-hairline-dark">
+<!-- Metric 1 -->
+<div class="p-4 md:p-6 flex flex-col justify-between bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="font-mono-code text-mono-code text-outline tracking-wider">{ LEADS HOY }</span>
+<span class="font-mono-code text-mono-code text-tertiary-fixed-dim bg-surface-container px-1 py-0.5 border border-hairline-dark">+18% vs ayer</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">148</span>
+<span class="font-mono-code text-mono-code text-outline">UNIDADES</span>
+</div>
+<div class="w-full bg-surface-container h-1 mt-3">
+<div class="bg-primary h-1 w-[72%]"></div>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="p-4 md:p-6 flex flex-col justify-between bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="font-mono-code text-mono-code text-on-tertiary-container tracking-wider">{ CALIENTES (TIER A) }</span>
+<span class="font-mono-code text-mono-code text-on-tertiary-container border border-on-tertiary-container px-1 py-0.5">Score &gt; 85</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">42</span>
+<span class="font-mono-code text-mono-code text-on-tertiary-container flex items-center gap-1">
+<svg class="w-3 h-3 fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+            28.3%
+          </span>
+</div>
+<div class="w-full bg-surface-container h-1 mt-3">
+<div class="bg-on-tertiary-container h-1 w-[85%]"></div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="p-4 md:p-6 flex flex-col justify-between bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="font-mono-code text-mono-code text-outline tracking-wider">{ TIEMPO MEDIO RESPUESTA }</span>
+<span class="font-mono-code text-mono-code text-outline bg-surface-container px-1 py-0.5 border border-hairline-dark">Claude 3.5 Sonnet</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">1.8s</span>
+<span class="font-mono-code text-mono-code text-outline">INFERENCIA</span>
+</div>
+<div class="w-full bg-surface-container h-1 mt-3">
+<div class="bg-primary h-1 w-[94%]"></div>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="p-4 md:p-6 flex flex-col justify-between bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="font-mono-code text-mono-code text-outline tracking-wider">{ TASA CITA AUTOMATIZADA }</span>
+<span class="font-mono-code text-mono-code text-tertiary-fixed-dim bg-surface-container px-1 py-0.5 border border-hairline-dark">+5.2%</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">34.6%</span>
+<span class="font-mono-code text-mono-code text-outline">WHATSAPP+CAL</span>
+</div>
+<div class="w-full bg-surface-container h-1 mt-3">
+<div class="bg-primary h-1 w-[34.6%]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- MOBILE TAB NAVIGATION (VISIBLE ONLY ON SMALL SCREENS) -->
+<div class="flex lg:hidden w-full border-b border-hairline-dark bg-surface-dark sticky top-16 z-30 font-mono-code text-mono-code">
+<button class="flex-1 py-2.5 text-center text-primary bg-surface-container border-b-2 border-on-tertiary-container uppercase tracking-wider" id="mob-tab-inbox" onclick="mobileSwitchTab('inbox')">
+      { BANDEJA (5) }
+    </button>
+<button class="flex-1 py-2.5 text-center text-on-surface-variant hover:text-primary uppercase tracking-wider" id="mob-tab-detail" onclick="mobileSwitchTab('detail')">
+      [ DETALLE ]
+    </button>
+<button class="flex-1 py-2.5 text-center text-on-surface-variant hover:text-primary uppercase tracking-wider" id="mob-tab-sequence" onclick="mobileSwitchTab('sequence')">
+      [ SEGUIMIENTO ]
+    </button>
+</div>
+<!-- WORKSPACE MAIN WRAPPER (STATE CONTAINERS) -->
+<div class="w-full min-h-[720px] bg-surface flex flex-col">
+<!-- STATE 1 & STATE 2 CONTAINER: NORMAL & LIVE EVALUATION -->
+<div class="w-full grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-hairline-dark" id="state-normal-view">
+<!-- COLUMN 1: BANDEJA (INBOX) -->
+<section class="lg:col-span-4 xl:col-span-3 flex flex-col bg-surface-container-lowest" id="column-inbox">
+<!-- Column Header -->
+<div class="p-4 border-b border-hairline-dark flex items-center justify-between bg-surface-dark">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps uppercase text-primary font-semibold tracking-wider">{ BANDEJA ENTRADA }</span>
+</div>
+<div class="flex items-center gap-1.5 font-mono-code text-mono-code text-on-tertiary-container bg-surface-container px-2 py-0.5 border border-hairline-dark">
+<svg class="w-2.5 h-2.5 fill-current animate-pulse" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+<span class="tracking-wide">5 NUEVOS</span>
+</div>
+</div>
+<!-- Filter Chips & Search -->
+<div class="p-3 border-b border-hairline-dark bg-surface-container-low space-y-2">
+<div class="flex items-center gap-1 font-mono-code text-mono-code overflow-x-auto pb-1 text-xs">
+<button class="px-2 py-0.5 bg-primary text-text-light font-medium">[ TODOS ]</button>
+<button class="px-2 py-0.5 bg-surface-dark text-on-tertiary-container hover:text-primary border border-hairline-dark">[ CALIENTES ]</button>
+<button class="px-2 py-0.5 bg-surface-dark text-outline hover:text-primary border border-hairline-dark">[ TEMPLADOS ]</button>
+<button class="px-2 py-0.5 bg-surface-dark text-outline hover:text-primary border border-hairline-dark">[ FRÍOS ]</button>
+</div>
+<div class="relative w-full">
+<input class="w-full bg-surface-dark border border-hairline-dark text-on-surface px-2.5 py-1.5 font-mono-code text-mono-code focus:outline-none focus:border-on-tertiary-container placeholder:text-outline" placeholder="Filtrar por nombre, empresa o score..." type="text"/>
+<span class="absolute right-2 top-2 font-mono-code text-mono-code text-outline">/</span>
+</div>
+</div>
+<!-- Live Stream Evaluation Notification Banner (State 2 specific alert) -->
+<div class="hidden p-3 bg-surface-container border-b border-on-tertiary-container flex items-center justify-between text-on-tertiary-container animate-pulse" id="live-eval-banner">
+<div class="flex items-center gap-2 font-mono-code text-mono-code">
+<svg class="w-4 h-4 fill-current animate-spin" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+<span class="font-bold tracking-wider">{ ANALIZANDO INBOUND: VICTOR KLINE }</span>
+</div>
+<span class="font-mono-code text-mono-code text-primary bg-on-tertiary-container text-black px-1.5 py-0.2">78%</span>
+</div>
+<!-- Lead Cards Ledger List -->
+<div class="divide-y divide-hairline-dark overflow-y-auto max-h-[760px] flex-1">
+<!-- Lead 1: Elena Rostova (Active Selected) -->
+<article class="lead-item active-lead p-3.5 bg-surface-container-low border-l-4 border-l-on-tertiary-container cursor-pointer transition-colors block" onclick="selectLead(1)">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div>
+<h2 class="font-label-caps text-label-caps uppercase text-primary font-bold">Elena Rostova</h2>
+<div class="font-mono-code text-mono-code text-outline">VP Tech // FinTech Core Solutions</div>
+</div>
+<span class="font-mono-code text-mono-code text-on-tertiary-container border border-on-tertiary-container px-1 py-0.5 tracking-wider shrink-0 bg-surface-dark">
+                { TIER A }
+              </span>
+</div>
+<div class="flex items-center justify-between font-mono-code text-mono-code text-outline my-2 text-xs">
+<span class="flex items-center gap-1">
+<span class="text-on-tertiary-container">◈</span> GitHub Repos
+              </span>
+<span>Hace 12s</span>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-center font-mono-code text-mono-code text-xs">
+<span class="text-outline">Score Calificación:</span>
+<span class="text-primary font-bold flex items-center gap-1">
+                  96/100
+                  <svg class="w-2.5 h-2.5 text-on-tertiary-container fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+</span>
+</div>
+<div class="w-full bg-surface-dark h-1 relative overflow-hidden">
+<div class="bg-on-tertiary-container h-full w-[96%]"></div>
+</div>
+</div>
+</article>
+<!-- Lead 2: Marcus Vance -->
+<article class="lead-item p-3.5 bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer border-l-4 border-l-transparent transition-colors block" onclick="selectLead(2)">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div>
+<h2 class="font-label-caps text-label-caps uppercase text-primary font-bold">Marcus Vance</h2>
+<div class="font-mono-code text-mono-code text-outline">Head of Infra // CloudScale</div>
+</div>
+<span class="font-mono-code text-mono-code text-on-tertiary-container border border-on-tertiary-container px-1 py-0.5 tracking-wider shrink-0 bg-surface-dark">
+                { TIER A }
+              </span>
+</div>
+<div class="flex items-center justify-between font-mono-code text-mono-code text-outline my-2 text-xs">
+<span class="flex items-center gap-1">
+<span class="text-outline">◈</span> Formulario Web
+              </span>
+<span>Hace 4m</span>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-center font-mono-code text-mono-code text-xs">
+<span class="text-outline">Score Calificación:</span>
+<span class="text-primary font-bold flex items-center gap-1">
+                  88/100
+                  <svg class="w-2.5 h-2.5 text-on-tertiary-container fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+</span>
+</div>
+<div class="w-full bg-surface-dark h-1 relative">
+<div class="bg-primary h-full w-[88%]"></div>
+</div>
+</div>
+</article>
+<!-- Lead 3: Carlos Mendonça -->
+<article class="lead-item p-3.5 bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer border-l-4 border-l-transparent transition-colors block" onclick="selectLead(3)">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div>
+<h2 class="font-label-caps text-label-caps uppercase text-primary font-bold">Carlos Mendonça</h2>
+<div class="font-mono-code text-mono-code text-outline">Founder // DevSync</div>
+</div>
+<span class="font-mono-code text-mono-code text-outline border border-hairline-dark px-1 py-0.5 tracking-wider shrink-0 bg-surface-dark">
+                { TIER B }
+              </span>
+</div>
+<div class="flex items-center justify-between font-mono-code text-mono-code text-outline my-2 text-xs">
+<span class="flex items-center gap-1">
+<span class="text-outline">◈</span> LinkedIn MCP
+              </span>
+<span>Hace 18m</span>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-center font-mono-code text-mono-code text-xs">
+<span class="text-outline">Score Calificación:</span>
+<span class="text-primary font-bold flex items-center gap-1">68/100</span>
+</div>
+<div class="w-full bg-surface-dark h-1 relative">
+<div class="bg-outline h-full w-[68%]"></div>
+</div>
+</div>
+</article>
+<!-- Lead 4: Laura Chen -->
+<article class="lead-item p-3.5 bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer border-l-4 border-l-transparent transition-colors block" onclick="selectLead(4)">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div>
+<h2 class="font-label-caps text-label-caps uppercase text-primary font-bold">Laura Chen</h2>
+<div class="font-mono-code text-mono-code text-outline">Tech Lead // NexusAI</div>
+</div>
+<span class="font-mono-code text-mono-code text-outline border border-hairline-dark px-1 py-0.5 tracking-wider shrink-0 bg-surface-dark">
+                { TIER B }
+              </span>
+</div>
+<div class="flex items-center justify-between font-mono-code text-mono-code text-outline my-2 text-xs">
+<span class="flex items-center gap-1">
+<span class="text-outline">◈</span> Webhook API
+              </span>
+<span>Hace 35m</span>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-center font-mono-code text-mono-code text-xs">
+<span class="text-outline">Score Calificación:</span>
+<span class="text-primary font-bold flex items-center gap-1">62/100</span>
+</div>
+<div class="w-full bg-surface-dark h-1 relative">
+<div class="bg-outline h-full w-[62%]"></div>
+</div>
+</div>
+</article>
+<!-- Lead 5: David Silva -->
+<article class="lead-item p-3.5 bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer border-l-4 border-l-transparent transition-colors block" onclick="selectLead(5)">
+<div class="flex items-start justify-between gap-2 mb-1.5">
+<div>
+<h2 class="font-label-caps text-label-caps uppercase text-on-surface-variant font-bold">David Silva</h2>
+<div class="font-mono-code text-mono-code text-outline">Student // Solo Project</div>
+</div>
+<span class="font-mono-code text-mono-code text-outline border border-hairline-dark px-1 py-0.5 tracking-wider shrink-0 bg-surface-dark">
+                { DESCARTE }
+              </span>
+</div>
+<div class="flex items-center justify-between font-mono-code text-mono-code text-outline my-2 text-xs">
+<span class="flex items-center gap-1">
+<span class="text-outline">◈</span> Formulario Web
+              </span>
+<span>Hace 1h</span>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-center font-mono-code text-mono-code text-xs">
+<span class="text-outline">Score Calificación:</span>
+<span class="text-outline font-bold flex items-center gap-1">18/100</span>
+</div>
+<div class="w-full bg-surface-dark h-1 relative">
+<div class="bg-surface-container-highest h-full w-[18%]"></div>
+</div>
+</div>
+</article>
+</div>
+<div class="p-3 border-t border-hairline-dark bg-surface-dark font-mono-code text-mono-code text-outline flex items-center justify-between text-xs">
+<span>{ BUFFER: 5 / 500 }</span>
+<span>POLLING: 1000ms</span>
+</div>
+</section>
+<!-- COLUMN 2: DETALLE DEL LEAD (CENTER EXPEDIENTE) -->
+<section class="lg:col-span-5 xl:col-span-6 flex flex-col bg-surface-container-lowest" id="column-detail">
+<!-- Header with Score Badge -->
+<div class="p-4 border-b border-hairline-dark flex flex-wrap items-center justify-between gap-2 bg-surface-dark">
+<div>
+<span class="font-mono-code text-mono-code text-outline uppercase tracking-wider block text-xs">{ EXPEDIENTE TÉCNICO // ID: LD-9482 }</span>
+<h1 class="font-headline-lg text-headline-lg text-primary uppercase font-bold tracking-tight">ELENA ROSTOVA</h1>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 border border-on-tertiary-container">
+<span class="font-mono-code text-mono-code text-outline text-xs">CALIFICACIÓN ICP:</span>
+<span class="font-headline-md text-headline-md text-on-tertiary-container font-bold leading-none">96 / 100</span>
+<svg class="w-3.5 h-3.5 text-on-tertiary-container fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+</div>
+</div>
+<div class="p-4 md:p-6 space-y-6 overflow-y-auto flex-1">
+<!-- Metadata Grid: 2-column flat layout with hairlines -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-hairline-dark border border-hairline-dark">
+<div class="bg-surface-dark p-3.5">
+<span class="font-mono-code text-mono-code text-outline block text-xs uppercase mb-1">{ CANAL_CORREO }</span>
+<span class="font-mono-code text-mono-code text-primary font-medium selection:bg-on-tertiary-container">elena.rostova@fintechcore.io</span>
+</div>
+<div class="bg-surface-dark p-3.5 flex flex-col justify-between">
+<span class="font-mono-code text-mono-code text-outline block text-xs uppercase mb-1">{ TELÉFONO / WHATSAPP }</span>
+<div class="flex items-center justify-between">
+<span class="font-mono-code text-mono-code text-primary">+34 691 82 44 90</span>
+<span class="font-mono-code text-mono-code text-on-tertiary-container border border-on-tertiary-container px-1 py-0.2 text-[10px] uppercase">[ VERIFICADO ]</span>
+</div>
+</div>
+<div class="bg-surface-dark p-3.5">
+<span class="font-mono-code text-mono-code text-outline block text-xs uppercase mb-1">{ ORGANIZACIÓN }</span>
+<span class="font-body-md text-body-md text-primary font-medium">FinTech Core Solutions</span>
+<span class="font-mono-code text-mono-code text-outline block text-xs mt-0.5">(Serie B, 85 empleados)</span>
+</div>
+<div class="bg-surface-dark p-3.5">
+<span class="font-mono-code text-mono-code text-outline block text-xs uppercase mb-1">{ PRESUPUESTO ESTIMADO }</span>
+<span class="font-headline-md text-headline-md text-primary font-semibold">60.000 € - 80.000 €</span>
+<span class="font-mono-code text-mono-code text-outline block text-xs mt-0.5">Retainer trimestral o setup llave en mano</span>
+</div>
+</div>
+<!-- Original Inbound Message Block -->
+<div class="border border-hairline-dark bg-surface-dark">
+<div class="px-4 py-2 border-b border-hairline-dark bg-surface-container flex items-center justify-between">
+<span class="font-mono-code text-mono-code text-outline uppercase tracking-wider text-xs">{ MENSAJE ORIGINAL INBOUND }</span>
+<span class="font-mono-code text-mono-code text-outline text-xs">SOURCE: GITHUB // REPO: DETERMINISTIC-AGENTS</span>
+</div>
+<div class="p-4 font-mono-code text-mono-code text-on-surface leading-relaxed">
+              "Hola Juanma, hemos visto tu arquitectura de agentes deterministas en GitHub y la demo de n8n. Necesitamos implementar un orquestador similar para cualificar y enrutar 5.000 transacciones diarias conectadas a Postgres y HubSpot. ¿Podemos agendar llamada esta semana?"
+            </div>
+</div>
+<!-- Deterministic Reasoning Box (Agent Rationale) -->
+<div class="border border-hairline-dark bg-surface-container-low relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-on-tertiary-container"></div>
+<div class="p-4 border-b border-hairline-dark bg-surface-dark flex items-center justify-between pl-5">
+<div class="flex items-center gap-2">
+<svg class="w-3.5 h-3.5 text-on-tertiary-container fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+<span class="font-label-caps text-label-caps uppercase text-primary font-bold">{ EVALUACIÓN DETERMINISTA // CLAUDE 3.5 SONNET }</span>
+</div>
+<span class="font-mono-code text-mono-code text-on-tertiary-container text-xs">CONFIDENCIA: 99.4%</span>
+</div>
+<div class="p-5 pl-6 space-y-3 font-mono-code text-mono-code text-on-surface-variant text-xs md:text-sm">
+<div class="flex items-start gap-2.5">
+<svg class="w-3 h-3 text-on-tertiary-container fill-current shrink-0 mt-1" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+<div><span class="text-primary font-medium">Coincidencia exacta con ICP:</span> Empresa tecnológica en Serie B con infraestructura distribuida y alto volumen transaccional.</div>
+</div>
+<div class="flex items-start gap-2.5">
+<svg class="w-3 h-3 text-on-tertiary-container fill-current shrink-0 mt-1" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+<div><span class="text-primary font-medium">Presupuesto corporativo explícito:</span> Rango detectable dentro del umbral prioritario (&gt;50k €). Cero fricción de cualificación económica.</div>
+</div>
+<div class="flex items-start gap-2.5">
+<svg class="w-3 h-3 text-on-tertiary-container fill-current shrink-0 mt-1" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+<div><span class="text-primary font-medium">Urgencia alta confirmada:</span> Solicitud directa de reunión de arquitectura para despliegue productivo esta misma semana.</div>
+</div>
+<div class="flex items-start gap-2.5">
+<svg class="w-3 h-3 text-on-tertiary-container fill-current shrink-0 mt-1" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+<div><span class="text-primary font-medium">Decisora técnica directa:</span> Perfil C-Level / VP of Engineering con capacidad directa de contratación y validación de arquitectura.</div>
+</div>
+</div>
+</div>
+<!-- Suggested Next Action Banner -->
+<div class="p-3.5 bg-surface-container border border-on-tertiary-container flex items-center justify-between">
+<div class="flex items-center gap-2">
+<svg class="w-4 h-4 text-on-tertiary-container fill-current shrink-0" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+<span class="font-mono-code text-mono-code text-primary font-semibold text-xs md:text-sm">
+                { ACCIÓN RECOMENDADA: DISPARAR SECUENCIA AGRESIVA WHATSAPP + CALENDLY }
+              </span>
+</div>
+<span class="font-mono-code text-mono-code text-on-tertiary-container text-xs hidden sm:inline">[ AUTO-TRIG ]</span>
+</div>
+<!-- Action Buttons Bar -->
+<div class="flex flex-col sm:flex-row items-stretch gap-2.5 pt-2">
+<button class="flex-1 bg-on-tertiary-container hover:bg-tertiary-fixed-dim text-black font-label-caps text-label-caps uppercase font-bold py-3 px-4 flex items-center justify-center gap-2 transition-colors" onclick="approveAction()">
+<span>APROBAR ACCIÓN</span>
+<span class="font-mono-code">[ ↵ ]</span>
+</button>
+<button class="bg-surface-dark hover:bg-surface-container border border-hairline-dark text-on-surface font-label-caps text-label-caps uppercase font-medium py-3 px-4 transition-colors">
+              REASIGNAR
+            </button>
+<button class="bg-surface-dark hover:bg-surface-container border border-hairline-dark text-outline hover:text-primary font-mono-code text-mono-code py-3 px-4 transition-colors">
+              [ EDITAR RESPUESTA ]
+            </button>
+</div>
+</div>
+<!-- Detail Footer Ledger Bar -->
+<div class="p-3 border-t border-hairline-dark bg-surface-dark font-mono-code text-mono-code text-outline flex items-center justify-between text-xs">
+<span>MODEL: CLAUDE-3-5-SONNET-20241022</span>
+<span>TOKENS CONSUMIDOS: 384</span>
+</div>
+</section>
+<!-- COLUMN 3: SEGUIMIENTO (SEQUENCE & AUDIT TIMELINE) -->
+<section class="lg:col-span-3 flex flex-col bg-surface-container-lowest" id="column-sequence">
+<!-- Header with Pause Toggle -->
+<div class="p-4 border-b border-hairline-dark flex items-center justify-between bg-surface-dark">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps uppercase text-primary font-semibold tracking-wider">{ SECUENCIA }</span>
+</div>
+<button class="font-mono-code text-mono-code text-on-tertiary-container hover:text-primary border border-on-tertiary-container px-2 py-0.5 text-xs transition-colors bg-surface-container" id="btn-toggle-seq" onclick="toggleSequence()">
+            [ EN EJECUCIÓN // PAUSAR || ]
+          </button>
+</div>
+<div class="p-4 md:p-5 overflow-y-auto flex-1 space-y-6">
+<div class="font-mono-code text-mono-code text-outline text-xs uppercase tracking-wider">
+            { TIMELINE DE DISPARADORES AUTOMÁTICOS }
+          </div>
+<!-- Vertical Timeline with Hairline Line -->
+<div class="relative pl-6 space-y-6 border-l border-hairline-dark ml-2">
+<!-- Step 1 (Completed) -->
+<div class="relative">
+<span class="absolute -left-[31px] top-0.5 w-4 h-4 bg-surface-dark border border-on-tertiary-container flex items-center justify-center">
+<svg class="w-2.5 h-2.5 text-on-tertiary-container fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+</span>
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-primary font-semibold text-xs">01 // EMAIL DE RESPUESTA</span>
+<span class="font-mono-code text-mono-code text-on-tertiary-container text-xs">{ ENVIADO // 12s }</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">
+                  Propuesta formal de arquitectura técnica + link determinista a Calendly prioritario.
+                </p>
+<div class="font-mono-code text-mono-code text-outline text-[11px] bg-surface-dark p-2 border border-hairline-dark mt-1">
+                  &gt; STMP: OK (250) // MSG_ID: 9942a-post
+                </div>
+</div>
+</div>
+<!-- Step 2 (Completed) -->
+<div class="relative">
+<span class="absolute -left-[31px] top-0.5 w-4 h-4 bg-surface-dark border border-on-tertiary-container flex items-center justify-center">
+<svg class="w-2.5 h-2.5 text-on-tertiary-container fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+</span>
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-primary font-semibold text-xs">02 // NOTA DE AUDIO WHATSAPP</span>
+<span class="font-mono-code text-mono-code text-on-tertiary-container text-xs">{ ENTREGADO // LEÍDO }</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">
+                  Audio personalizado generado mediante ElevenLabs con saludo a Elena y validación de Postgres.
+                </p>
+<div class="flex items-center justify-between font-mono-code text-mono-code text-xs text-on-surface-variant bg-surface-dark p-1.5 border border-hairline-dark mt-1">
+<span>WABA API // META CLOUD</span>
+<span class="text-tertiary-fixed-dim">✓✓ DOBLE CHECK</span>
+</div>
+</div>
+</div>
+<!-- Step 3 (Pending) -->
+<div class="relative">
+<span class="absolute -left-[31px] top-0.5 w-4 h-4 bg-surface-dark border border-hairline-dark flex items-center justify-center">
+<span class="w-1.5 h-1.5 bg-outline"></span>
+</span>
+<div class="space-y-1 opacity-90">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface font-semibold text-xs">03 // RECORDATORIO EN 2 DÍAS</span>
+<span class="font-mono-code text-mono-code text-outline text-xs">{ PROGRAMADO }</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">
+                  Si no agenda en 48h, enviar dossier de caso de éxito Fintech transaccional.
+                </p>
+<span class="font-mono-code text-mono-code text-outline text-[11px] block">EJECUCIÓN: 02 MAR // 10:00 UTC</span>
+</div>
+</div>
+<!-- Step 4 (Pending) -->
+<div class="relative">
+<span class="absolute -left-[31px] top-0.5 w-4 h-4 bg-surface-dark border border-hairline-dark flex items-center justify-center">
+<span class="w-1.5 h-1.5 bg-outline"></span>
+</span>
+<div class="space-y-1 opacity-75">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface font-semibold text-xs">04 // LLAMADA AGENDADA</span>
+<span class="font-mono-code text-mono-code text-outline text-xs">{ EN ESPERA }</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">
+                  Auto-sincronización bidireccional con Google Calendar y deal creado en HubSpot.
+                </p>
+<span class="font-mono-code text-mono-code text-outline text-[11px] block">PIPELINE: PROSPECTS_SERIE_B</span>
+</div>
+</div>
+</div>
+<!-- Quick Actions & Webhook Health Log -->
+<div class="pt-4 border-t border-hairline-dark space-y-3">
+<span class="font-mono-code text-mono-code text-outline text-xs block uppercase">{ LOG DE TELEMETRÍA EN VIVO }</span>
+<div class="p-2.5 bg-surface-dark font-mono-code text-mono-code text-xs space-y-1.5 border border-hairline-dark">
+<div class="flex justify-between text-on-tertiary-container">
+<span>{ WEBHOOK_DISPATCH }</span>
+<span>STATUS: 200 OK</span>
+</div>
+<div class="flex justify-between text-outline">
+<span>{ POSTGRES_INSERT }</span>
+<span>TX_ID: 88102</span>
+</div>
+<div class="flex justify-between text-outline">
+<span>{ HUBSPOT_DEAL }</span>
+<span>SYNC: TRUE</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sequence Column Footer -->
+<div class="p-3 border-t border-hairline-dark bg-surface-dark font-mono-code text-mono-code text-outline flex items-center justify-between text-xs">
+<span>WORKFLOW_ENGINE: n8n CORE</span>
+<span class="text-on-tertiary-container">✦ ACTIVE</span>
+</div>
+</section>
+</div>
+<!-- STATE 3: BANDEJA VACÍA (ZERO STATE VIEW) -->
+<div class="hidden w-full flex-1 flex flex-col items-center justify-center py-24 px-4 bg-surface-container-lowest text-center" id="state-empty-view">
+<div class="w-16 h-16 border border-hairline-dark bg-surface-dark flex items-center justify-center mb-6">
+<svg class="w-8 h-8 text-outline fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+</div>
+<span class="font-mono-code text-mono-code text-on-tertiary-container text-sm tracking-wider uppercase mb-2">
+        { BANDEJA SIN LEADS PENDIENTES }
+      </span>
+<h3 class="font-headline-lg text-headline-lg text-primary uppercase font-bold max-w-lg mb-3">
+        TODOS LOS EXPEDIENTES HAN SIDO CLASIFICADOS Y ENRUTADOS
+      </h3>
+<p class="font-body-md text-body-md text-outline max-w-md mb-8">
+        El motor de inferencia sigue en escucha activa sobre webhooks de GitHub, HubSpot, Typeform y la API REST.
+      </p>
+<div class="flex items-center gap-3">
+<button class="bg-primary text-text-light font-label-caps text-label-caps uppercase px-6 py-3 font-bold hover:bg-surface-dark hover:text-primary border border-hairline-dark transition-colors" onclick="switchState(1)">
+          RECARGAR BANDEJA SIMULADA
+        </button>
+<button class="bg-surface-dark text-on-tertiary-container font-mono-code text-mono-code px-4 py-3 border border-on-tertiary-container hover:bg-surface-container transition-colors" onclick="simulateNewLead()">
+          [ INYECTAR LEAD TEST + ]
+        </button>
+</div>
+<div class="mt-12 font-mono-code text-mono-code text-outline text-xs">
+        STATUS_CODE: QUEUE_IDLE // LISTENING ON PORT 8080 // SSL VALID
+      </div>
+</div>
+<!-- STATE 4: SKELETON LOADING VIEW -->
+<div class="hidden w-full grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-hairline-dark animate-pulse" id="state-skeleton-view">
+<!-- Col 1 Skeleton -->
+<div class="lg:col-span-4 xl:col-span-3 p-4 space-y-4 bg-surface-container-lowest">
+<div class="h-6 bg-surface-container w-3/4"></div>
+<div class="h-9 bg-surface-container w-full"></div>
+<div class="space-y-3 pt-2">
+<div class="p-3 bg-surface-container space-y-2">
+<div class="h-4 bg-surface-container-high w-1/2"></div>
+<div class="h-3 bg-surface-container-high w-3/4"></div>
+<div class="h-2 bg-surface-container-high w-full mt-2"></div>
+</div>
+<div class="p-3 bg-surface-container space-y-2">
+<div class="h-4 bg-surface-container-high w-1/2"></div>
+<div class="h-3 bg-surface-container-high w-3/4"></div>
+<div class="h-2 bg-surface-container-high w-full mt-2"></div>
+</div>
+<div class="p-3 bg-surface-container space-y-2">
+<div class="h-4 bg-surface-container-high w-1/2"></div>
+<div class="h-3 bg-surface-container-high w-3/4"></div>
+<div class="h-2 bg-surface-container-high w-full mt-2"></div>
+</div>
+</div>
+</div>
+<!-- Col 2 Skeleton -->
+<div class="lg:col-span-5 xl:col-span-6 p-6 space-y-6 bg-surface-container-lowest">
+<div class="flex justify-between items-center">
+<div class="h-8 bg-surface-container w-1/3"></div>
+<div class="h-8 bg-surface-container w-24"></div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="h-16 bg-surface-container"></div>
+<div class="h-16 bg-surface-container"></div>
+<div class="h-16 bg-surface-container"></div>
+<div class="h-16 bg-surface-container"></div>
+</div>
+<div class="h-28 bg-surface-container"></div>
+<div class="h-40 bg-surface-container"></div>
+<div class="h-12 bg-surface-container w-full"></div>
+</div>
+<!-- Col 3 Skeleton -->
+<div class="lg:col-span-3 p-6 space-y-6 bg-surface-container-lowest">
+<div class="h-6 bg-surface-container w-1/2"></div>
+<div class="space-y-4 pl-4 border-l border-surface-container">
+<div class="h-14 bg-surface-container"></div>
+<div class="h-14 bg-surface-container"></div>
+<div class="h-14 bg-surface-container"></div>
+</div>
+<div class="h-24 bg-surface-container mt-6"></div>
+</div>
+</div>
+</div>
+<!-- PERSISTENT DEMO TOAST / FEEDBACK -->
+<div class="fixed bottom-4 right-4 z-50 bg-surface-dark border border-on-tertiary-container p-4 font-mono-code text-mono-code text-xs text-primary shadow-none hidden flex-col gap-1 max-w-sm" id="demo-notification">
+<div class="flex items-center justify-between text-on-tertiary-container font-bold">
+<span class="flex items-center gap-1.5">
+<svg class="w-3 h-3 fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg>
+        { TELEMETRÍA EVENTO }
+      </span>
+<button class="text-outline hover:text-primary" onclick="dismissToast()">[x]</button>
+</div>
+<div class="text-on-surface" id="toast-message">Secuencia de WhatsApp aprobada y puesta en cola.</div>
+</div>
+<!-- CLIENT-SIDE SIMULATOR INTERACTION LOGIC -->
+<script>
+    function switchState(stateNumber) {
+      const normalView = document.getElementById('state-normal-view');
+      const emptyView = document.getElementById('state-empty-view');
+      const skeletonView = document.getElementById('state-skeleton-view');
+      const liveBanner = document.getElementById('live-eval-banner');
+
+      // Reset buttons style
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`btn-state-${i}`);
+        if (btn) {
+          btn.className = "px-2.5 py-1 text-on-surface-variant hover:text-primary bg-surface-container-lowest border border-hairline-dark hover:border-outline transition-colors";
+        }
+      }
+
+      // Highlight active button
+      const activeBtn = document.getElementById(`btn-state-${stateNumber}`);
+      if (activeBtn) {
+        activeBtn.className = "px-2.5 py-1 text-primary bg-surface-container border border-on-tertiary-container font-medium hover:bg-surface-bright transition-colors";
+      }
+
+      // Switch containers
+      if (stateNumber === 1) {
+        normalView.classList.remove('hidden');
+        emptyView.classList.add('hidden');
+        skeletonView.classList.add('hidden');
+        liveBanner.classList.add('hidden');
+        showToast("Estado 01: Vista estándar restaurada con leads en vivo.");
+      } else if (stateNumber === 2) {
+        normalView.classList.remove('hidden');
+        emptyView.classList.add('hidden');
+        skeletonView.classList.add('hidden');
+        liveBanner.classList.remove('hidden');
+        showToast("Estado 02: Inferencia en tiempo real activa. Analizando nuevo lead...");
+      } else if (stateNumber === 3) {
+        normalView.classList.add('hidden');
+        emptyView.classList.remove('hidden');
+        skeletonView.classList.add('hidden');
+        liveBanner.classList.add('hidden');
+        showToast("Estado 03: Bandeja vacía (Zero-State). Esperando nuevos webhooks.");
+      } else if (stateNumber === 4) {
+        normalView.classList.add('hidden');
+        emptyView.classList.add('hidden');
+        skeletonView.classList.remove('hidden');
+        liveBanner.classList.add('hidden');
+        showToast("Estado 04: Modo skeleton cargando buffers y telemetría.");
+      }
+    }
+
+    function selectLead(leadIndex) {
+      const leadItems = document.querySelectorAll('.lead-item');
+      leadItems.forEach(item => {
+        item.classList.remove('bg-surface-container-low', 'border-l-on-tertiary-container');
+        item.classList.add('bg-surface-container-lowest', 'border-l-transparent');
+      });
+
+      if (leadItems[leadIndex - 1]) {
+        leadItems[leadIndex - 1].classList.remove('bg-surface-container-lowest', 'border-l-transparent');
+        leadItems[leadIndex - 1].classList.add('bg-surface-container-low', 'border-l-on-tertiary-container');
+      }
+
+      // On mobile automatically scroll/switch to detail
+      if (window.innerWidth < 1024) {
+        mobileSwitchTab('detail');
+      }
+    }
+
+    function mobileSwitchTab(tabName) {
+      const colInbox = document.getElementById('column-inbox');
+      const colDetail = document.getElementById('column-detail');
+      const colSequence = document.getElementById('column-sequence');
+
+      const tabInbox = document.getElementById('mob-tab-inbox');
+      const tabDetail = document.getElementById('mob-tab-detail');
+      const tabSequence = document.getElementById('mob-tab-sequence');
+
+      // Hide all by default for mobile view
+      colInbox.classList.add('hidden', 'lg:flex');
+      colDetail.classList.add('hidden', 'lg:flex');
+      colSequence.classList.add('hidden', 'lg:flex');
+
+      tabInbox.className = "flex-1 py-2.5 text-center text-on-surface-variant hover:text-primary uppercase tracking-wider";
+      tabDetail.className = "flex-1 py-2.5 text-center text-on-surface-variant hover:text-primary uppercase tracking-wider";
+      tabSequence.className = "flex-1 py-2.5 text-center text-on-surface-variant hover:text-primary uppercase tracking-wider";
+
+      if (tabName === 'inbox') {
+        colInbox.classList.remove('hidden');
+        tabInbox.className = "flex-1 py-2.5 text-center text-primary bg-surface-container border-b-2 border-on-tertiary-container uppercase tracking-wider";
+      } else if (tabName === 'detail') {
+        colDetail.classList.remove('hidden');
+        tabDetail.className = "flex-1 py-2.5 text-center text-primary bg-surface-container border-b-2 border-on-tertiary-container uppercase tracking-wider";
+      } else if (tabName === 'sequence') {
+        colSequence.classList.remove('hidden');
+        tabSequence.className = "flex-1 py-2.5 text-center text-primary bg-surface-container border-b-2 border-on-tertiary-container uppercase tracking-wider";
+      }
+    }
+
+    function approveAction() {
+      showToast("DISPATCH MANUAL: Secuencia agresiva confirmada. WhatsApp disparado en +34 691 82 44 90.");
+    }
+
+    let isPaused = false;
+    function toggleSequence() {
+      const btn = document.getElementById('btn-toggle-seq');
+      isPaused = !isPaused;
+      if (isPaused) {
+        btn.innerText = "[ SECUENCIA PAUSADA // REANUDAR ▶ ]";
+        btn.classList.remove('text-on-tertiary-container', 'border-on-tertiary-container');
+        btn.classList.add('text-outline', 'border-outline');
+        showToast("ORQUESTADOR: Secuencias automáticas en pausa.");
+      } else {
+        btn.innerText = "[ EN EJECUCIÓN // PAUSAR || ]";
+        btn.classList.add('text-on-tertiary-container', 'border-on-tertiary-container');
+        btn.classList.remove('text-outline', 'border-outline');
+        showToast("ORQUESTADOR: Secuencias reanudadas con normalidad.");
+      }
+    }
+
+    function simulateNewLead() {
+      switchState(2);
+      setTimeout(() => {
+        switchState(1);
+        showToast("NUEVO LEAD ENTRANTE: Victor Kline (CTO // NexaPay) - Score 94/100 ✦");
+      }, 1600);
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      const toast = document.getElementById('demo-notification');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.innerText = message;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        dismissToast();
+      }, 4200);
+    }
+
+    function dismissToast() {
+      const toast = document.getElementById('demo-notification');
+      toast.classList.add('hidden');
+      toast.classList.remove('flex');
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-dark border-t border-hairline-dark"><div class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-gutter-desktop border-b border-hairline-dark pb-space-lg mb-space-lg"><div class="col-span-1 md:col-span-2 lg:col-span-4 flex flex-col justify-between"><div class="space-y-space-xs"><div class="flex items-center gap-space-xs"><svg class="w-3.5 h-3.5 text-on-tertiary-container fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg><span class="font-label-caps text-label-caps uppercase tracking-wider text-primary">JUANMA // JMMC STUDIO</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">Fullstack Engineering &amp; Structural Digital Architecture. Raw computational discipline rejecting ornamental decay.</p></div><div class="mt-space-lg font-mono-code text-mono-code text-outline">VERSION // 4.2.0-STABLE<br/>CORE // BRUTALIST RUNTIME</div></div><div class="col-span-1 md:col-span-1 lg:col-span-3"><div class="font-mono-code text-mono-code text-outline uppercase mb-space-sm">{ DIRECTORY }</div><ul class="space-y-space-xs font-label-caps text-label-caps uppercase"><li class="border-b border-hairline-dark pb-1"><a class="text-on-surface-variant hover:text-primary flex justify-between items-center" data-path="index" href="#"><span>Selected Works</span><span class="font-mono-code text-mono-code text-outline">[01]</span></a></li><li class="border-b border-hairline-dark pb-1"><a class="text-on-surface-variant hover:text-primary flex justify-between items-center" data-path="archive" href="#"><span>Complete Archive</span><span class="font-mono-code text-mono-code text-outline">[02]</span></a></li><li class="border-b border-hairline-dark pb-1"><a class="text-on-surface-variant hover:text-primary flex justify-between items-center" data-path="system" href="#"><span>Design Engineering Spec</span><span class="font-mono-code text-mono-code text-outline">[03]</span></a></li><li class="pb-1"><a class="text-on-surface-variant hover:text-primary flex justify-between items-center" data-path="intel" href="#"><span>Curriculum &amp; Dossier</span><span class="font-mono-code text-mono-code text-outline">[04]</span></a></li></ul></div><div class="col-span-1 md:col-span-1 lg:col-span-3"><div class="font-mono-code text-mono-code text-outline uppercase mb-space-sm">{ TELEMETRY &amp; FEED }</div><div class="space-y-space-xs font-mono-code text-mono-code text-on-surface-variant"><div class="flex justify-between border-b border-hairline-dark pb-1"><span>PROTOCOL</span><span class="text-primary">HTTPS / TLS 1.3</span></div><div class="flex justify-between border-b border-hairline-dark pb-1"><span>EDGE LATENCY</span><span class="text-primary">14ms GLOBAL</span></div><div class="flex justify-between border-b border-hairline-dark pb-1"><span>FRAMEWORK</span><span class="text-primary">NATIVE VIRTUAL</span></div><div class="flex justify-between pb-1"><span>ACCENT</span><span class="text-tertiary-fixed-dim">#FF5A1F STAR</span></div></div></div><div class="col-span-1 md:col-span-4 lg:col-span-2 flex flex-col justify-between border-t md:border-t-0 md:border-l border-hairline-dark md:pl-space-lg pt-space-md md:pt-0"><div class="font-mono-code text-mono-code text-outline uppercase mb-space-sm">{ DISPATCH }</div><a class="w-full block bg-primary text-text-light font-label-caps text-label-caps uppercase text-center py-3 hover:bg-surface-dark hover:text-primary border border-hairline-dark transition-colors" data-path="transmission" href="#">INITIATE CONTACT</a><span class="font-mono-code text-mono-code text-outline mt-space-sm text-center block">ENCRYPTED CHANNEL</span></div></div><div class="flex flex-col sm:flex-row justify-between items-center gap-space-sm font-mono-code text-mono-code text-outline"><div>© 2025 JMMC ARCHITECTURE. ALL RIGHTS RESERVED.</div><div class="flex items-center gap-space-md"><span>CODE: RAW_SPEC</span><span>[ LAT: +40.7128 ]</span><span>[ LON: -74.0060 ]</span></div></div></div></footer></body></html>

@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Oswald:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-primary-fixed-variant":"#484741","on-primary":"#31302b","on-secondary-fixed-variant":"#49473f","surface-container-highest":"#353437","on-tertiary-fixed":"#3a0b00","on-secondary-fixed":"#1d1b15","surface-light":"#E6E1D7","surface-container-low":"#1b1b1d","surface-dark":"#131316","on-surface":"#e5e1e4","surface-container":"#201f21","secondary-fixed-dim":"#cbc6bc","on-tertiary":"#5e1700","surface-container-lowest":"#0e0e10","on-secondary-container":"#b9b5ab","surface-dim":"#131315","muted-light":"#6B675F","tertiary":"#ffffff","tertiary-fixed-dim":"#ffb59e","primary-container":"#e6e2da","background":"#131315","inverse-on-surface":"#313032","secondary":"#cbc6bc","primary-fixed-dim":"#cac6bf","primary":"#ffffff","error-container":"#93000a","primary-fixed":"#e6e2da","inverse-surface":"#e5e1e4","hairline-dark":"#26262B","surface-tint":"#cac6bf","outline-variant":"#484740","on-surface-variant":"#cac6bd","accent-text-light":"#B8350A","on-background":"#e5e1e4","surface-variant":"#353437","on-primary-container":"#66645e","tertiary-fixed":"#ffdbd0","on-error-container":"#ffdad6","hairline-light":"#D3CEC3","surface":"#131315","inverse-primary":"#605e58","bg-light":"#EFEBE3","on-secondary":"#333029","error":"#ffb4ab","secondary-container":"#49473f","surface-bright":"#39393b","tertiary-container":"#ffdbd0","secondary-fixed":"#e8e2d7","outline":"#939188","on-primary-fixed":"#1c1c17","on-tertiary-fixed-variant":"#852400","on-error":"#690005","on-tertiary-container":"#b83600","surface-container-high":"#2a2a2c","text-light":"#0C0C0E"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"gutter":"1rem","space-md":"1rem","space-2xl":"5rem","margin-desktop":"3rem","space-xs":"0.25rem","gutter-desktop":"1.5rem","space-lg":"1.5rem","margin":"1rem","margin-tablet":"2rem","space-sm":"0.5rem","space-xl":"3rem"},"fontFamily":{"body-md":["Hanken Grotesk"],"headline-lg":["Oswald"],"headline-md":["Oswald"],"label-caps":["Oswald"],"mono-code":["JetBrains Mono"],"headline-xl-mobile":["Oswald"],"display-hero":["Oswald"],"headline-xl":["Oswald"],"display-hero-mobile":["Oswald"],"mono-bracket":["JetBrains Mono"],"body-lg":["Hanken Grotesk"],"body-sm":["Hanken Grotesk"]},"fontSize":{"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-lg":["36px",{"lineHeight":"40px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-md":["26px",{"lineHeight":"30px","letterSpacing":"0.02em","fontWeight":"500"}],"label-caps":["14px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"600"}],"mono-code":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-xl-mobile":["38px",{"lineHeight":"40px","letterSpacing":"0em","fontWeight":"600"}],"display-hero":["96px",{"lineHeight":"92px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl":["64px",{"lineHeight":"64px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-hero-mobile":["52px",{"lineHeight":"52px","letterSpacing":"-0.01em","fontWeight":"700"}],"mono-bracket":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary min-h-screen flex flex-col justify-between"><header class="fixed top-0 left-0 w-full z-50 bg-surface border-b border-hairline-dark"><div class="h-16 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-4"><a class="flex items-center justify-center h-9 px-3 bg-surface-container border border-hairline-dark font-mono-bracket text-mono-bracket text-primary hover:bg-primary hover:text-on-primary transition-colors" data-path="portfolio-index" href="#">{JM}</a><a class="hidden sm:flex items-center font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" data-path="portfolio-overview" href="#">← VOLVER AL PORTFOLIO</a></div><div class="hidden xl:flex items-center font-mono-bracket text-mono-bracket text-on-surface tracking-wider"><span class="text-outline mr-2">[SYS_ARCH]</span> { 09 / 09 // DEMO_BUSINESS_BACKOFFICE }</div><div class="flex items-center gap-6"><div class="flex items-center gap-2 px-3 py-1 bg-surface-container-lowest border border-hairline-dark"><span class="inline-block text-[#FF5A1F] animate-pulse text-xs leading-none">✦</span><span class="font-mono-code text-mono-code text-on-surface tracking-wider">{ EN VIVO // SISTEMA OPERATIVO COMERCIAL }</span></div><nav class="hidden lg:flex items-center border border-hairline-dark" data-active-classes="bg-primary text-on-primary"><a aria-current="page" class="px-3 py-1 font-label-caps transition-colors border-r border-hairline-dark bg-primary text-on-primary" data-path="demo-business-backoffice" href="#">DASHBOARD</a><a class="px-3 py-1 font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors border-r border-hairline-dark" data-path="commercial-ledger" href="#">LEDGER</a><a class="px-3 py-1 font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" data-path="terminal-logs" href="#">TELEMETRY</a></nav><div class="flex items-center pl-2 border-l border-hairline-dark"><img alt="Profile" class="w-8 h-8 rounded-full object-cover border border-hairline-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfFhyFsEyoKZbZG0kIrA90VeL7giQr8gLFksjDnsDSwAy6YJku6cqd0qVv2QR09F_rofzZDiOVh584x1JtS7I3ey2GCERujV88ORisL3SR7kUkD_WeEjxJduFyevNwC6aglQaDUQxZswIoAmy0nf2wTTOkYLwLXG_UHyR7Y24_XwLwQTnubPmj-9nB7SSLZHLRIJZ64YOKbS8LGonl3MhJn0mmA8NRm17hEJTfjb8g66d85aeUbRQ"/></div></div></div></header><main class="w-full pt-16 bg-surface flex-1"><div class="flex flex-col w-full text-on-surface select-none">
+<!-- ========================================== -->
+<!-- 00. SIMULATION STATE BAR & SUB-HEADER -->
+<!-- ========================================== -->
+<section class="w-full bg-surface-container-lowest border-b border-hairline-dark px-margin md:px-margin-tablet lg:px-margin-desktop py-2.5 flex flex-wrap items-center justify-between gap-3 text-mono-code font-mono-code">
+<div class="flex flex-wrap items-center gap-2">
+<span class="text-outline uppercase tracking-widest text-[11px] font-semibold mr-1">[ SIMULADOR DE ESTADOS ]:</span>
+<button class="scenario-btn px-2.5 py-1 text-xs border border-[#FF5A1F] text-[#FF5A1F] bg-[#FF5A1F]/10 transition-colors uppercase font-mono-bracket" id="scn-btn-live" onclick="setScenario('live')">
+        [ 01. EN VIVO ]
+      </button>
+<button class="scenario-btn px-2.5 py-1 text-xs border border-hairline-dark text-on-surface-variant hover:text-primary hover:border-outline transition-colors uppercase font-mono-bracket" id="scn-btn-drawer" onclick="setScenario('drawer')">
+        [ 02. DRAWER CLIENTE (✦) ]
+      </button>
+<button class="scenario-btn px-2.5 py-1 text-xs border border-hairline-dark text-on-surface-variant hover:text-primary hover:border-outline transition-colors uppercase font-mono-bracket" id="scn-btn-reader" onclick="setScenario('reader')">
+        [ 03. MODO LECTOR (🔒) ]
+      </button>
+<button class="scenario-btn px-2.5 py-1 text-xs border border-hairline-dark text-on-surface-variant hover:text-primary hover:border-outline transition-colors uppercase font-mono-bracket" id="scn-btn-toast" onclick="setScenario('toast')">
+        [ 04. TOAST EMITIDO ]
+      </button>
+<button class="scenario-btn px-2.5 py-1 text-xs border border-hairline-dark text-on-surface-variant hover:text-primary hover:border-outline transition-colors uppercase font-mono-bracket" id="scn-btn-skeletons" onclick="setScenario('skeletons')">
+        [ 05. ESQUELETOS ]
+      </button>
+<button class="scenario-btn px-2.5 py-1 text-xs border border-hairline-dark text-on-surface-variant hover:text-primary hover:border-outline transition-colors uppercase font-mono-bracket" id="scn-btn-empty" onclick="setScenario('empty')">
+        [ 06. TABLA VACÍA ]
+      </button>
+</div>
+<!-- Quick Role Pill Selector -->
+<div class="flex items-center gap-1.5 ml-auto border border-hairline-dark p-0.5 bg-surface">
+<span class="text-outline text-[11px] px-1.5 font-mono-code">{ ROL: }</span>
+<button class="role-pill px-2 py-0.5 text-[11px] bg-primary text-on-primary font-mono-bracket font-bold transition-all" id="role-admin" onclick="setRole('ADMIN')">[ { ADMIN } ]</button>
+<button class="role-pill px-2 py-0.5 text-[11px] text-on-surface-variant hover:text-primary font-mono-bracket transition-all" id="role-editor" onclick="setRole('EDITOR')">[ EDITOR ]</button>
+<button class="role-pill px-2 py-0.5 text-[11px] text-on-surface-variant hover:text-primary font-mono-bracket transition-all" id="role-lector" onclick="setRole('LECTOR')">[ LECTOR 🔒 ]</button>
+</div>
+</section>
+<!-- Secondary Control Ribbon (Search, Date Filter, Metric Indicators) -->
+<section class="w-full bg-surface-container-low border-b border-hairline-dark px-margin md:px-margin-tablet lg:px-margin-desktop py-2.5 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-3 flex-1 min-w-[260px] max-w-xl">
+<div class="relative w-full">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-outline text-xs font-mono-code">
+<span class="text-[#FF5A1F] mr-1">✦</span> FIND_SYS:
+        </span>
+<input class="w-full bg-surface-container-lowest border border-hairline-dark pl-24 pr-24 py-1.5 text-xs font-mono-code text-on-surface placeholder:text-outline focus:outline-none focus:border-[#FF5A1F] transition-colors" placeholder="Buscar pedido, cliente (#ORD-9042), SKU..." type="text"/>
+<span class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-outline font-mono-code text-[10px]">
+          [ CMD + K ]
+        </span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<!-- Date Range Selector -->
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-lowest border border-hairline-dark font-mono-code text-xs">
+<span class="text-outline">[ PERIODO ]:</span>
+<span class="text-primary font-medium tracking-wide">ESTE MES // 01 FEB - 28 FEB 2025</span>
+<span class="text-outline cursor-pointer hover:text-primary">▾</span>
+</div>
+<!-- Sync Live Badge -->
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-lowest border border-hairline-dark font-mono-code text-xs">
+<span class="w-2 h-2 rounded-none bg-[#FF5A1F] animate-ping inline-block"></span>
+<span class="text-on-surface">{ EN VIVO // SYNC: 100% }</span>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- MAIN WORKSPACE: SIDEBAR + DASHBOARD CANVAS -->
+<!-- ========================================== -->
+<div class="w-full flex-1 flex flex-col md:flex-row relative">
+<!-- ---------------------------------------- -->
+<!-- LEFT BRUTALIST SIDEBAR (~260px) -->
+<!-- ---------------------------------------- -->
+<aside class="w-full md:w-64 md:min-w-[260px] shrink-0 bg-surface-dark border-r border-hairline-dark flex flex-col justify-between">
+<div>
+<!-- Shop Architectural Identifier -->
+<div class="p-5 border-b border-hairline-dark">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 bg-surface-container border border-hairline-dark flex items-center justify-center font-headline-md text-headline-md text-primary leading-none">
+              K
+            </div>
+<div class="flex flex-col">
+<span class="font-headline-md text-[18px] leading-tight tracking-wider text-primary uppercase">KÖNIG // ATELIER</span>
+<span class="font-mono-code text-[11px] text-outline tracking-widest uppercase">BOTÁNICO &amp; CERÁMICA</span>
+</div>
+</div>
+<div class="mt-3 font-mono-code text-[10px] text-on-surface-variant bg-surface-container-lowest border border-hairline-dark px-2 py-1 flex items-center justify-between">
+<span>SISTEMA BACKOFFICE</span>
+<span class="text-[#FF5A1F] font-bold">V.9.42</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="py-4 flex flex-col">
+<div class="px-5 pb-2 text-[10px] font-mono-code text-outline tracking-widest uppercase">
+            // NAVEGACIÓN PRINCIPAL
+          </div>
+<a class="flex items-center justify-between px-5 py-2.5 bg-surface-container border-l-2 border-[#FF5A1F] text-primary font-label-caps text-label-caps transition-colors" href="#">
+<span class="flex items-center gap-2">
+<span class="text-[#FF5A1F] text-xs">✦</span>
+<span>{ RESUMEN }</span>
+</span>
+<span class="font-mono-code text-[10px] text-[#FF5A1F]">[ ACTIVO ]</span>
+</a>
+<a class="flex items-center justify-between px-5 py-2.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-label-caps text-label-caps" href="#">
+<span class="flex items-center gap-2">
+<span class="text-outline text-xs">·</span>
+<span>PEDIDOS</span>
+</span>
+<span class="font-mono-code text-[10px] bg-surface-container-lowest px-1.5 py-0.5 border border-hairline-dark text-primary">[ 12 ]</span>
+</a>
+<a class="flex items-center justify-between px-5 py-2.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-label-caps text-label-caps" href="#">
+<span class="flex items-center gap-2">
+<span class="text-outline text-xs">·</span>
+<span>CLIENTES</span>
+</span>
+<span class="font-mono-code text-[10px] text-outline">[ 418 ]</span>
+</a>
+<a class="flex items-center justify-between px-5 py-2.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-label-caps text-label-caps" href="#">
+<span class="flex items-center gap-2">
+<span class="text-outline text-xs">·</span>
+<span>FACTURAS</span>
+</span>
+<span class="font-mono-code text-[10px] text-[#FF5A1F] bg-surface-container-lowest px-1.5 py-0.5 border border-[#FF5A1F]/40">[ 3 PEND ]</span>
+</a>
+<a class="flex items-center justify-between px-5 py-2.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-label-caps text-label-caps" href="#">
+<span class="flex items-center gap-2">
+<span class="text-outline text-xs">·</span>
+<span>INVENTARIO</span>
+</span>
+<span class="font-mono-code text-[10px] text-[#FF5A1F] bg-[#FF5A1F]/10 px-1.5 py-0.5 border border-[#FF5A1F]">[ ⚠️ STOCK ]</span>
+</a>
+<a class="flex items-center justify-between px-5 py-2.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-label-caps text-label-caps" href="#">
+<span class="flex items-center gap-2">
+<span class="text-outline text-xs">·</span>
+<span>EQUIPO</span>
+</span>
+<span class="font-mono-code text-[10px] text-outline">[ 4 ]</span>
+</a>
+<a class="flex items-center justify-between px-5 py-2.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors font-label-caps text-label-caps" href="#">
+<span class="flex items-center gap-2">
+<span class="text-outline text-xs">·</span>
+<span>INFORMES FISCALES</span>
+</span>
+<span class="font-mono-code text-[10px] text-outline">[ Q1 ]</span>
+</a>
+</nav>
+</div>
+<!-- User Profile Badge & Quick Logout -->
+<div class="p-4 border-t border-hairline-dark bg-surface-container-lowest">
+<div class="flex items-center gap-3">
+<div class="relative w-8 h-8 bg-surface-container border border-hairline-dark shrink-0 flex items-center justify-center font-mono-bracket text-xs text-primary">
+            JM
+            <span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-[#FF5A1F]"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-xs text-primary truncate">Juanma M.</span>
+<span class="text-[9px] font-mono-code text-[#FF5A1F] border border-[#FF5A1F]/40 px-1 py-0" id="role-badge-aside">{ADMIN}</span>
+</div>
+<span class="font-mono-code text-[10px] text-outline truncate">admin@konig-studio.es</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- ---------------------------------------- -->
+<!-- CENTRAL CANVAS: METRICS, CHARTS & LEDGER -->
+<!-- ---------------------------------------- -->
+<div class="flex-1 min-w-0 flex flex-col bg-surface overflow-x-hidden">
+<!-- Banner de Permisos para Modo Lector -->
+<div class="hidden w-full bg-[#93000a]/20 border-b border-[#93000a] px-margin md:px-margin-tablet lg:px-margin-desktop py-2 flex items-center justify-between" id="reader-banner">
+<div class="flex items-center gap-2 text-xs font-mono-code text-[#ffb4ab]">
+<span>🔒 [ AVISO DE ACCESO RESTRINGIDO ] //</span>
+<span>Modo Lector activo. Las mutaciones de bases de datos, generación de facturas y edición de expedientes están inhabilitadas.</span>
+</div>
+<button class="text-[11px] font-mono-code uppercase px-2 py-0.5 bg-[#93000a] text-white hover:bg-[#ffb4ab] hover:text-[#5e1700] transition-colors" onclick="setRole('ADMIN')">
+          SOLICITAR ELEVACIÓN DE PRIVILEGIOS →
+        </button>
+</div>
+<!-- 1. 4 STAT CARDS (METRICS) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 border-b border-hairline-dark bg-surface-container-lowest">
+<!-- KPI 1 -->
+<div class="p-5 border-b sm:border-b-0 sm:border-r border-hairline-dark flex flex-col justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="font-mono-bracket text-xs text-outline">{ 01 // VENTAS DEL MES }</span>
+<span class="font-mono-code text-[11px] text-[#FF5A1F] bg-[#FF5A1F]/10 border border-[#FF5A1F]/40 px-1.5 py-0.5">
+              +22.4% vs ENE
+            </span>
+</div>
+<div class="skeleton-el hidden h-10 bg-surface-container-high animate-pulse w-3/4 mb-2"></div>
+<div class="data-el font-headline-lg text-[34px] leading-tight text-primary font-medium tracking-tight">
+            48.290,00 €
+          </div>
+<div class="mt-2 text-xs font-mono-code text-on-surface-variant flex items-center justify-between">
+<span>OBJETIVO MENSUAL:</span>
+<span class="text-primary font-bold">107.3% [ ALCANZADO ]</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="p-5 border-b sm:border-b-0 xl:border-r border-hairline-dark flex flex-col justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="font-mono-bracket text-xs text-outline">{ 02 // PEDIDOS TOTALES }</span>
+<span class="font-mono-code text-[11px] text-primary border border-hairline-dark px-1.5 py-0.5">
+              +48 UDS
+            </span>
+</div>
+<div class="skeleton-el hidden h-10 bg-surface-container-high animate-pulse w-1/2 mb-2"></div>
+<div class="data-el font-headline-lg text-[34px] leading-tight text-primary font-medium tracking-tight">
+            642
+          </div>
+<div class="mt-2 text-xs font-mono-code text-on-surface-variant flex items-center justify-between">
+<span>TASA PROCESAMIENTO:</span>
+<span class="text-primary font-bold">98.8% EN 24H</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="p-5 border-b sm:border-b-0 sm:border-r border-hairline-dark flex flex-col justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="font-mono-bracket text-xs text-outline">{ 03 // TICKET MEDIO }</span>
+<span class="font-mono-code text-[11px] text-[#FF5A1F] bg-[#FF5A1F]/10 border border-[#FF5A1F]/40 px-1.5 py-0.5">
+              +8.1% NETO
+            </span>
+</div>
+<div class="skeleton-el hidden h-10 bg-surface-container-high animate-pulse w-2/3 mb-2"></div>
+<div class="data-el font-headline-lg text-[34px] leading-tight text-primary font-medium tracking-tight">
+            75,20 €
+          </div>
+<div class="mt-2 text-xs font-mono-code text-on-surface-variant flex items-center justify-between">
+<span>LÍNEA DESTACADA:</span>
+<span class="text-primary font-bold">MACETAS RAW</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="p-5 flex flex-col justify-between hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="font-mono-bracket text-xs text-outline">{ 04 // NUEVOS CLIENTES }</span>
+<span class="font-mono-code text-[11px] text-primary border border-hairline-dark px-1.5 py-0.5">
+              ESTABLE
+            </span>
+</div>
+<div class="skeleton-el hidden h-10 bg-surface-container-high animate-pulse w-1/2 mb-2"></div>
+<div class="data-el font-headline-lg text-[34px] leading-tight text-primary font-medium tracking-tight">
+            118
+          </div>
+<div class="mt-2 text-xs font-mono-code text-on-surface-variant flex items-center justify-between">
+<span>RECURRENCIA B2B:</span>
+<span class="text-[#FF5A1F] font-bold">41.2%</span>
+</div>
+</div>
+</div>
+<!-- 2. BRUTALIST REVENUE COMPARISON GRAPH -->
+<section class="border-b border-hairline-dark bg-surface-container-lowest p-6">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+<div class="flex items-center gap-3">
+<span class="w-2.5 h-2.5 bg-[#FF5A1F]"></span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-wide uppercase">
+              { COMPARATIVA FACTURACIÓN // FEBRERO VS ENERO 2025 }
+            </h2>
+</div>
+<div class="flex flex-wrap items-center gap-4 text-xs font-mono-code">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-[#FF5A1F]"></span>
+<span class="text-primary font-medium">[ FEBRERO 2025 // 48.290 € ]</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-[#484740]"></span>
+<span class="text-on-surface-variant">[ ENERO 2025 // 39.450 € ]</span>
+</div>
+<div class="px-2 py-0.5 border border-hairline-dark text-outline text-[11px]">
+              INTERVALO: SEMANAL (S1 - S4)
+            </div>
+</div>
+</div>
+<!-- SVG Dual Line & Bar Technical Graph -->
+<div class="w-full h-56 bg-surface-container-low border border-hairline-dark relative p-4 flex flex-col justify-end">
+<!-- Background Hairline Gridlines -->
+<div class="absolute inset-0 flex flex-col justify-between p-4 pointer-events-none opacity-20">
+<div class="border-b border-hairline-light w-full"></div>
+<div class="border-b border-hairline-light w-full"></div>
+<div class="border-b border-hairline-light w-full"></div>
+<div class="border-b border-hairline-light w-full"></div>
+</div>
+<!-- Y-Axis Value Labels -->
+<div class="absolute left-2 top-2 font-mono-code text-[10px] text-outline">50.000 € —</div>
+<div class="absolute left-2 top-[35%] font-mono-code text-[10px] text-outline">35.000 € —</div>
+<div class="absolute left-2 top-[70%] font-mono-code text-[10px] text-outline">15.000 € —</div>
+<!-- Vector Visual Render -->
+<svg class="w-full h-40 overflow-visible" preserveaspectratio="none" viewbox="0 0 800 160">
+<defs>
+<lineargradient id="orangeFade" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#FF5A1F" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Previous Month (Enero) Reference Line - Dashed Gray -->
+<polyline fill="none" points="
+              60,110 
+              260,85 
+              480,95 
+              720,60" stroke="#484740" stroke-dasharray="4,4" stroke-width="2"></polyline>
+<!-- Area fill for February -->
+<polygon fill="url(#orangeFade)" points="
+              60,130 
+              60,90 
+              260,65 
+              480,40 
+              720,15 
+              720,130"></polygon>
+<!-- Current Month (Febrero) Trend Line - Intense Orange -->
+<polyline fill="none" points="
+              60,90 
+              260,65 
+              480,40 
+              720,15" stroke="#FF5A1F" stroke-width="2.5"></polyline>
+<!-- Data Anchor Points -->
+<circle cx="60" cy="90" fill="#FF5A1F" r="4" stroke="#131315" stroke-width="2"></circle>
+<circle cx="260" cy="65" fill="#FF5A1F" r="4" stroke="#131315" stroke-width="2"></circle>
+<circle cx="480" cy="40" fill="#FF5A1F" r="4" stroke="#131315" stroke-width="2"></circle>
+<circle cx="720" cy="15" fill="#FF5A1F" r="5" stroke="#FFFFFF" stroke-width="2"></circle>
+<!-- Peak Annotation -->
+<text fill="#FF5A1F" font-family="JetBrains Mono" font-size="10" font-weight="bold" x="690" y="5">✦ PEAK: 16.890 € (S4)</text>
+</svg>
+<!-- X-Axis Labels -->
+<div class="w-full flex justify-between font-mono-code text-[11px] text-outline pt-2 border-t border-hairline-dark mt-2">
+<span class="pl-4">S1 (01-07 FEB) // 8.420 €</span>
+<span>S2 (08-14 FEB) // 10.980 €</span>
+<span>S3 (15-21 FEB) // 12.000 €</span>
+<span class="pr-4 text-[#FF5A1F] font-bold">S4 (22-28 FEB) // 16.890 € [✦ PEAK]</span>
+</div>
+</div>
+</section>
+<!-- 3. SPLIT WORKSPACE: 2/3 LIVE ORDERS TABLE & 1/3 TECHNICAL SIDE-PANEL -->
+<section class="grid grid-cols-1 lg:grid-cols-12 min-h-full">
+<!-- LEFT 8 COLS: TABLA DE PEDIDOS -->
+<div class="lg:col-span-8 border-b lg:border-b-0 lg:border-r border-hairline-dark bg-surface">
+<div class="p-4 bg-surface-container-low border-b border-hairline-dark flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<span class="text-[#FF5A1F]">✦</span>
+<h3 class="font-label-caps text-label-caps text-primary tracking-wider uppercase">
+                { ÚLTIMOS PEDIDOS EN TIEMPO REAL }
+              </h3>
+</div>
+<div class="flex items-center gap-2 text-xs font-mono-code">
+<button class="write-action px-2.5 py-1 bg-surface-container border border-hairline-dark hover:border-[#FF5A1F] hover:text-[#FF5A1F] transition-colors text-on-surface" onclick="simularNuevoPedido()">
+                + REGISTRAR PEDIDO MANUAL
+              </button>
+<button class="px-2 py-1 bg-surface-container border border-hairline-dark hover:text-primary transition-colors text-outline">
+                EXPORTAR CSV
+              </button>
+</div>
+</div>
+<!-- Empty State (Hidden unless selected) -->
+<div class="hidden p-16 flex flex-col items-center justify-center text-center" id="table-empty-state">
+<div class="font-headline-lg text-4xl text-outline mb-2">[ VACÍO // 0 REGISTROS ]</div>
+<p class="font-mono-code text-xs text-on-surface-variant max-w-md mb-4">
+              No se han detectado transacciones activas para los filtros seleccionados o el canal de venta se encuentra en reposo técnico.
+            </p>
+<button class="px-4 py-2 border border-[#FF5A1F] font-mono-bracket text-xs text-[#FF5A1F] hover:bg-[#FF5A1F] hover:text-white transition-colors" onclick="setScenario('live')">
+              [ REINICIAR STREAM EN TIEMPO REAL ]
+            </button>
+</div>
+<!-- Skeletons State (Hidden unless selected) -->
+<div class="hidden p-4 space-y-3" id="table-skeletons">
+<div class="h-12 bg-surface-container-high animate-pulse border border-hairline-dark w-full"></div>
+<div class="h-12 bg-surface-container-high animate-pulse border border-hairline-dark w-full"></div>
+<div class="h-12 bg-surface-container-high animate-pulse border border-hairline-dark w-full"></div>
+<div class="h-12 bg-surface-container-high animate-pulse border border-hairline-dark w-full"></div>
+<div class="h-12 bg-surface-container-high animate-pulse border border-hairline-dark w-full"></div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto" id="table-content">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-hairline-dark font-mono-code text-[11px] text-outline bg-surface-container-lowest uppercase tracking-wider">
+<th class="py-2.5 px-3">ID PEDIDO</th>
+<th class="py-2.5 px-3">CLIENTE</th>
+<th class="py-2.5 px-3 hidden sm:table-cell">ARTÍCULOS</th>
+<th class="py-2.5 px-3 hidden md:table-cell">FECHA / HORA</th>
+<th class="py-2.5 px-3">TOTAL</th>
+<th class="py-2.5 px-3">ESTADO</th>
+<th class="py-2.5 px-3 text-right">ACCIONES</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-hairline-dark font-body-sm text-body-sm">
+<!-- ROW 1 (Valeria Soler - Opens Drawer) -->
+<tr class="group hover:bg-surface-container cursor-pointer transition-colors" onclick="abrirDrawerCliente('Valeria Soler', 'CLI-8841', 'valeria.soler@arqdesign.es', '3.420,00 €', '14', '240,00 €')">
+<td class="py-3 px-3 font-mono-code text-xs text-[#FF5A1F] font-semibold group-hover:underline">
+                    #ORD-9042
+                  </td>
+<td class="py-3 px-3 font-medium text-primary">
+                    Valeria Soler
+                    <span class="block text-[11px] font-mono-code text-outline font-normal">Estudio Soler // BCN</span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant hidden sm:table-cell text-xs font-mono-code">
+                    3x Maceta Basalto Raw
+                  </td>
+<td class="py-3 px-3 text-outline hidden md:table-cell text-xs font-mono-code">
+                    Hace 8m
+                  </td>
+<td class="py-3 px-3 font-mono-code text-xs text-primary font-bold">
+                    240,00 €
+                  </td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-code text-[11px] text-[#FF5A1F] bg-[#FF5A1F]/10 border border-[#FF5A1F]/40 px-2 py-0.5 whitespace-nowrap">
+                      ✦ EN PREPARACIÓN
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="font-mono-bracket text-xs text-outline hover:text-primary px-1.5 py-0.5 border border-hairline-dark hover:border-outline">
+                      [ VER ]
+                    </button>
+</td>
+</tr>
+<!-- ROW 2 -->
+<tr class="group hover:bg-surface-container cursor-pointer transition-colors" onclick="abrirDrawerCliente('Mateo Benítez', 'CLI-7910', 'm.benitez@terraforma.com', '1.185,00 €', '5', '185,00 €')">
+<td class="py-3 px-3 font-mono-code text-xs text-primary font-semibold group-hover:underline">
+                    #ORD-9041
+                  </td>
+<td class="py-3 px-3 font-medium text-primary">
+                    Mateo Benítez
+                    <span class="block text-[11px] font-mono-code text-outline font-normal">Terra Forma // MAD</span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant hidden sm:table-cell text-xs font-mono-code">
+                    1x Jarrón Terracota Raw V
+                  </td>
+<td class="py-3 px-3 text-outline hidden md:table-cell text-xs font-mono-code">
+                    Hace 24m
+                  </td>
+<td class="py-3 px-3 font-mono-code text-xs text-primary font-bold">
+                    185,00 €
+                  </td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-code text-[11px] text-primary border border-hairline-dark px-2 py-0.5 whitespace-nowrap">
+                      PAGADO // WSS
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="font-mono-bracket text-xs text-outline hover:text-primary px-1.5 py-0.5 border border-hairline-dark hover:border-outline">
+                      [ VER ]
+                    </button>
+</td>
+</tr>
+<!-- ROW 3 -->
+<tr class="group hover:bg-surface-container cursor-pointer transition-colors" onclick="abrirDrawerCliente('Clara Domínguez', 'CLI-6419', 'clara@dominguezinterior.es', '890,00 €', '3', '92,50 €')">
+<td class="py-3 px-3 font-mono-code text-xs text-primary font-semibold group-hover:underline">
+                    #ORD-9040
+                  </td>
+<td class="py-3 px-3 font-medium text-primary">
+                    Clara Domínguez
+                    <span class="block text-[11px] font-mono-code text-outline font-normal">Particular // VLC</span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant hidden sm:table-cell text-xs font-mono-code">
+                    2x Set Botánico Ficus
+                  </td>
+<td class="py-3 px-3 text-outline hidden md:table-cell text-xs font-mono-code">
+                    Hace 1h
+                  </td>
+<td class="py-3 px-3 font-mono-code text-xs text-primary font-bold">
+                    92,50 €
+                  </td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-code text-[11px] text-on-surface-variant border border-hairline-dark px-2 py-0.5 whitespace-nowrap">
+                      ENVIADO [CORREOS]
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="font-mono-bracket text-xs text-outline hover:text-primary px-1.5 py-0.5 border border-hairline-dark hover:border-outline">
+                      [ VER ]
+                    </button>
+</td>
+</tr>
+<!-- ROW 4 -->
+<tr class="group hover:bg-surface-container cursor-pointer transition-colors" onclick="abrirDrawerCliente('Arnau Puig', 'CLI-5102', 'arnau@puig-nordic.cat', '2.890,00 €', '9', '310,00 €')">
+<td class="py-3 px-3 font-mono-code text-xs text-primary font-semibold group-hover:underline">
+                    #ORD-9039
+                  </td>
+<td class="py-3 px-3 font-medium text-primary">
+                    Arnau Puig
+                    <span class="block text-[11px] font-mono-code text-outline font-normal">Puig Living // GIR</span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant hidden sm:table-cell text-xs font-mono-code">
+                    4x Bandeja Hormigón Pulido
+                  </td>
+<td class="py-3 px-3 text-outline hidden md:table-cell text-xs font-mono-code">
+                    Hace 3h
+                  </td>
+<td class="py-3 px-3 font-mono-code text-xs text-primary font-bold">
+                    310,00 €
+                  </td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-code text-[11px] text-primary border border-hairline-dark px-2 py-0.5 whitespace-nowrap">
+                      FACTURADO
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="font-mono-bracket text-xs text-outline hover:text-primary px-1.5 py-0.5 border border-hairline-dark hover:border-outline">
+                      [ VER ]
+                    </button>
+</td>
+</tr>
+<!-- ROW 5 -->
+<tr class="group hover:bg-surface-container cursor-pointer transition-colors" onclick="abrirDrawerCliente('Lucía Navarro', 'CLI-3321', 'lucia@navarroatelier.com', '420,00 €', '1', '420,00 €')">
+<td class="py-3 px-3 font-mono-code text-xs text-primary font-semibold group-hover:underline">
+                    #ORD-9038
+                  </td>
+<td class="py-3 px-3 font-medium text-primary">
+                    Lucía Navarro
+                    <span class="block text-[11px] font-mono-code text-outline font-normal">Navarro Studio // SEV</span>
+</td>
+<td class="py-3 px-3 text-on-surface-variant hidden sm:table-cell text-xs font-mono-code">
+                    1x Lámpara Cerámica Escultural
+                  </td>
+<td class="py-3 px-3 text-outline hidden md:table-cell text-xs font-mono-code">
+                    Hace 5h
+                  </td>
+<td class="py-3 px-3 font-mono-code text-xs text-primary font-bold">
+                    420,00 €
+                  </td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-code text-[11px] text-[#FF5A1F] border border-[#FF5A1F]/60 px-2 py-0.5 whitespace-nowrap">
+                      PENDIENTE PAGO
+                    </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="font-mono-bracket text-xs text-outline hover:text-primary px-1.5 py-0.5 border border-hairline-dark hover:border-outline">
+                      [ VER ]
+                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Bottom Table Ledger Metadata -->
+<div class="p-3 border-t border-hairline-dark bg-surface-container-lowest font-mono-code text-[11px] text-outline flex flex-wrap items-center justify-between gap-2">
+<div>MOSTRANDO 5 DE 642 REGISTROS // BUFFER FIFO EN MEMORIA</div>
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">PÁG [ 01 / 65 ]</span>
+<button class="px-2 py-0.5 border border-hairline-dark hover:text-primary">←</button>
+<button class="px-2 py-0.5 border border-hairline-dark hover:text-primary">→</button>
+</div>
+</div>
+</div>
+<!-- RIGHT 4 COLS: FACTURAS PENDIENTES, STOCK & AUDIT LOG -->
+<div class="lg:col-span-4 bg-surface-container-lowest flex flex-col divide-y divide-hairline-dark">
+<!-- SUBPANEL A: FACTURAS PENDIENTES [03] -->
+<div class="p-5">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="text-[#FF5A1F] text-xs">✦</span>
+<h4 class="font-label-caps text-label-caps text-primary tracking-wide">
+                  { FACTURAS PENDIENTES }
+                </h4>
+</div>
+<span class="font-mono-code text-xs text-[#FF5A1F] bg-[#FF5A1F]/10 border border-[#FF5A1F]/30 px-1.5 py-0.2">[ 03 ]</span>
+</div>
+<div class="space-y-2.5">
+<!-- Factura 1 -->
+<div class="p-3 bg-surface-container border border-hairline-dark flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-code text-xs text-primary font-bold">FAC-2025-089</span>
+<span class="font-mono-code text-xs text-[#FF5A1F]">1.450,00 €</span>
+</div>
+<div class="flex items-center justify-between mt-1 text-[11px] font-mono-code text-outline">
+<span>Estudio Cuadrante</span>
+<span class="text-primary">VENCE EN 3D</span>
+</div>
+</div>
+<!-- Factura 2 -->
+<div class="p-3 bg-surface-container border border-hairline-dark flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-code text-xs text-primary font-bold">FAC-2025-088</span>
+<span class="font-mono-code text-xs text-[#FF5A1F]">890,00 €</span>
+</div>
+<div class="flex items-center justify-between mt-1 text-[11px] font-mono-code text-outline">
+<span>Atelier Forma</span>
+<span class="text-[#FF5A1F] font-bold">VENCE HOY</span>
+</div>
+</div>
+<!-- Factura 3 -->
+<div class="p-3 bg-surface-container border border-[#93000a] flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-code text-xs text-[#ffb4ab] font-bold">FAC-2025-084</span>
+<span class="font-mono-code text-xs text-[#ffb4ab]">2.120,00 €</span>
+</div>
+<div class="flex items-center justify-between mt-1 text-[11px] font-mono-code text-outline">
+<span>Nexo Arquitectura</span>
+<span class="text-[#ffb4ab] font-bold">[ VENCIDA - RECLAMAR ]</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SUBPANEL B: ALERTA STOCK BAJO -->
+<div class="p-5">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="text-[#FF5A1F]">⚠️</span>
+<h4 class="font-label-caps text-label-caps text-primary tracking-wide">
+                  { ALERTA // STOCK BAJO }
+                </h4>
+</div>
+<span class="font-mono-code text-[11px] text-outline">[ BUFFER INVENTARIO ]</span>
+</div>
+<div class="space-y-3 font-mono-code text-xs">
+<!-- Item 1 -->
+<div>
+<div class="flex items-center justify-between text-on-surface mb-1">
+<span class="text-primary font-medium">Jarrón Terracota Raw V</span>
+<span class="text-[#FF5A1F] font-bold">2 uds (Min: 10)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 border border-hairline-dark relative">
+<div class="bg-[#FF5A1F] h-full" style="width: 20%;"></div>
+<span class="absolute right-0 -top-1 text-[10px] text-[#FF5A1F]">✦</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div>
+<div class="flex items-center justify-between text-on-surface mb-1">
+<span class="text-primary font-medium">Maceta Basalto Brut</span>
+<span class="text-[#FF5A1F] font-bold">3 uds (Min: 15)</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 border border-hairline-dark relative">
+<div class="bg-[#FF5A1F] h-full" style="width: 25%;"></div>
+<span class="absolute right-0 -top-1 text-[10px] text-[#FF5A1F]">✦</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div>
+<div class="flex items-center justify-between text-on-surface mb-1">
+<span class="text-primary font-medium">Arcilla Chamota 25kg</span>
+<span class="text-[#ffb4ab] font-bold">1 ud [CRÍTICO]</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 border border-hairline-dark relative">
+<div class="bg-[#93000a] h-full" style="width: 8%;"></div>
+<span class="absolute right-0 -top-1 text-[10px] text-[#FF5A1F]">✦</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SUBPANEL C: TELEMETRÍA // AUDIT LOG -->
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-caps text-label-caps text-primary tracking-wide">
+                  { AUDIT LOG // REALTIME }
+                </span>
+<span class="font-mono-code text-[10px] text-outline">[ SYS_EVENT_LOG ]</span>
+</div>
+<div class="space-y-2 font-mono-code text-[11px] leading-relaxed text-on-surface-variant">
+<div class="border-l-2 border-[#FF5A1F] pl-2 py-0.5">
+<span class="text-outline">[14:48:12]</span> <span class="text-primary font-semibold">{ADMIN}:</span> Factura #FAC-2025-089 generada para Estudio Cuadrante.
+                </div>
+<div class="border-l-2 border-outline pl-2 py-0.5">
+<span class="text-outline">[14:41:05]</span> <span class="text-primary font-semibold">{STRIPE}:</span> Webhook verificado orden #ORD-9041 (185,00 €).
+                </div>
+<div class="border-l-2 border-[#FF5A1F] pl-2 py-0.5">
+<span class="text-outline">[14:22:30]</span> <span class="text-[#FF5A1F] font-semibold">{STOCK}:</span> Alerta inventario crítico SKU: JARRON-RAW-05.
+                </div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-hairline-dark flex items-center justify-between font-mono-code text-[10px] text-outline">
+<span>LATENCIA DB: 1.2ms</span>
+<span>SOCKET: CONECTADO</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- ---------------------------------------- -->
+<!-- CUSTOMER DOSSIER DRAWER (EXPEDIENTE CLI) -->
+<!-- ---------------------------------------- -->
+<div class="fixed inset-y-0 right-0 w-full md:w-[480px] bg-surface-dark border-l border-hairline-dark z-50 transform translate-x-full transition-transform duration-200 ease-in-out flex flex-col justify-between shadow-2xl" id="customer-drawer">
+<div>
+<!-- Drawer Top Header -->
+<div class="p-5 border-b border-hairline-dark bg-surface-container-low flex items-center justify-between">
+<div>
+<div class="font-mono-code text-[11px] text-[#FF5A1F] tracking-widest uppercase">
+              ✦ DOSSIER ARQUITECTÓNICO B2B
+            </div>
+<h3 class="font-headline-md text-headline-md text-primary tracking-wide" id="drawer-client-id">
+              { EXPEDIENTE: CLI-8841 }
+            </h3>
+</div>
+<button class="px-2.5 py-1 bg-surface-container border border-hairline-dark font-mono-bracket text-xs text-on-surface hover:text-primary hover:border-outline transition-colors" onclick="cerrarDrawer()">
+            [ X ]
+          </button>
+</div>
+<!-- Customer Identity Dossier -->
+<div class="p-6 space-y-6">
+<div class="space-y-1">
+<span class="font-mono-code text-xs text-outline">// NOMBRE CLIENTE Y FIRMA</span>
+<div class="font-headline-lg text-3xl text-primary font-medium tracking-tight" id="drawer-client-name">
+              Valeria Soler
+            </div>
+<div class="font-mono-code text-xs text-[#FF5A1F]" id="drawer-client-email">
+              valeria.soler@arqdesign.es
+            </div>
+<div class="font-mono-code text-xs text-on-surface-variant">
+              +34 611 442 890 • Estudio Soler &amp; Asociados, Carrer d'Enric Granados, Barcelona
+            </div>
+</div>
+<!-- Customer Key Ledger Metrics -->
+<div class="grid grid-cols-3 gap-2 p-3 bg-surface-container border border-hairline-dark font-mono-code">
+<div>
+<div class="text-[10px] text-outline">TOTAL COMPRAS</div>
+<div class="text-sm font-bold text-primary mt-0.5" id="drawer-client-spend">3.420,00 €</div>
+</div>
+<div class="border-l border-hairline-dark pl-2">
+<div class="text-[10px] text-outline">PEDIDOS</div>
+<div class="text-sm font-bold text-primary mt-0.5" id="drawer-client-orders">14</div>
+</div>
+<div class="border-l border-hairline-dark pl-2">
+<div class="text-[10px] text-outline">TICKET MEDIO</div>
+<div class="text-sm font-bold text-[#FF5A1F] mt-0.5">244,28 €</div>
+</div>
+</div>
+<!-- History of Orders Snippet -->
+<div>
+<div class="font-mono-code text-xs text-outline mb-2">// HISTORIAL RECIENTE</div>
+<div class="space-y-2 font-mono-code text-xs">
+<div class="p-2.5 bg-surface-container-low border border-hairline-dark flex items-center justify-between">
+<div>
+<div class="text-primary font-semibold">#ORD-9042 • 240,00 €</div>
+<div class="text-[10px] text-outline">3x Maceta Basalto Raw</div>
+</div>
+<span class="text-[10px] text-[#FF5A1F] border border-[#FF5A1F]/30 px-1.5 py-0.5 bg-[#FF5A1F]/10">EN PREPARACIÓN</span>
+</div>
+<div class="p-2.5 bg-surface-container-low border border-hairline-dark flex items-center justify-between">
+<div>
+<div class="text-primary font-semibold">#ORD-8812 • 610,00 €</div>
+<div class="text-[10px] text-outline">2x Colección Brutalismo Raw</div>
+</div>
+<span class="text-[10px] text-primary border border-hairline-dark px-1.5 py-0.5">ENTREGADO</span>
+</div>
+<div class="p-2.5 bg-surface-container-low border border-hairline-dark flex items-center justify-between">
+<div>
+<div class="text-primary font-semibold">#ORD-8409 • 180,00 €</div>
+<div class="text-[10px] text-outline">1x Jardinera Cemento V</div>
+</div>
+<span class="text-[10px] text-primary border border-hairline-dark px-1.5 py-0.5">FACTURADO</span>
+</div>
+</div>
+</div>
+<!-- Internal Audit Dossier Notes -->
+<div>
+<div class="font-mono-code text-xs text-outline mb-2">// ANOTACIONES INTERNAS DEL ATELIER</div>
+<div class="p-3 bg-surface-container-low border border-hairline-dark font-body-sm text-body-sm text-on-surface-variant">
+              Cliente VIP de arquitectura de interiores en Barcelona. Requiere paletizado reforzado con embalaje neutro y marcado de proyecto en caja exterior.
+            </div>
+</div>
+</div>
+</div>
+<!-- Drawer Bottom Action Ribbon -->
+<div class="p-5 border-t border-hairline-dark bg-surface-container-low flex flex-col gap-2.5">
+<button class="write-action w-full py-3 bg-primary text-on-primary font-label-caps text-label-caps hover:bg-white hover:text-black transition-colors flex items-center justify-center gap-2" id="drawer-btn-invoice" onclick="dispararToastFactura()">
+<span>EMITIR FACTURA [ ↵ ]</span>
+<span class="text-[#FF5A1F]">✦</span>
+</button>
+<button class="write-action w-full py-2.5 bg-transparent border border-hairline-dark font-mono-bracket text-xs text-on-surface hover:text-primary hover:border-outline transition-colors text-center" id="drawer-btn-edit">
+          [ EDITAR EXPEDIENTE DE CLIENTE ]
+        </button>
+</div>
+</div>
+<!-- Drawer Backdrop Overlay -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden transition-opacity" id="drawer-backdrop" onclick="cerrarDrawer()"></div>
+</div>
+<!-- ========================================== -->
+<!-- FLOATING TOAST NOTIFICATION -->
+<!-- ========================================== -->
+<div class="fixed top-20 right-6 z-50 transform translate-y-[-150%] transition-transform duration-300 pointer-events-none" id="toast-notification">
+<div class="bg-surface-container-highest border border-[#FF5A1F] p-4 shadow-2xl flex items-start gap-3 max-w-md">
+<span class="text-[#FF5A1F] text-lg font-bold">✦</span>
+<div class="flex flex-col">
+<span class="font-label-caps text-xs text-primary uppercase tracking-wider">EXPEDICIÓN CONFIRMADA</span>
+<span class="font-mono-code text-xs text-on-surface mt-0.5">{ FACTURA #FAC-2025-090 EMITIDA CON ÉXITO // PDF GENERADO }</span>
+<span class="font-mono-code text-[10px] text-outline mt-1">[ SHA256: e8f9...3b21 • ENVIADA A CLIENTE ]</span>
+</div>
+<button class="ml-4 text-outline hover:text-primary pointer-events-auto font-mono-bracket text-xs" onclick="ocultarToast()">[ X ]</button>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- MOBILE BOTTOM NAVIGATION DOCK (RESPONSIVE) -->
+<!-- ========================================== -->
+<div class="md:hidden fixed bottom-0 left-0 w-full bg-surface-dark border-t border-hairline-dark z-40 flex items-center justify-around py-2 font-mono-bracket text-xs">
+<a class="text-[#FF5A1F] flex flex-col items-center" href="#">
+<span>✦</span>
+<span class="text-[10px]">{ RESUMEN }</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center" href="#">
+<span>#</span>
+<span class="text-[10px]">PEDIDOS</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center" href="#">
+<span>@</span>
+<span class="text-[10px]">CLIENTES</span>
+</a>
+<button class="text-on-surface-variant flex flex-col items-center" onclick="abrirDrawerCliente('Valeria Soler', 'CLI-8841', 'valeria.soler@arqdesign.es', '3.420,00 €', '14', '240,00 €')">
+<span>+</span>
+<span class="text-[10px]">MÁS</span>
+</button>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- SCRIPT INTERACTIVO: ROLES, DRAWER, STATES -->
+<!-- ========================================== -->
+<script>
+  let currentRole = 'ADMIN';
+
+  // Control de Roles Dinámicos
+  function setRole(role) {
+    currentRole = role;
+    
+    // UI Pills
+    document.querySelectorAll('.role-pill').forEach(el => {
+      el.classList.remove('bg-primary', 'text-on-primary', 'font-bold');
+      el.classList.add('text-on-surface-variant');
+    });
+
+    const activePill = document.getElementById('role-' + role.toLowerCase());
+    if (activePill) {
+      activePill.classList.remove('text-on-surface-variant');
+      activePill.classList.add('bg-primary', 'text-on-primary', 'font-bold');
+    }
+
+    // Role Indicator Aside
+    const asideRole = document.getElementById('role-badge-aside');
+    if (asideRole) asideRole.innerText = `{${role}}`;
+
+    const banner = document.getElementById('reader-banner');
+    const writeActions = document.querySelectorAll('.write-action');
+    const invoiceBtn = document.getElementById('drawer-btn-invoice');
+    const editBtn = document.getElementById('drawer-btn-edit');
+
+    if (role === 'LECTOR') {
+      if (banner) banner.classList.remove('hidden');
+      writeActions.forEach(btn => {
+        btn.setAttribute('disabled', 'true');
+        btn.classList.add('opacity-40', 'cursor-not-allowed', 'line-through');
+      });
+      if (invoiceBtn) {
+        invoiceBtn.innerHTML = `<span>ACCESO RESTRINGIDO 🔒</span>`;
+        invoiceBtn.title = "Acción restringida: Rol Lector sin permisos de escritura.";
+      }
+      if (editBtn) {
+        editBtn.innerHTML = `<span>[ EXPEDIENTE BLOQUEADO 🔒 ]</span>`;
+      }
+    } else {
+      if (banner) banner.classList.add('hidden');
+      writeActions.forEach(btn => {
+        btn.removeAttribute('disabled');
+        btn.classList.remove('opacity-40', 'cursor-not-allowed', 'line-through');
+      });
+      if (invoiceBtn) {
+        invoiceBtn.innerHTML = `<span>EMITIR FACTURA [ ↵ ]</span><span class="text-[#FF5A1F]">✦</span>`;
+        invoiceBtn.title = "";
+      }
+      if (editBtn) {
+        editBtn.innerHTML = `[ EDITAR EXPEDIENTE DE CLIENTE ]`;
+      }
+    }
+  }
+
+  // Drawer Functions
+  function abrirDrawerCliente(nombre, id, email, spend, orders, currentVal) {
+    document.getElementById('drawer-client-name').innerText = nombre;
+    document.getElementById('drawer-client-id').innerText = `{ EXPEDIENTE: ${id} }`;
+    document.getElementById('drawer-client-email').innerText = email;
+    document.getElementById('drawer-client-spend').innerText = spend;
+    document.getElementById('drawer-client-orders').innerText = orders;
+
+    const drawer = document.getElementById('customer-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+
+    drawer.classList.remove('translate-x-full');
+    backdrop.classList.remove('hidden');
+  }
+
+  function cerrarDrawer() {
+    const drawer = document.getElementById('customer-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    drawer.classList.add('translate-x-full');
+    backdrop.classList.add('hidden');
+  }
+
+  // Toast Generator
+  function dispararToastFactura() {
+    if (currentRole === 'LECTOR') return;
+    const toast = document.getElementById('toast-notification');
+    toast.classList.remove('translate-y-[-150%]');
+    setTimeout(() => {
+      toast.classList.add('translate-y-[-150%]');
+    }, 4500);
+  }
+
+  function ocultarToast() {
+    const toast = document.getElementById('toast-notification');
+    toast.classList.add('translate-y-[-150%]');
+  }
+
+  // Simulación de nuevo pedido en vivo
+  function simularNuevoPedido() {
+    if (currentRole === 'LECTOR') return;
+    dispararToastFactura();
+  }
+
+  // Simulación de Escenarios
+  function setScenario(sc) {
+    // Reset scenarios UI buttons
+    document.querySelectorAll('.scenario-btn').forEach(btn => {
+      btn.classList.remove('border-[#FF5A1F]', 'text-[#FF5A1F]', 'bg-[#FF5A1F]/10');
+      btn.classList.add('border-hairline-dark', 'text-on-surface-variant');
+    });
+
+    const activeBtn = document.getElementById('scn-btn-' + sc);
+    if (activeBtn) {
+      activeBtn.classList.add('border-[#FF5A1F]', 'text-[#FF5A1F]', 'bg-[#FF5A1F]/10');
+      activeBtn.classList.remove('border-hairline-dark', 'text-on-surface-variant');
+    }
+
+    const tableContent = document.getElementById('table-content');
+    const tableEmpty = document.getElementById('table-empty-state');
+    const tableSkeletons = document.getElementById('table-skeletons');
+    const skeletons = document.querySelectorAll('.skeleton-el');
+    const dataElements = document.querySelectorAll('.data-el');
+
+    // Reset base elements
+    tableContent.classList.remove('hidden');
+    tableEmpty.classList.add('hidden');
+    tableSkeletons.classList.add('hidden');
+    skeletons.forEach(s => s.classList.add('hidden'));
+    dataElements.forEach(d => d.classList.remove('hidden'));
+
+    if (sc === 'live') {
+      setRole('ADMIN');
+      cerrarDrawer();
+    } else if (sc === 'drawer') {
+      setRole('ADMIN');
+      abrirDrawerCliente('Valeria Soler', 'CLI-8841', 'valeria.soler@arqdesign.es', '3.420,00 €', '14', '240,00 €');
+    } else if (sc === 'reader') {
+      setRole('LECTOR');
+    } else if (sc === 'toast') {
+      dispararToastFactura();
+    } else if (sc === 'skeletons') {
+      tableContent.classList.add('hidden');
+      tableSkeletons.classList.remove('hidden');
+      skeletons.forEach(s => s.classList.remove('hidden'));
+      dataElements.forEach(d => d.classList.add('hidden'));
+    } else if (sc === 'empty') {
+      tableContent.classList.add('hidden');
+      tableEmpty.classList.remove('hidden');
+    }
+  }
+</script></main><footer class="w-full bg-surface-container-lowest border-t border-hairline-dark py-space-lg"><div class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md"><div class="flex flex-col gap-1"><div class="font-label-caps text-label-caps text-primary tracking-widest">JUANMA STUDIO // BRUTALIST EDITORIAL ARCHITECTURE</div><div class="font-mono-code text-mono-code text-outline">[ SPEC_REV: 09.4.12 ] • SCREEN 09 OF 09 • BACKOFFICE ENTERPRISE RUNTIME</div></div><div class="flex items-center gap-space-lg font-mono-code text-mono-code text-on-surface-variant"><span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-[#FF5A1F]"></span> LOC: 40.7128° N, 74.0060° W</span><span class="hidden lg:inline text-outline">|</span><span class="hidden lg:inline">LATENCY: 14MS</span><span class="hidden lg:inline text-outline">|</span><span>© 2025 JMMC LABS</span></div></div></footer></body></html>

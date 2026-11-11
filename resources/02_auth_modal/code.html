@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>JMMC // Fullstack Developer &amp; Designer</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Oswald:wght@200..700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}#custom-cursor{pointer-events:none;transform:translate(-50%,-50%);transition:transform 0.08s ease-out,opacity 0.2s ease;}#preloader.loaded{opacity:0;pointer-events:none;visibility:hidden;transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1),visibility 0.6s;}#curtain-menu.open{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);pointer-events:auto;}#curtain-menu{clip-path:polygon(0 0,100% 0,100% 0,0 0);transition:clip-path 0.55s cubic-bezier(0.77,0,0.175,1);pointer-events:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"hairline-dark":"#26262B","surface":"#131315","background":"#131315","inverse-surface":"#e5e1e4","error-container":"#93000a","primary-fixed-dim":"#cac6bf","on-background":"#e5e1e4","outline":"#939188","on-secondary-container":"#b9b5ab","primary-container":"#e6e2da","secondary-fixed-dim":"#cbc6bc","on-secondary":"#333029","on-secondary-fixed":"#1d1b15","on-primary-fixed":"#1c1c17","on-tertiary-fixed":"#3a0b00","tertiary-fixed-dim":"#ffb59e","on-surface":"#e5e1e4","bg-light":"#EFEBE3","inverse-on-surface":"#313032","surface-tint":"#cac6bf","on-error":"#690005","on-primary":"#31302b","surface-container":"#201f21","on-tertiary-container":"#b83600","surface-container-highest":"#353437","on-primary-container":"#66645e","surface-container-lowest":"#0e0e10","secondary-fixed":"#e8e2d7","on-tertiary-fixed-variant":"#852400","surface-dim":"#131315","surface-container-high":"#2a2a2c","surface-light":"#E6E1D7","on-tertiary":"#5e1700","text-light":"#0C0C0E","on-error-container":"#ffdad6","inverse-primary":"#605e58","secondary-container":"#49473f","tertiary-fixed":"#ffdbd0","on-secondary-fixed-variant":"#49473f","hairline-light":"#D3CEC3","primary":"#ffffff","surface-container-low":"#1b1b1d","muted-light":"#6B675F","secondary":"#cbc6bc","on-surface-variant":"#cac6bd","accent-text-light":"#B8350A","on-primary-fixed-variant":"#484741","surface-variant":"#353437","tertiary-container":"#ffdbd0","surface-bright":"#39393b","surface-dark":"#131316","outline-variant":"#484740","tertiary":"#ffffff","error":"#ffb4ab","primary-fixed":"#e6e2da"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-lg":"1.5rem","margin-tablet":"2rem","margin":"1rem","space-xl":"3rem","space-sm":"0.5rem","gutter-desktop":"1.5rem","margin-desktop":"3rem","space-xs":"0.25rem","gutter":"1rem","space-2xl":"5rem","space-md":"1rem"},"fontFamily":{"body-sm":["Hanken Grotesk"],"body-lg":["Hanken Grotesk"],"label-caps":["Oswald"],"mono-code":["JetBrains Mono"],"headline-xl":["Oswald"],"display-hero":["Oswald"],"headline-xl-mobile":["Oswald"],"display-hero-mobile":["Oswald"],"body-md":["Hanken Grotesk"],"headline-lg":["Oswald"],"headline-md":["Oswald"],"mono-bracket":["JetBrains Mono"]},"fontSize":{"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-caps":["14px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"600"}],"mono-code":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-xl":["64px",{"lineHeight":"64px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-hero":["96px",{"lineHeight":"92px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl-mobile":["38px",{"lineHeight":"40px","letterSpacing":"0em","fontWeight":"600"}],"display-hero-mobile":["52px",{"lineHeight":"52px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-md":["15px",{"lineHeight":"24px","fontWeight":"400"}],"headline-lg":["36px",{"lineHeight":"40px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-md":["26px",{"lineHeight":"30px","letterSpacing":"0.02em","fontWeight":"500"}],"mono-bracket":["14px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}]}}}};</script></head><body class="bg-surface text-on-surface antialiased selection:bg-surface-container-highest selection:text-primary relative"><div class="fixed z-[9999] top-0 left-0 hidden lg:flex items-center justify-center text-[#FF5A1F] text-lg select-none" id="custom-cursor"><span class="text-[#FF5A1F]">✦</span></div><div class="fixed inset-0 z-[100] bg-surface flex flex-col items-center justify-center" id="preloader"><div class="flex items-center gap-4 text-headline-xl font-headline-xl text-primary"><span class="animate-pulse text-on-surface-variant">{</span><span class="text-[#FF5A1F] animate-spin text-3xl">✦</span><span class="animate-pulse text-on-surface-variant">}</span></div><p class="mt-4 font-mono-code text-mono-code tracking-widest uppercase text-on-surface-variant">[ INITIALIZING KERNEL // JMMC ]</p></div><header class="fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b border-hairline-dark bg-surface/55 backdrop-blur-[14px]" id="editorial-header"><div class="h-20 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-space-sm"><a class="flex items-center gap-3 group focus:outline-none" data-path="presentacion" href="#"><img alt="JMMC Logo Monogram" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W7Q8ch4goYy3xKHqNi5PX7Fhy_pjdITenyi3S4QUV_9v6eHBBaL2xpNyK0bKxJPFobMhDJm5SsEAPTIygf3fZW0LbBtWvQwyvrrKkvPLHdprLO5Lo37ZyL3kQbLwAi2Gwr9lILBU6NdK2nLFE7kfPMegY4UH21JYZCyblgy9nfH89tS2DOTuuFC7JmFdr5qdAbrBeXp0nnINiuq5X571RhvOziZpFTg6pNS6XTji-1UnmAOCT32osEqQ"/><span class="font-mono-code text-mono-code uppercase tracking-widest text-on-surface-variant group-hover:text-primary transition-colors">{JM} ARCHITECTURE</span></a></div><div class="flex items-center gap-space-sm lg:gap-space-md"><div class="hidden lg:flex items-center border border-hairline-dark divide-x divide-hairline-dark"><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors focus:outline-none" onclick="document.documentElement.classList.remove('dark');" title="Tema Claro" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">light_mode</span></button><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-primary bg-surface-container-high focus:outline-none" onclick="document.documentElement.classList.add('dark');" title="Tema Oscuro" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">dark_mode</span></button><button class="px-2.5 py-1.5 font-mono-code text-mono-code text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors focus:outline-none" onclick="if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}" title="Tema Sistema" type="button"><span class="material-symbols-outlined text-[16px] leading-none align-middle">desktop_windows</span></button></div><div class="hidden lg:flex items-center border border-hairline-dark font-mono-code text-mono-code px-2 py-1 gap-1 text-on-surface-variant"><button class="text-primary font-bold hover:text-primary focus:outline-none" type="button">ES</button><span class="text-outline-variant">|</span><button class="text-on-surface-variant hover:text-primary focus:outline-none" type="button">EN</button></div><a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 border border-hairline-dark font-label-caps text-label-caps uppercase text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all" data-path="login" href="#">[ ACCEDER ]</a><button class="flex items-center gap-2 px-3.5 py-1.5 border border-hairline-dark font-label-caps text-label-caps uppercase text-primary hover:bg-surface-container-high transition-all focus:outline-none" onclick="document.getElementById('curtain-menu').classList.toggle('open');" type="button"><span class="text-[#FF5A1F]">✦</span><span>MENÚ</span><span class="font-mono-code text-mono-code text-on-surface-variant">{ || }</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><div class="fixed inset-0 z-[60] bg-surface flex flex-col justify-between p-margin md:p-margin-tablet lg:p-margin-desktop overflow-y-auto" id="curtain-menu"><div class="flex items-center justify-between border-b border-hairline-dark pb-space-md"><div class="flex items-center gap-3"><img alt="JMMC Logo Monogram" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W7Q8ch4goYy3xKHqNi5PX7Fhy_pjdITenyi3S4QUV_9v6eHBBaL2xpNyK0bKxJPFobMhDJm5SsEAPTIygf3fZW0LbBtWvQwyvrrKkvPLHdprLO5Lo37ZyL3kQbLwAi2Gwr9lILBU6NdK2nLFE7kfPMegY4UH21JYZCyblgy9nfH89tS2DOTuuFC7JmFdr5qdAbrBeXp0nnINiuq5X571RhvOziZpFTg6pNS6XTji-1UnmAOCT32osEqQ"/><span class="font-mono-code text-mono-code tracking-widest uppercase text-on-surface-variant">[ DOSSIER REGISTRY // 2025 ]</span></div><button class="px-3 py-1.5 border border-hairline-dark font-mono-code text-mono-code uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all flex items-center gap-2 focus:outline-none" onclick="document.getElementById('curtain-menu').classList.remove('open');" type="button"><span class="text-[#FF5A1F]">✦</span><span>CERRAR { X }</span></button></div><nav class="my-auto py-space-xl flex flex-col gap-2" data-active-classes="text-primary"><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="presentacion" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">01</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">PRESENTACIÓN</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="demos" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">02</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">DEMOS</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="skills" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">03</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">SKILLS</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="trayectoria" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">04</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">TRAYECTORIA</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="blog" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">05</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">BLOG</span></span></a><a class="group flex items-baseline gap-space-sm font-headline-xl text-headline-xl uppercase tracking-tight text-on-surface-variant hover:text-primary transition-colors" data-path="contacto" href="#"><span class="font-mono-code text-sm tracking-normal text-on-surface-variant group-hover:text-[#FF5A1F]">06</span><span class="transition-transform group-hover:translate-x-2 flex items-center gap-2"><span class="text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity">✦</span><span class="group-hover:before:content-['{_'] group-hover:after:content-['_}']">CONTACTO</span></span></a></nav><div class="pt-space-md border-t border-hairline-dark flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md font-mono-code text-mono-code text-on-surface-variant"><div class="flex items-center gap-4"><a class="hover:text-primary transition-colors" href="#">[ GITHUB ]</a><a class="hover:text-primary transition-colors" href="#">[ LINKEDIN ]</a><a class="hover:text-primary transition-colors" href="#">[ TWITTER/X ]</a></div><div class="flex lg:hidden items-center gap-space-md"><div class="flex items-center border border-hairline-dark"><button class="px-2 py-1 hover:text-primary" onclick="document.documentElement.classList.remove('dark');" type="button"><span class="material-symbols-outlined text-[14px]">light_mode</span></button><button class="px-2 py-1 text-primary bg-surface-container-high" onclick="document.documentElement.classList.add('dark');" type="button"><span class="material-symbols-outlined text-[14px]">dark_mode</span></button><button class="px-2 py-1 hover:text-primary" onclick="if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}" type="button"><span class="material-symbols-outlined text-[14px]">desktop_windows</span></button></div><div class="border border-hairline-dark px-2 py-1"><button class="text-primary font-bold" type="button">ES</button> | <button class="text-on-surface-variant" type="button">EN</button></div></div><div class="text-on-surface-variant text-[11px] tracking-widest uppercase">{ STATUS: ALL SYSTEMS OPERATIONAL ✦ }</div></div></div><main class="w-full pt-20 bg-surface min-h-screen"><div class="flex flex-col w-full relative min-h-[calc(100vh-5rem)] overflow-hidden">
+<!-- DIMMED BACKGROUND LANDING SIMULATION -->
+<div class="absolute inset-0 select-none pointer-events-none opacity-20 filter blur-[3px] scale-[1.01] transition-opacity duration-700">
+<div class="px-margin md:px-margin-tablet lg:px-margin-desktop pt-8 pb-16 flex flex-col gap-12">
+<!-- Faux Landing Top Strip -->
+<div class="flex items-center justify-between border-b border-hairline-dark pb-4">
+<div class="font-mono-code text-mono-code text-on-surface-variant flex items-center gap-3">
+<span class="text-[#FF5A1F]">✦</span>
+<span>RUNTIME PROTOCOL // REPO_0984_V2.1</span>
+</div>
+<div class="font-mono-code text-mono-code text-outline">LATENCY: 12ms // BUFFER: 100%</div>
+</div>
+<!-- Faux Hero Typography -->
+<div class="flex flex-col gap-3">
+<span class="font-mono-code text-mono-code text-outline tracking-widest uppercase">[ SYSTEM OVERVIEW ]</span>
+<h1 class="font-display-hero text-display-hero uppercase tracking-tight text-primary leading-none">
+          SYSTEM ARCHITECTURE &amp; ARTIFACTS
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+          High-performance distributed runtime frameworks, cryptographic micro-kernels, and visual computing platforms engineered for institutional grade reliability.
+        </p>
+</div>
+<!-- Faux Grid Matrix -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="h-48 border border-hairline-dark bg-surface-container-low p-4 flex flex-col justify-between">
+<span class="font-mono-code text-mono-code text-outline">{ 01 // KERNEL }</span>
+<span class="font-headline-md text-headline-md text-primary uppercase">COMPUTE CLUSTERS</span>
+</div>
+<div class="h-48 border border-hairline-dark bg-surface-container-low p-4 flex flex-col justify-between">
+<span class="font-mono-code text-mono-code text-outline">{ 02 // CIPHER }</span>
+<span class="font-headline-md text-headline-md text-primary uppercase">KEY ESCROW ENGINE</span>
+</div>
+<div class="h-48 border border-hairline-dark bg-surface-container-low p-4 flex flex-col justify-between">
+<span class="font-mono-code text-mono-code text-outline">{ 03 // TELEMETRY }</span>
+<span class="font-headline-md text-headline-md text-primary uppercase">GLOBAL TRACE VECTORS</span>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL BACKDROP DARKENING SHIELD -->
+<div class="absolute inset-0 bg-[#0C0C0E]/85 backdrop-blur-sm z-10 transition-colors duration-300"></div>
+<!-- FLOATING MODAL STAGE -->
+<div class="relative z-20 w-full flex-1 flex flex-col items-center justify-center p-3 md:p-6 lg:p-8 my-auto">
+<!-- STATE INSPECTION TOOLBAR (TEST REGISTRY SWITCHER) -->
+<div class="w-full max-w-2xl mb-4 flex items-center justify-between border border-hairline-dark bg-surface-container-lowest px-3 py-2">
+<div class="flex items-center gap-2 font-mono-code text-mono-code text-on-surface-variant">
+<span class="text-[#FF5A1F] text-xs">✦</span>
+<span class="uppercase tracking-wider">DEV_SELECTOR:</span>
+</div>
+<div class="flex flex-wrap items-center gap-1 text-[11px] font-mono-code">
+<button class="px-2.5 py-1 text-primary bg-surface-container-highest border border-outline-variant font-bold hover:text-primary transition-all" id="btn-state-login" onclick="switchState('login')">
+          01. ACCEDER
+        </button>
+<button class="px-2.5 py-1 text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all" id="btn-state-register" onclick="switchState('register')">
+          02. REGISTRO
+        </button>
+<button class="px-2.5 py-1 text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all" id="btn-state-pending" onclick="switchState('pending')">
+          03. PENDIENTE
+        </button>
+<button class="px-2.5 py-1 text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all" id="btn-state-status" onclick="switchState('status')">
+          04. ESTADOS
+        </button>
+</div>
+</div>
+<!-- MAIN DIALOG STRUCTURE WITH BRACKET WINGS -->
+<div class="relative w-full max-w-2xl flex items-stretch">
+<!-- LEFT BRUTALIST GIANT BRACKET -->
+<div class="hidden sm:flex flex-col justify-between items-center pr-3 select-none pointer-events-none text-outline-variant font-mono-bracket text-[74px] md:text-[96px] leading-[0.8] opacity-60">
+<span>{</span>
+<div class="w-px flex-1 bg-hairline-dark my-2"></div>
+<span class="rotate-180">{</span>
+</div>
+<!-- CENTER DIALOG CONTAINER -->
+<div class="w-full bg-[#131316] border border-hairline-dark flex flex-col transition-all duration-300">
+<!-- DIALOG TOP META STRIP -->
+<div class="border-b border-hairline-dark px-4 md:px-6 py-3 flex items-center justify-between bg-surface-container-lowest">
+<div class="flex items-center gap-2 font-mono-code text-mono-code text-on-surface-variant">
+<span class="text-[#FF5A1F]">✦</span>
+<span class="tracking-wider uppercase">{ 02 / 09 // ACCESO AL KERNEL }</span>
+</div>
+<button class="font-mono-code text-mono-code text-on-surface-variant hover:text-primary hover:bg-surface-container-high px-2 py-0.5 border border-transparent hover:border-hairline-dark transition-colors focus:outline-none" onclick="dismissModal()" title="Cerrar modal" type="button">
+            [ X ]
+          </button>
+</div>
+<!-- PIPELINE STEP COUNTER -->
+<div class="border-b border-hairline-dark px-4 md:px-6 py-2.5 bg-surface-container-low flex items-center justify-between font-mono-code text-[11px] text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="text-outline uppercase tracking-wider">PROCEDIMIENTO:</span>
+<span class="text-primary font-bold" id="step-label">FASE 01 / AUTENTICACIÓN</span>
+</div>
+<div class="flex items-center gap-2" id="step-stars">
+<span class="text-[#FF5A1F] text-xs">✦</span>
+<div class="w-4 h-px bg-hairline-dark"></div>
+<span class="text-outline text-xs">✧</span>
+<div class="w-4 h-px bg-hairline-dark"></div>
+<span class="text-outline text-xs">✧</span>
+</div>
+</div>
+<!-- TAB SEGMENTED CONTROL (FOR LOGIN / REGISTER) -->
+<div class="grid grid-cols-2 border-b border-hairline-dark bg-[#0e0e10]" id="auth-tab-bar">
+<button class="py-3 px-4 text-center font-label-caps text-label-caps uppercase transition-colors bg-[#131316] text-primary border-r border-hairline-dark flex items-center justify-center gap-1.5 focus:outline-none" id="tab-nav-login" onclick="switchState('login')" type="button">
+<span class="text-[#FF5A1F]">✦</span>
+<span>[ { ACCEDER } ]</span>
+</button>
+<button class="py-3 px-4 text-center font-label-caps text-label-caps uppercase transition-colors text-on-surface-variant hover:text-primary hover:bg-surface-container focus:outline-none" id="tab-nav-register" onclick="switchState('register')" type="button">
+<span>CREAR CUENTA</span>
+</button>
+</div>
+<!-- DYNAMIC VIEWS WRAPPER -->
+<div class="p-4 md:p-8 flex flex-col min-h-[420px] justify-center">
+<!-- ================= STATE 1: ACCEDER ================= -->
+<div class="flex flex-col gap-6" id="view-login">
+<div class="flex flex-col gap-1">
+<span class="font-mono-code text-[11px] text-on-surface-variant uppercase tracking-widest">[ CREDENCIALES_SISTEMA ]</span>
+<h2 class="font-headline-lg text-headline-lg uppercase text-primary tracking-tight">ELIGE CÓMO ENTRAR</h2>
+</div>
+<!-- Single Sign-On Brutalist Buttons -->
+<div class="flex flex-col gap-2">
+<button class="group flex items-center justify-between w-full p-3 bg-surface-container-low border border-hairline-dark hover:border-primary-fixed-dim hover:bg-surface-container-high transition-colors text-left focus:outline-none" type="button">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">ios</span>
+<span class="font-label-caps text-label-caps text-primary uppercase">Continuar con Apple</span>
+</div>
+<span class="font-mono-code text-mono-code text-on-surface-variant group-hover:text-primary group-hover:translate-x-0.5 transition-transform">-&gt;</span>
+</button>
+<button class="group flex items-center justify-between w-full p-3 bg-surface-container-low border border-hairline-dark hover:border-primary-fixed-dim hover:bg-surface-container-high transition-colors text-left focus:outline-none" type="button">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">account_circle</span>
+<span class="font-label-caps text-label-caps text-primary uppercase">Continuar con Google</span>
+</div>
+<span class="font-mono-code text-mono-code text-on-surface-variant group-hover:text-primary group-hover:translate-x-0.5 transition-transform">-&gt;</span>
+</button>
+<button class="group flex items-center justify-between w-full p-3 bg-surface-container-low border border-hairline-dark hover:border-primary-fixed-dim hover:bg-surface-container-high transition-colors text-left focus:outline-none" type="button">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">terminal</span>
+<span class="font-label-caps text-label-caps text-primary uppercase">Continuar con GitHub</span>
+</div>
+<span class="font-mono-code text-mono-code text-on-surface-variant group-hover:text-primary group-hover:translate-x-0.5 transition-transform">-&gt;</span>
+</button>
+</div>
+<!-- Editorial Divider -->
+<div class="relative flex items-center justify-center my-1">
+<div class="w-full border-t border-hairline-dark"></div>
+<span class="absolute bg-[#131316] px-3 font-mono-code text-[11px] text-on-surface-variant uppercase tracking-widest">
+                — { o } —
+              </span>
+</div>
+<!-- Standard Form Inputs -->
+<form class="flex flex-col gap-4" onsubmit="handleAuthSubmit(event, 'login')">
+<div class="flex flex-col gap-1.5">
+<label class="font-mono-code text-mono-code text-on-surface-variant uppercase flex justify-between" for="input-login-email">
+<span>CORREO ELECTRÓNICO</span>
+<span class="text-outline text-[10px]">[ OBLIGATORIO ]</span>
+</label>
+<input class="w-full px-3 py-2.5 bg-surface-container-lowest border border-hairline-dark focus:border-[#FF5A1F] text-primary font-mono-code text-mono-code placeholder:text-outline/60 outline-none transition-colors" id="input-login-email" placeholder="tu@empresa.com" required="" type="email"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-mono-code text-mono-code text-on-surface-variant uppercase" for="input-login-pass">CONTRASEÑA</label>
+<a class="font-mono-code text-[11px] text-on-surface-variant hover:text-[#FF5A1F] transition-colors" href="#" onclick="alert('Ruta de restablecimiento de llave criptográfica iniciada.'); return false;">
+                    { Olvidé mi contraseña }
+                  </a>
+</div>
+<div class="relative flex items-center">
+<input class="w-full pl-3 pr-20 py-2.5 bg-surface-container-lowest border border-hairline-dark focus:border-[#FF5A1F] text-primary font-mono-code text-mono-code placeholder:text-outline/60 outline-none transition-colors" id="input-login-pass" placeholder="••••••••••••" required="" type="password"/>
+<button class="absolute right-2 px-2 py-1 font-mono-code text-[10px] uppercase text-on-surface-variant hover:text-primary border border-hairline-dark hover:bg-surface-container-high transition-colors" onclick="togglePassVisibility('input-login-pass', this)" type="button">
+                    MOSTRAR
+                  </button>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="mt-2 w-full py-3 bg-[#EFEBE3] hover:bg-surface-container-highest text-[#0C0C0E] hover:text-primary hover:border hover:border-primary font-label-caps text-label-caps uppercase tracking-wider flex items-center justify-center gap-2 transition-all" id="btn-submit-login" type="submit">
+<span class="text-[#FF5A1F]">✦</span>
+<span>ENTRAR</span>
+<span class="font-mono-code text-mono-code">[ ↵ ]</span>
+</button>
+</form>
+</div>
+<!-- ================= STATE 2: REGISTRO ================= -->
+<div class="hidden flex-col gap-6" id="view-register">
+<div class="flex flex-col gap-1">
+<span class="font-mono-code text-[11px] text-on-surface-variant uppercase tracking-widest">[ ALTA_INFRAESTRUCTURA ]</span>
+<h2 class="font-headline-lg text-headline-lg uppercase text-primary tracking-tight">SOLICITAR ACCESO</h2>
+</div>
+<form class="flex flex-col gap-4" onsubmit="handleAuthSubmit(event, 'register')">
+<div class="flex flex-col gap-1.5">
+<label class="font-mono-code text-mono-code text-on-surface-variant uppercase" for="reg-name">NOMBRE COMPLETO</label>
+<input class="w-full px-3 py-2.5 bg-surface-container-lowest border border-hairline-dark focus:border-[#FF5A1F] text-primary font-mono-code text-mono-code placeholder:text-outline/60 outline-none transition-colors" id="reg-name" placeholder="Carlos Mendoza" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-mono-code text-mono-code text-on-surface-variant uppercase" for="reg-email">CORREO INSTITUCIONAL</label>
+<input class="w-full px-3 py-2.5 bg-surface-container-lowest border border-hairline-dark focus:border-[#FF5A1F] text-primary font-mono-code text-mono-code placeholder:text-outline/60 outline-none transition-colors" id="reg-email" placeholder="c.mendoza@laboratorio.dev" required="" type="email"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-mono-code text-mono-code text-on-surface-variant uppercase" for="reg-password">CONTRASEÑA MAESTRA</label>
+<!-- Brutalist Star Strength Meter -->
+<div class="flex items-center gap-1.5 font-mono-code text-[11px]">
+<span class="text-outline text-[10px]">ROBUSTEZ:</span>
+<div class="flex items-center gap-1">
+<span class="text-[#FF5A1F] text-xs">✦</span>
+<span class="text-[#FF5A1F] text-xs">✦</span>
+<span class="text-[#FF5A1F] text-xs">✦</span>
+<span class="text-outline text-xs">✧</span>
+</div>
+</div>
+</div>
+<div class="relative flex items-center">
+<input class="w-full pl-3 pr-20 py-2.5 bg-surface-container-lowest border border-hairline-dark focus:border-[#FF5A1F] text-primary font-mono-code text-mono-code placeholder:text-outline/60 outline-none transition-colors" id="reg-password" required="" type="password" value="Brutal$ecure2025#"/>
+<button class="absolute right-2 px-2 py-1 font-mono-code text-[10px] uppercase text-on-surface-variant hover:text-primary border border-hairline-dark hover:bg-surface-container-high transition-colors" onclick="togglePassVisibility('reg-password', this)" type="button">
+                    MOSTRAR
+                  </button>
+</div>
+</div>
+<!-- Brutalist Checkbox -->
+<label class="flex items-start gap-3 cursor-pointer select-none group mt-1">
+<input checked="" class="peer sr-only" id="reg-terms" type="checkbox"/>
+<div class="w-4 h-4 mt-0.5 border border-hairline-dark bg-surface-container-lowest peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center shrink-0 transition-colors">
+<span class="text-surface font-mono-code text-[10px] font-bold peer-checked:block hidden">✓</span>
+</div>
+<span class="font-mono-code text-body-sm text-on-surface-variant group-hover:text-primary transition-colors">
+                  [✓] Acepto los términos de acceso a la infraestructura y registro de telemetría de red.
+                </span>
+</label>
+<!-- Submit Button -->
+<button class="mt-2 w-full py-3 bg-[#EFEBE3] hover:bg-surface-container-highest text-[#0C0C0E] hover:text-primary hover:border hover:border-primary font-label-caps text-label-caps uppercase tracking-wider flex items-center justify-center gap-2 transition-all" id="btn-submit-register" type="submit">
+<span class="text-[#FF5A1F]">✦</span>
+<span>CREAR CUENTA { ✦ }</span>
+</button>
+</form>
+</div>
+<!-- ================= STATE 3: PENDIENTE ================= -->
+<div class="hidden flex-col items-center text-center py-6 gap-6" id="view-pending">
+<!-- Pulsing Braced Star Badge -->
+<div class="flex items-center gap-4 text-headline-xl font-headline-xl text-primary">
+<span class="text-on-surface-variant select-none">{</span>
+<span class="text-[#FF5A1F] text-5xl md:text-6xl animate-pulse">✦</span>
+<span class="text-on-surface-variant select-none">}</span>
+</div>
+<div class="flex flex-col gap-2 max-w-lg">
+<span class="font-mono-code text-mono-code text-[#FF5A1F] uppercase tracking-widest">[ REGISTRO ENCOLADO ]</span>
+<h2 class="font-headline-lg text-headline-lg uppercase text-primary tracking-tight">PENDIENTE DE APROBACIÓN</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed">
+                El administrador del sistema revisará tus credenciales y autorizará la llave de acceso criptográfica. Recibirás una notificación en tu correo cuando el rol esté activado en el clúster.
+              </p>
+</div>
+<!-- Status Dossier Pill -->
+<div class="border border-hairline-dark bg-surface-container-low px-4 py-2.5 flex items-center gap-3">
+<span class="w-2 h-2 bg-[#FF5A1F] animate-ping"></span>
+<span class="font-mono-code text-mono-code text-primary uppercase">{ ESTADO: PENDIENTE_REVISIÓN }</span>
+</div>
+<div class="w-full border-t border-hairline-dark pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+<button class="w-full sm:w-auto px-6 py-2.5 border border-hairline-dark hover:border-primary bg-surface-container hover:bg-surface-container-high font-mono-code text-mono-code uppercase text-primary transition-all" onclick="switchState('login')" type="button">
+                [ VOLVER AL INICIO ]
+              </button>
+<button class="w-full sm:w-auto px-6 py-2.5 bg-transparent border border-outline-variant hover:border-primary text-on-surface-variant hover:text-primary font-mono-code text-mono-code uppercase transition-all" onclick="switchState('status')" type="button">
+                { VERIFICAR TICKETS -&gt; }
+              </button>
+</div>
+</div>
+<!-- ================= STATE 4: ESTADOS DE SISTEMA ================= -->
+<div class="hidden flex-col gap-6" id="view-status">
+<div class="flex flex-col gap-1">
+<span class="font-mono-code text-[11px] text-on-surface-variant uppercase tracking-widest">[ DIAGNÓSTICO_RESPUESTAS ]</span>
+<h2 class="font-headline-lg text-headline-lg uppercase text-primary tracking-tight">RESOLUCIÓN DE SOLICITUD</h2>
+</div>
+<!-- Resolution Matrix List -->
+<div class="flex flex-col gap-4">
+<!-- Success Resolution Card -->
+<div class="border border-hairline-dark bg-surface-container-lowest p-4 flex flex-col gap-2">
+<div class="flex items-center justify-between border-b border-hairline-dark pb-2">
+<span class="font-mono-code text-mono-code text-[#FF5A1F] uppercase">{ ESTADO: APROBADO }</span>
+<span class="font-mono-code text-[11px] text-outline">[ KERNEL_AUTH_200 ]</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<div class="font-label-caps text-label-caps text-primary uppercase">Acceso aprobado para Carlos Mendoza</div>
+<div class="font-mono-code text-[11px] text-on-surface-variant">ROL ASIGNADO: // RUNTIME_CORE_OPERATOR</div>
+</div>
+<button class="px-3 py-1.5 bg-[#EFEBE3] text-[#0C0C0E] hover:bg-primary-fixed-dim font-label-caps text-label-caps uppercase transition-colors shrink-0" onclick="alert('Redirigiendo al panel de control de arquitectura...');" type="button">
+                    Ir al panel →
+                  </button>
+</div>
+</div>
+<!-- Rejection / Conflict Card -->
+<div class="border border-hairline-dark bg-surface-container-lowest p-4 flex flex-col gap-2">
+<div class="flex items-center justify-between border-b border-hairline-dark pb-2">
+<span class="font-mono-code text-mono-code text-error uppercase">{ ESTADO: RECHAZADO / CONFLICTO }</span>
+<span class="font-mono-code text-[11px] text-outline">[ CODE: ERR_DUP_RECORD ]</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
+<div class="font-mono-code text-body-sm text-on-surface-variant">
+                    { correo ya registrado en la base de datos de producción }
+                  </div>
+<button class="px-3 py-1 border border-hairline-dark text-on-surface-variant hover:text-primary hover:border-primary font-mono-code text-[11px] uppercase transition-colors self-start sm:self-auto" onclick="switchState('login')" type="button">
+                    [ RESTABLECER LLAVE ]
+                  </button>
+</div>
+</div>
+<!-- Quota Lock Warning Card -->
+<div class="border border-hairline-dark bg-surface-container-lowest p-4 flex flex-col gap-2">
+<div class="flex items-center justify-between border-b border-hairline-dark pb-2">
+<span class="font-mono-code text-mono-code text-outline uppercase">{ ESTADO: CUPO_EXCEDIDO }</span>
+<span class="font-mono-code text-[11px] text-outline">[ QUEUE_LIMIT ]</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+                  Se ha alcanzado el límite máximo de 50 operadores concurrentes en esta partición regional. Contacte a la autoridad de certificación.
+                </div>
+</div>
+</div>
+<!-- Footer Return Trigger -->
+<div class="border-t border-hairline-dark pt-3 flex justify-between items-center">
+<span class="font-mono-code text-[11px] text-outline">TELEMETRY_SESSION: #98421-AX</span>
+<button class="font-mono-code text-mono-code text-primary hover:text-[#FF5A1F] transition-colors" onclick="switchState('login')" type="button">
+                ← [ REGRESAR AL ACCESO ]
+              </button>
+</div>
+</div>
+</div>
+<!-- DIALOG BOTTOM AUDIT BAR -->
+<div class="border-t border-hairline-dark px-4 md:px-6 py-2.5 bg-surface-container-lowest flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono-code text-[11px] text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="text-[#FF5A1F]">✦</span>
+<span class="uppercase">CANONICAL NODE: FRA-1 // PGP KEY ENCRYPTED</span>
+</div>
+<div class="text-outline uppercase">BUILD: 2025.10.4</div>
+</div>
+</div>
+<!-- RIGHT BRUTALIST GIANT BRACKET -->
+<div class="hidden sm:flex flex-col justify-between items-center pl-3 select-none pointer-events-none text-outline-variant font-mono-bracket text-[74px] md:text-[96px] leading-[0.8] opacity-60">
+<span>}</span>
+<div class="w-px flex-1 bg-hairline-dark my-2"></div>
+<span class="rotate-180">}</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function switchState(targetState) {
+    // Views
+    const views = {
+      login: document.getElementById('view-login'),
+      register: document.getElementById('view-register'),
+      pending: document.getElementById('view-pending'),
+      status: document.getElementById('view-status')
+    };
+
+    // State Selector Buttons
+    const buttons = {
+      login: document.getElementById('btn-state-login'),
+      register: document.getElementById('btn-state-register'),
+      pending: document.getElementById('btn-state-pending'),
+      status: document.getElementById('btn-state-status')
+    };
+
+    // Tab Switcher Element
+    const tabBar = document.getElementById('auth-tab-bar');
+    const tabLogin = document.getElementById('tab-nav-login');
+    const tabRegister = document.getElementById('tab-nav-register');
+
+    // Step labels and stars
+    const stepLabel = document.getElementById('step-label');
+    const stepStars = document.getElementById('step-stars');
+
+    // Toggle views visibility
+    Object.keys(views).forEach(key => {
+      if (views[key]) {
+        if (key === targetState) {
+          views[key].classList.remove('hidden');
+          views[key].classList.add('flex');
+        } else {
+          views[key].classList.add('hidden');
+          views[key].classList.remove('flex');
+        }
+      }
+    });
+
+    // Toggle dev button styles
+    Object.keys(buttons).forEach(key => {
+      if (buttons[key]) {
+        if (key === targetState) {
+          buttons[key].className = 'px-2.5 py-1 text-primary bg-surface-container-highest border border-outline-variant font-bold hover:text-primary transition-all';
+        } else {
+          buttons[key].className = 'px-2.5 py-1 text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all';
+        }
+      }
+    });
+
+    // Update Modal Header Step Indicator & Tabs
+    if (targetState === 'login') {
+      tabBar.style.display = 'grid';
+      tabLogin.className = 'py-3 px-4 text-center font-label-caps text-label-caps uppercase transition-colors bg-[#131316] text-primary border-r border-hairline-dark flex items-center justify-center gap-1.5 focus:outline-none';
+      tabLogin.innerHTML = '<span class="text-[#FF5A1F]">✦</span><span>[ { ACCEDER } ]</span>';
+      tabRegister.className = 'py-3 px-4 text-center font-label-caps text-label-caps uppercase transition-colors text-on-surface-variant hover:text-primary hover:bg-surface-container focus:outline-none';
+      tabRegister.innerHTML = '<span>CREAR CUENTA</span>';
+      stepLabel.textContent = 'FASE 01 / AUTENTICACIÓN';
+      stepStars.innerHTML = '<span class="text-[#FF5A1F] text-xs">✦</span><div class="w-4 h-px bg-hairline-dark"></div><span class="text-outline text-xs">✧</span><div class="w-4 h-px bg-hairline-dark"></div><span class="text-outline text-xs">✧</span>';
+    } else if (targetState === 'register') {
+      tabBar.style.display = 'grid';
+      tabLogin.className = 'py-3 px-4 text-center font-label-caps text-label-caps uppercase transition-colors text-on-surface-variant hover:text-primary hover:bg-surface-container border-r border-hairline-dark focus:outline-none';
+      tabLogin.innerHTML = '<span>ACCEDER</span>';
+      tabRegister.className = 'py-3 px-4 text-center font-label-caps text-label-caps uppercase transition-colors bg-[#131316] text-primary flex items-center justify-center gap-1.5 focus:outline-none';
+      tabRegister.innerHTML = '<span class="text-[#FF5A1F]">✦</span><span>[ { CREAR CUENTA } ]</span>';
+      stepLabel.textContent = 'FASE 01 / REGISTRO DE CREDENCIALES';
+      stepStars.innerHTML = '<span class="text-[#FF5A1F] text-xs">✦</span><div class="w-4 h-px bg-hairline-dark"></div><span class="text-outline text-xs">✧</span><div class="w-4 h-px bg-hairline-dark"></div><span class="text-outline text-xs">✧</span>';
+    } else if (targetState === 'pending') {
+      tabBar.style.display = 'none';
+      stepLabel.textContent = 'FASE 02 / EN ESPERA DE AUTORIZACIÓN';
+      stepStars.innerHTML = '<span class="text-primary text-xs">✓</span><div class="w-4 h-px bg-[#FF5A1F]"></div><span class="text-[#FF5A1F] text-xs animate-pulse">✦</span><div class="w-4 h-px bg-hairline-dark"></div><span class="text-outline text-xs">✧</span>';
+    } else if (targetState === 'status') {
+      tabBar.style.display = 'none';
+      stepLabel.textContent = 'FASE 03 / RESOLUCIÓN Y VERIFICACIÓN';
+      stepStars.innerHTML = '<span class="text-primary text-xs">✓</span><div class="w-4 h-px bg-primary"></div><span class="text-primary text-xs">✓</span><div class="w-4 h-px bg-[#FF5A1F]"></div><span class="text-[#FF5A1F] text-xs">✦</span>';
+    }
+  }
+
+  function togglePassVisibility(inputId, triggerBtn) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    if (input.type === 'password') {
+      input.type = 'text';
+      triggerBtn.textContent = 'OCULTAR';
+    } else {
+      input.type = 'password';
+      triggerBtn.textContent = 'MOSTRAR';
+    }
+  }
+
+  function handleAuthSubmit(e, type) {
+    e.preventDefault();
+    const btn = type === 'login' ? document.getElementById('btn-submit-login') : document.getElementById('btn-submit-register');
+    const originalContent = btn.innerHTML;
+    
+    // Simulate Brutalist Loading State
+    btn.disabled = true;
+    btn.innerHTML = '<span class="text-[#FF5A1F] animate-spin">✦</span><span class="font-mono-code text-mono-code uppercase tracking-wider">[ VERIFICANDO HASH... ]</span>';
+
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = originalContent;
+      if (type === 'register') {
+        switchState('pending');
+      } else {
+        switchState('status');
+      }
+    }, 900);
+  }
+
+  function dismissModal() {
+    alert("Evento [ X ] interceptado: Volviendo a la raíz del dossier.");
+  }
+</script></main><footer class="w-full border-t border-hairline-dark bg-surface-container-lowest"><div class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md font-mono-code text-mono-code"><div class="flex items-center gap-3"><span class="text-[#FF5A1F]">✦</span><span class="text-on-surface-variant uppercase">JUANMA (JMMC) // BRUTALIST ARCHITECTURAL RUNTIME</span></div><div class="flex items-center gap-space-md text-on-surface-variant"><a class="hover:text-primary transition-colors" data-path="presentacion" href="#">{ MANIFIESTO }</a><a class="hover:text-primary transition-colors" data-path="demos" href="#">{ LAB }</a><a class="hover:text-primary transition-colors" data-path="contacto" href="#">{ TRANSMIT }</a></div><div class="text-outline-variant text-[11px]">© 2025 JMMC. NO RIGHTS RESERVED. CODE IS LAW.</div></div></footer><script>window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('preloader')?.classList.add('loaded');},650);});document.addEventListener('mousemove',(e)=>{const cursor=document.getElementById('custom-cursor');if(cursor){cursor.style.left=`${e.clientX}px`;cursor.style.top=`${e.clientY}px`;}});</script></body></html>

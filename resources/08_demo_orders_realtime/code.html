@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>JMMC // Brutalist Editorial Architecture</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Oswald:wght@200..700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-fixed": "#1d1b15", "hairline-light": "#D3CEC3", "muted-light": "#6B675F", "inverse-primary": "#605e58", "secondary": "#cbc6bc", "surface-bright": "#39393b", "surface-container-lowest": "#0e0e10", "surface-light": "#E6E1D7", "tertiary-fixed-dim": "#ffb59e", "on-surface-variant": "#cac6bd", "surface-dim": "#131315", "hairline-dark": "#26262B", "on-background": "#e5e1e4", "surface-container-high": "#2a2a2c", "inverse-on-surface": "#313032", "accent-text-light": "#B8350A", "surface-container-highest": "#353437", "on-tertiary-container": "#b83600", "surface": "#131315", "on-secondary": "#333029", "outline-variant": "#484740", "surface-dark": "#131316", "tertiary": "#ffffff", "secondary-fixed": "#e8e2d7", "secondary-fixed-dim": "#cbc6bc", "surface-container": "#201f21", "on-error": "#690005", "surface-container-low": "#1b1b1d", "inverse-surface": "#e5e1e4", "primary-fixed": "#e6e2da", "on-tertiary-fixed": "#3a0b00", "outline": "#939188", "on-error-container": "#ffdad6", "error-container": "#93000a", "on-tertiary": "#5e1700", "surface-variant": "#353437", "on-primary": "#31302b", "on-primary-fixed": "#1c1c17", "secondary-container": "#49473f", "tertiary-fixed": "#ffdbd0", "on-tertiary-fixed-variant": "#852400", "primary": "#ffffff", "tertiary-container": "#ffdbd0", "on-secondary-fixed-variant": "#49473f", "primary-fixed-dim": "#cac6bf", "on-primary-fixed-variant": "#484741", "on-surface": "#e5e1e4", "text-light": "#0C0C0E", "surface-tint": "#cac6bf", "primary-container": "#e6e2da", "on-primary-container": "#66645e", "error": "#ffb4ab", "bg-light": "#EFEBE3", "on-secondary-container": "#b9b5ab", "background": "#131315" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "margin-tablet": "2rem", "margin": "1rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "space-md": "1rem", "space-xs": "0.25rem", "margin-desktop": "3rem", "space-2xl": "5rem", "gutter": "1rem", "space-xl": "3rem" }, "fontFamily": { "mono-bracket": [ "JetBrains Mono" ], "body-lg": [ "Hanken Grotesk" ], "headline-xl": [ "Oswald" ], "headline-lg": [ "Oswald" ], "body-md": [ "Hanken Grotesk" ], "display-hero": [ "Oswald" ], "label-caps": [ "Oswald" ], "headline-xl-mobile": [ "Oswald" ], "body-sm": [ "Hanken Grotesk" ], "display-hero-mobile": [ "Oswald" ], "mono-code": [ "JetBrains Mono" ], "headline-md": [ "Oswald" ] }, "fontSize": { "mono-bracket": [ "14px", { "lineHeight": "18px", "letterSpacing": "0.04em", "fontWeight": "500" } ], "body-lg": [ "18px", { "lineHeight": "28px", "fontWeight": "400" } ], "headline-xl": [ "64px", { "lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-lg": [ "36px", { "lineHeight": "40px", "letterSpacing": "0.02em", "fontWeight": "500" } ], "body-md": [ "15px", { "lineHeight": "24px", "fontWeight": "400" } ], "display-hero": [ "96px", { "lineHeight": "92px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-caps": [ "14px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600" } ], "headline-xl-mobile": [ "38px", { "lineHeight": "40px", "letterSpacing": "0em", "fontWeight": "600" } ], "body-sm": [ "13px", { "lineHeight": "20px", "fontWeight": "400" } ], "display-hero-mobile": [ "52px", { "lineHeight": "52px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "mono-code": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" } ], "headline-md": [ "26px", { "lineHeight": "30px", "letterSpacing": "0.02em", "fontWeight": "500" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-on-tertiary-container selection:text-primary"><header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface-dark border-b border-hairline-dark"><div class="h-16 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-space-lg"><a class="flex items-center gap-space-sm group text-primary" data-path="index" href="#"><span class="font-mono-code text-mono-code text-tertiary-fixed-dim group-hover:text-primary transition-colors">{JM}</span><span class="font-label-caps text-label-caps uppercase tracking-wider text-primary border-l border-hairline-dark pl-space-sm">ARCHITECTURE</span></a><div class="hidden xl:flex items-center gap-space-xs font-mono-code text-mono-code text-on-surface-variant border-l border-hairline-dark pl-space-lg"><svg class="w-3 h-3 text-on-tertiary-container fill-current animate-pulse" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg><span class="uppercase tracking-wider">STATUS: PRODUCTION READY</span><span class="text-outline ml-space-xs">[40.7128° N, 74.0060° W]</span></div></div><nav class="flex items-center gap-space-md lg:gap-space-lg" data-active-classes="text-primary border-b-2 border-on-tertiary-container"><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors py-2" data-path="index" href="#">Index</a><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors py-2" data-path="archive" href="#">Dossier &amp; Archive</a><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors py-2" data-path="system" href="#">Systems &amp; Specs</a><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors py-2" data-path="intel" href="#">Intel / About</a><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors py-2" data-path="transmission" href="#">Dispatch</a></nav><div class="flex items-center gap-space-md pl-space-md border-l border-hairline-dark"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full text-on-surface">
+<!-- TOP TECHNICAL DISPATCH / NAV STRIP -->
+<section class="w-full bg-surface-dark border-b border-hairline-dark px-margin md:px-margin-tablet lg:px-margin-desktop py-space-sm">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-sm">
+<!-- Back + Screen Index Identifier -->
+<div class="flex flex-wrap items-center gap-space-md">
+<a class="inline-flex items-center gap-space-xs font-label-caps text-label-caps text-primary hover:text-tertiary-fixed-dim transition-colors uppercase tracking-wider" data-path="index" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>VOLVER AL PORTFOLIO</span>
+</a>
+<div class="h-4 w-px bg-hairline-dark hidden sm:block"></div>
+<span class="font-mono-code text-mono-code text-on-surface-variant uppercase tracking-wider">
+          { 08 / 09 // DEMO_ORDERS_REALTIME }
+        </span>
+<span class="font-mono-code text-mono-code text-outline hidden md:inline">
+          [ ARCHITECTURE: FULL-DUPLEX KDS &amp; CLIENT DISPATCH ]
+        </span>
+</div>
+<!-- Live Connection State Controller -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center gap-space-xs px-2.5 py-1 bg-surface-container-low border border-hairline-dark" id="connectionPill">
+<svg class="w-3.5 h-3.5 text-on-tertiary-container fill-current animate-pulse" id="connStarIcon" viewbox="0 0 24 24">
+<polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon>
+</svg>
+<span class="font-mono-code text-mono-code text-primary uppercase font-medium" id="connStatusText">
+            { CONECTADO // WSS://STREAM.BURGER.DEV }
+          </span>
+<span class="font-mono-code text-mono-code text-tertiary-fixed-dim border-l border-hairline-dark pl-space-xs" id="connLatencyTag">
+            24ms
+          </span>
+</div>
+<!-- State degraded preview toggles -->
+<div class="flex items-center bg-surface-container-lowest border border-hairline-dark p-0.5 font-mono-code text-mono-code">
+<button class="px-2 py-0.5 bg-primary text-text-light uppercase font-semibold transition-colors" id="btnStateConn" onclick="setConnectionState('connected')">
+            { CONECTADO }
+          </button>
+<button class="px-2 py-0.5 text-on-surface-variant hover:text-primary uppercase transition-colors" id="btnStateReconn" onclick="setConnectionState('reconnecting')">
+            RECONECTANDO
+          </button>
+<button class="px-2 py-0.5 text-on-surface-variant hover:text-error uppercase transition-colors" id="btnStateOffline" onclick="setConnectionState('offline')">
+            OFFLINE
+          </button>
+</div>
+</div>
+</div>
+<!-- Interactive Scenario Simulator Bar -->
+<div class="mt-space-sm pt-space-xs border-t border-hairline-dark/60 flex flex-wrap items-center justify-between gap-space-xs font-mono-code text-mono-code">
+<div class="flex items-center gap-space-xs text-outline uppercase">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+<span>SCENARIO SIMULATOR:</span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<button class="px-2 py-1 bg-surface-container-high hover:bg-surface-bright text-on-surface border border-hairline-dark uppercase text-[11px] transition-colors" onclick="triggerScenario('live')">
+          [ 01. EN VIVO (SINCRONIZADO) ]
+        </button>
+<button class="px-2 py-1 bg-surface-container-high hover:bg-on-tertiary-container hover:text-primary text-tertiary-fixed-dim border border-hairline-dark uppercase text-[11px] transition-colors" onclick="triggerScenario('incoming')">
+          [ 02. NUEVO PEDIDO ENTRANTE (✦) ]
+        </button>
+<button class="px-2 py-1 bg-surface-container-high hover:bg-surface-bright text-on-surface border border-hairline-dark uppercase text-[11px] transition-colors" onclick="triggerScenario('rush')">
+          [ 03. COCINA EN HORA PUNTA ]
+        </button>
+<button class="px-2 py-1 bg-surface-container-high hover:bg-error-container hover:text-primary text-on-surface-variant border border-hairline-dark uppercase text-[11px] transition-colors" onclick="triggerScenario('high_latency')">
+          [ 04. LATENCIA ALTA (RECONECTANDO) ]
+        </button>
+</div>
+</div>
+</section>
+<!-- KPIS & REALTIME REVENUE LEDGER BAR -->
+<section class="w-full bg-surface-container-lowest border-b border-hairline-dark px-margin md:px-margin-tablet lg:px-margin-desktop py-space-sm">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-gutter-desktop items-center">
+<!-- KPI 1 -->
+<div class="col-span-1 md:col-span-1 lg:col-span-2 border-r border-hairline-dark pr-space-md">
+<div class="font-mono-code text-mono-code text-outline uppercase">{ PEDIDOS HOY }</div>
+<div class="flex items-baseline gap-space-xs mt-0.5">
+<span class="font-headline-md text-headline-md text-primary tracking-tight" id="kpiOrdersCount">312</span>
+<span class="font-mono-code text-[11px] text-tertiary-fixed-dim font-medium">+14% vs ayer</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="col-span-1 md:col-span-1 lg:col-span-3 border-r border-hairline-dark pr-space-md">
+<div class="font-mono-code text-mono-code text-outline uppercase">{ TIEMPO MEDIO PREPARACIÓN }</div>
+<div class="flex items-baseline gap-space-xs mt-0.5">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">8m 42s</span>
+<span class="font-mono-code text-[11px] text-on-surface-variant">(Meta: &lt; 10m) [OK]</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="col-span-1 md:col-span-1 lg:col-span-2 border-r border-hairline-dark pr-space-md">
+<div class="font-mono-code text-mono-code text-outline uppercase">{ TICKET MEDIO }</div>
+<div class="flex items-baseline gap-space-xs mt-0.5">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">24,80 €</span>
+<span class="font-mono-code text-[11px] text-tertiary-fixed-dim">Margen 68%</span>
+</div>
+</div>
+<!-- KPI 4: Brutalist Realtime Mini Sparkline & Volume -->
+<div class="col-span-1 md:col-span-1 lg:col-span-5 flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pl-0 lg:pl-space-sm">
+<div>
+<div class="font-mono-code text-mono-code text-outline uppercase">{ VENTAS EN VIVO }</div>
+<div class="font-headline-md text-headline-md text-primary tracking-tight flex items-center gap-space-xs">
+<span id="kpiRevenue">7.737,60 €</span>
+<span class="inline-block w-2 h-2 bg-on-tertiary-container animate-ping"></span>
+</div>
+</div>
+<!-- Inline Brutalist SVG Sparkline -->
+<div class="flex flex-col items-end w-full sm:w-48">
+<svg class="w-full h-9 stroke-primary fill-none" viewbox="0 0 200 36">
+<!-- Grid hairline guides -->
+<line stroke="#26262B" stroke-dasharray="2 2" stroke-width="1" x1="0" x2="200" y1="18" y2="18"></line>
+<!-- Step Brutalist Path -->
+<path d="M0 32 L20 28 L40 30 L60 22 L80 24 L100 15 L120 18 L140 10 L160 14 L180 6 L200 8" stroke="#EFEBE3" stroke-width="1.75" vector-effect="non-scaling-stroke"></path>
+<!-- Marker Points -->
+<circle cx="100" cy="15" fill="#EFEBE3" r="2.5"></circle>
+<circle cx="160" cy="14" fill="#EFEBE3" r="2.5"></circle>
+<circle cx="200" cy="8" fill="#B83600" r="3.5"></circle>
+</svg>
+<div class="flex justify-between w-full font-mono-code text-[10px] text-outline mt-0.5 uppercase">
+<span>12:00</span>
+<span>PEAK 14:15</span>
+<span class="text-tertiary-fixed-dim">AHORA</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- MOBILE SEGMENTED VIEW SWITCHER -->
+<div class="lg:hidden w-full bg-surface-dark border-b border-hairline-dark px-margin py-space-xs flex justify-center">
+<div class="grid grid-cols-2 w-full max-w-sm bg-surface-container-lowest border border-hairline-dark font-mono-code text-mono-code">
+<button class="py-2 text-center bg-primary text-text-light font-bold uppercase transition-colors" id="tabBtnClient" onclick="switchMobileTab('client')">
+        { CLIENTE } // ORDEN
+      </button>
+<button class="py-2 text-center text-on-surface-variant hover:text-primary uppercase transition-colors" id="tabBtnKitchen" onclick="switchMobileTab('kitchen')">
+        { COCINA } // KDS
+      </button>
+</div>
+</div>
+<!-- MAIN DUAL-WAY WORKSPACE -->
+<section class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-lg flex-1">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-hairline-dark bg-surface-dark">
+<!-- ========================================== -->
+<!-- LEFT PANEL: CLIENT ORDERING MOCKUP (COL 5) -->
+<!-- ========================================== -->
+<div class="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-hairline-dark p-space-md md:p-space-lg bg-surface" id="mobilePanelClient">
+<!-- Section Header Ribbon -->
+<div class="flex items-center justify-between border-b border-hairline-dark pb-space-sm mb-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-code text-mono-code text-tertiary-fixed-dim">{ CLIENTE }</span>
+<span class="font-label-caps text-label-caps uppercase text-primary tracking-wider">ONLINE ORDERING ENGINE</span>
+</div>
+<span class="font-mono-code text-mono-code text-outline">[TERMINAL MOBILE_EMU]</span>
+</div>
+<!-- Phone Enclosure Mockup (Brutalist Chassis) -->
+<div class="max-w-md mx-auto bg-surface-container-lowest border-2 border-hairline-dark relative">
+<!-- Mockup Top Speaker & Camera Notch Bar -->
+<div class="h-6 w-full bg-surface-dark border-b border-hairline-dark flex items-center justify-between px-space-md">
+<div class="font-mono-code text-[10px] text-outline">14:41 • 5G</div>
+<div class="w-14 h-1.5 bg-hairline-dark"></div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 bg-on-tertiary-container"></span>
+<span class="font-mono-code text-[10px] text-tertiary-fixed-dim">WSS:LIVE</span>
+</div>
+</div>
+<!-- Inside Phone Screen -->
+<div class="p-space-md space-y-space-md">
+<!-- Phone Internal Header -->
+<div class="flex items-center justify-between border-b border-hairline-dark pb-space-xs">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary uppercase tracking-tight">BRUTAL BURGER</h2>
+<div class="font-mono-code text-mono-code text-outline">ORDEN ACTIVA // <span class="text-primary font-bold">#B-842</span></div>
+</div>
+<div class="text-right">
+<span class="inline-block px-1.5 py-0.5 bg-surface-container-high border border-hairline-dark font-mono-code text-[11px] text-tertiary-fixed-dim uppercase">
+                  TAKEAWAY #04
+                </span>
+<div class="font-mono-code text-[10px] text-outline mt-0.5">MESA INTERNA 03</div>
+</div>
+</div>
+<!-- LIVE STATUS TRACKER IN PHONE -->
+<div class="bg-surface-container-low border border-hairline-dark p-space-sm space-y-space-xs">
+<div class="flex items-center justify-between font-mono-code text-mono-code">
+<span class="text-outline uppercase">ESTADO EN TIEMPO REAL:</span>
+<span class="flex items-center gap-1 text-on-tertiary-container font-semibold uppercase" id="clientStatusBadge">
+<svg class="w-3 h-3 text-on-tertiary-container fill-current animate-pulse" viewbox="0 0 24 24">
+<polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon>
+</svg>
+<span id="clientStatusText">PREPARANDO TU PEDIDO</span>
+</span>
+</div>
+<!-- Brutalist 3-Step Progress Hairline Bar -->
+<div class="pt-2">
+<div class="grid grid-cols-3 gap-1">
+<div class="h-1.5 bg-on-tertiary-container" id="stepProgress1"></div>
+<div class="h-1.5 bg-on-tertiary-container animate-pulse" id="stepProgress2"></div>
+<div class="h-1.5 bg-hairline-dark" id="stepProgress3"></div>
+</div>
+<div class="grid grid-cols-3 gap-1 mt-1 font-mono-code text-[10px] text-outline uppercase">
+<span class="text-primary">1. RECIBIDO</span>
+<span class="text-tertiary-fixed-dim font-bold" id="stepLabel2">2. COCINANDO</span>
+<span class="text-right" id="stepLabel3">3. LISTO</span>
+</div>
+</div>
+<!-- Quick Client Simulators -->
+<div class="pt-2 border-t border-hairline-dark flex items-center justify-between font-mono-code text-[11px]">
+<span class="text-outline">EMULAR EVENTO:</span>
+<div class="flex gap-1">
+<button class="px-1.5 py-0.5 bg-surface-container-high hover:bg-surface-bright border border-hairline-dark text-on-surface uppercase" onclick="simulateClientStatus('ready')">
+                    → LISTO
+                  </button>
+<button class="px-1.5 py-0.5 bg-surface-container-high hover:bg-surface-bright border border-hairline-dark text-on-surface uppercase" onclick="simulateClientStatus('cooking')">
+                    → PLANCHA
+                  </button>
+<button class="px-1.5 py-0.5 bg-surface-container-high hover:bg-surface-bright border border-hairline-dark text-on-surface uppercase" onclick="simulateClientStatus('new')">
+                    → NUEVO
+                  </button>
+</div>
+</div>
+</div>
+<!-- MENU ITEMS SELECTION LIST -->
+<div class="space-y-space-xs">
+<div class="font-mono-code text-mono-code text-outline uppercase flex justify-between">
+<span>// SELECCIÓN DE PRODUCTOS</span>
+<span>CANT / TOTAL</span>
+</div>
+<!-- Item 1 -->
+<div class="p-space-xs bg-surface-container-lowest border border-hairline-dark flex items-start justify-between gap-space-sm">
+<div class="space-y-0.5 flex-1">
+<div class="font-label-caps text-label-caps text-primary uppercase">01. SMASH DOBLE MADURADA</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant leading-tight">
+                    Doble carne Dry Aged, cheddar inglés curado, bacon ahumado, salsa secreta.
+                  </p>
+<span class="font-mono-code text-mono-code text-tertiary-fixed-dim">13,50 € / ud</span>
+</div>
+<div class="flex items-center gap-1 font-mono-code text-mono-code pt-1">
+<button class="w-6 h-6 flex items-center justify-center bg-surface-container hover:bg-surface-bright border border-hairline-dark text-primary" onclick="adjustItemQty('smash', -1)">−</button>
+<span class="w-6 text-center text-primary font-bold" id="qty-smash">1</span>
+<button class="w-6 h-6 flex items-center justify-center bg-surface-container hover:bg-surface-bright border border-hairline-dark text-primary" onclick="adjustItemQty('smash', 1)">+</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-space-xs bg-surface-container-lowest border border-hairline-dark flex items-start justify-between gap-space-sm">
+<div class="space-y-0.5 flex-1">
+<div class="font-label-caps text-label-caps text-primary uppercase">02. PATATAS CORTE FINO TRUFADAS</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant leading-tight">
+                    Patatas rústicas, sal Maldon, aceite de trufa blanca de temporada.
+                  </p>
+<span class="font-mono-code text-mono-code text-tertiary-fixed-dim">4,80 € / ud</span>
+</div>
+<div class="flex items-center gap-1 font-mono-code text-mono-code pt-1">
+<button class="w-6 h-6 flex items-center justify-center bg-surface-container hover:bg-surface-bright border border-hairline-dark text-primary" onclick="adjustItemQty('fries', -1)">−</button>
+<span class="w-6 text-center text-primary font-bold" id="qty-fries">1</span>
+<button class="w-6 h-6 flex items-center justify-center bg-surface-container hover:bg-surface-bright border border-hairline-dark text-primary" onclick="adjustItemQty('fries', 1)">+</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-space-xs bg-surface-container-lowest border border-hairline-dark flex items-start justify-between gap-space-sm">
+<div class="space-y-0.5 flex-1">
+<div class="font-label-caps text-label-caps text-primary uppercase">03. KOMBUCHA ARTESANA // LIMA</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant leading-tight">
+                    Fermentación natural viva, baja en azúcares, ácida y gasificada.
+                  </p>
+<span class="font-mono-code text-mono-code text-tertiary-fixed-dim">3,80 € / ud</span>
+</div>
+<div class="flex items-center gap-1 font-mono-code text-mono-code pt-1">
+<button class="w-6 h-6 flex items-center justify-center bg-surface-container hover:bg-surface-bright border border-hairline-dark text-primary" onclick="adjustItemQty('drink', -1)">−</button>
+<span class="w-6 text-center text-primary font-bold" id="qty-drink">1</span>
+<button class="w-6 h-6 flex items-center justify-center bg-surface-container hover:bg-surface-bright border border-hairline-dark text-primary" onclick="adjustItemQty('drink', 1)">+</button>
+</div>
+</div>
+</div>
+<!-- ORDER SUMMARY BREAKDOWN -->
+<div class="p-space-xs bg-surface-container-low border border-hairline-dark space-y-1 font-mono-code text-mono-code">
+<div class="flex justify-between text-outline">
+<span>SUBTOTAL</span>
+<span class="text-on-surface" id="summarySubtotal">22,10 €</span>
+</div>
+<div class="flex justify-between text-outline">
+<span>IMPUESTOS (IVA 10%)</span>
+<span class="text-on-surface" id="summaryTax">2,21 €</span>
+</div>
+<div class="flex justify-between text-primary font-bold pt-1 border-t border-hairline-dark text-[14px]">
+<span class="font-label-caps uppercase tracking-wider">TOTAL A PAGAR</span>
+<span class="text-tertiary-fixed-dim" id="summaryTotal">24,31 €</span>
+</div>
+</div>
+<!-- EMIT ORDER TRIGGER BUTTON -->
+<button class="w-full py-3 bg-primary text-text-light font-label-caps text-label-caps uppercase tracking-wider hover:bg-on-tertiary-container hover:text-primary transition-colors flex items-center justify-center gap-space-sm group" id="btnEmitOrder" onclick="dispatchOrderFromClient()">
+<svg class="w-4 h-4 text-on-tertiary-container group-hover:text-primary fill-current transition-colors" viewbox="0 0 24 24">
+<polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon>
+</svg>
+<span>ENVIAR PEDIDO [ PEDIR ↵ ]</span>
+<span class="font-mono-code text-mono-code text-[11px] opacity-75">WSS.EMIT</span>
+</button>
+<!-- Metadata footer inside phone -->
+<div class="flex justify-between font-mono-code text-[10px] text-outline pt-1">
+<span>CLIENT: ELENA R.</span>
+<span>DEV_UUID: 4f98-b842-live</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- CENTER BI-DIRECTIONAL CONNECTOR (COL 1)   -->
+<!-- ========================================== -->
+<div class="hidden lg:flex lg:col-span-1 border-r border-hairline-dark flex-col items-center justify-between py-space-xl bg-surface-container-lowest relative overflow-hidden">
+<div class="font-mono-code text-[10px] text-outline uppercase [writing-mode:vertical-rl] rotate-180 tracking-widest">
+          { WSS CLIENT OUTBOUND }
+        </div>
+<!-- Dynamic Animated Star Conduit -->
+<div class="flex flex-col items-center gap-4 py-4 relative z-10">
+<svg class="w-3.5 h-3.5 text-on-tertiary-container fill-current animate-bounce" viewbox="0 0 24 24">
+<polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon>
+</svg>
+<div class="w-px h-16 bg-hairline-dark relative">
+<div class="absolute top-0 left-0 w-full h-4 bg-tertiary-fixed-dim animate-ping"></div>
+</div>
+<div class="p-1 bg-surface-container border border-hairline-dark text-center">
+<span class="material-symbols-outlined text-primary text-[18px]">sync_alt</span>
+<div class="font-mono-code text-[9px] text-tertiary-fixed-dim font-bold">24ms</div>
+</div>
+<div class="w-px h-16 bg-hairline-dark relative">
+<div class="absolute bottom-0 left-0 w-full h-4 bg-on-tertiary-container animate-pulse"></div>
+</div>
+<svg class="w-3.5 h-3.5 text-primary fill-current animate-pulse" viewbox="0 0 24 24">
+<polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon>
+</svg>
+</div>
+<div class="font-mono-code text-[10px] text-outline uppercase [writing-mode:vertical-rl] tracking-widest">
+          { WSS KDS INBOUND }
+        </div>
+</div>
+<!-- ========================================== -->
+<!-- RIGHT PANEL: KITCHEN DISPLAY SYSTEM (COL 6)-->
+<!-- ========================================== -->
+<div class="lg:col-span-6 p-space-md md:p-space-lg bg-surface flex flex-col justify-between" id="mobilePanelKitchen">
+<div>
+<!-- KDS Kitchen Top Toolbar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm border-b border-hairline-dark pb-space-sm mb-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-code text-mono-code text-tertiary-fixed-dim">{ COCINA }</span>
+<span class="font-label-caps text-label-caps uppercase text-primary tracking-wider">KITCHEN DISPLAY SYSTEM (KDS)</span>
+</div>
+<div class="font-mono-code text-mono-code text-outline mt-0.5">
+                ESTACIÓN ACTIVA: <span class="text-primary">LINEA CENTRAL // BRUTAL_GRILL</span>
+</div>
+</div>
+<!-- Station filters + Sound Alert badge -->
+<div class="flex items-center gap-space-xs font-mono-code text-[11px]">
+<div class="hidden sm:flex border border-hairline-dark bg-surface-container-lowest p-0.5">
+<button class="px-2 py-0.5 bg-primary text-text-light font-semibold uppercase">TODAS</button>
+<button class="px-2 py-0.5 text-on-surface-variant hover:text-primary uppercase">PARRILLA</button>
+<button class="px-2 py-0.5 text-on-surface-variant hover:text-primary uppercase">ENSAMBLE</button>
+</div>
+<div class="px-2 py-1 bg-surface-container-high border border-hairline-dark flex items-center gap-1 text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[14px]">notifications_active</span>
+<span class="uppercase">ALERTAS: ON</span>
+</div>
+</div>
+</div>
+<!-- KANBAN BOARD 3-COLUMNS -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- COLUMN 1: NUEVO // RECIBIDOS -->
+<div class="flex flex-col border border-hairline-dark bg-surface-container-lowest">
+<!-- Column Header -->
+<div class="p-space-xs bg-surface-dark border-b border-hairline-dark flex items-center justify-between">
+<div class="font-label-caps text-label-caps uppercase text-primary flex items-center gap-1.5">
+<span class="w-2 h-2 bg-on-tertiary-container"></span>
+<span>{ NUEVO }</span>
+</div>
+<span class="font-mono-code text-mono-code text-tertiary-fixed-dim font-bold" id="colCountNew">[ 02 ]</span>
+</div>
+<!-- Column Body Cards -->
+<div class="p-space-xs space-y-space-xs flex-1" id="colNewCards">
+<!-- Highlighted Incoming Order #B-842 -->
+<div class="p-space-xs bg-surface-container border-2 border-on-tertiary-container relative transition-all" id="kdsCardB842">
+<div class="flex items-center justify-between border-b border-hairline-dark pb-1">
+<span class="font-headline-md text-[20px] text-primary flex items-center gap-1">
+<svg class="w-3 h-3 text-on-tertiary-container fill-current animate-spin" viewbox="0 0 24 24">
+<polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon>
+</svg>
+                      #B-842
+                    </span>
+<span class="font-mono-code text-[11px] text-tertiary-fixed-dim font-bold">00:45 min</span>
+</div>
+<div class="py-1.5 text-left font-mono-code text-[11px] space-y-0.5">
+<div class="text-on-surface font-medium">Elena R. • <span class="text-outline">TAKEAWAY</span></div>
+<div class="text-primary font-semibold">1x SMASH DOBLE MADURADA</div>
+<div class="text-on-surface-variant">1x PATATAS CORTE FINO</div>
+<div class="text-on-surface-variant">1x KOMBUCHA LIMA</div>
+<div class="text-outline border-t border-hairline-dark pt-1 mt-1 flex justify-between">
+<span>TOTAL TICKET:</span>
+<span class="text-primary font-bold">24,31 €</span>
+</div>
+</div>
+<button class="w-full mt-1 py-1.5 bg-primary text-text-light font-label-caps text-label-caps uppercase text-center hover:bg-on-tertiary-container hover:text-primary transition-colors flex items-center justify-center gap-1" onclick="advanceKdsOrder('B-842', 'cooking')">
+<span>COMENZAR A COCINAR</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+<!-- Order #B-841 -->
+<div class="p-space-xs bg-surface-container-low border border-hairline-dark" id="kdsCardB841">
+<div class="flex items-center justify-between border-b border-hairline-dark pb-1">
+<span class="font-headline-md text-[18px] text-primary">#B-841</span>
+<span class="font-mono-code text-[11px] text-outline">02:15 min</span>
+</div>
+<div class="py-1 text-left font-mono-code text-[11px] space-y-0.5">
+<div class="text-on-surface">David S. • MESA 08</div>
+<div class="text-on-surface-variant">1x CHEESEBURGER SIMPLE</div>
+<div class="text-on-surface-variant">1x COCA COLA ZERO</div>
+</div>
+<button class="w-full mt-1 py-1 bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-caps text-[12px] uppercase text-center border border-hairline-dark transition-colors" onclick="advanceKdsOrder('B-841', 'cooking')">
+                    A PLANCHA →
+                  </button>
+</div>
+</div>
+</div>
+<!-- COLUMN 2: PREPARANDO // EN PLANCHA -->
+<div class="flex flex-col border border-hairline-dark bg-surface-container-lowest">
+<!-- Column Header -->
+<div class="p-space-xs bg-surface-dark border-b border-hairline-dark flex items-center justify-between">
+<div class="font-label-caps text-label-caps uppercase text-primary flex items-center gap-1.5">
+<span class="w-2 h-2 bg-tertiary-fixed-dim"></span>
+<span>{ EN PLANCHA }</span>
+</div>
+<span class="font-mono-code text-mono-code text-primary font-bold" id="colCountPrep">[ 02 ]</span>
+</div>
+<!-- Column Body Cards -->
+<div class="p-space-xs space-y-space-xs flex-1" id="colPrepCards">
+<!-- Card #B-839 (Timer amber warning) -->
+<div class="p-space-xs bg-surface-container border border-hairline-dark" id="kdsCardB839">
+<div class="flex items-center justify-between border-b border-hairline-dark pb-1">
+<span class="font-headline-md text-[18px] text-primary">#B-839</span>
+<span class="font-mono-code text-[11px] text-tertiary-fixed-dim bg-surface-container-high px-1 font-bold">06:12 min ⚠</span>
+</div>
+<div class="py-1 text-left font-mono-code text-[11px] space-y-0.5">
+<div class="text-on-surface">Marcus V. • UBER_EATS</div>
+<div class="text-primary">2x SMASH TRIPLE BACON</div>
+<div class="text-on-surface-variant">2x NACHOS PULLED PORK</div>
+</div>
+<button class="w-full mt-1 py-1.5 bg-surface-container-high hover:bg-on-tertiary-container hover:text-primary border border-hairline-dark text-primary font-label-caps text-label-caps uppercase text-center transition-colors flex items-center justify-center gap-1" onclick="advanceKdsOrder('B-839', 'ready')">
+<span>MARCAR LISTO [ ✦ ]</span>
+</button>
+</div>
+<!-- Card #B-840 -->
+<div class="p-space-xs bg-surface-container-low border border-hairline-dark" id="kdsCardB840">
+<div class="flex items-center justify-between border-b border-hairline-dark pb-1">
+<span class="font-headline-md text-[18px] text-primary">#B-840</span>
+<span class="font-mono-code text-[11px] text-outline">04:30 min</span>
+</div>
+<div class="py-1 text-left font-mono-code text-[11px] space-y-0.5">
+<div class="text-on-surface">Laura C. • TAKEAWAY</div>
+<div class="text-on-surface-variant">1x VEGGIE CRUNCH BURGER</div>
+</div>
+<button class="w-full mt-1 py-1 bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-caps text-[12px] uppercase text-center border border-hairline-dark transition-colors" onclick="advanceKdsOrder('B-840', 'ready')">
+                    MARCAR LISTO →
+                  </button>
+</div>
+</div>
+</div>
+<!-- COLUMN 3: LISTO // PARA RECOGER -->
+<div class="flex flex-col border border-hairline-dark bg-surface-container-lowest">
+<!-- Column Header -->
+<div class="p-space-xs bg-surface-dark border-b border-hairline-dark flex items-center justify-between">
+<div class="font-label-caps text-label-caps uppercase text-primary flex items-center gap-1.5">
+<span class="w-2 h-2 bg-primary"></span>
+<span>{ LISTO RECOGIDA }</span>
+</div>
+<span class="font-mono-code text-mono-code text-outline font-bold" id="colCountReady">[ 02 ]</span>
+</div>
+<!-- Column Body Cards -->
+<div class="p-space-xs space-y-space-xs flex-1" id="colReadyCards">
+<!-- Card #B-838 (Notified via SMS/Socket) -->
+<div class="p-space-xs bg-surface-container-low border border-hairline-dark" id="kdsCardB838">
+<div class="flex items-center justify-between border-b border-hairline-dark pb-1">
+<span class="font-headline-md text-[18px] text-primary">#B-838</span>
+<span class="font-mono-code text-[10px] text-tertiary-fixed-dim bg-surface-dark px-1 border border-hairline-dark">
+                      PIN: 4921
+                    </span>
+</div>
+<div class="py-1 text-left font-mono-code text-[11px] space-y-0.5">
+<div class="text-on-surface">Sofia B. • TAKEAWAY</div>
+<div class="font-mono-code text-[10px] text-on-tertiary-container font-semibold">
+                      { NOTIFICADO POR SMS/SOCKET }
+                    </div>
+</div>
+<button class="w-full mt-1 py-1.5 bg-primary text-text-light hover:bg-surface-dark hover:text-primary border border-hairline-dark font-label-caps text-[12px] uppercase text-center transition-colors" onclick="deliverOrder('B-838')">
+                    ENTREGAR ✓
+                  </button>
+</div>
+<!-- Card #B-837 -->
+<div class="p-space-xs bg-surface-container-lowest border border-hairline-dark" id="kdsCardB837">
+<div class="flex items-center justify-between border-b border-hairline-dark pb-1">
+<span class="font-headline-md text-[18px] text-primary">#B-837</span>
+<span class="font-mono-code text-[10px] text-outline">RETIRADO 01m</span>
+</div>
+<div class="py-1 text-left font-mono-code text-[11px] space-y-0.5">
+<div class="text-on-surface">Carlos M. • MESA 02</div>
+</div>
+<button class="w-full mt-1 py-1 bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-caps text-[12px] uppercase text-center border border-hairline-dark transition-colors" onclick="deliverOrder('B-837')">
+                    ARCHIVAR
+                  </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Kitchen System Metadata Footnote -->
+<div class="mt-space-md pt-space-xs border-t border-hairline-dark flex flex-wrap items-center justify-between gap-space-xs font-mono-code text-mono-code text-outline">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px]">desktop_windows</span>
+<span>KDS ENGINE V3.4 // DUPLEX BUS: 100% HEALTH</span>
+</div>
+<div>QUEUE CAPACITY: <span class="text-primary font-bold">06 / 20 SLOTS</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- BOTTOM STRIP: REALTIME WEBSOCKET TERMINAL  -->
+<!-- ========================================== -->
+<section class="w-full bg-surface-container-lowest border-t border-hairline-dark px-margin md:px-margin-tablet lg:px-margin-desktop py-space-md">
+<div class="space-y-space-xs">
+<!-- Terminal Controls & Header -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm border-b border-hairline-dark pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-1.5 font-mono-code text-mono-code text-primary uppercase font-bold">
+<svg class="w-3 h-3 text-on-tertiary-container fill-current animate-pulse" viewbox="0 0 24 24">
+<polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon>
+</svg>
+<span>{ EVENTOS } // PROTOCOLO WEBSOCKET EN VIVO</span>
+</div>
+<span class="font-mono-code text-[11px] text-tertiary-fixed-dim bg-surface-container-high px-2 py-0.5 border border-hairline-dark">
+            BUFFER: 64 EVENTS
+          </span>
+</div>
+<!-- Terminal Action Triggers -->
+<div class="flex flex-wrap items-center gap-space-xs font-mono-code text-mono-code">
+<button class="px-2 py-1 bg-surface-container-high hover:bg-surface-bright text-on-surface border border-hairline-dark uppercase text-[11px] transition-colors" id="btnPauseStream" onclick="toggleStreamPause()">
+            PAUSAR STREAM [ || ]
+          </button>
+<button class="px-2 py-1 bg-surface-container-high hover:bg-surface-bright text-on-surface border border-hairline-dark uppercase text-[11px] transition-colors" onclick="clearTerminalBuffer()">
+            LIMPIAR BUFFER
+          </button>
+<button class="px-2 py-1 bg-surface-container-high hover:bg-surface-bright text-on-surface border border-hairline-dark uppercase text-[11px] transition-colors" onclick="filterByIdPrompt()">
+            FILTRAR POR ID
+          </button>
+<span class="font-mono-code text-[11px] text-outline ml-1">WSS://204.79.197.200:8443</span>
+</div>
+</div>
+<!-- Monospaced Log Stream Container -->
+<div class="w-full h-36 overflow-y-auto bg-surface-dark border border-hairline-dark p-space-sm font-mono-code text-[12px] leading-relaxed space-y-1 select-text" id="terminalStreamBox">
+<div class="text-tertiary-fixed-dim flex items-start justify-between">
+<span>[14:41:02.108] [WSS:IN] order:new payload: { id: "B-842", total: 24.31, client: "Elena R.", items: 3 }</span>
+<span class="text-outline">-- 18ms</span>
+</div>
+<div class="text-on-surface flex items-start justify-between">
+<span>[14:41:00.840] [WSS:OUT] order:update payload: { id: "B-839", status: "PREPARING", station: "GRILL" }</span>
+<span class="text-outline">-- 24ms</span>
+</div>
+<div class="text-on-surface-variant flex items-start justify-between">
+<span>[14:40:48.215] [WSS:OUT] order:ready payload: { id: "B-838", notify: "SMS+SOCKET", pin: 4921 }</span>
+<span class="text-outline">-- 42ms</span>
+</div>
+<div class="text-outline flex items-start justify-between">
+<span>[14:40:32.002] [WSS:HEARTBEAT] ping -&gt; pong (RTT: 12ms, packets_lost: 0)</span>
+<span class="text-outline">-- 12ms</span>
+</div>
+<div class="text-on-surface flex items-start justify-between">
+<span>[14:40:15.690] [WSS:IN] order:new payload: { id: "B-841", total: 18.50, client: "David S." }</span>
+<span class="text-outline">-- 21ms</span>
+</div>
+</div>
+<!-- Protocol summary footer -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 font-mono-code text-[11px] text-outline pt-1">
+<div>FRAMEWORK: NATIVE RFC-6455 BINARY FRAMING // JMMC DUPLEX ARCHITECTURE</div>
+<div class="flex gap-space-md">
+<span>UPSTREAM: 1.2 KB/s</span>
+<span>DOWNSTREAM: 4.8 KB/s</span>
+<span class="text-tertiary-fixed-dim">ZERO DROPPED FRAMES</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CLIENT-SIDE EVENT SIMULATION & WEBSOCKET ENGINE SCRIPT -->
+<script>
+    let isStreamPaused = false;
+    let orderCounter = 842;
+    let totalRevenue = 7737.60;
+    let ordersToday = 312;
+    let quantities = { smash: 1, fries: 1, drink: 1 };
+    const prices = { smash: 13.50, fries: 4.80, drink: 3.80 };
+
+    // Format money helper
+    function formatMoney(amount) {
+      return amount.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    }
+
+    // Append to live terminal log
+    function appendTerminalLog(type, msg, latency = '20ms') {
+      if (isStreamPaused) return;
+      const box = document.getElementById('terminalStreamBox');
+      if (!box) return;
+
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0] + '.' + String(now.getMilliseconds()).padStart(3, '0');
+      
+      const row = document.createElement('div');
+      row.className = 'flex items-start justify-between ' + 
+        (type === 'IN' ? 'text-tertiary-fixed-dim' : type === 'OUT' ? 'text-on-surface' : type === 'ERR' ? 'text-error' : 'text-outline');
+      
+      row.innerHTML = `<span>[${timeStr}] [WSS:${type}] ${msg}</span><span class="text-outline">-- ${latency}</span>`;
+      box.insertBefore(row, box.firstChild);
+
+      // keep max 40 rows
+      if (box.children.length > 40) {
+        box.removeChild(box.lastChild);
+      }
+    }
+
+    // Adjust item quantities in phone view
+    function adjustItemQty(item, delta) {
+      quantities[item] = Math.max(0, (quantities[item] || 0) + delta);
+      document.getElementById('qty-' + item).innerText = quantities[item];
+      
+      // Recalculate
+      const subtotal = (quantities.smash * prices.smash) + (quantities.fries * prices.fries) + (quantities.drink * prices.drink);
+      const tax = subtotal * 0.10;
+      const total = subtotal + tax;
+
+      document.getElementById('summarySubtotal').innerText = formatMoney(subtotal);
+      document.getElementById('summaryTax').innerText = formatMoney(tax);
+      document.getElementById('summaryTotal').innerText = formatMoney(total);
+
+      appendTerminalLog('CLIENT', `cart:mutate item="${item}" qty=${quantities[item]}`, '2ms');
+    }
+
+    // Dispatch order from client view
+    function dispatchOrderFromClient() {
+      orderCounter++;
+      ordersToday++;
+      const currentTotal = (quantities.smash * prices.smash) + (quantities.fries * prices.fries) + (quantities.drink * prices.drink) * 1.10;
+      totalRevenue += currentTotal;
+
+      // Update KPIs
+      document.getElementById('kpiOrdersCount').innerText = ordersToday;
+      document.getElementById('kpiRevenue').innerText = formatMoney(totalRevenue);
+
+      const newId = 'B-' + orderCounter;
+      appendTerminalLog('IN', `order:new payload: { id: "${newId}", total: ${currentTotal.toFixed(2)}, client: "Elena R.", origin: "MOBILE_PWA" }`, '19ms');
+
+      // Update phone live status
+      document.getElementById('clientStatusText').innerText = "PREPARANDO EN COCINA";
+      document.getElementById('stepProgress1').className = "h-1.5 bg-on-tertiary-container";
+      document.getElementById('stepProgress2').className = "h-1.5 bg-on-tertiary-container animate-pulse";
+      document.getElementById('stepProgress3').className = "h-1.5 bg-hairline-dark";
+
+      // Dynamically insert new ticket into KDS "NUEVO" column
+      const colNew = document.getElementById('colNewCards');
+      if (colNew) {
+        const newCard = document.createElement('div');
+        newCard.id = 'kdsCard' + newId;
+        newCard.className = 'p-space-xs bg-surface-container border-2 border-on-tertiary-container relative transition-all animate-pulse';
+        newCard.innerHTML = `
+          <div class="flex items-center justify-between border-b border-hairline-dark pb-1">
+            <span class="font-headline-md text-[20px] text-primary flex items-center gap-1">
+              <svg class="w-3 h-3 text-on-tertiary-container fill-current animate-spin" viewBox="0 0 24 24">
+                <polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon>
+              </svg>
+              #${newId}
+            </span>
+            <span class="font-mono-code text-[11px] text-tertiary-fixed-dim font-bold">00:05 min</span>
+          </div>
+          <div class="py-1.5 text-left font-mono-code text-[11px] space-y-0.5">
+            <div class="text-on-surface font-medium">Elena R. • <span class="text-outline">NUEVA ENTRADA</span></div>
+            <div class="text-primary font-semibold">${quantities.smash}x SMASH DOBLE MADURADA</div>
+            <div class="text-on-surface-variant">${quantities.fries}x PATATAS CORTE FINO</div>
+            <div class="text-on-surface-variant">${quantities.drink}x KOMBUCHA LIMA</div>
+          </div>
+          <button onclick="advanceKdsOrder('${newId}', 'cooking')" class="w-full mt-1 py-1.5 bg-primary text-text-light font-label-caps text-label-caps uppercase text-center hover:bg-on-tertiary-container hover:text-primary transition-colors flex items-center justify-center gap-1">
+            <span>COMENZAR A COCINAR</span>
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+          </button>
+        `;
+        colNew.insertBefore(newCard, colNew.firstChild);
+      }
+
+      // Visual feedback on button
+      const btn = document.getElementById('btnEmitOrder');
+      btn.classList.add('bg-on-tertiary-container', 'text-primary');
+      setTimeout(() => {
+        btn.classList.remove('bg-on-tertiary-container', 'text-primary');
+      }, 350);
+    }
+
+    // Advance orders through KDS Kanban
+    function advanceKdsOrder(id, targetStage) {
+      const card = document.getElementById('kdsCard' + id);
+      if (!card) return;
+
+      if (targetStage === 'cooking') {
+        appendTerminalLog('OUT', `order:update payload: { id: "${id}", status: "COOKING", station: "GRILL_01" }`, '22ms');
+        const prepCol = document.getElementById('colPrepCards');
+        if (prepCol) {
+          card.classList.remove('border-2', 'border-on-tertiary-container', 'animate-pulse');
+          card.classList.add('border', 'border-hairline-dark');
+          card.querySelector('button').outerHTML = `
+            <button onclick="advanceKdsOrder('${id}', 'ready')" class="w-full mt-1 py-1.5 bg-surface-container-high hover:bg-on-tertiary-container hover:text-primary border border-hairline-dark text-primary font-label-caps text-label-caps uppercase text-center transition-colors flex items-center justify-center gap-1">
+              <span>MARCAR LISTO [ ✦ ]</span>
+            </button>
+          `;
+          prepCol.insertBefore(card, prepCol.firstChild);
+        }
+      } else if (targetStage === 'ready') {
+        appendTerminalLog('OUT', `order:ready payload: { id: "${id}", notify: "SMS+PUSH+WSS", pickup: "COUNTER_A" }`, '38ms');
+        const readyCol = document.getElementById('colReadyCards');
+        if (readyCol) {
+          card.querySelector('button').outerHTML = `
+            <button onclick="deliverOrder('${id}')" class="w-full mt-1 py-1.5 bg-primary text-text-light hover:bg-surface-dark hover:text-primary border border-hairline-dark font-label-caps text-[12px] uppercase text-center transition-colors">
+              ENTREGAR ✓
+            </button>
+          `;
+          readyCol.insertBefore(card, readyCol.firstChild);
+        }
+
+        // Also sync client view if it corresponds to current active order
+        if (id === 'B-842') {
+          simulateClientStatus('ready');
+        }
+      }
+    }
+
+    // Deliver / Archive order from KDS
+    function deliverOrder(id) {
+      const card = document.getElementById('kdsCard' + id);
+      if (card) {
+        card.style.opacity = '0.3';
+        setTimeout(() => card.remove(), 250);
+      }
+      appendTerminalLog('OUT', `order:archived payload: { id: "${id}", status: "DELIVERED" }`, '15ms');
+    }
+
+    // Client phone simulator toggles
+    function simulateClientStatus(status) {
+      const text = document.getElementById('clientStatusText');
+      const s1 = document.getElementById('stepProgress1');
+      const s2 = document.getElementById('stepProgress2');
+      const s3 = document.getElementById('stepProgress3');
+      const l2 = document.getElementById('stepLabel2');
+      const l3 = document.getElementById('stepLabel3');
+
+      if (status === 'ready') {
+        text.innerText = "¡LISTO PARA RECOGER!";
+        s1.className = "h-1.5 bg-on-tertiary-container";
+        s2.className = "h-1.5 bg-on-tertiary-container";
+        s3.className = "h-1.5 bg-on-tertiary-container animate-pulse";
+        l3.className = "text-right text-tertiary-fixed-dim font-bold";
+        appendTerminalLog('WSS', 'client:notify order="B-842" status="READY_FOR_PICKUP"', '18ms');
+      } else if (status === 'cooking') {
+        text.innerText = "PREPARANDO TU PEDIDO";
+        s1.className = "h-1.5 bg-on-tertiary-container";
+        s2.className = "h-1.5 bg-on-tertiary-container animate-pulse";
+        s3.className = "h-1.5 bg-hairline-dark";
+        l3.className = "text-right text-outline";
+        appendTerminalLog('WSS', 'client:notify order="B-842" status="PREPARING_GRILL"', '16ms');
+      } else {
+        text.innerText = "PEDIDO CONFIRMADO";
+        s1.className = "h-1.5 bg-on-tertiary-container animate-pulse";
+        s2.className = "h-1.5 bg-hairline-dark";
+        s3.className = "h-1.5 bg-hairline-dark";
+        appendTerminalLog('WSS', 'client:notify order="B-842" status="CONFIRMED"', '12ms');
+      }
+    }
+
+    // Change connection degradation simulator
+    function setConnectionState(state) {
+      const pill = document.getElementById('connectionPill');
+      const text = document.getElementById('connStatusText');
+      const icon = document.getElementById('connStarIcon');
+      const tag = document.getElementById('connLatencyTag');
+
+      const b1 = document.getElementById('btnStateConn');
+      const b2 = document.getElementById('btnStateReconn');
+      const b3 = document.getElementById('btnStateOffline');
+
+      [b1, b2, b3].forEach(b => {
+        b.className = "px-2 py-0.5 text-on-surface-variant hover:text-primary uppercase transition-colors";
+      });
+
+      if (state === 'connected') {
+        b1.className = "px-2 py-0.5 bg-primary text-text-light uppercase font-semibold transition-colors";
+        text.innerText = "{ CONECTADO // WSS://STREAM.BURGER.DEV }";
+        text.className = "font-mono-code text-mono-code text-primary uppercase font-medium";
+        icon.className = "w-3.5 h-3.5 text-on-tertiary-container fill-current animate-pulse";
+        tag.innerText = "24ms";
+        appendTerminalLog('SYS', 'connection:state -> CONNECTED [TLS 1.3, RTT 24ms]', '14ms');
+      } else if (state === 'reconnecting') {
+        b2.className = "px-2 py-0.5 bg-tertiary-fixed-dim text-text-light uppercase font-semibold transition-colors";
+        text.innerText = "{ RECONECTANDO CON PROTOCOLO EXPONENCIAL... }";
+        text.className = "font-mono-code text-mono-code text-tertiary-fixed-dim uppercase font-medium";
+        icon.className = "w-3.5 h-3.5 text-tertiary-fixed-dim fill-current animate-spin";
+        tag.innerText = "380ms";
+        appendTerminalLog('WARN', 'connection:lost -> ATTEMPTING RECONNECT (TRY 2/5)', '380ms');
+      } else if (state === 'offline') {
+        b3.className = "px-2 py-0.5 bg-error text-on-error uppercase font-semibold transition-colors";
+        text.innerText = "{ OFFLINE // CANAL CERRADO CODE: 1006 }";
+        text.className = "font-mono-code text-mono-code text-error uppercase font-medium";
+        icon.className = "w-3.5 h-3.5 text-error fill-current";
+        tag.innerText = "ERR";
+        appendTerminalLog('ERR', 'socket:close code: 1006 abnormal_closure. offline queueing active', '0ms');
+      }
+    }
+
+    // Scenario simulator presets
+    function triggerScenario(scene) {
+      if (scene === 'live') {
+        setConnectionState('connected');
+        appendTerminalLog('SCENARIO', 'LOAD_SCENARIO: "01. EN VIVO (SINCRONIZADO)"', '5ms');
+      } else if (scene === 'incoming') {
+        setConnectionState('connected');
+        dispatchOrderFromClient();
+        appendTerminalLog('SCENARIO', 'LOAD_SCENARIO: "02. NUEVO PEDIDO ENTRANTE"', '8ms');
+      } else if (scene === 'rush') {
+        setConnectionState('connected');
+        appendTerminalLog('SCENARIO', 'LOAD_SCENARIO: "03. COCINA EN HORA PUNTA // 14 TICKETS SIMULADOS"', '12ms');
+        appendTerminalLog('WSS:RUSH', 'queue:burst warning: kitchen load 85%', '28ms');
+      } else if (scene === 'high_latency') {
+        setConnectionState('reconnecting');
+        appendTerminalLog('SCENARIO', 'LOAD_SCENARIO: "04. LATENCIA ALTA // JITTER 410ms"', '410ms');
+      }
+    }
+
+    // Stream Pause
+    function toggleStreamPause() {
+      isStreamPaused = !isStreamPaused;
+      const btn = document.getElementById('btnPauseStream');
+      if (isStreamPaused) {
+        btn.innerText = "REANUDAR STREAM [ ► ]";
+        btn.className = "px-2 py-1 bg-on-tertiary-container text-primary font-bold uppercase text-[11px]";
+      } else {
+        btn.innerText = "PAUSAR STREAM [ || ]";
+        btn.className = "px-2 py-1 bg-surface-container-high hover:bg-surface-bright text-on-surface border border-hairline-dark uppercase text-[11px]";
+      }
+    }
+
+    // Clear buffer
+    function clearTerminalBuffer() {
+      const box = document.getElementById('terminalStreamBox');
+      if (box) box.innerHTML = '<div class="text-outline">[BUFFER REINICIADO // ESCUCHANDO NUEVOS FRAMES...]</div>';
+    }
+
+    // Filter by ID mock
+    function filterByIdPrompt() {
+      appendTerminalLog('FILTER', 'filter:apply criteria="id:B-842" matching 3 frames', '3ms');
+    }
+
+    // Mobile tabs switcher
+    function switchMobileTab(view) {
+      const pClient = document.getElementById('mobilePanelClient');
+      const pKitchen = document.getElementById('mobilePanelKitchen');
+      const bClient = document.getElementById('tabBtnClient');
+      const bKitchen = document.getElementById('tabBtnKitchen');
+
+      if (view === 'client') {
+        pClient.classList.remove('hidden');
+        pKitchen.classList.add('hidden');
+        pKitchen.classList.remove('flex');
+        bClient.className = "py-2 text-center bg-primary text-text-light font-bold uppercase transition-colors";
+        bKitchen.className = "py-2 text-center text-on-surface-variant hover:text-primary uppercase transition-colors";
+      } else {
+        pClient.classList.add('hidden');
+        pKitchen.classList.remove('hidden');
+        pKitchen.classList.add('flex');
+        bKitchen.className = "py-2 text-center bg-primary text-text-light font-bold uppercase transition-colors";
+        bClient.className = "py-2 text-center text-on-surface-variant hover:text-primary uppercase transition-colors";
+      }
+    }
+
+    // Heartbeat simulator loop
+    setInterval(() => {
+      if (!isStreamPaused && Math.random() > 0.6) {
+        appendTerminalLog('HEARTBEAT', `ping -> pong (RTT: ${Math.floor(12 + Math.random() * 15)}ms)`, '12ms');
+      }
+    }, 9000);
+  </script>
+</div></main><footer class="w-full bg-surface-dark border-t border-hairline-dark"><div class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-gutter-desktop border-b border-hairline-dark pb-space-lg mb-space-lg"><div class="col-span-1 md:col-span-2 lg:col-span-4 flex flex-col justify-between"><div class="space-y-space-xs"><div class="flex items-center gap-space-xs"><svg class="w-3.5 h-3.5 text-on-tertiary-container fill-current" viewbox="0 0 24 24"><polygon points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"></polygon></svg><span class="font-label-caps text-label-caps uppercase tracking-wider text-primary">JUANMA // JMMC STUDIO</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">Fullstack Engineering &amp; Structural Digital Architecture. Raw computational discipline rejecting ornamental decay.</p></div><div class="mt-space-lg font-mono-code text-mono-code text-outline">VERSION // 4.2.0-STABLE<br/>CORE // BRUTALIST RUNTIME</div></div><div class="col-span-1 md:col-span-1 lg:col-span-3"><div class="font-mono-code text-mono-code text-outline uppercase mb-space-sm">{ DIRECTORY }</div><ul class="space-y-space-xs font-label-caps text-label-caps uppercase"><li class="border-b border-hairline-dark pb-1"><a class="text-on-surface-variant hover:text-primary flex justify-between items-center" data-path="index" href="#"><span>Selected Works</span><span class="font-mono-code text-mono-code text-outline">[01]</span></a></li><li class="border-b border-hairline-dark pb-1"><a class="text-on-surface-variant hover:text-primary flex justify-between items-center" data-path="archive" href="#"><span>Complete Archive</span><span class="font-mono-code text-mono-code text-outline">[02]</span></a></li><li class="border-b border-hairline-dark pb-1"><a class="text-on-surface-variant hover:text-primary flex justify-between items-center" data-path="system" href="#"><span>Design Engineering Spec</span><span class="font-mono-code text-mono-code text-outline">[03]</span></a></li><li class="pb-1"><a class="text-on-surface-variant hover:text-primary flex justify-between items-center" data-path="intel" href="#"><span>Curriculum &amp; Dossier</span><span class="font-mono-code text-mono-code text-outline">[04]</span></a></li></ul></div><div class="col-span-1 md:col-span-1 lg:col-span-3"><div class="font-mono-code text-mono-code text-outline uppercase mb-space-sm">{ TELEMETRY &amp; FEED }</div><div class="space-y-space-xs font-mono-code text-mono-code text-on-surface-variant"><div class="flex justify-between border-b border-hairline-dark pb-1"><span>PROTOCOL</span><span class="text-primary">HTTPS / TLS 1.3</span></div><div class="flex justify-between border-b border-hairline-dark pb-1"><span>EDGE LATENCY</span><span class="text-primary">14ms GLOBAL</span></div><div class="flex justify-between border-b border-hairline-dark pb-1"><span>FRAMEWORK</span><span class="text-primary">NATIVE VIRTUAL</span></div><div class="flex justify-between pb-1"><span>ACCENT</span><span class="text-tertiary-fixed-dim">#FF5A1F STAR</span></div></div></div><div class="col-span-1 md:col-span-4 lg:col-span-2 flex flex-col justify-between border-t md:border-t-0 md:border-l border-hairline-dark md:pl-space-lg pt-space-md md:pt-0"><div class="font-mono-code text-mono-code text-outline uppercase mb-space-sm">{ DISPATCH }</div><a class="w-full block bg-primary text-text-light font-label-caps text-label-caps uppercase text-center py-3 hover:bg-surface-dark hover:text-primary border border-hairline-dark transition-colors" data-path="transmission" href="#">INITIATE CONTACT</a><span class="font-mono-code text-mono-code text-outline mt-space-sm text-center block">ENCRYPTED CHANNEL</span></div></div><div class="flex flex-col sm:flex-row justify-between items-center gap-space-sm font-mono-code text-mono-code text-outline"><div>© 2025 JMMC ARCHITECTURE. ALL RIGHTS RESERVED.</div><div class="flex items-center gap-space-md"><span>CODE: RAW_SPEC</span><span>[ LAT: +40.7128 ]</span><span>[ LON: -74.0060 ]</span></div></div></div></footer></body></html>
