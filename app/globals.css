@@ -1,26 +1,315 @@
+@import "./font-fallbacks.css";
 @import "tailwindcss";
 
+/* Tailwind v4 utilities respond to the same explicit class used by the theme switcher. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Tier 1: immutable design definitions from resources/00.../DESIGN.md. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primitive-color-obsidian: oklch(15.53% 0.0042 285.9);
+  --primitive-color-surface: oklch(18.76% 0.004 286);
+  --primitive-color-surface-dim: oklch(18.76% 0.004 286);
+  --primitive-color-surface-bright: oklch(34.53% 0.0034 286.2);
+  --primitive-color-surface-lowest: oklch(16.47% 0.0042 285.9);
+  --primitive-color-surface-low: oklch(22.3% 0.0038 286.1);
+  --primitive-color-surface-container: oklch(24.12% 0.004 308.3);
+  --primitive-color-surface-high: oklch(28.58% 0.0036 286.2);
+  --primitive-color-surface-highest: oklch(32.72% 0.0054 301.2);
+  --primitive-color-chalk: oklch(91.37% 0.0059 334);
+  --primitive-color-chalk-variant: oklch(82.72% 0.0132 86.8);
+  --primitive-color-paper: oklch(94.1% 0.0115 84.6);
+  --primitive-color-paper-surface: oklch(91.09% 0.0145 84.6);
+  --primitive-color-carbon: oklch(15.53% 0.0042 285.9);
+  --primitive-color-muted: oklch(51.49% 0.0133 84.6);
+  --primitive-color-hairline-dark: oklch(27.07% 0.0092 285.8);
+  --primitive-color-hairline-light: oklch(85.23% 0.016 86.4);
+  --primitive-color-outline: oklch(65.57% 0.0133 96.5);
+  --primitive-color-outline-variant: oklch(39.66% 0.0116 100.3);
+  --primitive-color-orange: oklch(68.24% 0.2108 37.7);
+  --primitive-color-orange-light: oklch(52.29% 0.174 35.9);
+  --primitive-color-secondary: oklch(82.78% 0.0148 84.6);
+  --primitive-color-secondary-container: oklch(39.72% 0.0134 95.4);
+  --primitive-color-on-secondary: oklch(30.99% 0.0129 87.6);
+  --primitive-color-on-secondary-container: oklch(77.35% 0.0147 88.7);
+  --primitive-color-primary-container: oklch(91.37% 0.0116 84.6);
+  --primitive-color-on-primary-container: oklch(50.31% 0.0097 91.6);
+  --primitive-color-tertiary-container: oklch(91.86% 0.043 37.7);
+  --primitive-color-on-tertiary-container: oklch(52.36% 0.1741 37.3);
+  --primitive-color-on-tertiary: oklch(32.23% 0.1073 37.2);
+  --primitive-color-error: oklch(83.83% 0.0891 26.8);
+  --primitive-color-error-container: oklch(41.71% 0.1702 27.4);
+
+  --primitive-space-xs: 0.25rem;
+  --primitive-space-sm: 0.5rem;
+  --primitive-space-md: 1rem;
+  --primitive-space-lg: 1.5rem;
+  --primitive-space-xl: 3rem;
+  --primitive-space-2xl: 5rem;
+
+  --primitive-border-hairline: 1px;
+  --primitive-radius-none: 0px;
+
+  --primitive-font-headline: "JMMC Oswald", "Oswald", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --primitive-font-body: "JMMC Hanken Grotesk", "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --primitive-font-mono: "JMMC JetBrains Mono", "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace; /* taste-skill-ignore: intentional technical mono token from DESIGN.md */
+
+  --primitive-type-display-hero-size: 6rem;
+  --primitive-type-display-hero-size-mobile: 3.25rem;
+  --primitive-type-display-hero-line-height: 5.75rem;
+  --primitive-type-display-hero-line-height-mobile: 3.25rem;
+  --primitive-type-headline-xl-size: 4rem;
+  --primitive-type-headline-xl-size-mobile: 2.375rem;
+  --primitive-type-headline-xl-line-height: 4rem;
+  --primitive-type-headline-xl-line-height-mobile: 2.5rem;
+  --primitive-type-headline-lg-size: 2.25rem;
+  --primitive-type-headline-lg-line-height: 2.5rem;
+  --primitive-type-headline-md-size: 1.625rem;
+  --primitive-type-headline-md-line-height: 1.875rem;
+  --primitive-type-body-lg-size: 1.125rem;
+  --primitive-type-body-lg-line-height: 1.75rem;
+  --primitive-type-body-md-size: 0.9375rem;
+  --primitive-type-body-md-line-height: 1.5rem;
+  --primitive-type-body-sm-size: 0.8125rem;
+  --primitive-type-body-sm-line-height: 1.25rem;
+  --primitive-type-mono-bracket-size: 0.875rem;
+  --primitive-type-mono-bracket-line-height: 1.125rem;
+  --primitive-type-mono-code-size: 0.75rem;
+  --primitive-type-mono-code-line-height: 1rem;
+  --primitive-type-label-caps-size: 0.875rem;
+  --primitive-type-label-caps-line-height: 1rem;
+
+  --layout-breakpoint-tablet: 48rem;
+  --layout-breakpoint-desktop: 64rem;
+  --layout-content-max: 90rem;
+  --layout-grid-mobile: repeat(4, minmax(0, 1fr));
+  --layout-grid-tablet: repeat(6, minmax(0, 1fr));
+  --layout-grid-desktop: repeat(12, minmax(0, 1fr));
+
+  --motion-duration-fast: 160ms;
+  --motion-duration-standard: 240ms;
+  --motion-ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Tier 2: semantic usage tokens. Dark is the default; .light is a remap. */
+:root,
+.dark {
+  color-scheme: dark;
+
+  --sys-color-background: var(--primitive-color-obsidian);
+  --sys-color-foreground: var(--primitive-color-chalk);
+  --sys-color-surface: var(--primitive-color-surface);
+  --sys-color-surface-dim: var(--primitive-color-surface-dim);
+  --sys-color-surface-bright: var(--primitive-color-surface-bright);
+  --sys-color-surface-lowest: var(--primitive-color-surface-lowest);
+  --sys-color-surface-low: var(--primitive-color-surface-low);
+  --sys-color-surface-container: var(--primitive-color-surface-container);
+  --sys-color-surface-high: var(--primitive-color-surface-high);
+  --sys-color-surface-highest: var(--primitive-color-surface-highest);
+  --sys-color-on-surface: var(--primitive-color-chalk);
+  --sys-color-on-surface-variant: var(--primitive-color-chalk-variant);
+  --sys-color-primary: var(--primitive-color-paper);
+  --sys-color-primary-foreground: var(--primitive-color-carbon);
+  --sys-color-secondary: var(--primitive-color-secondary);
+  --sys-color-secondary-foreground: var(--primitive-color-on-secondary);
+  --sys-color-secondary-container: var(--primitive-color-secondary-container);
+  --sys-color-on-secondary-container: var(--primitive-color-on-secondary-container);
+  --sys-color-accent: var(--primitive-color-orange);
+  --sys-color-accent-text: var(--primitive-color-orange);
+  --sys-color-border: var(--primitive-color-hairline-dark);
+  --sys-color-border-strong: var(--primitive-color-outline);
+  --sys-color-error: var(--primitive-color-error);
+  --sys-color-error-container: var(--primitive-color-error-container);
+  --sys-color-on-error: var(--primitive-color-carbon);
+
+  --sys-state-active: var(--primitive-color-orange);
+  --sys-state-focus: var(--primitive-color-orange);
+  --sys-state-operational: var(--primitive-color-orange);
+  --sys-state-disabled: var(--primitive-color-outline);
+  --sys-state-error: var(--primitive-color-error);
+
+  --sys-font-headline: var(--primitive-font-headline);
+  --sys-font-body: var(--primitive-font-body);
+  --sys-font-mono: var(--primitive-font-mono); /* taste-skill-ignore: intentional technical mono token from DESIGN.md */
+  --sys-border-hairline: var(--primitive-border-hairline);
+  --sys-radius-control: var(--primitive-radius-none);
+  --sys-radius-panel: var(--primitive-radius-none);
+  --sys-space-gutter: var(--primitive-space-md);
+  --sys-space-gutter-desktop: var(--primitive-space-lg);
+  --sys-space-margin: var(--primitive-space-md);
+  --sys-space-margin-tablet: 2rem;
+  --sys-space-margin-desktop: 3rem;
+}
+
+.light {
+  color-scheme: light;
+
+  --sys-color-background: var(--primitive-color-paper);
+  --sys-color-foreground: var(--primitive-color-carbon);
+  --sys-color-surface: var(--primitive-color-paper);
+  --sys-color-surface-dim: var(--primitive-color-paper);
+  --sys-color-surface-bright: oklch(97.5% 0.008 84.6);
+  --sys-color-surface-lowest: var(--primitive-color-paper);
+  --sys-color-surface-low: var(--primitive-color-paper-surface);
+  --sys-color-surface-container: var(--primitive-color-paper-surface);
+  --sys-color-surface-high: oklch(88.5% 0.016 84.6);
+  --sys-color-surface-highest: oklch(85.5% 0.016 84.6);
+  --sys-color-on-surface: var(--primitive-color-carbon);
+  --sys-color-on-surface-variant: var(--primitive-color-muted);
+  --sys-color-primary: var(--primitive-color-carbon);
+  --sys-color-primary-foreground: var(--primitive-color-paper);
+  --sys-color-secondary: var(--primitive-color-muted);
+  --sys-color-secondary-foreground: var(--primitive-color-paper);
+  --sys-color-secondary-container: var(--primitive-color-paper-surface);
+  --sys-color-on-secondary-container: var(--primitive-color-carbon);
+  --sys-color-accent: var(--primitive-color-orange);
+  --sys-color-accent-text: var(--primitive-color-orange-light);
+  --sys-color-border: var(--primitive-color-hairline-light);
+  --sys-color-border-strong: var(--primitive-color-outline-variant);
+  --sys-color-on-error: var(--primitive-color-paper);
+  --sys-state-focus: var(--primitive-color-orange-light);
+  --sys-state-disabled: var(--primitive-color-muted);
+}
+
+/* Responsive variants need static values so Tailwind can emit valid media queries. */
+@theme {
+  --breakpoint-tablet: 48rem;
+  --breakpoint-desktop: 64rem;
+}
+
+/* Tailwind v4 aliases expose semantic tokens as utilities without duplicating values. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--sys-color-background);
+  --color-foreground: var(--sys-color-foreground);
+  --color-surface: var(--sys-color-surface);
+  --color-surface-dim: var(--sys-color-surface-dim);
+  --color-surface-bright: var(--sys-color-surface-bright);
+  --color-surface-lowest: var(--sys-color-surface-lowest);
+  --color-surface-low: var(--sys-color-surface-low);
+  --color-surface-container: var(--sys-color-surface-container);
+  --color-surface-high: var(--sys-color-surface-high);
+  --color-surface-highest: var(--sys-color-surface-highest);
+  --color-on-surface: var(--sys-color-on-surface);
+  --color-on-surface-variant: var(--sys-color-on-surface-variant);
+  --color-primary: var(--sys-color-primary);
+  --color-primary-foreground: var(--sys-color-primary-foreground);
+  --color-secondary: var(--sys-color-secondary);
+  --color-secondary-foreground: var(--sys-color-secondary-foreground);
+  --color-secondary-container: var(--sys-color-secondary-container);
+  --color-on-secondary-container: var(--sys-color-on-secondary-container);
+  --color-accent: var(--sys-color-accent);
+  --color-accent-text: var(--sys-color-accent-text);
+  --color-border: var(--sys-color-border);
+  --color-border-strong: var(--sys-color-border-strong);
+  --color-error: var(--sys-color-error);
+  --color-error-container: var(--sys-color-error-container);
+  --color-state-active: var(--sys-state-active);
+  --color-state-focus: var(--sys-state-focus);
+  --color-state-operational: var(--sys-state-operational);
+  --color-state-disabled: var(--sys-state-disabled);
+  --color-state-error: var(--sys-state-error);
+
+  --font-headline: var(--sys-font-headline);
+  --font-body: var(--sys-font-body);
+  --font-sans: var(--sys-font-body);
+  --font-mono: var(--sys-font-mono); /* taste-skill-ignore: intentional technical mono token from DESIGN.md */
+
+  --spacing-gutter: var(--sys-space-gutter);
+  --spacing-gutter-desktop: var(--sys-space-gutter-desktop);
+  --spacing-margin: var(--sys-space-margin);
+  --spacing-margin-tablet: var(--sys-space-margin-tablet);
+  --spacing-margin-desktop: var(--sys-space-margin-desktop);
+  --spacing-space-xs: var(--primitive-space-xs);
+  --spacing-space-sm: var(--primitive-space-sm);
+  --spacing-space-md: var(--primitive-space-md);
+  --spacing-space-lg: var(--primitive-space-lg);
+  --spacing-space-xl: var(--primitive-space-xl);
+  --spacing-space-2xl: var(--primitive-space-2xl);
+
+  --radius-none: var(--sys-radius-panel);
+  --radius-control: var(--sys-radius-control);
+  --radius-panel: var(--sys-radius-panel);
+
+  --text-display-hero: var(--primitive-type-display-hero-size);
+  --text-display-hero--line-height: var(--primitive-type-display-hero-line-height);
+  --text-display-hero-mobile: var(--primitive-type-display-hero-size-mobile);
+  --text-display-hero-mobile--line-height: var(--primitive-type-display-hero-line-height-mobile);
+  --text-headline-xl: var(--primitive-type-headline-xl-size);
+  --text-headline-xl--line-height: var(--primitive-type-headline-xl-line-height);
+  --text-headline-xl-mobile: var(--primitive-type-headline-xl-size-mobile);
+  --text-headline-xl-mobile--line-height: var(--primitive-type-headline-xl-line-height-mobile);
+  --text-headline-lg: var(--primitive-type-headline-lg-size);
+  --text-headline-lg--line-height: var(--primitive-type-headline-lg-line-height);
+  --text-headline-md: var(--primitive-type-headline-md-size);
+  --text-headline-md--line-height: var(--primitive-type-headline-md-line-height);
+  --text-body-lg: var(--primitive-type-body-lg-size);
+  --text-body-lg--line-height: var(--primitive-type-body-lg-line-height);
+  --text-body-md: var(--primitive-type-body-md-size);
+  --text-body-md--line-height: var(--primitive-type-body-md-line-height);
+  --text-body-sm: var(--primitive-type-body-sm-size);
+  --text-body-sm--line-height: var(--primitive-type-body-sm-line-height);
+  --text-mono-bracket: var(--primitive-type-mono-bracket-size);
+  --text-mono-bracket--line-height: var(--primitive-type-mono-bracket-line-height);
+  --text-mono-code: var(--primitive-type-mono-code-size);
+  --text-mono-code--line-height: var(--primitive-type-mono-code-line-height);
+  --text-label-caps: var(--primitive-type-label-caps-size);
+  --text-label-caps--line-height: var(--primitive-type-label-caps-line-height);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--sys-color-border);
+    border-radius: var(--sys-radius-panel);
+  }
+
+  html {
+    background: var(--sys-color-background);
+  }
+
+  body {
+    background: var(--sys-color-background);
+    color: var(--sys-color-foreground);
+    font-family: var(--sys-font-body);
+  }
+
+  ::selection {
+    background: var(--sys-color-accent);
+    color: var(--sys-color-primary-foreground);
+  }
+
+  :focus-visible {
+    outline: var(--sys-border-hairline) solid var(--sys-state-focus);
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .jmmc-overlay {
+    margin: auto;
+  }
+
+  .jmmc-overlay::backdrop {
+    background: color-mix(in oklch, var(--sys-color-background) 82%, transparent);
+  }
+
+  .jmmc-drawer {
+    height: 100dvh;
+    margin-block: 0;
+    margin-inline-end: 0;
+    max-height: none;
+    max-width: 32rem;
+    width: min(100%, 32rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

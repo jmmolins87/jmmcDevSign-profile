@@ -1,0 +1,28 @@
+/*
+ * These local-only faces keep the brand names available when the fonts exist on
+ * the developer or test machine. There is intentionally no remote src: builds
+ * and browser tests remain deterministic without network access.
+ */
+@font-face {
+  font-family: "JMMC Oswald";
+  src: local("Oswald"), local("Oswald Regular");
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JMMC Hanken Grotesk";
+  src: local("Hanken Grotesk"), local("Hanken Grotesk Regular");
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JMMC JetBrains Mono"; /* taste-skill-ignore: intentional technical mono face from DESIGN.md */
+  src: local("JetBrains Mono"), local("JetBrains Mono Regular"); /* taste-skill-ignore: intentional technical mono face from DESIGN.md */
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+}
