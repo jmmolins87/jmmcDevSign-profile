@@ -18,53 +18,39 @@ import {
   Tabs,
   TextareaField,
 } from "@/app/components/ui";
-
-type AgentTool = {
-  id: string;
-  label: string;
-  description: string;
-  enabled: boolean;
-};
-
-type AgentConfig = {
-  name: string;
-  model: string;
-  systemPrompt: string;
-  temperature: string;
-  tools: AgentTool[];
-};
-
-const initialAgent: AgentConfig = {
-  name: "Triage operator",
-  model: "gpt-5-mini",
-  systemPrompt: "Clasifica cada entrada, explica la decisión y deja una traza verificable.",
-  temperature: "0.2",
-  tools: [
-    { id: "knowledge", label: "Knowledge search", description: "Consulta el índice documental local.", enabled: true },
-    { id: "crm", label: "CRM lookup", description: "Lee datos mock del CRM.", enabled: true },
-    { id: "notify", label: "Notify team", description: "Prepara una notificación sin enviarla.", enabled: false },
-  ],
-};
+import { agentRepository, type AgentConfig } from "@/app/es/repositories/mock-repositories";
+import { useMockRepository } from "@/app/es/repositories/use-mock-repository";
 
 export function AgentBuilderPanel() {
-  const [agent, setAgent] = useState<AgentConfig>(initialAgent);
+  const storedAgents = useMockRepository(agentRepository);
+  const [agent, setAgent] = useState<AgentConfig | null>(() => storedAgents[0] ?? null);
   const [feedback, setFeedback] = useState("Configuración local lista para probar.");
   const [isTestOpen, setIsTestOpen] = useState(false);
 
   function updateAgent<Key extends keyof AgentConfig>(key: Key, value: AgentConfig[Key]) {
-    setAgent((currentAgent) => ({ ...currentAgent, [key]: value }));
+    if (!agent) return;
+    setAgent((currentAgent) => currentAgent ? { ...currentAgent, [key]: value } : currentAgent);
     setFeedback("Cambios locales sin guardar.");
   }
 
   function toggleTool(toolId: string, enabled: boolean) {
+    if (!agent) return;
     updateAgent(
       "tools",
       agent.tools.map((tool) => (tool.id === toolId ? { ...tool, enabled } : tool)),
     );
   }
 
-  function saveAgent() {
+  async function saveAgent() {
+    if (!agent) return;
+
+    const updatedAgent = await agentRepository.update(agent.id, agent);
+    setAgent(updatedAgent);
     setFeedback(`Agente «${agent.name}» guardado en el workspace mock.`);
+  }
+
+  if (!agent) {
+    return <p className="border border-border p-space-lg text-body-md text-on-surface-variant" role="status">No hay agentes disponibles para editar.</p>;
   }
 
   const configuration = (
