@@ -10,4 +10,5 @@ export { FilterBar } from "@/app/components/ui/filters";
 export { Modal } from "@/app/components/ui/modal";
 export { SelectField } from "@/app/components/ui/select";
 export { DataTable } from "@/app/components/ui/table";
+export type { DataTableColumn } from "@/app/components/ui/table";
 export { Tabs } from "@/app/components/ui/tabs";
