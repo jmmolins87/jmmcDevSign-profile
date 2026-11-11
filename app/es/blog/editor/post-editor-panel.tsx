@@ -16,26 +16,8 @@ import {
   StatusIndicator,
   TextareaField,
 } from "@/app/components/ui";
-
-type PostStatus = "draft" | "review" | "published";
-
-type PostDraft = {
-  title: string;
-  slug: string;
-  excerpt: string;
-  body: string;
-  status: PostStatus;
-  commentsEnabled: boolean;
-};
-
-const initialPost: PostDraft = {
-  title: "El ocaso de los microservicios caóticos",
-  slug: "ocaso-microservicios-caoticos",
-  excerpt: "Límites claros, velocidad de cambio y la diferencia entre distribuir datos y distribuir complejidad.",
-  body: "La arquitectura no se vuelve distribuida solo porque añadamos más repositorios. Primero hay que decidir qué límites merecen existir.",
-  status: "draft",
-  commentsEnabled: true,
-};
+import { postRepository, type PostDraft, type PostStatus } from "@/app/es/repositories/mock-repositories";
+import { useMockRepository } from "@/app/es/repositories/use-mock-repository";
 
 const statusLabels: Record<PostStatus, string> = {
   draft: "Borrador",
@@ -44,18 +26,26 @@ const statusLabels: Record<PostStatus, string> = {
 };
 
 export function PostEditorPanel() {
-  const [post, setPost] = useState<PostDraft>(initialPost);
+  const storedPosts = useMockRepository(postRepository);
+  const [post, setPost] = useState<PostDraft | null>(() => storedPosts[0] ?? null);
   const [feedback, setFeedback] = useState("Cambios locales sin guardar.");
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   function updatePost<Key extends keyof PostDraft>(key: Key, value: PostDraft[Key]) {
-    setPost((currentPost) => ({ ...currentPost, [key]: value }));
+    setPost((currentPost) => currentPost ? { ...currentPost, [key]: value } : currentPost);
     setFeedback("Cambios locales sin guardar.");
   }
 
-  function savePost(status: PostStatus) {
-    setPost((currentPost) => ({ ...currentPost, status }));
+  async function savePost(status: PostStatus) {
+    if (!post) return;
+
+    const updatedPost = await postRepository.update(post.id, { ...post, status });
+    setPost(updatedPost);
     setFeedback(`Post guardado como ${statusLabels[status].toLowerCase()}.`);
+  }
+
+  if (!post) {
+    return <p className="border border-border p-space-lg text-body-md text-on-surface-variant" role="status">No hay posts disponibles para editar.</p>;
   }
 
   return (

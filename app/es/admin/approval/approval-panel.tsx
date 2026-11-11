@@ -14,52 +14,8 @@ import {
   Tabs,
   type DataTableColumn,
 } from "@/app/components/ui";
-
-type ApprovalStatus = "pending" | "approved" | "rejected";
-
-type AccessRequest = {
-  id: string;
-  applicant: string;
-  email: string;
-  scope: string;
-  requestedAt: string;
-  status: ApprovalStatus;
-};
-
-const initialRequests: readonly AccessRequest[] = [
-  {
-    id: "req-001",
-    applicant: "Lucía Martín",
-    email: "lucia.martin@northstar.test",
-    scope: "Editor de posts",
-    requestedAt: "11 nov 2026 · 09:12",
-    status: "pending",
-  },
-  {
-    id: "req-002",
-    applicant: "Diego Serra",
-    email: "diego.serra@atelier.test",
-    scope: "Demos operativas",
-    requestedAt: "11 nov 2026 · 08:46",
-    status: "pending",
-  },
-  {
-    id: "req-003",
-    applicant: "Marta Vidal",
-    email: "marta.vidal@orbit.test",
-    scope: "Lectura de métricas",
-    requestedAt: "10 nov 2026 · 16:22",
-    status: "approved",
-  },
-  {
-    id: "req-004",
-    applicant: "Álex Costa",
-    email: "alex.costa@vector.test",
-    scope: "Editor de posts",
-    requestedAt: "10 nov 2026 · 12:09",
-    status: "rejected",
-  },
-];
+import { approvalRepository, type AccessRequest, type ApprovalStatus } from "@/app/es/repositories/mock-repositories";
+import { useMockRepository } from "@/app/es/repositories/use-mock-repository";
 
 const statusLabels: Record<ApprovalStatus, string> = {
   pending: "Pendiente",
@@ -80,18 +36,14 @@ const filterLabels = {
 } as const;
 
 export function ApprovalPanel() {
-  const [requests, setRequests] = useState<readonly AccessRequest[]>(initialRequests);
+  const requests = useMockRepository(approvalRepository);
   const [feedback, setFeedback] = useState("Selecciona una solicitud pendiente para revisar su acceso.");
 
-  function updateRequest(id: string, status: ApprovalStatus) {
+  async function updateRequest(id: string, status: ApprovalStatus) {
     const request = requests.find((candidate) => candidate.id === id);
     if (!request) return;
 
-    setRequests((currentRequests) =>
-      currentRequests.map((candidate) =>
-        candidate.id === id ? { ...candidate, status } : candidate,
-      ),
-    );
+    await approvalRepository.update(id, { status });
     setFeedback(`${request.applicant}: solicitud ${statusLabels[status].toLowerCase()}.`);
   }
 
