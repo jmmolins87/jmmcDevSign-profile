@@ -36,3 +36,58 @@ Las tipologías están preparadas en `app/lib/supabase/database.types.ts`. Cuand
 - No se conecta ningún repositorio mock al cliente todavía.
 
 La URL canónica del portfolio es `https://www.jmmcdevsign.es/es/`.
+
+## CLI y Supabase MCP
+
+La CLI verificada en el entorno de desarrollo es Supabase CLI `2.122.0`.
+Para evitar que la CLI escriba telemetría fuera del workspace durante una
+comprobación local:
+
+```bash
+SUPABASE_TELEMETRY_DISABLED=1 supabase --version
+```
+
+El servidor MCP de Supabase se inspecciona desde Codex, sin añadir credenciales
+al repositorio:
+
+```bash
+codex mcp list
+codex mcp get supabase
+```
+
+Comandos de referencia para una futura spec de persistencia:
+
+```bash
+supabase init
+supabase start
+supabase status
+supabase link --project-ref <project-ref>
+supabase db diff
+supabase gen types --local --lang=typescript
+supabase gen types --linked --lang=typescript
+supabase stop
+```
+
+`supabase db push` no forma parte de esta spec: requiere autorización explícita
+porque aplica migraciones a un proyecto remoto. Tampoco se ejecutaron llamadas
+mediante el MCP, consultas SQL, migraciones ni generación desde un proyecto
+enlazado.
+
+## Vercel
+
+Cuando exista un proyecto Vercel autorizado, el flujo documentado es:
+
+```bash
+vercel login
+vercel link
+vercel project inspect --non-interactive
+vercel env add NEXT_PUBLIC_SUPABASE_URL production
+vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY production
+vercel env add NEXT_PUBLIC_SITE_URL production
+vercel build --prod
+vercel deploy --prebuilt --prod
+```
+
+La inspección del proyecto debe confirmar propietario y proyecto antes de
+configurar variables o desplegar. Los valores sensibles se introducen mediante
+el gestor de variables de Vercel o `VERCEL_TOKEN` en CI; nunca se versionan.
