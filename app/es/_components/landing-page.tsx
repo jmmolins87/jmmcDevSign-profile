@@ -2,8 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ContactForm } from "@/app/es/_components/contact-form";
+import { LandingBlogCarousel, type LandingCarouselPost } from "@/app/es/_components/landing-blog-carousel";
+import { LandingCapabilities } from "@/app/es/_components/landing-capabilities";
+import { LandingDemos } from "@/app/es/_components/landing-demos";
 import { LandingHeroMotion } from "@/app/es/_components/landing-hero-motion";
 import { LandingMotionLink } from "@/app/es/_components/landing-motion-link";
+import { LandingProjects, type LandingProject } from "@/app/es/_components/landing-projects";
+import { LandingTrajectory, type TrajectoryEntry } from "@/app/es/_components/landing-trajectory";
 import { LandingUtcClock } from "@/app/es/_components/landing-utc-clock";
 import {
   Badge,
@@ -14,13 +19,14 @@ import {
   CardTitle,
   EditorialList,
 } from "@/app/components/ui";
-import { demoRouteList } from "@/app/es/route-map";
 
 type LandingSectionId =
   | "presentacion"
   | "demos"
   | "skills"
   | "trayectoria"
+  | "proyectos"
+  | "servicios"
   | "blog"
   | "contacto";
 
@@ -29,30 +35,6 @@ type LandingSection = {
   index: string;
   eyebrow: string;
   title: string;
-};
-
-type LandingPost = {
-  id: string;
-  title: string;
-  category: string;
-  readingTime: string;
-  href: string;
-};
-
-type Capability = {
-  index: string;
-  title: string;
-  stack: string;
-  description: string;
-  score: number;
-  metric: string;
-};
-
-type TimelineEntry = {
-  period: string;
-  role: string;
-  company: string;
-  detail: string;
 };
 
 const landingSections = {
@@ -80,93 +62,196 @@ const landingSections = {
     eyebrow: "Registro / trayectoria",
     title: "Trayectoria",
   },
+  proyectos: {
+    id: "proyectos",
+    index: "05",
+    eyebrow: "Archivo / producto",
+    title: "Proyectos seleccionados",
+  },
+  servicios: {
+    id: "servicios",
+    index: "06",
+    eyebrow: "Oferta / colaboración",
+    title: "Servicios",
+  },
   blog: {
     id: "blog",
-    index: "05",
+    index: "07",
     eyebrow: "Archivo / publicaciones",
     title: "Publicaciones técnicas",
   },
   contacto: {
     id: "contacto",
-    index: "06",
+    index: "08",
     eyebrow: "Canal / contacto directo",
     title: "Construyamos algo que perdure",
   },
 } satisfies Record<LandingSectionId, LandingSection>;
 
-const capabilities: readonly Capability[] = [
+const timeline: readonly TrajectoryEntry[] = [
   {
+    period: "08/2018 — 11/2019",
+    role: "Angular Developer",
+    company: "Everis (NTT Data)",
+    detail: "Desarrollo front-end y diseño de la plataforma web de Orange con Angular e Ionic. Desarrollo backend con Node.js.",
+  },
+  {
+    period: "11/2019 — 04/2020",
+    role: "Frontend Developer | UI Designer",
+    company: "Nateevo",
+    detail: "Desarrollo web con JavaScript, jQuery y Pug. Implementación de diseños responsive con alta fidelidad. Control de versiones con Git.",
+  },
+  {
+    period: "06/2020 — 06/2021",
+    role: "Angular Developer",
+    company: "Dimática Software",
+    detail: "Desarrollo y mantenimiento de aplicaciones web con Angular, Material UI y Tailwind CSS. Control de versiones con Git.",
+  },
+  {
+    period: "06/2021 — 05/2023",
+    role: "Angular Developer",
+    company: "ViewNext",
+    detail: "Desarrollo front-end y diseño de la plataforma web del Banco Santander con Angular 14+ y TypeScript. CI/CD con GitHub. Desarrollo backend con Node.js.",
+  },
+  {
+    period: "05/2023 — ACTUALIDAD",
+    role: "Senior Angular Developer",
+    company: "Accenture",
+    detail: "Desarrollo de la aplicación web del Banco Santander con Angular 14+, TypeScript, Material UI y Tailwind CSS. Creación de componentes web reutilizables con Storybook. CI/CD con Jenkins.",
+  },
+  {
+    period: "11/2025 — ACTUALIDAD",
+    role: "Senior Frontend Developer",
+    company: "Custos Mobile",
+    detail: "Desarrollo de pasarelas de pago, dashboards de gestión remota de terminales y TPV. Gestión del equipo front, revisión de PR y diseño técnico de productos. Integración de IA, MCP, Skills y Agents. Storybook, Material UI, CI/CD con GitLab y GitHub.",
+  },
+];
+
+const projects: readonly LandingProject[] = [
+  {
+    description: "Aplicación web bancaria para desktop y dispositivos móviles con Angular y Material UI.",
+    name: "Banco Santander",
+    stack: ["Angular", "TypeScript", "Material UI", "Tailwind"],
+  },
+  {
+    description: "Plataforma digital para la compañía farmacéutica internacional.",
+    name: "Almirall",
+    stack: ["Angular", "TypeScript", "SASS"],
+  },
+  {
+    description: "Plataforma web para el Barça con integración de servicios y contenido dinámico.",
+    name: "FC Barcelona",
+    stack: ["Angular", "TypeScript", "Node.js"],
+  },
+  {
+    description: "Plataforma formativa y de gestión para La Masía del FC Barcelona.",
+    name: "La Masía FCB",
+    stack: ["Angular", "TypeScript", "UI/UX"],
+  },
+  {
+    description: "Solución digital para la aseguradora con portal de clientes y gestión de pólizas.",
+    name: "Mapfre",
+    stack: ["Angular", "TypeScript", "SASS"],
+  },
+  {
+    description: "Aplicación bancaria digital con gestión de productos y servicios financieros.",
+    name: "Unicaja",
+    stack: ["Angular", "TypeScript", "Tailwind"],
+  },
+  {
+    description: "Portal web para el operador de telecomunicaciones con autogestión de clientes.",
+    name: "Jazztel",
+    stack: ["Angular", "JavaScript", "HTML5"],
+  },
+  {
+    description: "Plataforma educativa digital con gestión de cursos y contenido multimedia.",
+    name: "Eleia",
+    stack: ["Angular", "TypeScript", "Node.js"],
+  },
+  {
+    description: "Software de gestión clínica veterinaria con historiales y agenda digital.",
+    name: "Clinvetia",
+    stack: ["Angular", "TypeScript", "UI/UX"],
+  },
+  {
+    description: "Aplicación empresarial para la gestión de proyectos y recursos.",
+    name: "Dimática",
+    stack: ["Angular", "Material UI", "SASS"],
+  },
+  {
+    description: "Plataforma para la Escuela Superior de Música de Cataluña con gestión académica.",
+    name: "ESMUC",
+    stack: ["Angular", "TypeScript", "Tailwind"],
+  },
+  {
+    description: "E-commerce y web corporativa para la marca de complementos.",
+    name: "Flor de Loto",
+    stack: ["Angular", "JavaScript", "CSS"],
+  },
+  {
+    description: "Portal corporativo para la empresa de servicios informáticos.",
+    name: "Sermicro",
+    stack: ["Angular", "TypeScript", "SASS"],
+  },
+  {
+    description: "Web corporativa y plataforma de servicios gráficos online.",
+    name: "Servegraf",
+    stack: ["Angular", "JavaScript", "HTML5"],
+  },
+];
+
+const services = [
+  {
+    description: "Especialista en Angular y Storybook, creando librerías de componentes reutilizables con un enfoque pixel-perfect. Desarrollo interfaces modernas y accesibles, respaldado por un sólido backend con Spring Boot y Java.",
     index: "01",
-    title: "Frontend architecture",
-    stack: "React / Next.js / TypeScript",
-    description: "Interfaces composables, rápidas y preparadas para crecer sin deuda estructural.",
-    score: 98,
-    metric: "SIN DESPLAZAMIENTO",
+    title: "Desarrollo Web Fullstack",
   },
   {
+    description: "Automatización inteligente con Claude, MCP, Skills y Agents. Integro IA en flujos de trabajo reales para optimizar procesos, conectar herramientas y potenciar la productividad de tu negocio.",
     index: "02",
-    title: "Backend y datos distribuidos",
-    stack: "Node / PostgreSQL / Redis",
-    description: "Contratos claros, persistencia desacoplada y operaciones observables desde el primer día.",
-    score: 94,
-    metric: "RIGOR SISTÉMICO",
+    title: "IA y Automatización",
   },
   {
+    description: "Diseño y gestión de infraestructura cloud con Docker, AWS y CI/CD. Automatización de deploys, escalado y monitorización para entornos de producción.",
     index: "03",
-    title: "Automatización y agentes",
-    stack: "LLM / tools / workflows",
-    description: "Flujos deterministas para que la automatización sea útil, auditable y reversible.",
-    score: 91,
-    metric: "EJECUCIÓN AUDITABLE",
+    title: "Infraestructura DevOps",
   },
   {
+    description: "Ayudo a empresas a destacar en el mundo digital. Desde definir la estrategia técnica hasta ejecutar productos que marquen la diferencia. Arquitectura, code review y visión de producto para equipos que quieren crecer.",
     index: "04",
-    title: "Sistemas de diseño",
-    stack: "Tokens / UI / dirección",
-    description: "Lenguajes visuales que convierten decisiones de diseño en piezas mantenibles.",
-    score: 96,
-    metric: "SIN RELLENO",
+    title: "Consultoría Técnica",
   },
 ];
 
-const timeline: readonly TimelineEntry[] = [
+const posts: readonly LandingCarouselPost[] = [
   {
-    period: "PRESENTE",
-    role: "Arquitecto y fundador",
-    company: "JMMC Devsign / Systems Lab",
-    detail: "Diseño y construcción de productos digitales con frontend, backend, datos y criterio editorial en el mismo sistema.",
-  },
-  {
-    period: "2022 — 2024",
-    role: "Ingeniero fullstack principal",
-    company: "Grupo tecnológico Scale",
-    detail: "Plataformas enterprise, Next.js, PostgreSQL distribuido y automatización de operaciones críticas.",
-  },
-  {
-    period: "2019 — 2022",
-    role: "Diseñador senior de producto",
-    company: "Estudio de vanguardia",
-    detail: "Sistemas de diseño, prototipos interactivos y dirección visual para interfaces con personalidad propia.",
-  },
-];
-
-const posts: readonly LandingPost[] = [
-  {
+    date: "28 FEB 2025",
+    description: "Un análisis exhaustivo sobre el coste oculto de la latencia de red, el overhead cognitivo de infraestructura y la orquestación cuando se fragmentan dominios antes de tiempo.",
     id: "modular-monolith",
+    image: "/assets/landing/featured-architecture-2025.png",
+    imageAlt: "Estructura brutalista de hormigón con diagonales geométricas y sombras duras",
     title: "El ocaso de los microservicios caóticos: volviendo al monolito modular",
     category: "Arquitectura distribuida",
     readingTime: "14 MIN",
     href: "/es/blog/editor",
   },
   {
+    date: "12 MAR 2025",
+    description: "Una guía práctica para diseñar agentes que puedan usar herramientas, mantener límites claros y dejar una traza útil para las personas que los supervisan.",
     id: "agent-runtime",
+    image: "/assets/comparativa.png",
+    imageAlt: "Comparativa de identidad visual para un dossier sobre agentes de IA",
     title: "Agentes que ejecutan: de la instrucción a la ejecución",
     category: "Agentes de IA",
     readingTime: "08 MIN",
     href: "/es/blog/editor",
   },
   {
+    date: "02 ABR 2025",
+    description: "Cómo convertir decisiones visuales en contratos de interfaz que resisten el crecimiento de un producto y de los equipos que lo mantienen.",
     id: "design-contracts",
+    image: "/assets/landing/Retrato.png",
+    imageAlt: "Retrato editorial monocromo para un artículo sobre sistemas de diseño",
     title: "El contrato visual también es arquitectura",
     category: "Sistemas de diseño",
     readingTime: "05 MIN",
@@ -287,10 +372,10 @@ function HeroSection() {
     <section aria-labelledby="hero-title" className="relative flex min-h-[max(100svh-5rem,700px)] flex-col justify-between overflow-clip border-b border-border bg-surface-container-lowest px-margin py-space-lg sm:px-margin-tablet lg:px-margin-desktop">
       <LandingHeroMotion>
         <HeroWarp />
-        <div className="relative z-10 flex items-center justify-between gap-space-md border-b border-border pb-space-md font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant" data-hero-element="metadata">
-        <span className="flex items-center gap-space-sm"><span aria-hidden="true" className="text-accent">✦</span>{"{ COORD: 40.4168° N, 3.7038° W }"}</span>
-          <div className="hidden items-center gap-space-lg md:flex"><span>{"{ VELOCITY: C_WARP_0.98 }"}</span><span>{"{ VECTOR: KERNEL_PRODUCTION }"}</span></div>
-          <span className="flex items-center gap-space-sm"><span aria-hidden="true" className="size-2 bg-accent motion-safe:animate-pulse" /><LandingUtcClock /></span>
+        <div className="relative z-10 grid grid-cols-[1fr_auto_1fr] items-center gap-space-md border-b border-border pb-space-md font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant" data-hero-element="metadata">
+          <span className="flex min-w-0 items-center gap-space-sm"><span aria-hidden="true" className="shrink-0 text-accent">✦</span><span className="truncate">{"{ COORD: 40.4168° N, 3.7038° W }"}</span></span>
+          <div className="hidden items-center justify-self-center gap-space-lg text-center md:flex"><span>{"{ VELOCITY: C_WARP_0.98 }"}</span><span>{"{ VECTOR: KERNEL_PRODUCTION }"}</span></div>
+          <span className="flex min-w-0 items-center justify-self-end gap-space-sm"><span aria-hidden="true" className="size-2 shrink-0 bg-accent motion-safe:animate-pulse" /><LandingUtcClock /></span>
         </div>
 
         <div className="relative z-10 grid gap-space-lg py-space-xl text-center" data-hero-element="stage">
@@ -325,16 +410,21 @@ function PresentationSection() {
         <div className="grid gap-space-lg lg:grid-cols-12">
           <Card className="lg:col-span-7">
             <CardHeader>
-              <div><CardMeta>JMMC / manifiesto de operación</CardMeta><CardTitle className="mt-space-sm text-headline-lg">Construir sin ruido</CardTitle></div>
+              <div><CardMeta>JMMC / manifiesto de operación</CardMeta><CardTitle className="mt-space-sm text-headline-lg">Desarrollo fullstack con base en diseño</CardTitle></div>
               <Badge variant="active">Operativo</Badge>
             </CardHeader>
             <CardContent className="grid gap-space-lg">
-              <p className="max-w-3xl text-body-lg text-on-surface-variant">Diseño sistemas donde la interfaz, los datos y la operación hablan el mismo idioma. Cada decisión visual tiene una razón técnica; cada decisión técnica puede explicarse a una persona.</p>
+              <div className="grid gap-space-md text-body-lg text-on-surface-variant">
+                <p className="font-headline text-headline-md uppercase leading-tight text-primary">Desarrollo fullstack con base en diseño, visión de producto, IA aplicada y automatizaciones útiles.</p>
+                <p>Soy un desarrollador fullstack con más de 13 años de experiencia creando productos digitales de principio a fin. Empecé en el mundo del diseño gráfico en la imprenta de mi padre, y esa base visual evolucionó hacia un perfil más completo donde conecto visión de producto, desarrollo y ejecución. Con los años he trabajado en todo el stack, participando en interfaces, lógica de negocio, integraciones y experiencias de producto escalables. Hoy también aporto un muy buen manejo aplicado de la IA, diseñando automatizaciones y flujos inteligentes para hacer los productos más útiles, eficientes y competitivos.</p>
+                <p>Me gusta transformar necesidades complejas en soluciones digitales claras, con un enfoque práctico que equilibra calidad técnica, usabilidad e impacto de negocio. Me gusta trabajar en el punto donde se cruzan diseño, ingeniería e innovación práctica. Me motivan especialmente los proyectos que exigen estructura, iniciativa y capacidad para conectar ideas con ejecución real.</p>
+                <p>Fuera del trabajo valoro viajar, hacer deporte, estar con mi familia y mantener conversaciones que me ayuden a seguir creciendo.</p>
+              </div>
               <div className="grid gap-space-sm border-t border-border pt-space-lg font-mono text-mono-code uppercase tracking-[0.1em] text-on-surface-variant sm:grid-cols-3"><span>Madrid / remoto</span><span>Frontend + backend</span><span>Diseño + código</span></div>
               <div className="grid grid-cols-3 gap-space-md border-t border-border pt-space-lg">
-                <div className="min-w-0"><p className="font-headline text-headline-xl text-primary">+9</p><p className="break-words font-mono text-mono-code uppercase text-on-surface-variant">Años de práctica</p></div>
+                <div className="min-w-0"><p className="font-headline text-headline-xl text-primary">+13</p><p className="break-words font-mono text-mono-code uppercase text-on-surface-variant">Años de práctica</p></div>
                 <div className="min-w-0"><p className="font-headline text-headline-xl text-primary">100%</p><p className="break-words font-mono text-mono-code uppercase text-on-surface-variant">Sistemas auditables</p></div>
-                <div className="min-w-0"><p className="font-headline text-headline-xl text-primary">&lt;80ms</p><p className="break-words font-mono text-mono-code uppercase text-on-surface-variant">Latencia p99 media</p></div>
+                <div className="min-w-0"><p className="font-headline text-headline-xl text-primary">IA +</p><p className="break-words font-mono text-mono-code uppercase text-on-surface-variant">Automatización útil</p></div>
               </div>
             </CardContent>
           </Card>
@@ -342,90 +432,13 @@ function PresentationSection() {
           <Card className="lg:col-span-5">
             <CardContent className="grid h-full gap-space-md p-space-md">
               <div className="flex items-center justify-between border-b border-border pb-space-sm font-mono text-mono-code uppercase text-on-surface-variant"><span>{"{ PORTRAIT // ARCHIVE_2025 }"}</span><span className="text-accent">● LIVE</span></div>
-              <div className="grid grid-cols-[auto_1fr_auto] items-center gap-space-sm"><span aria-hidden="true" className="font-headline text-headline-xl text-outline-variant">{"{"}</span><div className="relative aspect-[4/5] overflow-clip bg-surface-container-highest"><Image alt="Retrato editorial monocromo de un arquitecto tecnológico en un estudio brutalista" className="h-full w-full object-cover grayscale contrast-125" height={1402} sizes="(min-width: 1024px) 28vw, 80vw" src="/assets/landing/portrait-archive-2025.png" width={1122} /><span className="absolute bottom-space-sm start-space-sm bg-background/85 px-space-sm py-space-xs font-mono text-mono-code text-primary">JMMC // ARCHITECT</span></div><span aria-hidden="true" className="font-headline text-headline-xl text-outline-variant">{"}"}</span></div>
+              <div className="grid grid-cols-[auto_1fr_auto] items-center gap-space-sm"><span aria-hidden="true" className="font-headline text-headline-xl text-outline-variant">{"{"}</span><div className="relative aspect-[4/5] overflow-clip bg-surface-container-highest"><Image alt="Retrato en blanco y negro de un desarrollador fullstack en un estudio" className="h-full w-full object-cover grayscale contrast-125" height={1402} sizes="(min-width: 1024px) 28vw, 80vw" src="/assets/landing/Retrato.png" width={1122} /><span className="absolute bottom-space-sm start-space-sm bg-background/85 px-space-sm py-space-xs font-mono text-mono-code text-primary">JMMC // FULLSTACK</span></div><span aria-hidden="true" className="font-headline text-headline-xl text-outline-variant">{"}"}</span></div>
               <div className="flex items-center justify-between border-t border-border pt-space-sm font-mono text-mono-code uppercase text-on-surface-variant"><span>HASH: 8F92-C1A0-77B4</span><span className="text-accent">✦ ENCRYPTED SIGNATURE</span></div>
             </CardContent>
           </Card>
         </div>
       </div>
     </section>
-  );
-}
-
-function DemoStack() {
-  const featuredDemo = demoRouteList[0];
-
-  return (
-    <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center">
-      <div aria-hidden="true" className="hidden w-full scale-[0.88] -translate-y-12 bg-surface-container-highest/20 p-space-lg opacity-20 blur-sm md:block">
-        <div className="flex justify-between font-mono text-mono-code text-outline">
-          <span>{"{ 03 } CUALIFICA Y SIGUE TUS LEADS"}</span>
-          <span>PIPELINE_AGENT</span>
-        </div>
-        <div className="h-44 bg-surface-container-low/40" />
-      </div>
-      <div aria-hidden="true" className="w-full scale-[0.94] -translate-y-8 bg-surface-container-high p-space-lg opacity-40 blur-[1px]">
-        <div className="flex justify-between font-mono text-mono-code text-on-surface-variant">
-          <span>{"{ 02 } AGENTE DE LEADS EN TIEMPO REAL"}</span>
-          <span>AUTONOMOUS_SOCKET</span>
-        </div>
-        <div className="flex h-40 items-center justify-center bg-surface-container-low">
-          <span className="font-mono text-mono-code text-outline">[ BUFFERING TELEMETRY STREAM... ]</span>
-        </div>
-      </div>
-
-      <Card className="relative z-10 -mt-6 w-full bg-surface-container p-space-md md:p-space-xl">
-        <div className="flex flex-wrap items-center justify-between gap-space-md border-b border-border pb-space-md">
-          <div className="flex items-center gap-space-sm">
-            <span className="bg-accent px-space-sm py-space-xs font-mono text-mono-code font-bold text-background">{"{ 01 }"}</span>
-            <span className="font-headline text-headline-md uppercase text-primary">{featuredDemo?.title ?? "CREA TU AGENTE AUTÓNOMO"}</span>
-          </div>
-          <span className="font-mono text-mono-code uppercase text-accent">✦ STACK: LLM / LANGCHAIN / POSTGRES</span>
-        </div>
-
-        <div className="grid gap-space-xl pt-space-lg lg:grid-cols-12 lg:items-center">
-          <div className="grid gap-space-lg lg:col-span-5">
-            <p className="text-body-md text-secondary">Motor orquestador que provisiona agentes conversacionales con memoria vectorial episódica, tool-calling determinista y validación estricta de esquemas en milisegundos.</p>
-            <div className="grid gap-space-sm font-mono text-mono-code uppercase text-on-surface-variant">
-              <div className="flex justify-between border-b border-border py-space-sm"><span>LATENCIA_INFERENCIA</span><strong className="text-primary">142ms</strong></div>
-              <div className="flex justify-between border-b border-border py-space-sm"><span>RETRIEVAL_ACCURACY</span><strong className="text-primary">99.4%</strong></div>
-              <div className="flex justify-between border-b border-border py-space-sm"><span>VECTOR_STORE</span><strong className="text-primary">PGVECTOR / 1536 DIM</strong></div>
-            </div>
-            <Link className="inline-flex min-h-12 w-fit items-center gap-space-sm border border-primary bg-primary px-space-md font-headline text-label-caps uppercase text-primary-foreground transition-colors hover:border-accent hover:bg-background hover:text-primary active:scale-[0.98]" href={featuredDemo?.href ?? "/es/demos"}>
-              <span aria-hidden="true" className="text-accent">✦</span>
-              Iniciar demo interactiva
-              <span className="font-mono text-mono-code">[ EXEC ]</span>
-            </Link>
-          </div>
-
-          <div className="bg-surface-container-lowest p-space-md lg:col-span-7">
-            <div className="flex items-center justify-between border-b border-border pb-space-sm font-mono text-[0.6875rem] text-on-surface-variant">
-              <span className="text-primary">AGENT_NODE_RUNNER.PY</span>
-              <span>PORT: 8080 // SECURE</span>
-            </div>
-            <div className="grid gap-space-sm pt-space-md font-mono text-mono-code">
-              <div className="flex items-center justify-between bg-surface-container p-space-sm text-on-surface-variant">
-                <span>[IN] PROMPT: &quot;Configurar agente de soporte Nivel 2&quot;</span>
-                <span className="text-accent">OK</span>
-              </div>
-              <div className="bg-surface-container-low p-space-md text-secondary">
-                <p className="mb-space-sm text-accent">{"{ ✦ KERNEL DEPLOYMENT SEQUENCE }"}</p>
-                <p className="text-mono-code leading-relaxed text-on-surface">
-                  &gt; Vector store initialized at namespace: tenant_9021<br />
-                  &gt; Tools registered: [sql_query, stripe_refund, slack_dispatch]<br />
-                  &gt; System prompt compiled (tokens: 412, safety_guard: ON)
-                </p>
-              </div>
-              <div className="grid grid-cols-3 items-center gap-space-sm py-space-md text-center text-[0.6875rem] uppercase text-on-surface-variant">
-                <span className="border border-border p-space-sm">INPUT</span>
-                <span className="border border-accent p-space-sm text-accent">KERNEL</span>
-                <span className="border border-border p-space-sm">OUTPUT</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Card>
-    </div>
   );
 }
 
@@ -436,7 +449,7 @@ function DemosSection() {
     <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface-container-lowest px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
         <SectionHeader action={<Link className="font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant transition-colors hover:text-primary" href="/es/demos">{"{ ABRIR REGISTRO COMPLETO → }"}</Link>} section={section} />
-        <DemoStack />
+        <LandingDemos />
       </div>
     </section>
   );
@@ -448,32 +461,8 @@ function SkillsSection() {
   return (
     <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
-        <SectionHeader aside="{ 04 / SYSTEMS / 99.4% DETERMINISTIC }" section={section} />
-        <div className="grid gap-space-lg md:grid-cols-2">
-          {capabilities.map((capability) => (
-            <Card key={capability.index}>
-              <CardHeader>
-                <div>
-                  <CardMeta>{`${capability.index} / ${capability.stack}`}</CardMeta>
-                  <CardTitle className="mt-space-sm">{capability.title}</CardTitle>
-                </div>
-                <Badge variant="active">{capability.metric}</Badge>
-              </CardHeader>
-              <CardContent className="grid gap-space-lg">
-                <p className="text-body-md text-on-surface-variant">{capability.description}</p>
-                <div aria-label={`${capability.title}: ${capability.score}%`} className="grid gap-space-sm" role="img">
-                  <div className="flex justify-between font-mono text-mono-code uppercase tracking-[0.1em] text-on-surface-variant">
-                    <span>Índice de dominio</span>
-                    <span>{capability.score}%</span>
-                  </div>
-                  <div className="h-2 border border-border bg-surface-lowest p-px">
-                    <span className="block h-full bg-primary" style={{ width: `${capability.score}%` }} />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <SectionHeader aside="{ 03 / MATRIX / ACTIVE SIGNALS }" section={section} />
+        <LandingCapabilities />
       </div>
     </section>
   );
@@ -485,22 +474,55 @@ function TrajectorySection() {
   return (
     <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface-container-lowest px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
-        <SectionHeader aside="{ INVERSE REGISTER / 2019 — NOW }" section={section} />
-        <ol className="grid gap-space-xl border-s border-border ps-space-lg lg:gap-0 lg:ps-0">
-          {timeline.map((entry, index) => (
-            <li className="relative grid gap-space-lg lg:grid-cols-12 lg:gap-space-xl" key={entry.period}>
-              <span aria-hidden="true" className="absolute -start-[calc(var(--primitive-space-lg)+0.25rem)] top-space-sm size-2 bg-accent lg:start-[calc(50%-0.25rem)]" />
-              <div className={`grid content-start gap-space-xs lg:col-span-5 ${index % 2 === 1 ? "lg:col-start-8" : "lg:col-start-1"}`}>
-                <p className="font-mono text-mono-code uppercase tracking-[0.12em] text-accent-text">{entry.period}</p>
-                <p className="font-headline text-headline-md uppercase text-primary">{entry.role}</p>
-                <p className="font-mono text-mono-code uppercase tracking-[0.08em] text-on-surface-variant">{entry.company}</p>
-              </div>
-              <Card className={`lg:col-span-5 ${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : "lg:col-start-8"}`}>
-                <CardContent><p className="text-body-md text-on-surface-variant">{entry.detail}</p></CardContent>
-              </Card>
-            </li>
+        <SectionHeader aside="{ INVERSE REGISTER / 08/2018 — NOW }" section={section} />
+        <LandingTrajectory entries={timeline} />
+      </div>
+    </section>
+  );
+}
+
+function ProjectsSection() {
+  const section = landingSections.proyectos;
+
+  return (
+    <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
+      <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
+        <SectionHeader aside="{ ARCHIVE / PRODUCT SURFACES }" section={section} />
+        <LandingProjects projects={projects} />
+      </div>
+    </section>
+  );
+}
+
+function ServicesSection() {
+  const section = landingSections.servicios;
+
+  return (
+    <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface-container-lowest px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
+      <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
+        <SectionHeader aside="{ CONTRACTS / CLEAR SCOPE / REAL DELIVERY }" section={section} />
+        <div className="grid gap-space-lg md:grid-cols-2 lg:grid-cols-4">
+          {services.map((service) => (
+            <Card className="group flex min-h-[22rem] flex-col transition-colors hover:border-accent" key={service.index}>
+              <CardHeader className="border-b-0 pb-space-md">
+                <div className="grid gap-space-xs">
+                  <CardMeta>{`SERVICE / ${service.index}`}</CardMeta>
+                  <span className="font-mono text-mono-code uppercase tracking-[0.08em] text-accent">{`{ 0${Number(service.index)} }`}</span>
+                </div>
+                <span aria-hidden="true" className="font-headline text-headline-xl text-outline-variant transition-colors group-hover:text-accent">✦</span>
+              </CardHeader>
+              <CardContent className="flex h-full flex-col justify-between gap-space-xl pt-0">
+                <div className="grid gap-space-sm">
+                  <CardTitle className="text-headline-lg leading-tight">{service.title}</CardTitle>
+                  <p className="text-body-md text-on-surface-variant">{service.description}</p>
+                </div>
+                <div className="border-t border-border pt-space-md font-mono text-mono-code uppercase tracking-[0.08em] text-on-surface-variant">
+                  <span className="text-accent">✦</span> Alcance / estrategia + ejecución
+                </div>
+              </CardContent>
+            </Card>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   );
@@ -508,54 +530,13 @@ function TrajectorySection() {
 
 function BlogSection() {
   const section = landingSections.blog;
-  const [featuredPost, ...archivePosts] = posts;
 
   return (
     <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
         <SectionHeader action={<Link className="font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant transition-colors hover:text-accent" href="/es/blog/editor">{"{ ACCESO MIEMBROS [✦] }"}</Link>} section={section} />
-        <div className="grid gap-space-xl lg:grid-cols-12 lg:items-center">
-          <div aria-hidden="true" className="hidden h-80 flex-col justify-between bg-surface-container-high p-space-md opacity-30 blur-[1px] lg:col-span-2 lg:flex">
-            <span className="font-mono text-mono-code text-accent">{"{ PREV_POST }"}</span>
-            <span className="font-headline text-headline-md uppercase leading-none text-on-surface-variant">Matemática del renderizado en GPU</span>
-            <span className="font-mono text-[0.6875rem] text-outline">READ: 8 MIN</span>
-          </div>
-
-          <Card className="p-space-md lg:col-span-8 md:p-space-xl">
-            <div className="grid gap-space-lg md:grid-cols-12 md:items-center md:gap-space-xl">
-              <div className="relative aspect-[4/3] overflow-clip bg-surface-container-highest md:col-span-5">
-                <Image alt="Estructura brutalista de hormigón con diagonales geométricas y sombras duras" className="h-full w-full object-cover grayscale contrast-125" height={1086} sizes="(min-width: 1024px) 28vw, 90vw" src="/assets/landing/featured-architecture-2025.png" width={1448} />
-                <span className="absolute top-space-sm start-space-sm bg-background/90 px-space-sm py-space-xs font-mono text-mono-code text-accent">{"{ 01 // FEATURED }"}</span>
-              </div>
-              <div className="flex h-full flex-col justify-between gap-space-lg md:col-span-7">
-                <div>
-                  <div className="mb-space-sm flex items-center justify-between gap-space-sm font-mono text-mono-code uppercase text-on-surface-variant">
-                    <span className="text-accent">{`{ ${featuredPost?.category ?? "ARQUITECTURA DISTRIBUIDA"} }`}</span>
-                    <span>28 FEB 2025</span>
-                  </div>
-                  <h3 className="font-headline text-headline-lg uppercase leading-tight text-primary transition-colors hover:text-accent">{featuredPost?.title}</h3>
-                  <p className="mt-space-sm text-body-md text-secondary">Un análisis exhaustivo sobre el coste oculto de la latencia de red, el overhead cognitivo de infraestructura y la orquestación cuando se fragmentan dominios antes de tiempo.</p>
-                </div>
-                <div className="flex flex-wrap items-center justify-between gap-space-md border-t border-border pt-space-sm font-mono text-mono-code uppercase text-on-surface-variant">
-                  <span>{`{ TIEMPO DE LECTURA: ${featuredPost?.readingTime ?? "14 MIN"} }`}</span>
-                  <Link className="text-primary transition-colors hover:text-accent" href={featuredPost?.href ?? "/es/blog/editor"}>[ LEER DOSSIER ] <span className="text-accent">→</span></Link>
-                </div>
-              </div>
-            </div>
-            <div className="mt-space-lg flex items-center justify-between border-t border-border pt-space-md font-mono text-mono-code text-on-surface-variant">
-              <span className="text-accent">✦</span>
-              <span className="flex gap-space-sm"><span className="h-1 w-8 bg-accent" /><span className="h-1 w-3 bg-surface-container-highest" /><span className="h-1 w-3 bg-surface-container-highest" /></span>
-              <span>{"{ 01 / 03 }"}</span>
-            </div>
-          </Card>
-
-          <div aria-hidden="true" className="hidden h-80 flex-col justify-between bg-surface-container-high p-space-md opacity-30 blur-[1px] lg:col-span-2 lg:flex">
-            <span className="font-mono text-mono-code text-accent">{"{ NEXT_POST }"}</span>
-            <span className="font-headline text-headline-md uppercase leading-none text-on-surface-variant">Interfaces que resisten</span>
-            <span className="font-mono text-[0.6875rem] text-outline">READ: 6 MIN</span>
-          </div>
-        </div>
-        <EditorialList ariaLabel="Archivo de publicaciones" items={archivePosts.map((post) => ({ href: post.href, id: post.id, meta: `${post.category} / ${post.readingTime}`, title: post.title }))} />
+        <LandingBlogCarousel posts={posts} />
+        <EditorialList ariaLabel="Archivo de publicaciones" items={posts.map((post) => ({ href: post.href, id: post.id, meta: `${post.category} / ${post.readingTime}`, title: post.title }))} />
       </div>
     </section>
   );
@@ -568,26 +549,42 @@ function ContactSection() {
     <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface-container-lowest px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
         <header className="mx-auto grid max-w-4xl gap-space-md text-center">
-          <p className="font-mono text-mono-code uppercase tracking-[0.16em] text-accent-text">{`[ SECTION // ${section.index} ]`} {section.eyebrow}</p>
-          <h2 className="font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-primary lg:text-display-hero" id={`${section.id}-title`}>{section.title}</h2>
-          <p className="text-body-lg text-on-surface-variant">Un producto claro empieza por una conversación precisa. Cuéntame qué sistema necesita tomar forma.</p>
+          <p className="font-mono text-mono-code uppercase tracking-[0.16em] text-accent-text">{`[ SECTION // ${section.index} // TRANSMISIÓN DIRECTA ]`}</p>
+          <h2 className="font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-primary lg:text-display-hero" id={`${section.id}-title`}>{`{ ${section.title} }`}</h2>
+          <p className="text-body-lg text-on-surface-variant">Disponible para liderazgo de arquitectura técnica, auditorías de rendimiento crítico y contratos de ingeniería avanzada.</p>
         </header>
 
-        <div className="grid gap-space-lg lg:grid-cols-12">
-          <Card className="lg:col-span-5">
-            <CardHeader>
-              <div><CardMeta>Canal / transmisión mock</CardMeta><CardTitle className="mt-space-sm">Abrir una conversación</CardTitle></div>
-              <Badge variant="active">Sin backend</Badge>
-            </CardHeader>
-            <CardContent className="grid gap-space-lg">
-              <ContactForm />
-            </CardContent>
-          </Card>
+        <div className="mx-auto grid w-full max-w-5xl items-start gap-gutter-desktop lg:grid-cols-12">
+          <div className="flex flex-col justify-between gap-space-xl bg-surface-container p-space-lg lg:col-span-5">
+            <div>
+              <div className="mb-space-lg border-b border-border pb-space-sm font-mono text-mono-code text-accent">{`{ TELEMETRÍA DE CONTACTO }`}</div>
+              <div className="grid gap-space-lg font-mono text-mono-code">
+                <div>
+                  <p className="text-[0.6875rem] uppercase text-on-surface-variant">Direct dispatch:</p>
+                  <a className="break-all font-headline text-headline-md text-primary transition-colors hover:text-accent" href="mailto:hola@jmmcdevsign.es">hola@jmmcdevsign.es</a>
+                </div>
+                <div>
+                  <p className="text-[0.6875rem] uppercase text-on-surface-variant">Localización / horario:</p>
+                  <p className="text-body-md text-secondary">Madrid, España // local</p>
+                </div>
+                <div>
+                  <p className="text-[0.6875rem] uppercase text-on-surface-variant">Respuesta promedio:</p>
+                  <p className="text-body-md text-secondary">&lt; 48 HORAS EN DÍAS HÁBILES</p>
+                </div>
+              </div>
+            </div>
+            <div className="border-t border-border pt-space-md">
+              <p className="mb-space-sm font-mono text-mono-code text-on-surface-variant">[ REDES SIN RUIDO ]</p>
+              <div className="flex flex-wrap gap-space-sm font-mono text-mono-code">
+                <a className="bg-surface-container-high px-space-sm py-space-xs text-on-surface transition-colors hover:bg-surface-container-highest hover:text-primary" href="#contacto">[ GITHUB ]</a>
+                <a className="bg-surface-container-high px-space-sm py-space-xs text-on-surface transition-colors hover:bg-surface-container-highest hover:text-primary" href="#contacto">[ LINKEDIN ]</a>
+                <a className="bg-surface-container-high px-space-sm py-space-xs text-on-surface transition-colors hover:bg-surface-container-highest hover:text-primary" href="#contacto">[ X / TWITTER ]</a>
+              </div>
+            </div>
+          </div>
 
-          <div className="grid gap-space-lg lg:col-span-7 lg:grid-cols-2">
-            <Card><CardContent className="grid gap-space-sm"><CardMeta>Canal / correo</CardMeta><a className="break-all font-headline text-headline-md uppercase text-primary transition-colors hover:text-accent" href="mailto:hola@jmmcdevsign.es">hola@jmmcdevsign.es</a><p className="text-body-sm text-on-surface-variant">Respuesta inicial en menos de 48 horas operativas.</p></CardContent></Card>
-            <Card><CardContent className="grid gap-space-sm"><CardMeta>Localización / horario</CardMeta><p className="font-headline text-headline-md uppercase text-primary">Madrid / remoto</p><p className="text-body-sm text-on-surface-variant">Disponibilidad coordinada para proyectos clave.</p></CardContent></Card>
-            <Card className="lg:col-span-2"><CardContent className="flex flex-wrap items-center justify-between gap-space-lg"><div><CardMeta>Contrato visual / operativo</CardMeta><p className="mt-space-sm font-headline text-headline-lg uppercase text-primary">Sistemas que perduran</p></div><LandingMotionLink className="inline-flex min-h-12 items-center justify-center border border-primary bg-primary px-space-md font-headline text-label-caps uppercase tracking-[0.08em] text-primary-foreground" href="mailto:hola@jmmcdevsign.es?subject=Proyecto%20JMMC">Enviar transmisión →</LandingMotionLink></CardContent></Card>
+          <div className="bg-surface-container p-space-lg md:p-space-xl lg:col-span-7">
+            <ContactForm />
           </div>
         </div>
       </div>
@@ -615,6 +612,8 @@ export function LandingPage() {
       <DemosSection />
       <SkillsSection />
       <TrajectorySection />
+      <ProjectsSection />
+      <ServicesSection />
       <BlogSection />
       <ContactSection />
       <LandingFooter />

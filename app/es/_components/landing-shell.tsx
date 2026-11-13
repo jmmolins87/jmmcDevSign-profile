@@ -17,8 +17,10 @@ const landingNavigation = [
   { href: "/es/#demos", index: "02", label: "Demos" },
   { href: "/es/#skills", index: "03", label: "Capacidades" },
   { href: "/es/#trayectoria", index: "04", label: "Trayectoria" },
-  { href: "/es/#blog", index: "05", label: "Publicaciones" },
-  { href: "/es/#contacto", index: "06", label: "Contacto" },
+  { href: "/es/#proyectos", index: "05", label: "Proyectos" },
+  { href: "/es/#servicios", index: "06", label: "Servicios" },
+  { href: "/es/#blog", index: "07", label: "Publicaciones" },
+  { href: "/es/#contacto", index: "08", label: "Contacto" },
 ] as const;
 
 const MotionLink = motion.create(Link);
@@ -134,11 +136,11 @@ function LandingMenu() {
             className="fixed inset-0 z-[60] flex min-h-svh flex-col overflow-y-auto bg-background px-margin py-space-lg sm:px-margin-tablet lg:px-margin-desktop"
             data-lenis-prevent
             id="landing-curtain-menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={shouldReduceMotion ? { opacity: 1 } : { clipPath: "inset(0 0 100% 0)", opacity: 1 }}
+            animate={shouldReduceMotion ? { opacity: 1 } : { clipPath: "inset(0 0 0% 0)", opacity: 1 }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { clipPath: "inset(100% 0 0 0)", opacity: 1 }}
             role="dialog"
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: shouldReduceMotion ? 0.01 : 0.48, ease: [0.16, 1, 0.3, 1] }}
           >
         <div className="flex items-center justify-between border-b border-border pb-space-md">
           <LandingIdentity />

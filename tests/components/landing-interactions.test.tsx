@@ -40,9 +40,10 @@ describe("landing interactions", () => {
     const user = userEvent.setup();
     render(<ContactForm />);
 
-    await user.type(screen.getByRole("textbox", { name: "Identificador" }), " ");
-    await user.type(screen.getByRole("textbox", { name: "Brief de operación" }), " ");
-    await user.click(screen.getByRole("button", { name: "Preparar transmisión →" }));
+    await user.type(screen.getByRole("textbox", { name: /IDENTIFICACIÓN \/ NOMBRE/ }), " ");
+    await user.type(screen.getByRole("textbox", { name: /CORREO ELECTRÓNICO/ }), "equipo@jmmc.dev");
+    await user.type(screen.getByRole("textbox", { name: /DESCRIPCIÓN DEL REQUERIMIENTO/ }), " ");
+    fireEvent.submit(screen.getByRole("button", { name: /ENVIAR TRANSMISIÓN/ }).closest("form") as HTMLFormElement);
 
     expect(screen.getByRole("alert")).toHaveTextContent("Faltan datos para preparar la transmisión.");
   });
@@ -50,12 +51,13 @@ describe("landing interactions", () => {
   it("transitions from submitting to mock success feedback", async () => {
     render(<ContactForm />);
 
-    fireEvent.change(screen.getByRole("textbox", { name: "Identificador" }), { target: { value: "Equipo JMMC" } });
-    fireEvent.change(screen.getByRole("textbox", { name: "Brief de operación" }), { target: { value: "Arquitectura clara" } });
-    fireEvent.click(screen.getByRole("button", { name: "Preparar transmisión →" }));
+    fireEvent.change(screen.getByRole("textbox", { name: /IDENTIFICACIÓN \/ NOMBRE/ }), { target: { value: "Equipo JMMC" } });
+    fireEvent.change(screen.getByRole("textbox", { name: /CORREO ELECTRÓNICO/ }), { target: { value: "equipo@jmmc.dev" } });
+    fireEvent.change(screen.getByRole("textbox", { name: /DESCRIPCIÓN DEL REQUERIMIENTO/ }), { target: { value: "Arquitectura clara" } });
+    fireEvent.click(screen.getByRole("button", { name: /ENVIAR TRANSMISIÓN/ }));
 
-    expect(screen.getByRole("button", { name: "Preparando transmisión..." })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /TRANSMITIENDO/ })).toBeDisabled();
 
-    await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("Transmisión mock preparada"));
+    await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("TRANSMITIDO CON ÉXITO"));
   });
 });
