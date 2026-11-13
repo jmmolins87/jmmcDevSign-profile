@@ -1,6 +1,6 @@
 # SPEC 02 — Landing fiel a `resources/01_landing` con motion avanzado
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 01
 > **Date:** 2026-11-13
 > **Objective:** Actualizar `/es/` para reproducir estrictamente `resources/01_landing` con datos mock, assets locales y una capa de motion avanzada basada en GSAP, Motion y Lenis.
@@ -152,43 +152,43 @@ Cuando GSAP y Motion actúen sobre el mismo elemento, cada motor tendrá un cont
 
 ## Acceptance criteria
 
-- [ ] `/es/` reproduce la estructura, jerarquía, copy, grid, tipografía, color y densidad de `resources/01_landing/screen.png`.
-- [ ] La landing carga sin errores de runtime ni errores de consola.
-- [ ] Las siete secciones aparecen en el mismo orden que la referencia.
-- [ ] La landing funciona a 1440px.
-- [ ] La landing funciona a 375px.
-- [ ] No existe overflow horizontal a 375px.
-- [ ] El shell específico de landing no altera visualmente login ni demos.
-- [ ] El hero contiene los metadatos, brackets, monograma, estrella y capas de warp de la referencia.
-- [ ] GSAP controla la secuencia, el warp, el parallax y las animaciones ligadas al scroll del hero.
-- [ ] Motion controla el menú, las microinteracciones, el feedback y los estados visuales de interfaz.
-- [ ] Lenis implementa smooth-scroll hijacking en la landing cuando la preferencia de movimiento lo permite.
-- [ ] Lenis se sincroniza correctamente con ScrollTrigger.
-- [ ] Lenis se desactiva cuando `prefers-reduced-motion: reduce` está activo.
-- [ ] El parallax de puntero funciona en escritorio con puntero preciso.
-- [ ] El parallax de puntero no se activa en dispositivos táctiles.
-- [ ] El parallax de scroll funciona en escritorio y móvil cuando la preferencia de movimiento lo permite.
-- [ ] No se usan sensores de orientación.
-- [ ] No se usa touch tracking del dedo.
-- [ ] El warp continuo puede pausarse y reanudarse desde un control visible.
-- [ ] El control de warp expone `aria-pressed` y se puede usar con teclado.
-- [ ] El cursor editorial usa una actualización eficiente y se oculta en touch.
-- [ ] El reloj UTC mock se actualiza una vez por segundo y limpia su intervalo.
-- [ ] GSAP y Motion no escriben simultáneamente la misma propiedad del mismo elemento.
-- [ ] Las animaciones priorizan `transform` y `opacity` frente a propiedades de layout.
-- [ ] Los contextos, timelines, listeners, Lenis y ScrollTriggers se limpian al desmontar.
-- [ ] `prefers-reduced-motion` elimina el movimiento de profundidad, parallax, smooth scroll y warp continuo.
-- [ ] `prefers-reduced-motion` conserva fades breves, color, foco y feedback esencial.
-- [ ] Los assets de retrato e imagen editorial se cargan desde rutas locales.
-- [ ] La landing muestra `hola@jmmcdevsign.es` como correo de contacto.
-- [ ] El formulario muestra una confirmación mock sin realizar solicitudes de red.
-- [ ] La navegación por teclado mantiene foco visible y nombres accesibles.
-- [ ] `pnpm lint` pasa.
-- [ ] `pnpm typecheck` pasa.
-- [ ] `pnpm test` pasa.
-- [ ] `pnpm test:e2e` pasa.
-- [ ] `pnpm build` pasa.
-- [ ] Los temporales, capturas de trabajo y carpetas de Playwright se eliminan tras la revisión.
+- [x] `/es/` reproduce la estructura, jerarquía, copy, grid, tipografía, color y densidad de `resources/01_landing/screen.png`.
+- [x] La landing carga sin errores de runtime ni errores de consola.
+- [x] Las siete secciones aparecen en el mismo orden que la referencia.
+- [x] La landing funciona a 1440px.
+- [x] La landing funciona a 375px.
+- [x] No existe overflow horizontal a 375px.
+- [x] El shell específico de landing no altera visualmente login ni demos.
+- [x] El hero contiene los metadatos, brackets, monograma, estrella y capas de warp de la referencia.
+- [x] GSAP controla la secuencia, el warp, el parallax y las animaciones ligadas al scroll del hero.
+- [x] Motion controla el menú, las microinteracciones, el feedback y los estados visuales de interfaz.
+- [x] Lenis implementa smooth-scroll hijacking en la landing cuando la preferencia de movimiento lo permite.
+- [x] Lenis se sincroniza correctamente con ScrollTrigger.
+- [x] Lenis se desactiva cuando `prefers-reduced-motion: reduce` está activo.
+- [x] El parallax de puntero funciona en escritorio con puntero preciso.
+- [x] El parallax de puntero no se activa en dispositivos táctiles.
+- [x] El parallax de scroll funciona en escritorio y móvil cuando la preferencia de movimiento lo permite.
+- [x] No se usan sensores de orientación.
+- [x] No se usa touch tracking del dedo.
+- [x] El warp continuo puede pausarse y reanudarse desde un control visible.
+- [x] El control de warp expone `aria-pressed` y se puede usar con teclado.
+- [x] El cursor editorial usa una actualización eficiente y se oculta en touch.
+- [x] El reloj UTC mock se actualiza una vez por segundo y limpia su intervalo.
+- [x] GSAP y Motion no escriben simultáneamente la misma propiedad del mismo elemento.
+- [x] Las animaciones priorizan `transform` y `opacity` frente a propiedades de layout.
+- [x] Los contextos, timelines, listeners, Lenis y ScrollTriggers se limpian al desmontar.
+- [x] `prefers-reduced-motion` elimina el movimiento de profundidad, parallax, smooth scroll y warp continuo.
+- [x] `prefers-reduced-motion` conserva fades breves, color, foco y feedback esencial.
+- [x] Los assets de retrato e imagen editorial se cargan desde rutas locales.
+- [x] La landing muestra `hola@jmmcdevsign.es` como correo de contacto.
+- [x] El formulario muestra una confirmación mock sin realizar solicitudes de red.
+- [x] La navegación por teclado mantiene foco visible y nombres accesibles.
+- [x] `pnpm lint` pasa.
+- [x] `pnpm typecheck` pasa.
+- [x] `pnpm test` pasa.
+- [x] `pnpm test:e2e` pasa.
+- [x] `pnpm build` pasa.
+- [x] Los temporales, capturas de trabajo y carpetas de Playwright se eliminan tras la revisión.
 
 ## Decisions
 

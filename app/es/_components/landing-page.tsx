@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ContactForm } from "@/app/es/_components/contact-form";
 import { LandingHeroMotion } from "@/app/es/_components/landing-hero-motion";
 import { LandingMotionLink } from "@/app/es/_components/landing-motion-link";
+import { LandingUtcClock } from "@/app/es/_components/landing-utc-clock";
 import {
   Badge,
   Card,
@@ -289,7 +290,7 @@ function HeroSection() {
         <div className="relative z-10 flex items-center justify-between gap-space-md border-b border-border pb-space-md font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant" data-hero-element="metadata">
         <span className="flex items-center gap-space-sm"><span aria-hidden="true" className="text-accent">✦</span>{"{ COORD: 40.4168° N, 3.7038° W }"}</span>
           <div className="hidden items-center gap-space-lg md:flex"><span>{"{ VELOCITY: C_WARP_0.98 }"}</span><span>{"{ VECTOR: KERNEL_PRODUCTION }"}</span></div>
-          <span className="flex items-center gap-space-sm"><span aria-hidden="true" className="size-2 bg-accent motion-safe:animate-pulse" />{"{ TIME: 23:42:15 UTC }"}</span>
+          <span className="flex items-center gap-space-sm"><span aria-hidden="true" className="size-2 bg-accent motion-safe:animate-pulse" /><LandingUtcClock /></span>
         </div>
 
         <div className="relative z-10 grid gap-space-lg py-space-xl text-center" data-hero-element="stage">
