@@ -1,8 +1,10 @@
 @import "./font-fallbacks.css";
+@import "lenis/dist/lenis.css";
 @import "tailwindcss";
 
 /* Tailwind v4 utilities respond to the same explicit class used by the theme switcher. */
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
 
 /* Tier 1: immutable design definitions from resources/00.../DESIGN.md. */
 :root {

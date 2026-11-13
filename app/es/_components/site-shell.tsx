@@ -1,5 +1,9 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { LandingShell } from "@/app/es/_components/landing-shell";
 import { LanguageSelector } from "@/app/es/_components/language-selector";
 import { MobileMenu } from "@/app/es/_components/mobile-menu";
 import { PrimaryNav } from "@/app/es/_components/primary-nav";
@@ -10,6 +14,16 @@ type SiteShellProps = Readonly<{
 }>;
 
 export function SiteShell({ children }: SiteShellProps) {
+  const pathname = usePathname();
+
+  if (pathname === "/es" || pathname === "/es/") {
+    return <LandingShell>{children}</LandingShell>;
+  }
+
+  return <StandardSiteShell>{children}</StandardSiteShell>;
+}
+
+function StandardSiteShell({ children }: SiteShellProps) {
   return (
     <div className="min-h-[100svh] bg-background text-foreground">
       <a
