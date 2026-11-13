@@ -1,8 +1,12 @@
-export function LanguageSelector() {
+type LanguageSelectorProps = Readonly<{
+  alwaysVisible?: boolean;
+}>;
+
+export function LanguageSelector({ alwaysVisible = false }: LanguageSelectorProps = {}) {
   return (
     <div
       aria-label="Selector de idioma"
-      className={/* taste-skill-ignore: technical selector token from DESIGN.md */ "hidden items-center border border-border font-mono text-mono-code uppercase tracking-[0.12em] lg:flex"}
+      className={/* taste-skill-ignore: technical selector token from DESIGN.md */ `${alwaysVisible ? "flex" : "hidden lg:flex"} items-center border border-border font-mono text-mono-code uppercase tracking-[0.12em]`}
       role="group"
     >
       <button

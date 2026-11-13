@@ -1,18 +1,11 @@
 import { expect, test } from "@playwright/test";
 
-test("the primary navigation reaches the demos index", async ({ page }) => {
+test("the primary navigation reaches the demos section", async ({ page }) => {
   await page.goto("/es/");
 
-  const mobileMenu = page.getByRole("button", { name: /Menú/ });
-  if (await mobileMenu.isVisible()) {
-    await mobileMenu.click();
-    await page.getByRole("link", { name: "Demos", exact: true }).click();
-  } else {
-    const navigation = page.getByRole("navigation", { name: "Navegación principal" });
-    await expect(navigation).toBeVisible();
-    await navigation.getByRole("link", { name: "Demos", exact: true }).click();
-  }
+  await page.locator('button[aria-haspopup="dialog"]:visible').click();
+  await page.getByRole("dialog", { name: "Navegación editorial" }).getByRole("link", { name: /Demos/ }).click();
 
-  await expect(page).toHaveURL(/\/es\/demos$/);
-  await expect(page.getByRole("heading", { name: "Catálogo de demos" })).toBeVisible();
+  await expect(page).toHaveURL(/\/es#demos$/);
+  await expect(page.locator("#demos")).toBeVisible();
 });

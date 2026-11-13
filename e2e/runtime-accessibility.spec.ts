@@ -10,25 +10,17 @@ test("the landing page has no runtime errors and supports keyboard navigation", 
   page.on("pageerror", (error) => pageErrors.push(error.message));
 
   await page.goto("/es/");
-  await expect(page.getByRole("heading", { name: /J.*MC/ })).toBeVisible();
+  await expect(page.getByText("JMMC // FULLSTACK DEVELOPER & DESIGNER", { exact: true })).toBeVisible();
 
-  const mobileMenu = page.getByRole("button", { name: /Menú/ });
-  if (await mobileMenu.isVisible()) {
-    await mobileMenu.focus();
-    await expect(mobileMenu).toBeFocused();
-    await page.keyboard.press("Enter");
-    await expect(page.getByLabel("Navegación móvil")).toBeVisible();
-    const demosLink = page.getByRole("link", { name: "Demos", exact: true });
-    await demosLink.focus();
-    await expect(demosLink).toBeFocused();
-  } else {
-    const navigation = page.getByRole("navigation", { name: "Navegación principal" });
-    const homeLink = navigation.getByRole("link", { name: "Inicio", exact: true });
-    const demosLink = navigation.getByRole("link", { name: "Demos", exact: true });
-    await homeLink.focus();
-    await page.keyboard.press("Tab");
-    await expect(demosLink).toBeFocused();
-  }
+  const menuButton = page.locator('button[aria-haspopup="dialog"]:visible');
+  await menuButton.focus();
+  await expect(menuButton).toBeFocused();
+  await page.keyboard.press("Enter");
+  const dialog = page.getByRole("dialog", { name: "Navegación editorial" });
+  await expect(dialog).toBeVisible();
+  const demosLink = dialog.getByRole("link", { name: /Demos/ });
+  await demosLink.focus();
+  await expect(demosLink).toBeFocused();
 
   expect(consoleErrors).toEqual([]);
   expect(pageErrors).toEqual([]);
