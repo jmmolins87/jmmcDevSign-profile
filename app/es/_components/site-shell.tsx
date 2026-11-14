@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 
 import { LandingShell } from "@/app/es/_components/landing-shell";
 import { LanguageSelector } from "@/app/es/_components/language-selector";
@@ -14,6 +15,22 @@ type SiteShellProps = Readonly<{
 }>;
 
 export function SiteShell({ children }: SiteShellProps) {
+  return (
+    <Suspense fallback={<SiteShellFallback>{children}</SiteShellFallback>}>
+      <PathAwareSiteShell>{children}</PathAwareSiteShell>
+    </Suspense>
+  );
+}
+
+function SiteShellFallback({ children }: SiteShellProps) {
+  return (
+    <div className="min-h-[100svh] bg-background text-foreground">
+      <div className="pt-16" id="main-content">{children}</div>
+    </div>
+  );
+}
+
+function PathAwareSiteShell({ children }: SiteShellProps) {
   const pathname = usePathname();
 
   if (pathname === "/es" || pathname === "/es/") {

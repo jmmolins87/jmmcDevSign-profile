@@ -234,7 +234,7 @@ const posts: readonly LandingCarouselPost[] = [
     title: "El ocaso de los microservicios caóticos: volviendo al monolito modular",
     category: "Arquitectura distribuida",
     readingTime: "14 MIN",
-    href: "/es/blog/editor",
+    href: "/es/blog/ocaso-microservicios-caoticos-monolito-modular",
   },
   {
     date: "12 MAR 2025",
@@ -245,7 +245,7 @@ const posts: readonly LandingCarouselPost[] = [
     title: "Agentes que ejecutan: de la instrucción a la ejecución",
     category: "Agentes de IA",
     readingTime: "08 MIN",
-    href: "/es/blog/editor",
+    href: "/es/blog/agentes-que-ejecutan-instruccion-ejecucion",
   },
   {
     date: "02 ABR 2025",
@@ -256,7 +256,7 @@ const posts: readonly LandingCarouselPost[] = [
     title: "El contrato visual también es arquitectura",
     category: "Sistemas de diseño",
     readingTime: "05 MIN",
-    href: "/es/blog/editor",
+    href: "/es/blog/contrato-visual-tambien-es-arquitectura",
   },
 ];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, type MouseEvent, type ReactNode, type SyntheticEvent } from "react";
+import { useCallback, useEffect, useId, useRef, type KeyboardEvent, type MouseEvent, type ReactNode, type SyntheticEvent } from "react";
 
 import { Button } from "@/app/components/ui/button";
 
@@ -8,6 +8,7 @@ export type DrawerProps = {
   children: ReactNode;
   closeLabel?: string;
   description?: string;
+  modal?: boolean;
   onClose: () => void;
   open: boolean;
   title: string;
@@ -17,11 +18,13 @@ export function Drawer({
   children,
   closeLabel = "Cerrar panel",
   description,
+  modal = true,
   onClose,
   open,
   title,
 }: DrawerProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const returnFocusTargetRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
   const descriptionId = useId();
 
@@ -30,20 +33,58 @@ export function Drawer({
     if (!dialog) return;
 
     if (open && !dialog.open) {
-      dialog.showModal();
+      returnFocusTargetRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      if (modal) {
+        dialog.showModal();
+      } else {
+        dialog.show();
+      }
+      dialog.focus();
     } else if (!open && dialog.open) {
       dialog.close();
     }
-  }, [open]);
+  }, [modal, open]);
+
+  const restoreFocus = useCallback(() => {
+    const target = returnFocusTargetRef.current;
+    returnFocusTargetRef.current = null;
+    target?.focus();
+  }, []);
+
+  const closeDrawer = useCallback(() => {
+    restoreFocus();
+    onClose();
+  }, [onClose, restoreFocus]);
+
+  useEffect(() => {
+    if (!open || modal) return;
+
+    function handleDocumentKeyDown(event: globalThis.KeyboardEvent) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeDrawer();
+      }
+    }
+
+    window.addEventListener("keydown", handleDocumentKeyDown);
+    return () => window.removeEventListener("keydown", handleDocumentKeyDown);
+  }, [closeDrawer, modal, open]);
 
   function handleCancel(event: SyntheticEvent<HTMLDialogElement>) {
     event.preventDefault();
-    onClose();
+    closeDrawer();
   }
 
   function handleBackdropClick(event: MouseEvent<HTMLDialogElement>) {
     if (event.target === event.currentTarget) {
-      onClose();
+      closeDrawer();
+    }
+  }
+
+  function handleKeyDown(event: KeyboardEvent<HTMLDialogElement>) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeDrawer();
     }
   }
 
@@ -52,9 +93,12 @@ export function Drawer({
       aria-describedby={description ? descriptionId : undefined}
       aria-labelledby={titleId}
       className="jmmc-overlay jmmc-drawer border-s border-border bg-surface-container p-0 text-on-surface"
+      data-modal={modal ? "true" : "false"}
+      tabIndex={-1}
       onCancel={handleCancel}
       onClick={handleBackdropClick}
-      onClose={onClose}
+      onClose={closeDrawer}
+      onKeyDown={handleKeyDown}
       ref={dialogRef}
     >
       <div className="grid min-h-full content-start gap-space-lg p-space-lg">
@@ -65,7 +109,7 @@ export function Drawer({
             </h2>
             {description ? <p className="text-body-sm text-on-surface-variant" id={descriptionId}>{description}</p> : null}
           </div>
-          <Button aria-label={closeLabel} onClick={onClose} size="sm" variant="ghost">
+          <Button aria-label={closeLabel} onClick={closeDrawer} size="sm" variant="ghost">
             ×
           </Button>
         </header>
