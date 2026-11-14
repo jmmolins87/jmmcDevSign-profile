@@ -34,6 +34,38 @@ const oauthProviders: ReadonlyArray<{ id: OAuthProvider; label: string }> = [
   { id: "github", label: "Continuar con GitHub" },
 ];
 
+function OAuthProviderLogo({ provider }: Readonly<{ provider: OAuthProvider }>) {
+  if (provider === "google") {
+    return (
+      <svg
+        aria-hidden="true"
+        className="size-5 shrink-0"
+        data-provider-logo="google"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path d="M21.35 12.27c0-.79-.07-1.55-.23-2.27H12v4.3h5.23a4.47 4.47 0 0 1-1.94 2.93v2.45h3.14c1.84-1.69 2.92-4.18 2.92-7.41Z" fill="#4285F4" />
+        <path d="M12 21.7c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.74 9.74 0 0 0 12 21.7Z" fill="#34A853" />
+        <path d="M6.54 13.78A5.85 5.85 0 0 1 6.23 12c0-.62.11-1.22.31-1.78V7.69H3.3A9.75 9.75 0 0 0 2.25 12c0 1.57.38 3.06 1.05 4.31l3.24-2.53Z" fill="#FBBC05" />
+        <path d="M12 6.19c1.43 0 2.72.49 3.73 1.45l2.8-2.8C16.84 3.27 14.63 2.3 12 2.3a9.74 9.74 0 0 0-8.7 5.39l3.24 2.53C7.31 7.91 9.46 6.19 12 6.19Z" fill="#EA4335" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      aria-hidden="true"
+      className="size-5 shrink-0 text-accent"
+      data-provider-logo="github"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.35-3.87-1.35-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.17 1.18a11.03 11.03 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.07.78 2.16v3.2c0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+    </svg>
+  );
+}
+
 function PasswordField({
   onChange,
   value,
@@ -172,7 +204,7 @@ export function LoginPanel({ oauthAdapter = mockOAuthAdapter }: LoginPanelProps 
               type="button"
             >
               <span className="flex items-center gap-space-sm">
-                <span aria-hidden="true" className="font-mono text-mono-code text-accent">{provider.id === "google" ? "◎" : "⌘"}</span>
+                <OAuthProviderLogo provider={provider.id} />
                 <span>{provider.label}</span>
               </span>
               <span aria-hidden="true" className="font-mono text-mono-code text-on-surface-variant group-hover:text-primary">-&gt;</span>

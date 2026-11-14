@@ -17,6 +17,8 @@ test("a visitor can use the mock login and switch the theme", async ({ page }, t
   await expect(page.getByText("DEV_SELECTOR:")).toBeVisible();
   await expect(page.getByRole("tab", { name: /ACCEDER/ })).toBeVisible();
   await expect(page.getByRole("tab", { name: /CREAR CUENTA/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Continuar con Google" }).locator('[data-provider-logo="google"]')).toBeVisible();
+  await expect(page.getByRole("button", { name: "Continuar con GitHub" }).locator('[data-provider-logo="github"]')).toBeVisible();
   await expect(page.getByRole("button", { name: "Continuar con GitHub" })).toBeVisible();
   await page.getByRole("button", { name: "Continuar con Google" }).click();
   await expect(page.getByRole("status")).toContainText("Google no está configurado localmente");

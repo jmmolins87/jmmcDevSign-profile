@@ -22,6 +22,12 @@ test.describe("landing editorial", () => {
 
     await expect(page.locator('a[href="mailto:hola@jmmcdevsign.es"]').first()).toBeVisible();
 
+    const statusCenter = await page.getByText("{ STATUS: ALL SYSTEMS OPERATIONAL ✦ }", { exact: true }).evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      return (bounds.left + bounds.right) / 2;
+    });
+    expect(Math.abs(statusCenter - (await page.evaluate(() => window.innerWidth / 2)))).toBeLessThanOrEqual(1);
+
     const hasHorizontalOverflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(hasHorizontalOverflow).toBe(false);
     expect(consoleErrors).toEqual([]);

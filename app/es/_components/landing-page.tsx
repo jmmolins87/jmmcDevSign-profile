@@ -575,10 +575,10 @@ function ContactSection() {
 function LandingFooter() {
   return (
     <footer className="bg-surface px-margin py-space-lg sm:px-margin-tablet lg:px-margin-desktop">
-      <div className="mx-auto flex w-full max-w-[var(--layout-content-max)] flex-wrap items-center justify-between gap-space-md font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant">
+      <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] items-center gap-space-md text-center font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant sm:grid-cols-[1fr_auto_1fr] sm:text-start">
         <span>JMMC / entorno editorial brutalista</span>
-        <span>{"{ STATUS: ALL SYSTEMS OPERATIONAL ✦ }"}</span>
-        <a className="transition-colors hover:text-primary" href="mailto:hola@jmmcdevsign.es">hola@jmmcdevsign.es</a>
+        <span className="sm:justify-self-center">{"{ STATUS: ALL SYSTEMS OPERATIONAL ✦ }"}</span>
+        <a className="transition-colors hover:text-primary sm:justify-self-end" href="mailto:hola@jmmcdevsign.es">hola@jmmcdevsign.es</a>
       </div>
     </footer>
   );
