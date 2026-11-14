@@ -2,14 +2,13 @@
 
 import { useSyncExternalStore } from "react";
 
-export type UserRole = "admin" | "editor" | "lector";
+import { authUsersRepository } from "@/app/es/auth/mock-auth-repository";
+import { MOCK_AUTH_FIXTURES } from "@/app/es/auth/mock-fixtures";
+import { isUserRole, type UserRole } from "@/app/es/auth/roles";
+import { isAuthProvider, type AuthProvider, type AuthUser, type MockSession } from "@/app/es/auth/types";
 
-export type MockSession = {
-  userId: string;
-  email: string;
-  role: UserRole;
-  isAuthenticated: true;
-};
+export type { UserRole } from "@/app/es/auth/roles";
+export type { MockSession } from "@/app/es/auth/types";
 
 export type MockLoginProfile = {
   id: string;
@@ -26,39 +25,20 @@ export type MockLoginResult =
 const SESSION_STORAGE_KEY = "jmmc-mock-session";
 const SESSION_CHANGE_EVENT = "jmmc-mock-session-change";
 
-const mockUsers: readonly (MockLoginProfile & { userId: string })[] = [
-  {
-    id: "profile-admin",
-    userId: "usr-admin-001",
-    email: "admin@jmmcdevsign.es",
-    role: "admin",
-    roleLabel: "Administrador",
-    demoPassword: "jmmc-admin-demo",
-  },
-  {
-    id: "profile-editor",
-    userId: "usr-editor-001",
-    email: "editor@jmmcdevsign.es",
-    role: "editor",
-    roleLabel: "Editor",
-    demoPassword: "jmmc-editor-demo",
-  },
-  {
-    id: "profile-lector",
-    userId: "usr-lector-001",
-    email: "lector@jmmcdevsign.es",
-    role: "lector",
-    roleLabel: "Lector",
-    demoPassword: "jmmc-lector-demo",
-  },
-];
+type MockUser = MockLoginProfile & { userId: string; provider: AuthProvider };
+
+const mockUsers: readonly MockUser[] = MOCK_AUTH_FIXTURES.map((fixture) => ({
+  id: fixture.fixtureId,
+  userId: fixture.id,
+  email: fixture.email,
+  role: fixture.role,
+  roleLabel: fixture.roleLabel,
+  demoPassword: fixture.demoPassword,
+  provider: fixture.provider,
+}));
 
 let clientSession: MockSession | null = null;
 let hasReadClientSnapshot = false;
-
-function isUserRole(value: unknown): value is UserRole {
-  return value === "admin" || value === "editor" || value === "lector";
-}
 
 function isKnownSession(value: unknown): value is MockSession {
   if (!value || typeof value !== "object") return false;
@@ -68,13 +48,22 @@ function isKnownSession(value: unknown): value is MockSession {
     candidate.isAuthenticated === true &&
     typeof candidate.userId === "string" &&
     typeof candidate.email === "string" &&
+    isAuthProvider(candidate.provider) &&
     isUserRole(candidate.role) &&
-    mockUsers.some(
+    (mockUsers.some(
       (user) =>
         user.userId === candidate.userId &&
         user.email === candidate.email &&
-        user.role === candidate.role,
-    )
+        user.role === candidate.role &&
+        user.provider === candidate.provider,
+    ) || authUsersRepository.getSnapshot().some(
+      (user) =>
+        user.id === candidate.userId &&
+        user.email === candidate.email &&
+        user.role === candidate.role &&
+        user.provider === candidate.provider &&
+        user.status === "active",
+    ))
   );
 }
 
@@ -146,6 +135,31 @@ export function listMockLoginProfiles(): readonly MockLoginProfile[] {
   }));
 }
 
+function persistSession(session: MockSession) {
+  clientSession = session;
+
+  try {
+    window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
+  } catch {
+    // The in-memory session remains available when storage is unavailable.
+  }
+
+  publishSessionChange();
+}
+
+export function createMockSessionForUser(user: Pick<AuthUser, "id" | "email" | "role" | "provider">) {
+  const session: MockSession = {
+    userId: user.id,
+    email: user.email,
+    role: user.role,
+    provider: user.provider,
+    isAuthenticated: true,
+  };
+
+  persistSession(session);
+  return session;
+}
+
 export async function loginMockSession(
   email: string,
   password: string,
@@ -163,22 +177,13 @@ export async function loginMockSession(
     };
   }
 
-  const session: MockSession = {
-    userId: user.userId,
+  const session = createMockSessionForUser({
     email: user.email,
+    id: user.userId,
+    provider: user.provider,
     role: user.role,
-    isAuthenticated: true,
-  };
+  });
 
-  clientSession = session;
-
-  try {
-    window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
-  } catch {
-    // The in-memory session remains available when storage is unavailable.
-  }
-
-  publishSessionChange();
   return { ok: true, session };
 }
 

@@ -4,13 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import { useMockSession } from "@/app/es/auth/mock-session";
 import { demoRouteList, demosIndexRoute, portfolioRouteList } from "@/app/es/route-map";
 
 export function MobileMenu() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openPathname, setOpenPathname] = useState(pathname);
+  const session = useMockSession();
   const isOpen = isMenuOpen && openPathname === pathname;
+  const visiblePortfolioRoutes = session?.role === "admin"
+    ? portfolioRouteList
+    : portfolioRouteList.filter((item) => item.section !== "admin");
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -64,7 +69,7 @@ export function MobileMenu() {
                 </span>
               </Link>
             </li>
-            {portfolioRouteList.map((item) => (
+            {visiblePortfolioRoutes.map((item) => (
               <li key={item.href}>
                 <Link
                   className="flex min-h-12 items-center justify-between border border-border px-space-md py-space-sm font-headline text-headline-md uppercase text-primary hover:border-accent"

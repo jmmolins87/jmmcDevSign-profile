@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { ProtectedSurface } from "@/app/es/auth/protected-surface";
 import { SurfaceHeader } from "@/app/es/_components/surface-header";
-import type { UserRole } from "@/app/es/auth/mock-session";
+import type { UserRole } from "@/app/es/auth/roles";
 
 type DemoPageShellProps = {
   allowedRoles: readonly UserRole[];

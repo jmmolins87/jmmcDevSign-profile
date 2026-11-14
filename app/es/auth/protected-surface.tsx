@@ -3,8 +3,9 @@
 import Link from "next/link";
 
 import { Badge, Card, CardContent, CardMeta, ErrorState } from "@/app/components/ui";
-import { useMockSession, type UserRole } from "@/app/es/auth/mock-session";
+import { useMockSession } from "@/app/es/auth/mock-session";
 import { InterfaceStateControls } from "@/app/es/auth/interface-state-controls";
+import type { UserRole } from "@/app/es/auth/roles";
 
 type ProtectedSurfaceProps = {
   allowedRoles: readonly UserRole[];
@@ -14,7 +15,7 @@ type ProtectedSurfaceProps = {
 const roleLabels: Record<UserRole, string> = {
   admin: "Administrador",
   editor: "Editor",
-  lector: "Lector",
+  revisor: "Revisor",
 };
 
 export function ProtectedSurface({ allowedRoles, children }: ProtectedSurfaceProps) {

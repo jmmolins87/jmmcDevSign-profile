@@ -21,5 +21,6 @@ describe("primary navigation", () => {
     expect(navigation).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Demos" })).toHaveAttribute("aria-current", "page");
     expect(screen.getByRole("link", { name: "Inicio" })).not.toHaveAttribute("aria-current");
+    expect(screen.queryByRole("link", { name: "Administración" })).not.toBeInTheDocument();
   });
 });

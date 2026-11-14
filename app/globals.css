@@ -293,6 +293,8 @@
 
   .jmmc-overlay::backdrop {
     background: color-mix(in oklch, var(--sys-color-background) 82%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
   }
 
   .jmmc-drawer {

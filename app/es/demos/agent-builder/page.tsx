@@ -1,3 +1,4 @@
+import { SHARED_SURFACE_ROLES } from "@/app/es/auth/roles";
 import { ProtectedSurface } from "@/app/es/auth/protected-surface";
 import { SurfaceHeader } from "@/app/es/_components/surface-header";
 import { AgentBuilderPanel } from "@/app/es/demos/agent-builder/agent-builder-panel";
@@ -12,7 +13,7 @@ export default function AgentBuilderPage() {
           id="agent-builder-title"
           title="Constructor de agentes"
         />
-        <ProtectedSurface allowedRoles={["admin", "editor"]}>
+        <ProtectedSurface allowedRoles={SHARED_SURFACE_ROLES}>
           <AgentBuilderPanel />
         </ProtectedSurface>
       </div>

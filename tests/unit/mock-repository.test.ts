@@ -43,4 +43,19 @@ describe("createMockRepository", () => {
       "Mock repository item not found: unknown",
     );
   });
+
+  it("hydrates and persists a browser-backed repository", async () => {
+    window.localStorage.setItem("test-notes", JSON.stringify([{ id: "stored-note", title: "Stored note" }]));
+    const repository = createMockRepository<Note, { title: string }>({
+      seed: [],
+      storageKey: "test-notes",
+      create: (input, sequence) => ({ id: `note-${sequence}`, title: input.title }),
+      update: (current, input) => ({ ...current, title: input.title }),
+    });
+
+    expect(await repository.list()).toEqual([{ id: "stored-note", title: "Stored note" }]);
+    await repository.create({ title: "New stored note" });
+
+    expect(JSON.parse(window.localStorage.getItem("test-notes") ?? "[]")).toHaveLength(2);
+  });
 });

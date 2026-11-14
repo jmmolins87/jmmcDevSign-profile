@@ -1,3 +1,4 @@
+import { SHARED_SURFACE_ROLES } from "@/app/es/auth/roles";
 import { ProtectedSurface } from "@/app/es/auth/protected-surface";
 import { SurfaceHeader } from "@/app/es/_components/surface-header";
 import { PostEditorPanel } from "@/app/es/blog/editor/post-editor-panel";
@@ -12,7 +13,7 @@ export default function PostEditorPage() {
           id="editor-title"
           title="Editor de publicaciones"
         />
-        <ProtectedSurface allowedRoles={["admin", "editor"]}>
+        <ProtectedSurface allowedRoles={SHARED_SURFACE_ROLES}>
           <PostEditorPanel />
         </ProtectedSurface>
       </div>

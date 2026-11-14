@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { useMockSession } from "@/app/es/auth/mock-session";
+
 const primaryNavItems = [
   { href: "/es/", label: "Inicio" },
   { href: "/es/demos", label: "Demos" },
@@ -16,10 +18,14 @@ function normalizePath(pathname: string) {
 
 export function PrimaryNav() {
   const pathname = normalizePath(usePathname());
+  const session = useMockSession();
+  const visibleNavItems = session?.role === "admin"
+    ? primaryNavItems
+    : primaryNavItems.filter((item) => item.href !== "/es/admin/approval");
 
   return (
     <nav aria-label="Navegación principal" className="hidden items-center gap-space-lg lg:flex">
-      {primaryNavItems.map((item) => {
+      {visibleNavItems.map((item) => {
         const normalizedHref = normalizePath(item.href);
         const isActive =
           pathname === normalizedHref ||

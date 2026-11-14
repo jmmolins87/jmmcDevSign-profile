@@ -12,7 +12,7 @@ test("the landing page has no runtime errors and supports keyboard navigation", 
   await page.goto("/es/");
   await expect(page.getByText("JMMC // FULLSTACK DEVELOPER & DESIGNER", { exact: true })).toBeVisible();
 
-  const menuButton = page.locator('button[aria-haspopup="dialog"]:visible');
+  const menuButton = page.locator('button[aria-haspopup="dialog"]:visible').first();
   await menuButton.focus();
   await expect(menuButton).toBeFocused();
   await page.keyboard.press("Enter");
