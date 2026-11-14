@@ -58,9 +58,10 @@ la UI.
 notificaciones de administración. No configura un proveedor de correo ni envía
 emails reales; el flujo local debe inspeccionarse en la bandeja mock.
 
-La matriz local es: `admin` accede a todas las superficies y gestiona
-aprobaciones; `editor` y `revisor` comparten las superficies no administrativas;
-una sesión anónima recibe `Sesión requerida`.
+La matriz local es: `admin` accede a las superficies administrativas y editoriales
+protegidas y gestiona aprobaciones; `editor` y `revisor` comparten las superficies
+editoriales protegidas. Las demos bajo `/es/demos/*` son públicas y una sesión
+anónima solo recibe `Sesión requerida` en las rutas protegidas.
 
 ## Frontera de producción del correo de aprobación
 

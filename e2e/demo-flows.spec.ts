@@ -1,14 +1,6 @@
-import { expect, test, type Locator, type Page } from "@playwright/test";
+import { expect, test, type Locator } from "@playwright/test";
 
-async function loginAsAdmin(page: Page) {
-  await page.goto("/es/login");
-  await page.getByRole("button", { name: /Administrador/ }).click();
-  await page.getByRole("button", { name: "Iniciar sesión" }).click();
-  await expect(page.getByText("SESIÓN ACTIVA")).toBeVisible();
-}
-
-test("the admin can exercise the protected demo families", async ({ page }, testInfo) => {
-  await loginAsAdmin(page);
+test("anonymous visitors can exercise the public demo families", async ({ page }, testInfo) => {
   const clickAction = async (locator: Locator) => {
     const isMobile = testInfo.project.name.includes("mobile");
     await expect(locator).toBeVisible();
@@ -16,19 +8,21 @@ test("the admin can exercise the protected demo families", async ({ page }, test
     await locator.click({ force: isMobile });
   };
 
-  await page.goto("/es/admin/approval");
-  const approvalButton = page.getByRole("button", { name: "Aprobar y emitir código" }).first();
-  await clickAction(approvalButton);
-  await expect(page.getByText(/solicitud aprobada/)).toBeVisible();
-
-  await page.goto("/es/blog/editor");
-  await clickAction(page.getByRole("button", { name: "Publicar" }));
-  await expect(page.getByText(/Publicación mock:/u)).toBeVisible();
-
   await page.goto("/es/demos/agent-builder");
-  await page.getByRole("tab", { name: "Prueba mock" }).click();
-  await clickAction(page.getByRole("button", { name: "Ejecutar prueba mock" }));
-  await expect(page.getByText("EJECUCIÓN COMPLETA")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Configuración del agente" })).toBeVisible();
+  await clickAction(page.getByRole("button", { name: /DESPLEGAR AGENTE/u }));
+  await expect(page.getByText("local-rev-4-12")).toBeVisible();
+  await page.reload();
+  await expect(page.getByText("local-rev-4-12")).toBeVisible();
+  await expect(page.getByRole("button", { name: /04\. RECIÉN DESPLEGADO/u })).toHaveAttribute("aria-pressed", "true");
+  if (testInfo.project.name.includes("mobile")) {
+    await page.getByRole("tab", { name: "[ PROBAR (CHAT) ]" }).click();
+  }
+  await clickAction(page.getByRole("button", { name: "ENUMERA LOS CONECTORES ACTIVOS." }));
+  await expect(page.getByText(/Respuesta mock: se procesó/)).toBeVisible();
+  await page.getByRole("textbox", { name: "Prompt de prueba" }).fill("Diagnóstico manual");
+  await page.getByRole("button", { name: "Enviar prompt" }).press("Enter");
+  await expect(page.getByText(/Respuesta mock: se procesó «Diagnóstico manual»/u)).toBeVisible();
 
   await page.goto("/es/demos/leads-workflow");
   await clickAction(page.getByRole("button", { name: "Mover a siguiente etapa" }).first());
