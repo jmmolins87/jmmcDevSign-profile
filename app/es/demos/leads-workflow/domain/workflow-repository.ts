@@ -52,8 +52,10 @@ export function createWorkflowRepository(options: WorkflowRepositoryOptions = {}
   let snapshot = createWorkflowSnapshot();
   let hydrated = false;
   let addedNodeSequence = 0;
+  let persistenceWarning: string | null = null;
 
   function warn(message: string): void {
+    persistenceWarning = message;
     if (options.onPersistenceWarning) {
       options.onPersistenceWarning(message);
       return;
@@ -214,6 +216,12 @@ export function createWorkflowRepository(options: WorkflowRepositoryOptions = {}
       };
       persist();
       return { ...snapshot.filters, statuses: [...snapshot.filters.statuses], origins: [...snapshot.filters.origins] };
+    },
+
+    consumePersistenceWarning() {
+      const warning = persistenceWarning;
+      persistenceWarning = null;
+      return warning;
     },
   };
 }

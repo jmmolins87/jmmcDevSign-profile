@@ -11,8 +11,10 @@ import {
   getAlignedWorkflowNodes,
   getNextWorkflowNodeInput,
   toggleFilterValue,
+  WorkflowDeploymentError,
   type LeadOrigin,
   type LeadWorkflowStatus,
+  type WorkflowAuditEvent,
   type WorkflowDefinition,
   type WorkflowEdge,
   type WorkflowLeadFilters,
@@ -149,7 +151,29 @@ function LeadDetail({ lead }: { lead: WorkflowLeadRecord | undefined }) {
   );
 }
 
-function LeadRegistry({ filters, leads, onFiltersChange, onSelectLead, selectedLeadId }: { filters: WorkflowLeadFilters; leads: WorkflowLeadRecord[]; onFiltersChange: (filters: WorkflowLeadFilters) => void; onSelectLead: (id: string) => void; selectedLeadId: string }) {
+function WorkflowAuditTrace({ events }: { events: WorkflowAuditEvent[] }) {
+  const visibleEvents = events.slice(-8).reverse();
+
+  return (
+    <section aria-label="Traza de auditoría" aria-live="polite" className="grid gap-2 border border-border bg-surface-lowest p-3">
+      <header className="flex items-center justify-between gap-3">
+        <h3 className="font-mono text-[10px] uppercase tracking-[0.14em] text-on-surface-variant">&#123; TRAZA DE AUDITORÍA &#125;</h3>
+        <span className="font-mono text-[10px] text-accent">{events.length} EVENTOS</span>
+      </header>
+      <ol className="grid gap-2">
+        {visibleEvents.map((event) => (
+          <li className="grid gap-1 border-s border-border px-2 py-1 font-mono text-[10px] leading-4" key={event.id}>
+            <span className="text-primary">{event.label}</span>
+            <span className="flex justify-between gap-2 text-on-surface-variant"><span>{event.nodeId ?? "workflow"}{" // "}{event.status.toUpperCase()}</span><span className="text-accent">{event.latency}</span></span>
+            <span className="text-outline">AT: {event.at}{" // TYPE: "}{event.type.toUpperCase()}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+function LeadRegistry({ events, filters, leads, onFiltersChange, onSelectLead, selectedLeadId }: { events: WorkflowAuditEvent[]; filters: WorkflowLeadFilters; leads: WorkflowLeadRecord[]; onFiltersChange: (filters: WorkflowLeadFilters) => void; onSelectLead: (id: string) => void; selectedLeadId: string }) {
   return (
     <div className="grid gap-4 p-4">
       <header className="grid gap-2 border-b border-border pb-4">
@@ -169,6 +193,7 @@ function LeadRegistry({ filters, leads, onFiltersChange, onSelectLead, selectedL
         </div>
       )}
       <LeadDetail lead={leads.find((lead) => lead.id === selectedLeadId) ?? leads[0]} />
+      <WorkflowAuditTrace events={events} />
       <footer className="grid grid-cols-2 gap-2 border-t border-border pt-3 font-mono text-[10px] uppercase text-on-surface-variant">
         <span>{"{ PROCESADOS HOY: " + (342 + leads.length) + " }"}</span><span className="text-right">{"{ CONVERSIÓN: 28.4% }"}</span><span>{"{ TIEMPO INFERENCIA MEDIO: 210ms }"}</span><button className="text-right text-primary hover:text-accent" type="button">[ EXPORTAR JSON ]</button>
       </footer>
@@ -211,36 +236,49 @@ export function WorkflowPanel() {
   const [zoom, setZoom] = useState(1);
   const [busy, setBusy] = useState(false);
   const [statusMessage, setStatusMessage] = useState("Workspace mock listo. Selecciona una acción para ejecutar el pipeline.");
+  const [persistenceNotice, setPersistenceNotice] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorDetails, setErrorDetails] = useState<string[]>([]);
+
+  function getPersistenceWarningMessage(warning: string | null): string | null {
+    return warning ? "Aviso de persistencia: " + warning : null;
+  }
 
   useEffect(() => {
     let cancelled = false;
     void workflowRepository.getSnapshot().then((nextSnapshot) => {
       if (cancelled) return;
+      const persistenceWarning = getPersistenceWarningMessage(workflowRepository.consumePersistenceWarning());
       setSnapshot(nextSnapshot);
       setSelectedLeadId((current) => nextSnapshot.leads.some((lead) => lead.id === current) ? current : nextSnapshot.leads[0]?.id ?? "");
-      if (nextSnapshot.workflow.runtimeState !== "live") setStatusMessage("Snapshot local restaurado: " + runtimeLabels[nextSnapshot.workflow.runtimeState] + ".");
+      setPersistenceNotice(persistenceWarning);
+      if (persistenceWarning) setStatusMessage(persistenceWarning);
+      else if (nextSnapshot.workflow.runtimeState !== "live") setStatusMessage("Snapshot local restaurado: " + runtimeLabels[nextSnapshot.workflow.runtimeState] + ".");
     });
     return () => { cancelled = true; };
   }, []);
 
   const visibleLeads = useMemo(() => filterWorkflowLeads(snapshot.leads, snapshot.filters), [snapshot.filters, snapshot.leads]);
 
-  async function reloadSnapshot(): Promise<WorkflowWorkspaceSnapshot> {
+  async function reloadSnapshot(): Promise<string | null> {
     const nextSnapshot = await workflowRepository.getSnapshot();
+    const persistenceWarning = getPersistenceWarningMessage(workflowRepository.consumePersistenceWarning());
     setSnapshot(nextSnapshot);
-    return nextSnapshot;
+    return persistenceWarning;
   }
 
-  async function runOperation(operation: () => Promise<void>, successMessage: string): Promise<void> {
+  async function runOperation(operation: () => Promise<unknown>, successMessage: string): Promise<void> {
     setBusy(true);
     setErrorMessage(null);
+    setErrorDetails([]);
     try {
-      await operation();
-      await reloadSnapshot();
-      setStatusMessage(successMessage);
+      const operationResult = await operation();
+      const persistenceWarning = await reloadSnapshot();
+      setPersistenceNotice(persistenceWarning);
+      setStatusMessage(persistenceWarning ?? (typeof operationResult === "string" ? operationResult : successMessage));
     } catch (error) {
       setErrorMessage(getErrorMessage(error));
+      setErrorDetails(error instanceof WorkflowDeploymentError ? error.validation.errors : []);
       setStatusMessage("La operación no se completó.");
     } finally {
       setBusy(false);
@@ -249,7 +287,11 @@ export function WorkflowPanel() {
 
   function updateFilters(filters: WorkflowLeadFilters): void {
     setSnapshot((current) => ({ ...current, filters }));
-    void workflowRepository.updateFilters(filters).catch((error: unknown) => { setErrorMessage(getErrorMessage(error)); setStatusMessage("Los filtros se muestran en memoria, pero no pudieron persistirse."); });
+    void workflowRepository.updateFilters(filters).then(() => {
+      const persistenceWarning = getPersistenceWarningMessage(workflowRepository.consumePersistenceWarning());
+      setPersistenceNotice(persistenceWarning);
+      if (persistenceWarning) setStatusMessage(persistenceWarning);
+    }).catch((error: unknown) => { setErrorMessage(getErrorMessage(error)); setErrorDetails([]); setStatusMessage("Los filtros se muestran en memoria, pero no pudieron persistirse."); });
   }
 
   function selectLead(id: string): void { setSelectedLeadId(id); setDrawerOpen(false); }
@@ -271,7 +313,7 @@ export function WorkflowPanel() {
   function handleAutoAlign(): void { void runOperation(async () => { await workflowRepository.updateWorkflow(WORKFLOW_ID, { nodes: getAlignedWorkflowNodes(snapshot.workflow.nodes) }); }, "Auto-align aplicado con posiciones deterministas."); }
 
   function handleDeploy(): void {
-    void runOperation(async () => { const result = await workflowDeploymentService.deploy(WORKFLOW_ID); setStatusMessage("Workflow desplegado localmente: " + result.version + "."); }, "Workflow desplegado localmente.");
+    void runOperation(async () => { await workflowDeploymentService.deploy(WORKFLOW_ID); }, "Workflow desplegado localmente.");
   }
 
   return (
@@ -291,14 +333,15 @@ export function WorkflowPanel() {
         <section aria-label="Presets del workflow" className="workflow-preset-bar"><span className="font-mono text-[10px] uppercase tracking-[0.12em] text-outline">&#123; PRESET_ESTADO &#125;:</span>{WORKFLOW_PRESET_VALUES.map((preset) => <button aria-pressed={snapshot.workflow.preset === preset} className={"workflow-preset-button " + (snapshot.workflow.preset === preset ? "workflow-preset-active" : "")} disabled={busy} key={preset} onClick={() => handlePreset(preset)} type="button">{snapshot.workflow.preset === preset ? "■ " : ""}{presetLabels[preset]}</button>)}<span className="hidden font-mono text-[10px] uppercase text-on-surface-variant lg:inline">AUTOPILOT: <strong className="text-primary">ENGAGED</strong> / FAILOVER: ACTIVE / &#123; + &#125;</span></section>
         <div className="workflow-workspace">
           <div className="min-w-0"><div className="flex justify-end border-b border-border bg-surface-lowest p-3 xl:hidden"><button className="workflow-control-button" onClick={() => setDrawerOpen(true)} type="button">[ ABRIR REGISTRO ({visibleLeads.length}) ]</button></div><WorkflowCanvas busy={busy} onAutoAlign={handleAutoAlign} onResetGrid={handleResetGrid} onZoomChange={setZoom} workflow={snapshot.workflow} zoom={zoom} /></div>
-          <aside aria-label="Registro lateral de leads" className="workflow-registry hidden xl:block"><LeadRegistry filters={snapshot.filters} leads={visibleLeads} onFiltersChange={updateFilters} onSelectLead={selectLead} selectedLeadId={selectedLeadId} /></aside>
+          <aside aria-label="Registro lateral de leads" className="workflow-registry hidden xl:block"><LeadRegistry events={snapshot.events} filters={snapshot.filters} leads={visibleLeads} onFiltersChange={updateFilters} onSelectLead={selectLead} selectedLeadId={selectedLeadId} /></aside>
         </div>
       </main>
 
       <footer className="workflow-footer"><span>© 2024 ARCHITECTURAL PORTFOLIO / SYS_ID: DEMO_06_LEADS / MANIFEST: V2.4.9_PROD</span><span className="text-accent">■ RUNTIME: 99.98% OK</span><span>LATENCY: 14MS / REGISTRY: AWS_US_EAST_1 / &#123; + &#125;</span></footer>
       <div aria-live="polite" className="sr-only">{statusMessage}</div>
-      {errorMessage ? <div aria-live="assertive" className="workflow-error-banner" role="alert">{errorMessage}</div> : null}
-      <Drawer description="Registro operativo de leads y filtros combinables." onClose={() => setDrawerOpen(false)} open={drawerOpen} title="Registro en vivo"><LeadRegistry filters={snapshot.filters} leads={visibleLeads} onFiltersChange={updateFilters} onSelectLead={selectLead} selectedLeadId={selectedLeadId} /></Drawer>
+      {persistenceNotice ? <div aria-live="polite" className="workflow-persistence-banner" role="status">{persistenceNotice}</div> : null}
+      {errorMessage ? <div aria-live="assertive" className="workflow-error-banner" role="alert"><p>{errorMessage}</p>{errorDetails.length > 0 ? <ul className="mt-2 list-disc space-y-1 ps-4">{errorDetails.map((detail) => <li key={detail}>{detail}</li>)}</ul> : null}</div> : null}
+      <Drawer description="Registro operativo de leads y filtros combinables." onClose={() => setDrawerOpen(false)} open={drawerOpen} title="Registro en vivo"><LeadRegistry events={snapshot.events} filters={snapshot.filters} leads={visibleLeads} onFiltersChange={updateFilters} onSelectLead={selectLead} selectedLeadId={selectedLeadId} /></Drawer>
     </div>
   );
 }

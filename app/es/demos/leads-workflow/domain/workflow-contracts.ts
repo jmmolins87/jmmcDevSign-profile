@@ -23,6 +23,7 @@ export interface WorkflowRepository {
 export interface WorkflowRepositorySnapshotAdapter extends WorkflowRepository {
   getSnapshot(): Promise<WorkflowWorkspaceSnapshot>;
   updateFilters(filters: WorkflowLeadFilters): Promise<WorkflowLeadFilters>;
+  consumePersistenceWarning(): string | null;
 }
 
 export interface WorkflowRuntimeService {

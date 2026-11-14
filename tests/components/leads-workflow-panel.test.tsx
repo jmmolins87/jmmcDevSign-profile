@@ -54,6 +54,10 @@ describe("WorkflowPanel", () => {
 
     await user.click(screen.getByRole("button", { name: /EJECUTAR TEST/u }));
     expect(await screen.findByText("Test ejecutado: traza determinista disponible en el registro.")).toBeInTheDocument();
+    const trace = screen.getByRole("region", { name: "Traza de auditoría" });
+    expect(within(trace).getByText("01 // WEBHOOK // PASS")).toBeInTheDocument();
+    const testInferenceEvent = within(trace).getByText("02 // AGENTE_IA // PASS").closest("li") as HTMLElement;
+    expect(testInferenceEvent).toHaveTextContent("184ms");
   });
 
   it("adds fixture nodes and restores the visual layout without losing deployment data", async () => {
@@ -105,5 +109,20 @@ describe("WorkflowPanel", () => {
 
     expect(await screen.findByText("Workflow desplegado localmente.")).toBeInTheDocument();
     expect(screen.getByText(/DESPLEGADO/u)).toBeInTheDocument();
+  });
+
+  it("exposes accessible validation details when deployment is invalid", async () => {
+    const user = userEvent.setup();
+    await workflowRepository.updateWorkflow(WORKFLOW_ID, { name: "", nodes: [], edges: [] });
+    render(<WorkflowPanel />);
+
+    await user.click(screen.getByRole("button", { name: /DESPLEGAR FLUJO/u }));
+
+    const alert = await screen.findByRole("alert");
+    expect(alert).toHaveTextContent("La configuración del workflow no es válida para desplegar.");
+    expect(alert).toHaveTextContent("El workflow necesita un nombre.");
+    expect(alert).toHaveTextContent("Falta el nodo requerido: webhook.");
+    expect(alert).toHaveTextContent("Falta el nodo requerido: ai-agent.");
+    expect(alert).toHaveTextContent("El workflow necesita conexiones entre nodos.");
   });
 });

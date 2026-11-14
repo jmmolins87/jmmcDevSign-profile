@@ -54,3 +54,13 @@ test("anonymous visitors can exercise the public demo families", async ({ page }
   await clickAction(page.getByRole("button", { name: "Preparar instantánea" }));
   await expect(page.getByText("Snapshot today preparado.")).toBeVisible();
 });
+
+test("leads workflow recovers a corrupt snapshot with accessible feedback", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.localStorage.setItem("jmmcdevsign:leads-workflow:v1", "{malformed");
+  });
+  await page.goto("/es/demos/leads-workflow");
+
+  await expect(page.getByRole("status")).toHaveText(/Aviso de persistencia:.*JSON inválido.*fixtures seguros/u);
+  await expect(page.getByRole("heading", { name: "EN VIVO // INGESTIÓN TELEMÉTRICA" })).toBeVisible();
+});

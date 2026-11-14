@@ -536,6 +536,20 @@
     color: var(--sys-color-error);
   }
 
+  .workflow-persistence-banner {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 69;
+    max-width: min(34rem, calc(100vw - 2rem));
+    border: 1px solid var(--sys-color-accent);
+    background: var(--sys-color-surface-lowest);
+    padding: 0.75rem 1rem;
+    font-family: var(--sys-font-mono);
+    font-size: 0.75rem;
+    color: var(--sys-color-primary);
+  }
+
   @keyframes workflow-edge-flow {
     to {
       stroke-dashoffset: -1;

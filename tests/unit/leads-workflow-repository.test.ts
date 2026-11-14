@@ -61,6 +61,7 @@ describe("leads workflow repository", () => {
     await expect(repository.getWorkflow(WORKFLOW_FIXTURE.id)).resolves.toEqual(WORKFLOW_FIXTURE);
     expect(storage.getItem(WORKFLOW_STORAGE_KEY)).toBeNull();
     expect(warnings).toHaveLength(1);
+    expect(repository.consumePersistenceWarning()).toContain("JSON inválido");
   });
 
   it("discards incompatible snapshots and returns safe fixtures", async () => {
@@ -72,6 +73,7 @@ describe("leads workflow repository", () => {
     await expect(repository.getSnapshot()).resolves.toMatchObject({ version: 1, workflow: WORKFLOW_FIXTURE });
     expect(storage.getItem(WORKFLOW_STORAGE_KEY)).toBeNull();
     expect(warnings).toHaveLength(1);
+    expect(repository.consumePersistenceWarning()).toContain("no coincide con el contrato vigente");
   });
 
   it("adds a deterministic node and resets only the visual workflow layout", async () => {
