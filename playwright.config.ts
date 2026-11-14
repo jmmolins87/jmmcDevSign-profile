@@ -30,5 +30,19 @@ export default defineConfig({
       name: "chromium-mobile",
       use: { ...devices["Pixel 5"], viewport: { width: 375, height: 812 } },
     },
+    {
+      name: "firefox-desktop",
+      use: {
+        ...devices["Desktop Firefox"],
+        viewport: { width: 1440, height: 900 },
+      },
+    },
+    {
+      name: "firefox-mobile",
+      use: {
+        ...devices["Desktop Firefox"],
+        viewport: { width: 375, height: 812 },
+      },
+    },
   ],
 });
