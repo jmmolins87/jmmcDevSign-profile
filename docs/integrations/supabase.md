@@ -16,6 +16,7 @@ Variables disponibles:
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 NEXT_PUBLIC_SITE_URL=https://www.jmmcdevsign.es
+ADMIN_NOTIFICATION_EMAIL=admin@jmmcdevsign.es
 ```
 
 La URL y la clave anon/publishable son valores públicos para el cliente. Nunca se debe colocar `service_role`, una clave secreta o un token de administración en una variable `NEXT_PUBLIC_*`.
@@ -26,6 +27,39 @@ La URL y la clave anon/publishable son valores públicos para el cliente. Nunca 
 
 La aplicación funciona sin `.env.local` porque todas las pantallas actuales usan repositorios mock. La simple creación del cliente no ejecuta consultas; cualquier llamada futura debe vivir en un adaptador de repositorio explícito.
 
+## Contratos de autenticación y correo
+
+`app/es/auth/contracts.ts` define las fronteras `AuthAdapter` y `EmailService`.
+La implementación local sigue usando los repositorios mock y la bandeja de
+correo mock de `app/es/auth/`; no se activa ningún adaptador remoto por defecto.
+
+El flujo local se compone de estos límites:
+
+- `mock-registration-service.ts` crea solicitudes `pending` y notifica al admin.
+- `mock-approval-service.ts` asigna `editor`/`revisor`, crea el challenge y envía el código.
+- `mock-verification-service.ts` valida digest, expiración, consumo único y cinco intentos.
+- `mock-session.ts` crea la sesión mock del usuario activado.
+- `mock-email-inbox.ts` conserva notificaciones y códigos en la bandeja de pruebas.
+
+Los repositorios de usuarios, solicitudes, challenges y correo persisten solo en
+`localStorage` del navegador para que el flujo sobreviva a la navegación entre
+`/es/login` y `/es/admin/approval`. Esta persistencia no es un mecanismo de
+autorización ni sustituye Supabase/RLS.
+
+`getSupabaseClient()` solo puede crear el cliente perezoso cuando existen
+`NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Sin ambas variables
+Supabase permanece desactivado y no se ejecutan llamadas remotas. Incluso con
+ellas presentes, esta fase no conecta Auth, Google, GitHub ni sesiones remotas a
+la UI.
+
+`ADMIN_NOTIFICATION_EMAIL` documenta el destinatario futuro de las
+notificaciones de administración. No configura un proveedor de correo ni envía
+emails reales; el flujo local debe inspeccionarse en la bandeja mock.
+
+La matriz local es: `admin` accede a todas las superficies y gestiona
+aprobaciones; `editor` y `revisor` comparten las superficies no administrativas;
+una sesión anónima recibe `Sesión requerida`.
+
 Las tipologías están preparadas en `app/lib/supabase/database.types.ts`. Cuando exista un esquema real, se sustituirá por tipos generados y se mantendrá el contrato `DemoRepository` como frontera de la UI.
 
 ## Límites de esta spec
@@ -33,7 +67,8 @@ Las tipologías están preparadas en `app/lib/supabase/database.types.ts`. Cuand
 - No se configura Supabase Auth real.
 - No se crean tablas, migraciones, políticas RLS ni datos remotos.
 - No se ejecutan consultas, suscripciones realtime ni escrituras.
-- No se conecta ningún repositorio mock al cliente todavía.
+- Los repositorios mock solo persisten datos locales de demostración; no se conectan a Supabase.
+- No se configura ningún proveedor de correo transaccional ni se envían emails reales.
 
 La URL canónica del portfolio es `https://www.jmmcdevsign.es/es/`.
 

@@ -27,19 +27,19 @@ export function LandingTrajectory({ entries }: Readonly<{ entries: readonly Traj
   useGSAP(
     () => {
       const root = scope.current;
-      const items = Array.from(root?.querySelectorAll<HTMLElement>("[data-trajectory-item]") ?? []);
+      const cards = Array.from(root?.querySelectorAll<HTMLElement>("[data-trajectory-card]") ?? []);
       const progressLine = root?.querySelector<HTMLElement>("[data-trajectory-progress]");
-      if (!root || !progressLine || items.length === 0) {
+      if (!root || !progressLine || cards.length === 0) {
         return;
       }
 
       if (prefersReducedMotion) {
-        gsap.set(items, { autoAlpha: 1, clearProps: "transform" });
+        gsap.set(cards, { autoAlpha: 1, clearProps: "transform" });
         gsap.set(progressLine, { autoAlpha: 0, height: "100%" });
         return;
       }
 
-      gsap.from(items, {
+      gsap.from(cards, {
         autoAlpha: 0,
         duration: 0.6,
         ease: "power3.out",
@@ -76,7 +76,7 @@ export function LandingTrajectory({ entries }: Readonly<{ entries: readonly Traj
         {entries.map((entry, index) => (
           <li className="relative grid gap-space-lg lg:grid-cols-2 lg:gap-space-2xl" data-trajectory-item key={`${entry.company}-${entry.period}`}>
             <span aria-hidden="true" className="absolute -start-[calc(var(--primitive-space-lg)+0.25rem)] top-space-sm size-2 bg-accent lg:start-1/2 lg:-translate-x-1/2" />
-            <div className={`grid gap-space-lg lg:col-span-1 ${index % 2 === 1 ? "lg:col-start-2" : "lg:col-start-1"}`}>
+            <div className={`grid gap-space-lg lg:col-span-1 ${index % 2 === 1 ? "lg:col-start-2" : "lg:col-start-1"}`} data-trajectory-card>
               <div className="mb-0 grid content-start gap-space-xs">
                 <p className="font-mono text-mono-code uppercase tracking-[0.12em] text-accent-text">{entry.period}</p>
                 <p className="font-headline text-headline-md uppercase text-primary">{entry.role}</p>

@@ -1,34 +1,5 @@
 import { createMockRepository } from "@/app/es/repositories/mock-repository";
 
-export type ApprovalStatus = "pending" | "approved" | "rejected";
-
-export type AccessRequest = {
-  id: string;
-  applicant: string;
-  email: string;
-  scope: string;
-  requestedAt: string;
-  status: ApprovalStatus;
-};
-
-export const approvalRepository = createMockRepository<AccessRequest, Partial<AccessRequest>>({
-  seed: [
-    { id: "req-001", applicant: "Lucía Martín", email: "lucia.martin@northstar.test", scope: "Editor de posts", requestedAt: "11 nov 2026 · 09:12", status: "pending" },
-    { id: "req-002", applicant: "Diego Serra", email: "diego.serra@atelier.test", scope: "Demos operativas", requestedAt: "11 nov 2026 · 08:46", status: "pending" },
-    { id: "req-003", applicant: "Marta Vidal", email: "marta.vidal@orbit.test", scope: "Lectura de métricas", requestedAt: "10 nov 2026 · 16:22", status: "approved" },
-    { id: "req-004", applicant: "Álex Costa", email: "alex.costa@vector.test", scope: "Editor de posts", requestedAt: "10 nov 2026 · 12:09", status: "rejected" },
-  ],
-  create: (input, sequence) => ({
-    id: `req-${sequence}`,
-    applicant: input.applicant ?? "Nueva solicitud",
-    email: input.email ?? "unknown@test",
-    scope: input.scope ?? "Sin ámbito",
-    requestedAt: input.requestedAt ?? "Ahora",
-    status: input.status ?? "pending",
-  }),
-  update: (current, input) => ({ ...current, ...input, id: current.id }),
-});
-
 export type PostStatus = "draft" | "review" | "published";
 
 export type PostDraft = {

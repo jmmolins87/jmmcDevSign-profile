@@ -59,17 +59,37 @@ ignorados por Git y deben eliminarse después de investigar un fallo.
 | `/es/` | Presentación editorial del portfolio. | Público |
 | `/es/login` | Login, logout y perfiles mock. | Público |
 | `/es/admin/approval` | Aprobación de accesos. | `admin` |
-| `/es/blog/editor` | Editor y preview de posts. | `admin`, `editor` |
+| `/es/blog/editor` | Editor y preview de posts. | `admin`, `editor`, `revisor` |
 | `/es/demos` | Catálogo de demos. | Público |
-| `/es/demos/agent-builder` | Constructor y runtime de agentes. | `admin`, `editor` |
-| `/es/demos/leads-workflow` | Workflow de leads. | `admin`, `editor` |
-| `/es/demos/lead-qualification` | Cualificación comercial. | `admin`, `editor` |
-| `/es/demos/orders-realtime` | Pedidos y eventos realtime mock. | `admin`, `editor`, `lector` |
-| `/es/demos/business-backoffice` | Métricas y cola operativa. | `admin` |
+| `/es/demos/agent-builder` | Constructor y runtime de agentes. | `admin`, `editor`, `revisor` |
+| `/es/demos/leads-workflow` | Workflow de leads. | `admin`, `editor`, `revisor` |
+| `/es/demos/lead-qualification` | Cualificación comercial. | `admin`, `editor`, `revisor` |
+| `/es/demos/orders-realtime` | Pedidos y eventos realtime mock. | `admin`, `editor`, `revisor` |
+| `/es/demos/business-backoffice` | Métricas y cola operativa. | `admin`, `editor`, `revisor` |
 
 Los perfiles disponibles se muestran en `/es/login`. Sus claves son fixtures de
-demo, no credenciales reales. La sesión se guarda en `localStorage` únicamente
-para permitir probar las rutas protegidas.
+demo, no credenciales reales. La sesión y los repositorios de autenticación mock
+se guardan en `localStorage` únicamente para permitir probar las rutas protegidas
+entre navegaciones.
+
+## Flujo local de autenticación
+
+| Perfil | Email | Clave demo | Permisos |
+| --- | --- | --- | --- |
+| Administrador | `admin@jmmcdevsign.es` | `jmmc-admin-demo` | Todas las superficies y aprobaciones |
+| Editor | `editor@jmmcdevsign.es` | `jmmc-editor-demo` | Superficies editoriales y demos |
+| Revisor | `revisor@jmmcdevsign.es` | `jmmc-revisor-demo` | Superficies editoriales y demos |
+
+El registro público solo permite solicitar `editor` o `revisor`. La solicitud
+queda `pending` y notifica al admin en la bandeja mock. El admin puede cambiar el
+rol y aprobarla; la aprobación genera un código numérico de seis dígitos que se
+guarda como digest, caduca en diez minutos, admite un único consumo y se bloquea
+tras cinco intentos fallidos. La bandeja mock está disponible mediante
+`mockEmailInbox` y no envía correo real.
+
+Sin sesión, las rutas protegidas muestran `Sesión requerida`. Solo `admin` puede
+gestionar `/es/admin/approval`; `editor` y `revisor` comparten el resto de
+superficies protegidas.
 
 ## Variables de entorno
 
@@ -84,6 +104,7 @@ cp .env.example .env.local
 | `NEXT_PUBLIC_SUPABASE_URL` | URL pública del proyecto Supabase. | No |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Clave pública anon/publishable. | No |
 | `NEXT_PUBLIC_SITE_URL` | URL canónica del sitio. | No; usa `https://www.jmmcdevsign.es` |
+| `ADMIN_NOTIFICATION_EMAIL` | Destinatario futuro de avisos de registro. | No; usa `admin@jmmcdevsign.es` |
 
 No pongas `service_role`, tokens de administración ni secretos en variables
 `NEXT_PUBLIC_*`. La frontera preparada y sus límites están documentados en

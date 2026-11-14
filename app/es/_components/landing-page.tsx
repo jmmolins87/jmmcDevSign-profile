@@ -8,6 +8,7 @@ import { LandingDemos } from "@/app/es/_components/landing-demos";
 import { LandingHeroMotion } from "@/app/es/_components/landing-hero-motion";
 import { LandingMotionLink } from "@/app/es/_components/landing-motion-link";
 import { LandingProjects, type LandingProject } from "@/app/es/_components/landing-projects";
+import { LandingServices, type LandingService } from "@/app/es/_components/landing-services";
 import { LandingTrajectory, type TrajectoryEntry } from "@/app/es/_components/landing-trajectory";
 import { LandingUtcClock } from "@/app/es/_components/landing-utc-clock";
 import {
@@ -200,7 +201,7 @@ const projects: readonly LandingProject[] = [
   },
 ];
 
-const services = [
+const services: readonly LandingService[] = [
   {
     description: "Especialista en Angular y Storybook, creando librerías de componentes reutilizables con un enfoque pixel-perfect. Desarrollo interfaces modernas y accesibles, respaldado por un sólido backend con Spring Boot y Java.",
     index: "01",
@@ -501,28 +502,7 @@ function ServicesSection() {
     <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface-container-lowest px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
         <SectionHeader aside="{ CONTRACTS / CLEAR SCOPE / REAL DELIVERY }" section={section} />
-        <div className="grid gap-space-lg md:grid-cols-2 lg:grid-cols-4">
-          {services.map((service) => (
-            <Card className="group flex min-h-[22rem] flex-col transition-colors hover:border-accent" key={service.index}>
-              <CardHeader className="border-b-0 pb-space-md">
-                <div className="grid gap-space-xs">
-                  <CardMeta>{`SERVICE / ${service.index}`}</CardMeta>
-                  <span className="font-mono text-mono-code uppercase tracking-[0.08em] text-accent">{`{ 0${Number(service.index)} }`}</span>
-                </div>
-                <span aria-hidden="true" className="font-headline text-headline-xl text-outline-variant transition-colors group-hover:text-accent">✦</span>
-              </CardHeader>
-              <CardContent className="flex h-full flex-col justify-between gap-space-xl pt-0">
-                <div className="grid gap-space-sm">
-                  <CardTitle className="text-headline-lg leading-tight">{service.title}</CardTitle>
-                  <p className="text-body-md text-on-surface-variant">{service.description}</p>
-                </div>
-                <div className="border-t border-border pt-space-md font-mono text-mono-code uppercase tracking-[0.08em] text-on-surface-variant">
-                  <span className="text-accent">✦</span> Alcance / estrategia + ejecución
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <LandingServices services={services} />
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 async function loginAsAdmin(page: Page) {
   await page.goto("/es/login");
@@ -7,39 +7,42 @@ async function loginAsAdmin(page: Page) {
   await expect(page.getByText("SESIÓN ACTIVA")).toBeVisible();
 }
 
-test("the admin can exercise the protected demo families", async ({ page }) => {
+test("the admin can exercise the protected demo families", async ({ page }, testInfo) => {
   await loginAsAdmin(page);
+  const clickAction = async (locator: Locator) => {
+    const isMobile = testInfo.project.name.includes("mobile");
+    await expect(locator).toBeVisible();
+    if (!isMobile) await locator.scrollIntoViewIfNeeded();
+    await locator.click({ force: isMobile });
+  };
 
   await page.goto("/es/admin/approval");
-  const approvalButton = page
-    .getByRole("row", { name: /Lucía Martín/ })
-    .getByRole("button", { name: "Aprobar" });
-  await approvalButton.scrollIntoViewIfNeeded();
-  await approvalButton.click({ force: true });
+  const approvalButton = page.getByRole("button", { name: "Aprobar y emitir código" }).first();
+  await clickAction(approvalButton);
   await expect(page.getByText(/solicitud aprobada/)).toBeVisible();
 
   await page.goto("/es/blog/editor");
-  await page.getByRole("button", { name: "Publicar mock" }).click();
+  await clickAction(page.getByRole("button", { name: "Publicar mock" }));
   await expect(page.getByText("Post guardado como publicado.")).toBeVisible();
 
   await page.goto("/es/demos/agent-builder");
   await page.getByRole("tab", { name: "Prueba mock" }).click();
-  await page.getByRole("button", { name: "Ejecutar prueba mock" }).click();
+  await clickAction(page.getByRole("button", { name: "Ejecutar prueba mock" }));
   await expect(page.getByText("EJECUCIÓN COMPLETA")).toBeVisible();
 
   await page.goto("/es/demos/leads-workflow");
-  await page.getByRole("button", { name: "Mover a siguiente etapa" }).first().click();
+  await clickAction(page.getByRole("button", { name: "Mover a siguiente etapa" }).first());
   await expect(page.getByText(/transición a contactado completada/)).toBeVisible();
 
   await page.goto("/es/demos/lead-qualification");
-  await page.getByRole("button", { name: "Cualificar" }).first().click();
+  await clickAction(page.getByRole("button", { name: "Cualificar" }).first());
   await expect(page.getByText(/estado actualizado a cualificado/)).toBeVisible();
 
   await page.goto("/es/demos/orders-realtime");
-  await page.getByRole("button", { name: "Simular evento en tiempo real" }).click();
+  await clickAction(page.getByRole("button", { name: "Simular evento en tiempo real" }));
   await expect(page.getByText(/evento recibido/)).toBeVisible();
 
   await page.goto("/es/demos/business-backoffice");
-  await page.getByRole("button", { name: "Preparar instantánea" }).click();
+  await clickAction(page.getByRole("button", { name: "Preparar instantánea" }));
   await expect(page.getByText("Snapshot today preparado.")).toBeVisible();
 });

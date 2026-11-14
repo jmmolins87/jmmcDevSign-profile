@@ -53,14 +53,14 @@ export function Modal({
     <dialog
       aria-describedby={description ? descriptionId : undefined}
       aria-labelledby={titleId}
-      className="jmmc-overlay w-[calc(100%-2rem)] max-w-2xl border border-border bg-surface-container p-0 text-on-surface"
+      className="jmmc-overlay max-h-[90dvh] w-[calc(100%-2rem)] max-w-2xl overflow-hidden border border-border bg-surface-container p-0 text-on-surface"
       onCancel={handleCancel}
       onClick={handleBackdropClick}
       onClose={onClose}
       ref={dialogRef}
     >
-      <div className="grid gap-space-lg p-space-lg">
-        <header className="flex items-start justify-between gap-space-lg border-b border-border pb-space-md">{/* taste-skill-ignore: overlay header rule from DESIGN.md */}
+      <div className="grid max-h-[90dvh] gap-space-lg overflow-y-auto overscroll-contain p-space-lg">
+        <header className="sticky top-0 z-10 flex items-start justify-between gap-space-lg border-b border-border bg-surface-container pb-space-md">{/* taste-skill-ignore: overlay header rule from DESIGN.md */}
           <div className="grid gap-space-xs">
             <h2 className="font-headline text-headline-md uppercase text-primary" id={titleId}>
               {title}

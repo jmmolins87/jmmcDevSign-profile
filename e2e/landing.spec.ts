@@ -57,7 +57,7 @@ test.describe("landing editorial", () => {
   test("opens the editorial menu with the keyboard and closes it with Escape", async ({ page }) => {
     await page.goto("/es/", { waitUntil: "networkidle" });
 
-    const menuButton = page.locator('button[aria-haspopup="dialog"]:visible');
+    const menuButton = page.locator('button[aria-haspopup="dialog"]:visible').first();
     await menuButton.focus();
     await page.keyboard.press("Enter");
 
@@ -89,6 +89,7 @@ test.describe("landing editorial", () => {
     await page.locator("#trayectoria").scrollIntoViewIfNeeded();
     await expect(page.getByText("Senior Frontend Developer", { exact: true })).toBeVisible();
     await expect.poll(() => page.locator("#trayectoria [data-trajectory-progress]").evaluate((element) => parseFloat(getComputedStyle(element).height))).toBeGreaterThan(0);
+    await expect.poll(() => page.locator("#trayectoria [data-trajectory-card]").first().evaluate((element) => getComputedStyle(element).opacity)).toBe("1");
     const trajectoryColumns = await page.locator("#trayectoria [data-trajectory-item] > div").evaluateAll((elements) => ({
       columns: new Set(elements.map((element) => Math.round(element.getBoundingClientRect().x))).size,
       isDesktop: window.innerWidth >= 1024,
@@ -103,6 +104,7 @@ test.describe("landing editorial", () => {
 
     await page.locator("#servicios").scrollIntoViewIfNeeded();
     await expect(page.getByRole("heading", { name: "Servicios", exact: true })).toBeVisible();
+    await expect.poll(() => page.locator("#servicios [data-service-card]").first().evaluate((element) => getComputedStyle(element).opacity)).toBe("1");
 
     await page.locator("#skills").scrollIntoViewIfNeeded();
     await expect(page.getByText("OpenAI", { exact: true })).toBeVisible();
