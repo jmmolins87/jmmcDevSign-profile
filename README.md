@@ -61,11 +61,11 @@ ignorados por Git y deben eliminarse después de investigar un fallo.
 | `/es/admin/approval` | Aprobación de accesos. | `admin` |
 | `/es/blog/editor` | Editor y preview de posts. | `admin`, `editor`, `revisor` |
 | `/es/demos` | Catálogo de demos. | Público |
-| `/es/demos/agent-builder` | Constructor y runtime de agentes. | `admin`, `editor`, `revisor` |
-| `/es/demos/leads-workflow` | Workflow de leads. | `admin`, `editor`, `revisor` |
-| `/es/demos/lead-qualification` | Cualificación comercial. | `admin`, `editor`, `revisor` |
-| `/es/demos/orders-realtime` | Pedidos y eventos realtime mock. | `admin`, `editor`, `revisor` |
-| `/es/demos/business-backoffice` | Métricas y cola operativa. | `admin`, `editor`, `revisor` |
+| `/es/demos/agent-builder` | Constructor y runtime de agentes. | Público |
+| `/es/demos/leads-workflow` | Workflow de leads. | Público |
+| `/es/demos/lead-qualification` | Cualificación comercial. | Público |
+| `/es/demos/orders-realtime` | Pedidos y eventos realtime mock. | Público |
+| `/es/demos/business-backoffice` | Métricas y cola operativa. | Público |
 
 Los perfiles disponibles se muestran en `/es/login`. Sus claves son fixtures de
 demo, no credenciales reales. La sesión y los repositorios de autenticación mock
@@ -76,9 +76,9 @@ entre navegaciones.
 
 | Perfil | Email | Clave demo | Permisos |
 | --- | --- | --- | --- |
-| Administrador | `admin@jmmcdevsign.es` | `jmmc-admin-demo` | Todas las superficies y aprobaciones |
-| Editor | `editor@jmmcdevsign.es` | `jmmc-editor-demo` | Superficies editoriales y demos |
-| Revisor | `revisor@jmmcdevsign.es` | `jmmc-revisor-demo` | Superficies editoriales y demos |
+| Administrador | `admin@jmmcdevsign.es` | `jmmc-admin-demo` | Administración y superficies editoriales protegidas |
+| Editor | `editor@jmmcdevsign.es` | `jmmc-editor-demo` | Superficies editoriales protegidas |
+| Revisor | `revisor@jmmcdevsign.es` | `jmmc-revisor-demo` | Superficies editoriales protegidas |
 
 El registro público solo permite solicitar `editor` o `revisor`. La solicitud
 queda `pending` y notifica al admin en la bandeja mock. El admin puede cambiar el
@@ -87,9 +87,10 @@ guarda como digest, caduca en diez minutos, admite un único consumo y se bloque
 tras cinco intentos fallidos. La bandeja mock está disponible mediante
 `mockEmailInbox` y no envía correo real.
 
-Sin sesión, las rutas protegidas muestran `Sesión requerida`. Solo `admin` puede
-gestionar `/es/admin/approval`; `editor` y `revisor` comparten el resto de
-superficies protegidas.
+Sin sesión, las rutas protegidas muestran `Sesión requerida`. Las demos bajo
+`/es/demos/*` son públicas y no requieren cuenta. Solo `admin` puede gestionar
+`/es/admin/approval`; `editor` y `revisor` comparten el resto de superficies
+editoriales protegidas.
 
 ## Variables de entorno
 

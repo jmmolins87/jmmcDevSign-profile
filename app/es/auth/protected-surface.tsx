@@ -10,6 +10,7 @@ import type { UserRole } from "@/app/es/auth/roles";
 type ProtectedSurfaceProps = {
   allowedRoles: readonly UserRole[];
   children: React.ReactNode;
+  showInterfaceStateControls?: boolean;
 };
 
 const roleLabels: Record<UserRole, string> = {
@@ -18,7 +19,7 @@ const roleLabels: Record<UserRole, string> = {
   revisor: "Revisor",
 };
 
-export function ProtectedSurface({ allowedRoles, children }: ProtectedSurfaceProps) {
+export function ProtectedSurface({ allowedRoles, children, showInterfaceStateControls = true }: ProtectedSurfaceProps) {
   const session = useMockSession();
 
   if (!session) {
@@ -58,7 +59,7 @@ export function ProtectedSurface({ allowedRoles, children }: ProtectedSurfacePro
 
   return (
     <div className="grid gap-space-lg">
-      <InterfaceStateControls />
+      {showInterfaceStateControls ? <InterfaceStateControls /> : null}
       {children}
     </div>
   );

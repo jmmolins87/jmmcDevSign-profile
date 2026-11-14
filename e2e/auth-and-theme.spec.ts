@@ -85,7 +85,7 @@ test("the direct login route opens the authentication modal and returns to the p
   await expect(page.getByRole("dialog", { name: "Acceso al sistema" })).toBeVisible();
   await page.getByRole("button", { name: "Cerrar autenticación" }).click();
   await expect(page).toHaveURL(/\/es\/?$/);
-  await expect(page.getByText("JMMC // FULLSTACK DEVELOPER & DESIGNER", { exact: true })).toBeVisible();
+  await expect(page.locator('main [data-hero-element="eyebrow"]')).toHaveText("JMMC // FULLSTACK DEVELOPER & DESIGNER");
 });
 
 test("the authentication modal blurs the page behind its overlay", async ({ page }) => {
@@ -133,7 +133,7 @@ test("keeps the authentication modal content inside the viewport", async ({ page
   const expectedViewportWidth = testInfo.project.name.includes("mobile") ? 375 : 1440;
   expect(page.viewportSize()?.width).toBe(expectedViewportWidth);
 
-  const bounds = await page.locator("[data-auth-modal-frame]").evaluate((frame) => {
+  const bounds = await page.locator('[data-auth-modal-frame]:visible').first().evaluate((frame) => {
     const viewportWidth = document.documentElement.clientWidth;
     const frameBounds = frame.getBoundingClientRect();
     const overflowingDescendants = Array.from(frame.querySelectorAll<HTMLElement>("*"))

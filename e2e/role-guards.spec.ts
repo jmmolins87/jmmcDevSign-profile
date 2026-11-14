@@ -18,12 +18,15 @@ async function logout(page: Page) {
   await page.getByRole("button", { name: "Cerrar sesión" }).click();
 }
 
-test("anonymous visitors are required to authenticate for protected surfaces", async ({ page }) => {
+test("anonymous visitors can open demos but not protected surfaces", async ({ page }) => {
   await page.goto("/es/admin/approval");
   await expect(page.getByRole("heading", { name: "Sesión requerida" })).toBeVisible();
 
+  await page.goto("/es/demos/agent-builder");
+  await expect(page.getByRole("heading", { name: "Configuración del agente" })).toBeVisible();
+
   await page.goto("/es/demos/business-backoffice");
-  await expect(page.getByRole("heading", { name: "Sesión requerida" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Gestión empresarial" })).toBeVisible();
 });
 
 test("editor and revisor share editorial surfaces but cannot manage approvals", async ({ page }) => {
@@ -36,6 +39,9 @@ test("editor and revisor share editorial surfaces but cannot manage approvals", 
 
     await page.goto("/es/demos/business-backoffice");
     await expect(page.getByRole("heading", { name: "Gestión empresarial" })).toBeVisible();
+
+    await page.goto("/es/demos/agent-builder");
+    await expect(page.getByRole("heading", { name: "Configuración del agente" })).toBeVisible();
 
     await page.goto("/es/admin/approval");
     await expect(page.getByRole("heading", { name: "Acceso no autorizado" })).toBeVisible();
