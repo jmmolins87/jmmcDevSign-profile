@@ -112,7 +112,7 @@ export function AuthModalFrame({ activeView: controlledView, login, onViewChange
   }
 
   return (
-    <div className="grid gap-space-md" data-auth-modal-frame data-auth-view={activeView}>
+    <div className="grid min-w-0 w-full grid-cols-1 gap-space-md" data-auth-modal-frame data-auth-view={activeView}>
       <section
         aria-label="Selector de estados de autenticación"
         className="flex flex-col gap-space-sm border border-border bg-surface-container-lowest px-space-md py-space-sm sm:flex-row sm:items-center sm:justify-between"

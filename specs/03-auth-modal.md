@@ -1,6 +1,6 @@
 # SPEC 03 — Modal de autenticación, registro y aprobación por roles
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 01, SPEC 02
 > **Date:** 2026-11-13
 > **Objective:** Sustituir `/es/login` por una modal de autenticación con registro pendiente, fixtures locales y una frontera preparada para Supabase Auth, Google, GitHub y correo transaccional.
@@ -205,50 +205,50 @@ No se añade ninguna clave privada, `service_role`, token OAuth ni secreto de co
 
 ## Acceptance criteria
 
-- [ ] `/es/login` abre la modal de autenticación y no muestra una página de login independiente.
-- [ ] El acceso del shell de `/es/` abre la misma modal.
-- [ ] Cerrar la modal devuelve a la página anterior sin romper la navegación del navegador.
-- [ ] La modal mantiene las vistas `acceder`, `registro`, `pendiente` y `estado`.
-- [ ] El `DEV_SELECTOR` está visible en la modal en todos los entornos y permite cambiar entre esas vistas.
-- [ ] La vista de acceso permite email y contraseña con validación accesible.
-- [ ] Los fixtures admin, editor y revisor pueden iniciar sesión localmente con las credenciales documentadas.
-- [ ] Cerrar sesión elimina la sesión mock y devuelve al estado anónimo.
-- [ ] El registro solicita nombre completo, email, contraseña, confirmación, rol y aceptación de términos.
-- [ ] El selector de rol solo ofrece `editor` y `revisor`.
-- [ ] Una solicitud nueva queda en estado `pending` y no activa la sesión antes de la aprobación.
-- [ ] El admin fixture puede ver las solicitudes pendientes.
-- [ ] El admin puede confirmar o cambiar el rol solicitado entre `editor` y `revisor`.
-- [ ] Ningún usuario puede solicitar o crear un segundo `admin` desde la modal.
-- [ ] Aprobar una solicitud genera un código numérico de seis dígitos.
-- [ ] El código expira a los diez minutos.
-- [ ] El código solo puede consumirse una vez.
-- [ ] El código se invalida después de cinco intentos fallidos.
-- [ ] El código no se almacena en texto plano en el modelo mock ni en el contrato futuro de persistencia.
-- [ ] La bandeja mock permite inspeccionar el correo de notificación al admin y el correo de código al usuario.
-- [ ] Introducir un código válido activa al usuario y permite crear su sesión.
-- [ ] Los códigos inválidos, expirados, consumidos o bloqueados muestran errores accesibles y no crean sesión.
-- [ ] Google y GitHub aparecen como proveedores disponibles en la interfaz.
-- [ ] Sin configuración local, Google y GitHub muestran un estado controlado de configuración pendiente y no una autenticación falsa.
-- [ ] Existen contratos para conectar Google y GitHub mediante Supabase Auth sin cambiar los componentes de la modal.
-- [ ] Existe `ADMIN_NOTIFICATION_EMAIL` en `.env.example` y se documenta su propósito.
-- [ ] No hay secretos, tokens OAuth, claves privadas ni credenciales de producción en el repositorio.
-- [ ] `lector` deja de existir en los tipos, fixtures, textos, guards y tests activos.
-- [ ] `editor` y `revisor` tienen exactamente los mismos permisos.
-- [ ] `admin` puede acceder a todas las páginas protegidas y gestionar solicitudes y roles.
-- [ ] Editor y revisor pueden acceder a las páginas no administrativas reutilizadas en esta spec.
-- [ ] Una sesión anónima recibe un estado de sesión requerida en las rutas protegidas.
-- [ ] Un editor o revisor no puede acceder a la gestión administrativa de solicitudes y roles.
-- [ ] La modal conserva foco visible, nombres accesibles, navegación por teclado y cierre seguro.
-- [ ] La modal mantiene la dirección visual de `resources/02_auth_modal` a 375px y 1440px.
-- [ ] Existen tests unitarios para roles, fixtures, solicitudes, código y repositorio mock.
-- [ ] Existen tests de componentes para modal, tabs, registro, estados, errores y bandeja mock.
-- [ ] Existen tests E2E para el flujo completo local de registro, aprobación, código y activación.
-- [ ] `pnpm lint` pasa.
-- [ ] `pnpm typecheck` pasa.
-- [ ] `pnpm test` pasa.
-- [ ] `pnpm test:e2e` pasa.
-- [ ] `pnpm build` pasa.
-- [ ] Los temporales, capturas de trabajo y carpetas de Playwright se eliminan después de la verificación.
+- [x] `/es/login` abre la modal de autenticación y no muestra una página de login independiente.
+- [x] El acceso del shell de `/es/` abre la misma modal.
+- [x] Cerrar la modal devuelve a la página anterior sin romper la navegación del navegador.
+- [x] La modal mantiene las vistas `acceder`, `registro`, `pendiente` y `estado`.
+- [x] El `DEV_SELECTOR` está visible en la modal en todos los entornos y permite cambiar entre esas vistas.
+- [x] La vista de acceso permite email y contraseña con validación accesible.
+- [x] Los fixtures admin, editor y revisor pueden iniciar sesión localmente con las credenciales documentadas.
+- [x] Cerrar sesión elimina la sesión mock y devuelve al estado anónimo.
+- [x] El registro solicita nombre completo, email, contraseña, confirmación, rol y aceptación de términos.
+- [x] El selector de rol solo ofrece `editor` y `revisor`.
+- [x] Una solicitud nueva queda en estado `pending` y no activa la sesión antes de la aprobación.
+- [x] El admin fixture puede ver las solicitudes pendientes.
+- [x] El admin puede confirmar o cambiar el rol solicitado entre `editor` y `revisor`.
+- [x] Ningún usuario puede solicitar o crear un segundo `admin` desde la modal.
+- [x] Aprobar una solicitud genera un código numérico de seis dígitos.
+- [x] El código expira a los diez minutos.
+- [x] El código solo puede consumirse una vez.
+- [x] El código se invalida después de cinco intentos fallidos.
+- [x] El código no se almacena en texto plano en el modelo mock ni en el contrato futuro de persistencia.
+- [x] La bandeja mock permite inspeccionar el correo de notificación al admin y el correo de código al usuario.
+- [x] Introducir un código válido activa al usuario y permite crear su sesión.
+- [x] Los códigos inválidos, expirados, consumidos o bloqueados muestran errores accesibles y no crean sesión.
+- [x] Google y GitHub aparecen como proveedores disponibles en la interfaz.
+- [x] Sin configuración local, Google y GitHub muestran un estado controlado de configuración pendiente y no una autenticación falsa.
+- [x] Existen contratos para conectar Google y GitHub mediante Supabase Auth sin cambiar los componentes de la modal.
+- [x] Existe `ADMIN_NOTIFICATION_EMAIL` en `.env.example` y se documenta su propósito.
+- [x] No hay secretos, tokens OAuth, claves privadas ni credenciales de producción en el repositorio.
+- [x] `lector` deja de existir en los tipos, fixtures, textos, guards y tests activos.
+- [x] `editor` y `revisor` tienen exactamente los mismos permisos.
+- [x] `admin` puede acceder a todas las páginas protegidas y gestionar solicitudes y roles.
+- [x] Editor y revisor pueden acceder a las páginas no administrativas reutilizadas en esta spec.
+- [x] Una sesión anónima recibe un estado de sesión requerida en las rutas protegidas.
+- [x] Un editor o revisor no puede acceder a la gestión administrativa de solicitudes y roles.
+- [x] La modal conserva foco visible, nombres accesibles, navegación por teclado y cierre seguro.
+- [x] La modal mantiene la dirección visual de `resources/02_auth_modal` a 375px y 1440px.
+- [x] Existen tests unitarios para roles, fixtures, solicitudes, código y repositorio mock.
+- [x] Existen tests de componentes para modal, tabs, registro, estados, errores y bandeja mock.
+- [x] Existen tests E2E para el flujo completo local de registro, aprobación, código y activación.
+- [x] `pnpm lint` pasa.
+- [x] `pnpm typecheck` pasa.
+- [x] `pnpm test` pasa.
+- [x] `pnpm test:e2e` pasa.
+- [x] `pnpm build` pasa.
+- [x] Los temporales, capturas de trabajo y carpetas de Playwright se eliminan después de la verificación.
 
 ## Decisions
 
@@ -297,3 +297,9 @@ No se añade ninguna clave privada, `service_role`, token OAuth ni secreto de co
 - Despliegues, cambios remotos o credenciales reales.
 
 Cada punto deberá definirse en una spec independiente cuando se incorpore.
+
+## Notas de verificación
+
+- 2026-11-14: verificación independiente completada con `pnpm lint`, `pnpm typecheck`, `pnpm test` (20 archivos / 51 tests), `pnpm build` y `pnpm test:e2e` (36 tests en desktop y mobile). Se añadió una regresión E2E para el overflow interno de la modal a 375px.
+- 2026-11-14: Context7 no pudo responder por cuota agotada; la comprobación de Next.js 16.4.6 se contrastó con `node_modules/next/dist/docs/`.
+- 2026-11-14: el MCP de Playwright no pudo inicializar Chrome porque `/Applications/Google Chrome.app` no existe y la instalación requiere `sudo`; se usó el Chromium local de Playwright como fallback, con capturas inspeccionadas visualmente a 375px y 1440px.

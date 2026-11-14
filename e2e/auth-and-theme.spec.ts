@@ -123,6 +123,30 @@ test("keeps registration compact with adjacent role buttons", async ({ page }) =
   expect(metrics.roleButtons[1].left).toBeGreaterThan(metrics.roleButtons[0].left + metrics.roleButtons[0].width);
 });
 
+test("keeps the authentication modal content inside the viewport", async ({ page }, testInfo) => {
+  await page.goto("/es/login");
+
+  const expectedViewportWidth = testInfo.project.name.includes("mobile") ? 375 : 1440;
+  expect(page.viewportSize()?.width).toBe(expectedViewportWidth);
+
+  const bounds = await page.locator("[data-auth-modal-frame]").evaluate((frame) => {
+    const viewportWidth = document.documentElement.clientWidth;
+    const frameBounds = frame.getBoundingClientRect();
+    const overflowingDescendants = Array.from(frame.querySelectorAll<HTMLElement>("*"))
+      .filter((element) => element.getBoundingClientRect().right > viewportWidth + 1)
+      .map((element) => element.tagName);
+
+    return {
+      frameRight: frameBounds.right,
+      overflowingDescendants,
+      viewportWidth,
+    };
+  });
+
+  expect(bounds.frameRight).toBeLessThanOrEqual(bounds.viewportWidth + 1);
+  expect(bounds.overflowingDescendants).toEqual([]);
+});
+
 test("the admin can assign a role and issue a verification code for a pending request", async ({ page }, testInfo) => {
   await page.goto("/es/login");
 

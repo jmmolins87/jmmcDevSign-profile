@@ -59,7 +59,7 @@ export function Modal({
       onClose={onClose}
       ref={dialogRef}
     >
-      <div className="grid max-h-[90dvh] gap-space-lg overflow-y-auto overscroll-contain p-space-lg">
+      <div className="grid min-w-0 grid-cols-1 max-h-[90dvh] gap-space-lg overflow-y-auto overscroll-contain p-space-lg">
         <header className="sticky top-0 z-10 flex items-start justify-between gap-space-lg border-b border-border bg-surface-container pb-space-md">{/* taste-skill-ignore: overlay header rule from DESIGN.md */}
           <div className="grid gap-space-xs">
             <h2 className="font-headline text-headline-md uppercase text-primary" id={titleId}>
