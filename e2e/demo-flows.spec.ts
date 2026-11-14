@@ -22,8 +22,8 @@ test("the admin can exercise the protected demo families", async ({ page }, test
   await expect(page.getByText(/solicitud aprobada/)).toBeVisible();
 
   await page.goto("/es/blog/editor");
-  await clickAction(page.getByRole("button", { name: "Publicar mock" }));
-  await expect(page.getByText("Post guardado como publicado.")).toBeVisible();
+  await clickAction(page.getByRole("button", { name: "Publicar" }));
+  await expect(page.getByText(/Publicación mock:/u)).toBeVisible();
 
   await page.goto("/es/demos/agent-builder");
   await page.getByRole("tab", { name: "Prueba mock" }).click();
