@@ -5,6 +5,7 @@ import {
   type CreateRegistrationRequestInput,
 } from "@/app/es/auth/mock-auth-repository";
 import { mockEmailService } from "@/app/es/auth/mock-email-service";
+import { createPendingAdminApprovalEmailModel } from "@/app/es/auth/mock-admin-approval-email";
 import type { AuthUser, RegistrationRequest } from "@/app/es/auth/types";
 import type { MockRepository } from "@/app/es/repositories/mock-repository";
 
@@ -60,7 +61,7 @@ export function createMockRegistrationAdapter({
         status: "pending",
       });
 
-      await emailService.notifyAdmin(request);
+      await emailService.notifyAdmin(createPendingAdminApprovalEmailModel(request, createdAt));
 
       return { ok: true, request };
     },

@@ -8,6 +8,8 @@ export type MockEmailMessage = {
   to: string;
   subject: string;
   body: string;
+  html?: string;
+  text?: string;
   registrationRequestId: string;
   sentAt: string;
 };

@@ -49,6 +49,9 @@ describe("LoginPanel", () => {
     const user = userEvent.setup();
     render(<LoginPanel />);
 
+    expect(screen.getByRole("button", { name: "Continuar con Google" }).querySelector('[data-provider-logo="google"]')).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Continuar con GitHub" }).querySelector('[data-provider-logo="github"]')).toBeInTheDocument();
+
     await user.click(screen.getByRole("button", { name: "Continuar con Google" }));
 
     expect(await screen.findByRole("status")).toHaveTextContent("Proveedor pendiente de configuración");

@@ -1,5 +1,6 @@
 import type {
   AuthProvider,
+  AdminApprovalEmailModel,
   MockSession,
   RegistrationRequest,
   RegistrationRole,
@@ -32,6 +33,6 @@ export interface AuthAdapter {
 }
 
 export interface EmailService {
-  notifyAdmin(request: RegistrationRequest): Promise<void>;
+  notifyAdmin(model: AdminApprovalEmailModel): Promise<void>;
   sendVerificationCode(request: RegistrationRequest, code: string): Promise<void>;
 }

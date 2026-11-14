@@ -37,9 +37,11 @@ El flujo local se compone de estos límites:
 
 - `mock-registration-service.ts` crea solicitudes `pending` y notifica al admin.
 - `mock-approval-service.ts` asigna `editor`/`revisor`, crea el challenge y envía el código.
+- `mock-admin-approval-actions.ts` valida el formato, token mock y expiración de los enlaces.
+- `mock-auth-repository.ts` conserva los eventos mock de decisión para inspección local.
 - `mock-verification-service.ts` valida digest, expiración, consumo único y cinco intentos.
 - `mock-session.ts` crea la sesión mock del usuario activado.
-- `mock-email-inbox.ts` conserva notificaciones y códigos en la bandeja de pruebas.
+- `mock-email-inbox.ts` conserva notificaciones y avisos de entrega de código en la bandeja de pruebas; el valor operativo no se persiste.
 
 Los repositorios de usuarios, solicitudes, challenges y correo persisten solo en
 `localStorage` del navegador para que el flujo sobreviva a la navegación entre
@@ -59,6 +61,50 @@ emails reales; el flujo local debe inspeccionarse en la bandeja mock.
 La matriz local es: `admin` accede a todas las superficies y gestiona
 aprobaciones; `editor` y `revisor` comparten las superficies no administrativas;
 una sesión anónima recibe `Sesión requerida`.
+
+## Frontera de producción del correo de aprobación
+
+El correo de aprobación de esta spec es una simulación local. `EmailService` y
+`RenderedEmail` son las fronteras que deben conservarse cuando se sustituya el
+mock por un provider adapter. La UI no debe conocer el proveedor ni firmar
+acciones.
+
+Una implementación server-side deberá cumplir, como mínimo, estas reglas:
+
+1. **Firmar las acciones en servidor.** Generar tokens opacos o firmados con
+   una clave secreta fuera del repositorio. El token debe vincular `requestId`,
+   acción, destinatario admin, `iat`, `exp` y un identificador de uso único.
+   Nunca aceptar como autorización los parámetros enviados por el navegador ni
+   reutilizar `mock-token-*`.
+2. **Autorizar antes de mutar.** Resolver la identidad admin en el servidor,
+   comprobar el rol y leer el estado actual de la solicitud dentro de la misma
+   operación. Aprobar o rechazar debe ser idempotente y no crear otro challenge
+   si la solicitud ya fue decidida.
+3. **Aplicar expiración con reloj server-side.** Validar `exp` con la hora del
+   servidor y rechazar tokens caducados antes de cambiar la solicitud. La
+   expiración del enlace admin es independiente de los diez minutos del código
+   de verificación emitido después de aprobar.
+4. **Obtener metadatos de forma confiable.** Ciudad aproximada, IP y dispositivo
+   deben derivarse server-side de fuentes confiables, minimizarse y sanearse.
+   Nunca deben tratarse como evidencia fiable si vienen del cliente ni
+   persistirse más tiempo del necesario para auditoría y seguridad.
+5. **Separar correo y decisión.** El provider adapter recibirá el
+   `RenderedEmail` y será responsable de entrega, reintentos y observabilidad.
+   La decisión debe ejecutarse en el servicio de dominio antes o junto al
+   envío del código; un fallo de entrega no debe volver a aprobar una solicitud
+   ya aprobada.
+6. **No exponer secretos ni códigos operativos.** El correo pendiente solo
+   muestra `PENDIENTE DE EMISIÓN`. Tras aprobar, el código se genera server-side,
+   se almacena como digest, se envía una vez y se invalida por expiración,
+   consumo o límite de intentos.
+7. **Auditar el resultado real.** Registrar `registrationRequestId`, decisión,
+   actor, timestamp, fuente y resultado (`applied`, `already-decided`,
+   `invalid-token` o `expired-token`) sin guardar tokens completos ni códigos.
+
+La sustitución futura debe introducir el adaptador, la clave gestionada y los
+endpoints/server actions protegidos en una spec independiente. Esta fase no
+configura proveedores, firma tokens productivos, persistencia remota ni
+autorización server-side.
 
 Las tipologías están preparadas en `app/lib/supabase/database.types.ts`. Cuando exista un esquema real, se sustituirá por tipos generados y se mantendrá el contrato `DemoRepository` como frontera de la UI.
 

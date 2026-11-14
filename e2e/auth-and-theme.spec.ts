@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+const E2E_VERIFICATION_CODE = "223456";
+
 test("a visitor can use the mock login and switch the theme", async ({ page }, testInfo) => {
   await page.goto("/es/");
 
@@ -15,6 +17,8 @@ test("a visitor can use the mock login and switch the theme", async ({ page }, t
   await expect(page.getByText("DEV_SELECTOR:")).toBeVisible();
   await expect(page.getByRole("tab", { name: /ACCEDER/ })).toBeVisible();
   await expect(page.getByRole("tab", { name: /CREAR CUENTA/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Continuar con Google" }).locator('[data-provider-logo="google"]')).toBeVisible();
+  await expect(page.getByRole("button", { name: "Continuar con GitHub" }).locator('[data-provider-logo="github"]')).toBeVisible();
   await expect(page.getByRole("button", { name: "Continuar con GitHub" })).toBeVisible();
   await page.getByRole("button", { name: "Continuar con Google" }).click();
   await expect(page.getByRole("status")).toContainText("Google no está configurado localmente");
@@ -148,6 +152,16 @@ test("keeps the authentication modal content inside the viewport", async ({ page
 });
 
 test("the admin can assign a role and issue a verification code for a pending request", async ({ page }, testInfo) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window.crypto, "getRandomValues", {
+      configurable: true,
+      value: (values: Uint32Array) => {
+        values[0] = 123456;
+        return values;
+      },
+    });
+  });
+
   await page.goto("/es/login");
 
   const registrationEmail = `approval-${testInfo.project.name.replace(/[^a-z0-9-]/gi, "-")}@example.test`;
@@ -189,16 +203,17 @@ test("the admin can assign a role and issue a verification code for a pending re
   await page.getByRole("button", { name: "03. PENDIENTE" }).click();
   await expect(page.getByRole("heading", { name: "Verifica tu cuenta" })).toBeVisible();
 
-  const verificationCode = await page.evaluate((email) => {
+  const storedVerificationMessage = await page.evaluate((email) => {
     const rawInbox = window.localStorage.getItem("jmmcdevsign:auth:email-inbox");
-    if (!rawInbox) return "";
+    if (!rawInbox) return null;
 
     const inbox: Array<{ body?: string; kind?: string; to?: string }> = JSON.parse(rawInbox);
     const message = inbox.find((candidate) => candidate.kind === "verification-code" && candidate.to === email);
-    return message?.body?.match(/\b\d{6}\b/)?.[0] ?? "";
+    return message?.body ?? null;
   }, registrationEmail);
-  expect(verificationCode).toMatch(/^\d{6}$/);
-  await page.getByRole("textbox", { name: "Código de verificación" }).fill(verificationCode);
+  expect(storedVerificationMessage).toContain("El valor operativo no se persiste.");
+  expect(storedVerificationMessage).not.toContain(E2E_VERIFICATION_CODE);
+  await page.getByRole("textbox", { name: "Código de verificación" }).fill(E2E_VERIFICATION_CODE);
   await page.getByRole("button", { name: "Activar cuenta" }).click();
   await expect(page.getByText("SESIÓN ACTIVA")).toBeVisible();
   await expect(page.getByText("revisor", { exact: true })).toBeVisible();
