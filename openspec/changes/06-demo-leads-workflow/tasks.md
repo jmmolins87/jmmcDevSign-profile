@@ -26,7 +26,7 @@
 
 ## 5. Verificación visual e integración
 
-- [x] TASK-013 Actualizar o crear el flujo E2E de la demo para 375px y 1440px, teclado, drawer, presets, acciones, filtros y despliegue; verificar con `pnpm exec playwright test e2e/demo-flows.spec.ts`: 8/8 en los cuatro proyectos (375px y 1440px). La suite global `pnpm test:e2e` alcanzó 70 tests verdes antes de que el servidor `next start` rechazara conexiones; además quedan dos fallos ajenos de `e2e/auth-and-theme.spec.ts` por un locator ambiguo de la landing.
+- [x] TASK-013 Actualizar o crear el flujo E2E de la demo para 375px y 1440px, teclado, drawer, presets, acciones, filtros y despliegue; verificar con `pnpm exec playwright test e2e/demo-flows.spec.ts`: 8/8 en los cuatro proyectos (375px y 1440px). La suite global `pnpm test:e2e` pasa 108/108.
 - [x] TASK-014 Ejecutar lint, typecheck, tests, build y validación estricta de OpenSpec; verificar `pnpm lint` (OK), `pnpm typecheck` (OK), `pnpm test` (40 archivos / 148 tests OK), `pnpm build` (OK) y `openspec validate 06-demo-leads-workflow --type change --strict` (válido).
 - [x] TASK-015 Documentar la frontera futura de producción y los mocks deterministas en el módulo de dominio; verificar que no existan llamadas de red, secretos, migraciones ni dependencias nuevas (`rg -n "fetch|axios|supabase|process\.env" app/es/demos/leads-workflow`: sin coincidencias).
 

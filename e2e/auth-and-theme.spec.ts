@@ -85,7 +85,7 @@ test("the direct login route opens the authentication modal and returns to the p
   await expect(page.getByRole("dialog", { name: "Acceso al sistema" })).toBeVisible();
   await page.getByRole("button", { name: "Cerrar autenticación" }).click();
   await expect(page).toHaveURL(/\/es\/?$/);
-  await expect(page.locator('main [data-hero-element="eyebrow"]')).toHaveText("JMMC // FULLSTACK DEVELOPER & DESIGNER");
+  await expect(page.locator('main [data-hero-element="eyebrow"]').first()).toHaveText("JMMC // FULLSTACK DEVELOPER & DESIGNER");
 });
 
 test("the authentication modal blurs the page behind its overlay", async ({ page }) => {
