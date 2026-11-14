@@ -3,6 +3,7 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   forbidOnly: Boolean(process.env.CI),
   fullyParallel: true,
+  workers: 1,
   reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : [["list"]],
   retries: process.env.CI ? 2 : 0,
   testDir: "./e2e",

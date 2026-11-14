@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { createMockRegistrationAdapter } from "@/app/es/auth/mock-registration-service";
-import type { AuthUser, RegistrationRequest } from "@/app/es/auth/types";
+import type { AdminApprovalEmailModel, AuthUser, RegistrationRequest } from "@/app/es/auth/types";
 import { createMockRepository } from "@/app/es/repositories/mock-repository";
 
 describe("mock registration service", () => {
@@ -16,12 +16,12 @@ describe("mock registration service", () => {
       seed: [],
       update: (current, input) => ({ ...current, ...input, id: current.id }),
     });
-    const notifiedRequests: RegistrationRequest[] = [];
+    const notifiedModels: AdminApprovalEmailModel[] = [];
     const adapter = createMockRegistrationAdapter({
       authUsers: users,
       emailService: {
-        notifyAdmin: async (request) => {
-          notifiedRequests.push(request);
+        notifyAdmin: async (model) => {
+          notifiedModels.push(model);
         },
       },
       now: () => "2026-11-13T12:00:00.000Z",
@@ -45,7 +45,14 @@ describe("mock registration service", () => {
         status: "pending",
         createdAt: "2026-11-13T12:00:00.000Z",
       });
-      expect(notifiedRequests).toEqual([result.request]);
+      expect(notifiedModels).toEqual([expect.objectContaining({
+        code: {
+          label: "PENDIENTE DE EMISIÓN",
+          status: "pending",
+        },
+        recipient: "admin@jmmcdevsign.es",
+        request: result.request,
+      })]);
       expect(result.request).not.toHaveProperty("password");
     }
   });

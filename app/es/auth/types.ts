@@ -38,6 +38,59 @@ export type RegistrationRequest = {
   createdAt: string;
   approvedAt?: string;
   approvedBy?: string;
+  rejectedAt?: string;
+  rejectedBy?: string;
+};
+
+export type AdminApprovalEmailMetadata = {
+  approximateCity: string;
+  ipAddress: string;
+  device: string;
+  transactionId: string;
+  eventId: string;
+};
+
+export type AdminApprovalEmailCode =
+  | { status: "pending"; label: "PENDIENTE DE EMISIÓN" }
+  | { status: "fixture"; value: string; expiresInMinutes: 15 };
+
+export type AdminApprovalAction = "approve" | "reject";
+
+export type AdminApprovalEmailAction = {
+  action: AdminApprovalAction;
+  requestId: string;
+  token: string;
+  url: string;
+  expiresAt: string;
+};
+
+export type AdminApprovalEmailModel = {
+  request: RegistrationRequest;
+  metadata: AdminApprovalEmailMetadata;
+  code: AdminApprovalEmailCode;
+  approveAction: AdminApprovalEmailAction;
+  rejectAction: AdminApprovalEmailAction;
+  sentAt: string;
+  recipient: string;
+};
+
+export type AdminApprovalEmailTheme = "bone" | "dark";
+
+export type RenderedEmail = {
+  html: string;
+  text: string;
+};
+
+export type ApprovalDecision = "approved" | "rejected";
+
+export type ApprovalDecisionEvent = {
+  id: string;
+  registrationRequestId: string;
+  decision: ApprovalDecision;
+  actorUserId: string;
+  occurredAt: string;
+  source: "admin-panel" | "admin-email";
+  result: "applied" | "already-decided" | "invalid-token" | "expired-token";
 };
 
 export type VerificationChallenge = {

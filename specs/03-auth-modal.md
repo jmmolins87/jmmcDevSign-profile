@@ -1,6 +1,6 @@
 # SPEC 03 — Modal de autenticación, registro y aprobación por roles
 
-> **Status:** Implemented
+> **Status:** Approved
 > **Depends on:** SPEC 01, SPEC 02
 > **Date:** 2026-11-13
 > **Objective:** Sustituir `/es/login` por una modal de autenticación con registro pendiente, fixtures locales y una frontera preparada para Supabase Auth, Google, GitHub y correo transaccional.

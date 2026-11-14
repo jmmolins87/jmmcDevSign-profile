@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   Badge,
@@ -21,10 +21,12 @@ import {
   mockRegistrationApprovalService,
   type RegistrationApprovalService,
 } from "@/app/es/auth/mock-approval-service";
+import { parseMockAdminApprovalAction, type MockAdminApprovalActionRequest } from "@/app/es/auth/mock-admin-approval-actions";
 import { registrationRequestsRepository } from "@/app/es/auth/mock-auth-repository";
-import type { RegistrationRequest, RegistrationRole, RegistrationStatus } from "@/app/es/auth/types";
+import type { AdminApprovalEmailAction, RegistrationRequest, RegistrationRole, RegistrationStatus } from "@/app/es/auth/types";
 import type { MockRepository } from "@/app/es/repositories/mock-repository";
 import { useMockRepository } from "@/app/es/repositories/use-mock-repository";
+import { AdminApprovalEmailPreview } from "@/app/es/admin/approval/admin-approval-email-preview";
 
 const statusLabels: Record<RegistrationStatus, string> = {
   active: "Activa",
@@ -66,6 +68,7 @@ export function ApprovalPanel({
   const [isApproving, setIsApproving] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [selectedRoles, setSelectedRoles] = useState<Record<string, RegistrationRole>>({});
+  const hasHandledQueryAction = useRef(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 639px)");
@@ -76,11 +79,11 @@ export function ApprovalPanel({
     return () => mediaQuery.removeEventListener("change", updateViewport);
   }, []);
 
-  function getSelectedRole(request: RegistrationRequest) {
+  const getSelectedRole = useCallback((request: RegistrationRequest) => {
     return selectedRoles[request.id] ?? request.assignedRole ?? request.requestedRole;
-  }
+  }, [selectedRoles]);
 
-  async function approveRequest(request: RegistrationRequest) {
+  const approveRequest = useCallback(async (request: RegistrationRequest) => {
     setApprovalError(null);
     setIsApproving(request.id);
 
@@ -93,6 +96,56 @@ export function ApprovalPanel({
 
     setFeedback(`${request.fullName}: solicitud aprobada. Código enviado a la bandeja mock.`);
     setIsApproving(null);
+  }, [approvalService, getSelectedRole]);
+
+  const handleEmailAction = useCallback(async (action: MockAdminApprovalActionRequest) => {
+    const request = requests.find((candidate) => candidate.id === action.requestId);
+
+    if (!request) {
+      setApprovalError("La solicitud del enlace mock ya no está disponible.");
+      return;
+    }
+
+    if (approvalService.applyEmailAction) {
+      const result = await approvalService.applyEmailAction(action, getSelectedRole(request), MOCK_ADMIN_USER_ID);
+      if (!result.ok) {
+        setApprovalError(result.error);
+        return;
+      }
+
+      setApprovalError(null);
+      setFeedback(action.action === "approve"
+        ? `${request.fullName}: solicitud aprobada desde el correo mock. Código enviado a la bandeja mock.`
+        : `${request.fullName}: solicitud rechazada desde el correo mock.`);
+      return;
+    }
+
+    if (action.action === "approve") {
+      await approveRequest(request);
+      return;
+    }
+
+    setApprovalError("El servicio de decisiones no tiene habilitado el rechazo mock.");
+  }, [approvalService, approveRequest, getSelectedRole, requests]);
+
+  useEffect(() => {
+    if (hasHandledQueryAction.current) return;
+
+    const queryAction = parseMockAdminApprovalAction(window.location.search);
+    if (!queryAction) return;
+
+    hasHandledQueryAction.current = true;
+    queueMicrotask(() => {
+      void handleEmailAction(queryAction);
+    });
+  }, [handleEmailAction]);
+
+  function handlePreviewAction(action: AdminApprovalEmailAction) {
+    void handleEmailAction({
+      action: action.action,
+      requestId: action.requestId,
+      token: action.token,
+    });
   }
 
   function renderRoleAssignment(request: RegistrationRequest) {
@@ -235,6 +288,7 @@ export function ApprovalPanel({
       <p aria-live="polite" className="text-body-md text-on-surface-variant">{feedback}</p>
       {approvalError ? <ErrorState message={approvalError} title="No se pudo aprobar la solicitud" /> : null}
       <Tabs ariaLabel="Filtro de solicitudes" items={tabs} />
+      <AdminApprovalEmailPreview onAction={handlePreviewAction} requests={requests} />
     </div>
   );
 }
