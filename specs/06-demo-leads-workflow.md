@@ -1,6 +1,6 @@
 # SPEC 06 — Reconstrucción fiel de la demo Leads Workflow
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 01
 > **Date:** 2026-11-14
 > **Objective:** Sustituir la demo reducida de `/es/demos/leads-workflow` por una superficie de orquestación de leads fiel a `resources/06_demo_leads_workflow`, manteniendo todos los datos y flujos en mocks y dejando contratos preparados para una integración futura de producción.
@@ -206,39 +206,43 @@ El despliegue exige un workflow con nombre, revisión, al menos un nodo de inges
 
 ## Acceptance criteria
 
-- [ ] `/es/demos/leads-workflow` reproduce la composición principal de `screen.png` sin errores de runtime.
-- [ ] La superficie incluye header fijo, command bar, telemetría, presets, canvas, registro lateral y footer.
-- [ ] El canvas muestra nodos de ingestión, IA, CRM/Postgres y notificación con conexiones visibles.
-- [ ] Los nodos, conexiones y metadatos técnicos conservan la dirección visual de la referencia.
-- [ ] Los presets `EN VIVO`, `PROCESANDO EVENTO`, `ENRUTAMIENTO CRÍTICO` y `VISTA MATRIX (DEBUG)` cambian el estado de forma reproducible.
-- [ ] `[ SIMULAR DISPARO ]` ejecuta el pipeline mock, actualiza un lead y añade eventos al registro.
-- [ ] `[ EJECUTAR TEST ]` ejecuta una traza determinista y muestra resultados de nodos y latencias mock.
-- [ ] `[ + AÑADIR NODO ]` permite añadir nodos fixture al canvas y registra el cambio localmente.
-- [ ] `[ RESET GRID ]` restaura zoom y posiciones iniciales sin borrar leads, eventos ni despliegue.
-- [ ] `[ AUTO-ALIGN ]` aplica las posiciones deterministas definidas por el layout mock.
-- [ ] Los controles de zoom cambian la escala visible sin modificar el modelo de dominio.
-- [ ] El registro inicial contiene cuatro leads equivalentes a la referencia, con score ICP, origen, estado y metadata.
-- [ ] Los filtros combinables por estado, score ICP y origen actualizan el registro sin llamadas externas.
-- [ ] El registro muestra estado vacío accesible cuando ningún lead coincide.
-- [ ] El registro se puede abrir y cerrar mediante un drawer accesible en 375px.
-- [ ] `[ DESPLEGAR FLUJO ]` valida el workflow, genera una versión local determinista y muestra confirmación.
-- [ ] Un workflow inválido no se despliega y muestra errores accesibles.
-- [ ] El workflow, leads, nodos, eventos, preset, filtros y despliegue se recuperan tras recargar mediante `localStorage` versionado.
-- [ ] Un snapshot corrupto o incompatible se descarta, restaura fixtures seguros y muestra feedback no bloqueante.
-- [ ] La UI conserva los tokens, tipografías, hairlines, geometría cuadrada, densidad y acento naranja de la dirección visual.
-- [ ] La UI funciona a 375px y 1440px sin pérdida de controles principales.
-- [ ] La ruta es accesible para usuarios anónimos y autenticados sin exigir cuenta ni rol.
-- [ ] Los controles tienen nombre accesible, foco visible, navegación por teclado y feedback en regiones vivas.
-- [ ] El drawer implementa foco y cierre accesibles sin bloquear el contenido de forma permanente.
-- [ ] Las animaciones respetan `prefers-reduced-motion`.
-- [ ] Existen contratos independientes de la UI para repositorio, runtime y despliegue.
-- [ ] No existen llamadas de red, proveedores reales, migraciones, secretos ni persistencia remota.
-- [ ] `pnpm lint` pasa.
-- [ ] `pnpm typecheck` pasa.
-- [ ] `pnpm test` pasa.
-- [ ] `pnpm build` pasa.
-- [ ] `pnpm test:e2e` pasa en móvil y escritorio.
-- [ ] `openspec validate 06-demo-leads-workflow --type change --strict` pasa.
+- [x] `/es/demos/leads-workflow` reproduce la composición principal de `screen.png` sin errores de runtime.
+- [x] La superficie incluye header fijo, command bar, telemetría, presets, canvas, registro lateral y footer.
+- [x] El canvas muestra nodos de ingestión, IA, CRM/Postgres y notificación con conexiones visibles.
+- [x] Los nodos, conexiones y metadatos técnicos conservan la dirección visual de la referencia.
+- [x] Los presets `EN VIVO`, `PROCESANDO EVENTO`, `ENRUTAMIENTO CRÍTICO` y `VISTA MATRIX (DEBUG)` cambian el estado de forma reproducible.
+- [x] `[ SIMULAR DISPARO ]` ejecuta el pipeline mock, actualiza un lead y añade eventos al registro.
+- [x] `[ EJECUTAR TEST ]` ejecuta una traza determinista y muestra resultados de nodos y latencias mock.
+- [x] `[ + AÑADIR NODO ]` permite añadir nodos fixture al canvas y registra el cambio localmente.
+- [x] `[ RESET GRID ]` restaura zoom y posiciones iniciales sin borrar leads, eventos ni despliegue.
+- [x] `[ AUTO-ALIGN ]` aplica las posiciones deterministas definidas por el layout mock.
+- [x] Los controles de zoom cambian la escala visible sin modificar el modelo de dominio.
+- [x] El registro inicial contiene cuatro leads equivalentes a la referencia, con score ICP, origen, estado y metadata.
+- [x] Los filtros combinables por estado, score ICP y origen actualizan el registro sin llamadas externas.
+- [x] El registro muestra estado vacío accesible cuando ningún lead coincide.
+- [x] El registro se puede abrir y cerrar mediante un drawer accesible en 375px.
+- [x] `[ DESPLEGAR FLUJO ]` valida el workflow, genera una versión local determinista y muestra confirmación.
+- [x] Un workflow inválido no se despliega y muestra errores accesibles.
+- [x] El workflow, leads, nodos, eventos, preset, filtros y despliegue se recuperan tras recargar mediante `localStorage` versionado.
+- [x] Un snapshot corrupto o incompatible se descarta, restaura fixtures seguros y muestra feedback no bloqueante.
+- [x] La UI conserva los tokens, tipografías, hairlines, geometría cuadrada, densidad y acento naranja de la dirección visual.
+- [x] La UI funciona a 375px y 1440px sin pérdida de controles principales.
+- [x] La ruta es accesible para usuarios anónimos y autenticados sin exigir cuenta ni rol.
+- [x] Los controles tienen nombre accesible, foco visible, navegación por teclado y feedback en regiones vivas.
+- [x] El drawer implementa foco y cierre accesibles sin bloquear el contenido de forma permanente.
+- [x] Las animaciones respetan `prefers-reduced-motion`.
+- [x] Existen contratos independientes de la UI para repositorio, runtime y despliegue.
+- [x] No existen llamadas de red, proveedores reales, migraciones, secretos ni persistencia remota.
+- [x] `pnpm lint` pasa.
+- [x] `pnpm typecheck` pasa.
+- [x] `pnpm test` pasa.
+- [x] `pnpm build` pasa.
+- [x] `pnpm test:e2e` pasa en móvil y escritorio.
+- [x] `openspec validate 06-demo-leads-workflow --type change --strict` pasa.
+
+## Nota de verificación
+
+2026-11-15 — change-id `06-demo-leads-workflow` — dictamen `APPROVED`; 33/33 criterios PASS.
 
 ## Traceability
 
