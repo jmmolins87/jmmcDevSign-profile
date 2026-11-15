@@ -317,3 +317,277 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+@layer components {
+  .workflow-shell {
+    font-family: var(--sys-font-body);
+  }
+
+  .workflow-live-badge,
+  .workflow-header-button,
+  .workflow-control-button,
+  .workflow-preset-button,
+  .workflow-deploy-button {
+    min-height: 2.25rem;
+    border: 1px solid var(--sys-color-border);
+    background: var(--sys-color-surface-container);
+    padding-inline: 0.75rem;
+    font-family: var(--sys-font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
+  }
+
+  .workflow-live-badge {
+    display: inline-flex;
+    align-items: center;
+    border-color: var(--sys-color-border);
+    color: var(--sys-color-primary);
+  }
+
+  .workflow-header-button,
+  .workflow-control-button {
+    color: var(--sys-color-on-surface-variant);
+  }
+
+  .workflow-header-button:hover,
+  .workflow-control-button:hover,
+  .workflow-preset-button:hover {
+    border-color: var(--sys-color-accent);
+    color: var(--sys-color-primary);
+  }
+
+  .workflow-control-accent {
+    color: var(--sys-color-accent);
+  }
+
+  .workflow-deploy-button {
+    border-color: var(--sys-color-primary);
+    background: var(--sys-color-primary);
+    color: var(--sys-color-primary-foreground);
+    font-family: var(--sys-font-headline);
+    font-size: 0.75rem;
+  }
+
+  .workflow-deploy-button:hover {
+    border-color: var(--sys-color-accent);
+    background: var(--sys-color-background);
+    color: var(--sys-color-primary);
+  }
+
+  .workflow-command-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--sys-color-border);
+    background: var(--sys-color-surface-lowest);
+    padding: 0.75rem 2rem;
+  }
+
+  .workflow-preset-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--sys-color-border);
+    background: var(--sys-color-background);
+    padding: 0.3rem 2rem;
+    scrollbar-width: thin;
+  }
+
+  .workflow-preset-button {
+    min-height: 2rem;
+    flex: 0 0 auto;
+    background: transparent;
+    color: var(--sys-color-on-surface-variant);
+    white-space: nowrap;
+  }
+
+  .workflow-preset-active {
+    border-color: var(--sys-color-outline);
+    background: var(--sys-color-surface-high);
+    color: var(--sys-color-primary);
+  }
+
+  .workflow-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 29rem;
+    min-height: calc(100svh - 11rem);
+  }
+
+  .workflow-registry {
+    overflow: auto;
+    border-left: 1px solid var(--sys-color-border);
+    background: var(--sys-color-surface-low);
+  }
+
+  .workflow-canvas-shell {
+    min-width: 0;
+    background-color: var(--sys-color-background);
+  }
+
+  .workflow-canvas-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--sys-color-border);
+    background: color-mix(in oklch, var(--sys-color-surface-lowest) 92%, transparent);
+    padding: 0.75rem;
+  }
+
+  .workflow-canvas-scroll {
+    min-height: calc(100svh - 16rem);
+    overflow: auto;
+    background-image: radial-gradient(circle, color-mix(in oklch, var(--sys-color-on-surface-variant) 28%, transparent) 1px, transparent 1px);
+    background-size: 1.75rem 1.75rem;
+  }
+
+  .workflow-canvas-stage {
+    position: relative;
+    min-width: 56rem;
+    min-height: 48rem;
+    transform-origin: top left;
+    background-image: linear-gradient(to right, color-mix(in oklch, var(--sys-color-border) 45%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--sys-color-border) 45%, transparent) 1px, transparent 1px);
+    background-size: 8.75rem 8.75rem;
+  }
+
+  .workflow-connection-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .workflow-edge {
+    fill: none;
+    stroke: var(--sys-color-border-strong);
+    stroke-width: 0.28;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .workflow-edge-active {
+    stroke: var(--sys-color-accent);
+    stroke-dasharray: 0.4 0.3;
+    animation: workflow-edge-flow 1.2s linear infinite;
+  }
+
+  .workflow-edge-warning {
+    stroke: var(--sys-color-state-error);
+    stroke-dasharray: 0.2 0.35;
+  }
+
+  .workflow-node {
+    position: absolute;
+    z-index: 1;
+    width: 22%;
+    min-width: 13rem;
+    border: 1px solid var(--sys-color-border-strong);
+    background: color-mix(in oklch, var(--sys-color-surface-lowest) 96%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in oklch, var(--sys-color-background) 55%, transparent);
+  }
+
+  .workflow-node-active {
+    border-color: var(--sys-color-accent);
+    box-shadow: 0 0 0 1px var(--sys-color-accent), 0 0 1.5rem color-mix(in oklch, var(--sys-color-accent) 18%, transparent);
+  }
+
+  .workflow-node-warning {
+    border-color: var(--sys-color-state-error);
+  }
+
+  .workflow-node-error {
+    border-color: var(--sys-color-error);
+  }
+
+  .workflow-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    border-top: 1px solid var(--sys-color-border);
+    background: var(--sys-color-surface-lowest);
+    padding: 1rem 2rem;
+    font-family: var(--sys-font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--sys-color-on-surface-variant);
+  }
+
+  .workflow-error-banner {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 70;
+    max-width: min(30rem, calc(100vw - 2rem));
+    border: 1px solid var(--sys-color-error);
+    background: var(--sys-color-surface-lowest);
+    padding: 0.75rem 1rem;
+    font-family: var(--sys-font-mono);
+    font-size: 0.75rem;
+    color: var(--sys-color-error);
+  }
+
+  .workflow-persistence-banner {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 69;
+    max-width: min(34rem, calc(100vw - 2rem));
+    border: 1px solid var(--sys-color-accent);
+    background: var(--sys-color-surface-lowest);
+    padding: 0.75rem 1rem;
+    font-family: var(--sys-font-mono);
+    font-size: 0.75rem;
+    color: var(--sys-color-primary);
+  }
+
+  @keyframes workflow-edge-flow {
+    to {
+      stroke-dashoffset: -1;
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .workflow-command-bar {
+    grid-template-columns: 1fr;
+    padding-inline: 1rem;
+  }
+
+  .workflow-preset-bar {
+    padding-inline: 1rem;
+  }
+
+  .workflow-workspace {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .workflow-header-button,
+  .workflow-deploy-button {
+    min-height: 2.75rem;
+    padding-inline: 0.6rem;
+  }
+
+  .workflow-canvas-scroll {
+    min-height: 38rem;
+  }
+
+  .workflow-canvas-stage {
+    min-height: 42rem;
+  }
+
+  .workflow-footer {
+    padding-inline: 1rem;
+  }
+}

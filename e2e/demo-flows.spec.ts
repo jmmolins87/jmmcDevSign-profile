@@ -25,12 +25,30 @@ test("anonymous visitors can exercise the public demo families", async ({ page }
   await expect(page.getByText(/Respuesta mock: se procesó «Diagnóstico manual»/u)).toBeVisible();
 
   await page.goto("/es/demos/leads-workflow");
-  await clickAction(page.getByRole("button", { name: "Mover a siguiente etapa" }).first());
-  await expect(page.getByText(/transición a contactado completada/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "EN VIVO // INGESTIÓN TELEMÉTRICA" })).toBeVisible();
+  await clickAction(page.getByRole("button", { name: /SIMULAR DISPARO/u }));
+  await expect(page.getByText("Disparo simulado: pipeline completado y lead actualizado.", { exact: true })).toBeVisible();
+  await clickAction(page.getByRole("button", { name: /EJECUTAR TEST/u }));
+  await expect(page.getByText("Test ejecutado: traza determinista disponible en el registro.", { exact: true })).toBeVisible();
+  await clickAction(page.getByRole("button", { name: /DESPLEGAR FLUJO/u }));
+  await expect(page.getByText("Workflow desplegado localmente.", { exact: true })).toBeVisible();
+  if (testInfo.project.name.includes("mobile")) {
+    await clickAction(page.getByRole("button", { name: /ABRIR REGISTRO/u }));
+    const dialog = page.getByRole("dialog", { name: "Registro en vivo" });
+    await expect(dialog).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(dialog).not.toBeVisible();
+  } else {
+    await expect(page.getByRole("complementary", { name: "Registro lateral de leads" })).toBeVisible();
+  }
 
   await page.goto("/es/demos/lead-qualification");
-  await clickAction(page.getByRole("button", { name: "Cualificar" }).first());
-  await expect(page.getByText(/estado actualizado a cualificado/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Cualificación de leads", level: 1 })).toBeAttached();
+  if (testInfo.project.name.includes("mobile")) {
+    await page.getByRole("button", { name: "DETALLE", exact: true }).click();
+  }
+  await clickAction(page.getByRole("button", { name: /APROBAR ACCIÓN/ }));
+  await expect(page.getByText("Despacho mock aprobado para Elena Rostova.", { exact: true })).toBeVisible();
 
   await page.goto("/es/demos/orders-realtime");
   await clickAction(page.getByRole("button", { name: "Simular evento en tiempo real" }));
@@ -39,4 +57,14 @@ test("anonymous visitors can exercise the public demo families", async ({ page }
   await page.goto("/es/demos/business-backoffice");
   await clickAction(page.getByRole("button", { name: "Preparar instantánea" }));
   await expect(page.getByText("Snapshot today preparado.")).toBeVisible();
+});
+
+test("leads workflow recovers a corrupt snapshot with accessible feedback", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.localStorage.setItem("jmmcdevsign:leads-workflow:v1", "{malformed");
+  });
+  await page.goto("/es/demos/leads-workflow");
+
+  await expect(page.getByRole("status")).toHaveText(/Aviso de persistencia:.*JSON inválido.*fixtures seguros/u);
+  await expect(page.getByRole("heading", { name: "EN VIVO // INGESTIÓN TELEMÉTRICA" })).toBeVisible();
 });
