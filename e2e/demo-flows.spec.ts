@@ -55,8 +55,13 @@ test("anonymous visitors can exercise the public demo families", async ({ page }
   await expect(page.getByRole("status")).toHaveText("Pedido B-843 emitido: evento recibido en NUEVO.");
 
   await page.goto("/es/demos/business-backoffice");
-  await clickAction(page.getByRole("button", { name: "Preparar instantánea" }));
-  await expect(page.getByText("Snapshot today preparado.")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Gestión empresarial", level: 1 })).toBeVisible();
+  await clickAction(page.getByRole("button", { name: "[ 03. MODO LECTOR ]" }));
+  await expect(page.getByRole("status")).toContainText("ACCESO RESTRINGIDO");
+  await clickAction(page.getByRole("button", { name: "[ 06. TABLA VACÍA ]" }));
+  await expect(page.getByText("TABLA VACÍA // STREAM PAUSADO")).toBeVisible();
+  await clickAction(page.getByRole("button", { name: "REINICIAR STREAM →" }));
+  await expect(page.getByText("#ORD-9042", { exact: true })).toBeVisible();
 });
 
 test("leads workflow recovers a corrupt snapshot with accessible feedback", async ({ page }) => {
