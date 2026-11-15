@@ -51,8 +51,8 @@ test("anonymous visitors can exercise the public demo families", async ({ page }
   await expect(page.getByText("Despacho mock aprobado para Elena Rostova.", { exact: true })).toBeVisible();
 
   await page.goto("/es/demos/orders-realtime");
-  await clickAction(page.getByRole("button", { name: "Simular evento en tiempo real" }));
-  await expect(page.getByText(/evento recibido/)).toBeVisible();
+  await clickAction(page.getByRole("button", { name: /ENVIAR PEDIDO/ }));
+  await expect(page.getByRole("status")).toHaveText("Pedido B-843 emitido: evento recibido en NUEVO.");
 
   await page.goto("/es/demos/business-backoffice");
   await clickAction(page.getByRole("button", { name: "Preparar instantánea" }));
