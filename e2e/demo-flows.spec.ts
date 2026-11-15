@@ -43,8 +43,12 @@ test("anonymous visitors can exercise the public demo families", async ({ page }
   }
 
   await page.goto("/es/demos/lead-qualification");
-  await clickAction(page.getByRole("button", { name: "Cualificar" }).first());
-  await expect(page.getByText(/estado actualizado a cualificado/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Cualificación de leads", level: 1 })).toBeAttached();
+  if (testInfo.project.name.includes("mobile")) {
+    await page.getByRole("button", { name: "DETALLE", exact: true }).click();
+  }
+  await clickAction(page.getByRole("button", { name: /APROBAR ACCIÓN/ }));
+  await expect(page.getByText("Despacho mock aprobado para Elena Rostova.", { exact: true })).toBeVisible();
 
   await page.goto("/es/demos/orders-realtime");
   await clickAction(page.getByRole("button", { name: "Simular evento en tiempo real" }));
