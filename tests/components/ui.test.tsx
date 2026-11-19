@@ -94,7 +94,7 @@ describe("UI primitives", () => {
 
   it("lets a user verify each interface state from the shared controls", async () => {
     const user = userEvent.setup();
-    const { InterfaceStateControls } = await import("@/app/es/auth/interface-state-controls");
+    const { InterfaceStateControls } = await import("@/app/[locale]/auth/interface-state-controls");
 
     render(<InterfaceStateControls />);
     await user.click(screen.getByRole("button", { name: "Carga" }));

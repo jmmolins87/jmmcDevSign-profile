@@ -2,11 +2,11 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { PostEditorPanel } from "@/app/es/blog/editor/post-editor-panel";
-import { AUTOSAVE_DEBOUNCE_MS } from "@/app/es/blog/domain";
-import { loginMockSession } from "@/app/es/auth/mock-session";
-import { POST_FIXTURES } from "@/app/es/blog/repositories/post-fixtures";
-import { createClientPostRepository } from "@/app/es/blog/repositories/post-repository";
+import { PostEditorPanel } from "@/app/[locale]/blog/editor/post-editor-panel";
+import { AUTOSAVE_DEBOUNCE_MS } from "@/app/[locale]/blog/domain";
+import { loginMockSession } from "@/app/[locale]/auth/mock-session";
+import { POST_FIXTURES } from "@/app/[locale]/blog/repositories/post-fixtures";
+import { createClientPostRepository } from "@/app/[locale]/blog/repositories/post-repository";
 
 describe("PostEditorPanel", () => {
   it("shows the active session in the command bar", async () => {

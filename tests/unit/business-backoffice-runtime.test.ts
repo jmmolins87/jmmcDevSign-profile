@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { createBackofficeRepository } from "@/app/es/demos/business-backoffice/domain/backoffice-repository";
-import { BACKOFFICE_PERMISSIONS, hasBackofficePermission } from "@/app/es/demos/business-backoffice/domain/backoffice-permissions";
-import { createBackofficeRuntime, getFilteredBackofficeOrders, getPaginatedBackofficeOrders } from "@/app/es/demos/business-backoffice/domain/backoffice-runtime";
+import { createBackofficeRepository } from "@/app/[locale]/demos/business-backoffice/domain/backoffice-repository";
+import { BACKOFFICE_PERMISSIONS, hasBackofficePermission } from "@/app/[locale]/demos/business-backoffice/domain/backoffice-permissions";
+import { createBackofficeRuntime, getFilteredBackofficeOrders, getPaginatedBackofficeOrders } from "@/app/[locale]/demos/business-backoffice/domain/backoffice-runtime";
 
 function createRuntime() {
   return createBackofficeRuntime(createBackofficeRepository(null));

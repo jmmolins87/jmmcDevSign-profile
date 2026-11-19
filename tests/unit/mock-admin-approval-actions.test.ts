@@ -3,8 +3,8 @@ import { describe, expect, it } from "vitest";
 import {
   parseMockAdminApprovalAction,
   validateMockAdminApprovalAction,
-} from "@/app/es/auth/mock-admin-approval-actions";
-import type { RegistrationRequest } from "@/app/es/auth/types";
+} from "@/app/[locale]/auth/mock-admin-approval-actions";
+import type { RegistrationRequest } from "@/app/[locale]/auth/types";
 
 const request: RegistrationRequest = {
   createdAt: "2026-11-13T12:00:00.000Z",

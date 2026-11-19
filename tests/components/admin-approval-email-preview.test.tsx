@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { AdminApprovalEmailPreview } from "@/app/es/admin/approval/admin-approval-email-preview";
-import type { RegistrationRequest } from "@/app/es/auth/types";
+import { AdminApprovalEmailPreview } from "@/app/[locale]/admin/approval/admin-approval-email-preview";
+import type { RegistrationRequest } from "@/app/[locale]/auth/types";
 
 const requests: RegistrationRequest[] = [
   {

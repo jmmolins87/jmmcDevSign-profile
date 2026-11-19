@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { digestVerificationCode } from "@/app/es/auth/mock-approval-service";
-import { createMockVerificationAdapter } from "@/app/es/auth/mock-verification-service";
-import type { AuthUser, RegistrationRequest, VerificationChallenge } from "@/app/es/auth/types";
-import { createMockRepository } from "@/app/es/repositories/mock-repository";
+import { digestVerificationCode } from "@/app/[locale]/auth/mock-approval-service";
+import { createMockVerificationAdapter } from "@/app/[locale]/auth/mock-verification-service";
+import type { AuthUser, RegistrationRequest, VerificationChallenge } from "@/app/[locale]/auth/types";
+import { createMockRepository } from "@/app/[locale]/repositories/mock-repository";
 
 const request: RegistrationRequest = {
   id: "registration-001",

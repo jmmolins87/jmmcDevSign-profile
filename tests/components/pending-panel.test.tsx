@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { PendingPanel } from "@/app/es/login/pending-panel";
-import type { RegistrationRequest } from "@/app/es/auth/types";
+import { PendingPanel } from "@/app/[locale]/login/pending-panel";
+import type { RegistrationRequest } from "@/app/[locale]/auth/types";
 
 const approvedRequest: RegistrationRequest = {
   id: "registration-approved",

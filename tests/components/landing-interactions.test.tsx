@@ -3,8 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { ContactForm } from "@/app/es/_components/contact-form";
-import { LandingWarpControl } from "@/app/es/_components/landing-warp-control";
+import { ContactForm } from "@/app/[locale]/_components/contact-form";
+import { LandingWarpControl } from "@/app/[locale]/_components/landing-warp-control";
 
 describe("landing interactions", () => {
   afterEach(() => {

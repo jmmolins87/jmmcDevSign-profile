@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { MOCK_AUTH_FIXTURES, MOCK_REGISTRATION_REQUESTS } from "@/app/es/auth/mock-fixtures";
-import { EDITORIAL_ROLES, SHARED_SURFACE_ROLES, USER_ROLES, isUserRole } from "@/app/es/auth/roles";
+import { MOCK_AUTH_FIXTURES, MOCK_REGISTRATION_REQUESTS } from "@/app/[locale]/auth/mock-fixtures";
+import { EDITORIAL_ROLES, SHARED_SURFACE_ROLES, USER_ROLES, isUserRole } from "@/app/[locale]/auth/roles";
 
 describe("auth domain fixtures", () => {
   it("defines only admin, editor and revisor with shared editorial access", () => {

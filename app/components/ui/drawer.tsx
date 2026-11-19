@@ -28,6 +28,14 @@ export function Drawer({
   const titleId = useId();
   const descriptionId = useId();
 
+  const restoreFocus = useCallback(() => {
+    const target = returnFocusTargetRef.current;
+    returnFocusTargetRef.current = null;
+    target?.focus();
+  }, []);
+
+  useEffect(() => () => restoreFocus(), [restoreFocus]);
+
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
@@ -42,19 +50,13 @@ export function Drawer({
       dialog.focus();
     } else if (!open && dialog.open) {
       dialog.close();
+      restoreFocus();
     }
-  }, [modal, open]);
-
-  const restoreFocus = useCallback(() => {
-    const target = returnFocusTargetRef.current;
-    returnFocusTargetRef.current = null;
-    target?.focus();
-  }, []);
+  }, [modal, open, restoreFocus]);
 
   const closeDrawer = useCallback(() => {
-    restoreFocus();
     onClose();
-  }, [onClose, restoreFocus]);
+  }, [onClose]);
 
   useEffect(() => {
     if (!open || modal) return;
@@ -97,7 +99,7 @@ export function Drawer({
       tabIndex={-1}
       onCancel={handleCancel}
       onClick={handleBackdropClick}
-      onClose={closeDrawer}
+      onClose={restoreFocus}
       onKeyDown={handleKeyDown}
       ref={dialogRef}
     >

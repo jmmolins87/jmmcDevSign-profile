@@ -1,0 +1,126 @@
+"use client";
+
+import { useLocale } from "@/app/lib/locale-context";
+import { translateDemoText } from "@/app/lib/demo-text";
+import type { Locale } from "@/app/lib/i18n";
+
+const english = {
+  "← VOLVER AL PORTFOLIO": "← BACK TO PORTFOLIO",
+  "EN VIVO //": "LIVE //",
+  "{ SIMULADOR_ESTADO }:": "{ STATE_SIMULATOR }:",
+  "Estados reproducibles de la demo": "Reproducible demo states",
+  "RECARGAR BANDEJA SIMULADA": "RELOAD MOCK INBOX",
+  "INYECTAR LEAD TEST +": "INJECT TEST LEAD +",
+  "Indicadores de cualificación": "Qualification metrics",
+  "Score Calificación:": "Qualification score:",
+  "Cargando bandeja de leads": "Loading lead inbox",
+  "{ BANDEJA ENTRADA }": "{ INBOX }",
+  "VISIBLES": "VISIBLE",
+  "Filtrar leads por tier": "Filter leads by tier",
+  "Filtrar por nombre, empresa o puntuación": "Filter by name, company or score",
+  "Filtrar por nombre, empresa o score...": "Filter by name, company or score...",
+  "{ CANAL_CORREO }": "{ EMAIL_CHANNEL }",
+  "{ TELÉFONO / WHATSAPP }": "{ PHONE / WHATSAPP }",
+  "[ VERIFICADO ]": "[ VERIFIED ]",
+  "[ PENDIENTE ]": "[ PENDING ]",
+  "{ ORGANIZACIÓN }": "{ ORGANIZATION }",
+  "{ PRESUPUESTO ESTIMADO }": "{ ESTIMATED BUDGET }",
+  "Retainer trimestral o setup llave en mano": "Quarterly retainer or turnkey setup",
+  "{ RESPONSABLE }": "{ OWNER }",
+  "Asignación del catálogo local mock": "Assigned from the local mock catalog",
+  "{ EXPEDIENTE TÉCNICO // ID:": "{ TECHNICAL DOSSIER // ID:",
+  "CALIFICACIÓN ICP:": "ICP SCORE:",
+  "{ MENSAJE ORIGINAL INBOUND }": "{ ORIGINAL INBOUND MESSAGE }",
+  "✦ { EVALUACIÓN DETERMINISTA // CLAUDE 3.5 SONNET }": "✦ { DETERMINISTIC EVALUATION // CLAUDE 3.5 SONNET }",
+  "CONFIDENCIA:": "CONFIDENCE:",
+  "✦ { ACCIÓN RECOMENDADA:": "✦ { RECOMMENDED ACTION:",
+  "APROBAR ACCIÓN [ ↵ ]": "APPROVE ACTION [ ↵ ]",
+  "REASIGNAR": "REASSIGN",
+  "[ EDITAR RESPUESTA ]": "[ EDIT RESPONSE ]",
+  "TOKENS CONSUMIDOS: 384": "TOKENS USED: 384",
+  "Selecciona un lead para abrir su expediente técnico.": "Select a lead to open its technical dossier.",
+  "{ SECUENCIA }": "{ SEQUENCE }",
+  "{ TIMELINE DE DISPARADORES AUTOMÁTICOS }": "{ AUTOMATED TRIGGER TIMELINE }",
+  "01 // EMAIL DE RESPUESTA": "01 // RESPONSE EMAIL",
+  "{ ENVIADO // 12s }": "{ SENT // 12s }",
+  "Propuesta formal de arquitectura técnica + link determinista a Calendly prioritario.": "Technical architecture proposal and deterministic priority Calendly link.",
+  "02 // NOTA DE AUDIO WHATSAPP": "02 // WHATSAPP VOICE NOTE",
+  "{ ENTREGADO // LEÍDO ✓ }": "{ DELIVERED // READ ✓ }",
+  "Audio personalizado generado mediante el contexto del lead y validación de Postgres.": "Personalized audio based on the lead context and Postgres validation.",
+  "03 // RECORDATORIO EN 2 DÍAS": "03 // REMINDER IN 2 DAYS",
+  "{ PROGRAMADO }": "{ SCHEDULED }",
+  "Si no agenda en 48h, enviar dossier de caso de éxito.": "Send a case study dossier if no meeting is booked within 48 hours.",
+  "EJECUCIÓN: 02 MAR // 10:00 UTC": "EXECUTION: 02 MAR // 10:00 UTC",
+  "04 // LLAMADA AGENDADA": "04 // SCHEDULED CALL",
+  "{ EN ESPERA }": "{ WAITING }",
+  "Auto-sincronización bidireccional con calendario mock.": "Automatic two-way synchronization with the mock calendar.",
+  "Sin seguimiento activo.": "No active follow-up.",
+  "{ LOG DE TELEMETRÍA EN VIVO }": "{ LIVE TELEMETRY LOG }",
+  "Navegación móvil de cualificación": "Mobile qualification navigation",
+  "Fullstack Engineering & Structural Digital Architecture. Datos locales, contratos claros.": "Fullstack Engineering & Structural Digital Architecture. Local data, clear contracts.",
+  "Los cambios se guardan en el workspace mock local.": "Changes are saved in the local mock workspace.",
+  "Responsable": "Owner",
+  "Respuesta mock": "Mock response",
+  "CANCELAR": "CANCEL",
+  "GUARDAR CAMBIOS": "SAVE CHANGES",
+  "Cualificación de leads": "Lead qualification",
+  "01. EN VIVO (ESTÁNDAR)": "01. LIVE (STANDARD)",
+  "02. CALIFICANDO EN DIRECTO (✦)": "02. QUALIFYING LIVE (✦)",
+  "03. BANDEJA VACÍA": "03. EMPTY INBOX",
+  "04. ESQUELETOS (SKELETONS)": "04. LOADING (SKELETONS)",
+  "TODOS": "ALL",
+  "CALIENTES": "HOT",
+  "TEMPLADOS": "WARM",
+  "FRÍOS": "COLD",
+  "BANDEJA": "INBOX",
+  "DETALLE": "DETAIL",
+  "SEGUIMIENTO": "FOLLOW-UP",
+  "Formulario Web": "Web form",
+  "DESCARTE": "DISCARDED",
+  "CALIFICANDO EN DIRECTO": "QUALIFYING LIVE",
+  "BANDEJA VACÍA": "EMPTY INBOX",
+  "ESQUELETOS": "LOADING",
+  "EN VIVO (ESTÁNDAR)": "LIVE (STANDARD)",
+  "LEADS HOY": "LEADS TODAY",
+  "+18% vs ayer": "+18% vs yesterday",
+  "UNIDADES": "UNITS",
+  "CALIENTES (TIER A)": "HOT (TIER A)",
+  "TIEMPO MEDIO RESPUESTA": "AVERAGE RESPONSE TIME",
+  "INFERENCIA": "INFERENCE",
+  "TASA CITA AUTOMATIZADA": "AUTOMATED MEETING RATE",
+  "OPERATIVA": "OPERATIONS",
+  "SIN COINCIDENCIAS": "NO MATCHES",
+  "No hay leads pendientes en este preset mock.": "There are no pending leads in this mock preset.",
+  "Prueba otro nombre, empresa, puntuación o tier.": "Try a different name, company, score or tier.",
+  "EN EJECUCIÓN // PAUSAR ||": "RUNNING // PAUSE ||",
+  "PAUSADA // REANUDAR ▶": "PAUSED // RESUME ▶",
+  "Núcleo determinista activo. Workspace mock preparado.": "Deterministic core active. Mock workspace ready.",
+  "Carga completada. Bandeja preparada.": "Loading complete. Inbox ready.",
+  "Seguimiento activo. Recorrido de cualificación completado.": "Follow-up active. Qualification walkthrough completed.",
+  "Expediente seleccionado. Datos mock sincronizados.": "Dossier selected. Mock data synchronized.",
+  "Bandeja simulada recuperada en estado estándar; cambios persistidos conservados.": "Mock inbox restored to standard mode; saved changes retained.",
+  "Selecciona un lead antes de aprobar la acción.": "Select a lead before approving the action.",
+  "El responsable no pertenece al catálogo local.": "The owner is not in the local catalog.",
+  "La respuesta mock no puede estar vacía.": "The mock response cannot be empty.",
+  "La operación mock no pudo completarse.": "The mock action could not be completed.",
+  "Revisar la bandeja": "Review the inbox",
+  "Recibir un lead": "Receive a lead",
+  "Cualificar el expediente": "Qualify the dossier",
+  "Aprobar el despacho": "Approve dispatch",
+  "Activar seguimiento": "Activate follow-up"
+} as const;
+
+type CopyKey = keyof typeof english;
+const spanish = Object.fromEntries(Object.keys(english).map((key) => [key, key])) as Record<CopyKey, string>;
+const dictionaries: Record<Locale, Record<CopyKey, string>> = { es: spanish, en: english };
+
+/** Fixtures remain domain data; operational labels use the bilingual catalog. */
+export function useQualificationText() {
+  const locale = useLocale();
+  return (value: string): string => {
+    if (locale === "es") return value;
+    if (Object.hasOwn(dictionaries.en, value)) return dictionaries.en[value as CopyKey];
+    return translateDemoText(dictionaries.en, value);
+  };
+}
+

@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 
 vi.mock("next/navigation", () => ({
   usePathname: () => "/es",
+  useRouter: () => ({ push: vi.fn() }),
 }));
 
 vi.mock("next/link", () => ({
@@ -20,15 +21,15 @@ vi.mock("next/image", () => ({
   },
 }));
 
-vi.mock("@/app/es/_components/landing-cursor", () => ({
+vi.mock("@/app/[locale]/_components/landing-cursor", () => ({
   LandingCursor: () => null,
 }));
 
-vi.mock("@/app/es/_components/landing-scroll", () => ({
+vi.mock("@/app/[locale]/_components/landing-scroll", () => ({
   LandingScroll: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
 
-import { LandingShell } from "@/app/es/_components/landing-shell";
+import { LandingShell } from "@/app/[locale]/_components/landing-shell";
 
 describe("landing editorial navigation", () => {
   it("exposes all section anchors from the curtain menu", async () => {

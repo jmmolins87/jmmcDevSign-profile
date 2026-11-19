@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { RegistrationPanel } from "@/app/es/login/registration-panel";
+import { RegistrationPanel } from "@/app/[locale]/login/registration-panel";
 
 describe("RegistrationPanel", () => {
   it("offers only editor and revisor as requested roles", () => {

@@ -1,13 +1,13 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { WorkflowPanel } from "@/app/es/demos/leads-workflow/workflow-panel";
+import { WorkflowPanel } from "@/app/[locale]/demos/leads-workflow/workflow-panel";
 import {
   WORKFLOW_LEAD_FIXTURES,
   createWorkflowFixture,
   workflowRepository,
-} from "@/app/es/demos/leads-workflow/domain";
+} from "@/app/[locale]/demos/leads-workflow/domain";
 
 const WORKFLOW_ID = "workflow-leads-001";
 
@@ -21,6 +21,7 @@ async function resetPanelState(): Promise<void> {
 }
 
 describe("WorkflowPanel", () => {
+  afterEach(() => vi.useRealTimers());
   beforeEach(async () => {
     await resetPanelState();
   });
@@ -46,14 +47,16 @@ describe("WorkflowPanel", () => {
   });
 
   it("simulates a trigger and runs a deterministic test trace", async () => {
-    const user = userEvent.setup();
+    vi.useFakeTimers();
     render(<WorkflowPanel />);
 
-    await user.click(screen.getByRole("button", { name: /SIMULAR DISPARO/u }));
-    expect(await screen.findByText("Disparo simulado: pipeline completado y lead actualizado.")).toBeInTheDocument();
+    await act(async () => { fireEvent.click(screen.getByRole("button", { name: /SIMULAR DISPARO/u })); });
+    await act(() => vi.advanceTimersByTimeAsync(3500));
+    expect(screen.getByText("Disparo simulado: pipeline completado y lead actualizado.")).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: /EJECUTAR TEST/u }));
-    expect(await screen.findByText("Test ejecutado: traza determinista disponible en el registro.")).toBeInTheDocument();
+    await act(async () => { fireEvent.click(screen.getByRole("button", { name: /EJECUTAR TEST/u })); });
+    await act(() => vi.advanceTimersByTimeAsync(3500));
+    expect(screen.getByText("Test ejecutado: traza determinista disponible en el registro.")).toBeInTheDocument();
     const trace = screen.getByRole("region", { name: "Traza de auditoría" });
     expect(within(trace).getByText("01 // WEBHOOK // PASS")).toBeInTheDocument();
     const testInferenceEvent = within(trace).getByText("02 // AGENTE_IA // PASS").closest("li") as HTMLElement;

@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { mockEmailInbox } from "@/app/es/auth/mock-email-inbox";
-import { mockEmailService, MOCK_ADMIN_NOTIFICATION_EMAIL } from "@/app/es/auth/mock-email-service";
-import type { AdminApprovalEmailModel, RegistrationRequest } from "@/app/es/auth/types";
+import { mockEmailInbox } from "@/app/[locale]/auth/mock-email-inbox";
+import { mockEmailService, MOCK_ADMIN_NOTIFICATION_EMAIL } from "@/app/[locale]/auth/mock-email-service";
+import type { AdminApprovalEmailModel, RegistrationRequest } from "@/app/[locale]/auth/types";
 
 describe("mock email service", () => {
   it("exposes admin notifications without persisting the operational verification code", async () => {

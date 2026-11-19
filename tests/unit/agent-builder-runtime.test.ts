@@ -2,7 +2,7 @@ import {
   AgentDeploymentError,
   createAgentBuilderRepository,
   createAgentRuntimeService,
-} from "@/app/es/demos/agent-builder/domain";
+} from "@/app/[locale]/demos/agent-builder/domain";
 import { describe, expect, it } from "vitest";
 
 describe("agent builder runtime", () => {

@@ -3,7 +3,7 @@ import {
   isPostDraft,
   validatePostForPublishing,
   type PostDraft,
-} from "@/app/es/blog/domain";
+} from "@/app/[locale]/blog/domain";
 import { describe, expect, it } from "vitest";
 
 const validPost: Pick<PostDraft, "title" | "slug" | "category" | "tags" | "excerpt" | "publishMode" | "scheduledAt"> = {

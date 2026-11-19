@@ -1,8 +1,8 @@
 import {
   createClientPostRepository,
   POST_STORAGE_KEY,
-} from "@/app/es/blog/repositories/post-repository";
-import type { PostDraft } from "@/app/es/blog/domain";
+} from "@/app/[locale]/blog/repositories/post-repository";
+import type { PostDraft } from "@/app/[locale]/blog/domain";
 import { describe, expect, it, vi } from "vitest";
 
 const seedPost: PostDraft = {

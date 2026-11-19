@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-import { publicPostRepository } from "@/app/es/blog/repositories/public-post-repository";
+import { publicPostRepository } from "@/app/[locale]/blog/repositories/public-post-repository";
 
 export async function proxy(request: NextRequest) {
   const slug = request.nextUrl.pathname.split("/").pop();

@@ -1,7 +1,7 @@
 import {
   POST_FIXTURES,
   createFixturePublicPostRepository,
-} from "@/app/es/blog/repositories";
+} from "@/app/[locale]/blog/repositories";
 import { describe, expect, it, vi } from "vitest";
 
 describe("createFixturePublicPostRepository", () => {

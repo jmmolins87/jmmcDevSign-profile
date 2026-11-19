@@ -2,8 +2,8 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { QualificationPanel } from "@/app/es/demos/lead-qualification/qualification-panel";
-import { qualificationRepository } from "@/app/es/demos/lead-qualification/domain";
+import { QualificationPanel } from "@/app/[locale]/demos/lead-qualification/qualification-panel";
+import { qualificationRepository } from "@/app/[locale]/demos/lead-qualification/domain";
 
 describe("QualificationPanel", () => {
   beforeEach(async () => {

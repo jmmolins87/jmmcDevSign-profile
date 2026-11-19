@@ -17,7 +17,7 @@ vi.mock("next/image", () => ({
   },
 }));
 
-import BlogPostPage, { generateMetadata } from "@/app/es/blog/[slug]/page";
+import BlogPostPage, { generateMetadata } from "@/app/[locale]/blog/[slug]/page";
 
 const publishedSlug = "ocaso-microservicios-caoticos-monolito-modular";
 

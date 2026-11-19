@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { ProtectedSurface } from "@/app/es/auth/protected-surface";
-import { listMockLoginProfiles, loginMockSession } from "@/app/es/auth/mock-session";
-import type { UserRole } from "@/app/es/auth/roles";
+import { ProtectedSurface } from "@/app/[locale]/auth/protected-surface";
+import { listMockLoginProfiles, loginMockSession } from "@/app/[locale]/auth/mock-session";
+import type { UserRole } from "@/app/[locale]/auth/roles";
 
 async function loginAsRole(role: UserRole) {
   const profile = listMockLoginProfiles().find((candidate) => candidate.role === role);

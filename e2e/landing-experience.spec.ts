@@ -1,0 +1,89 @@
+import { expect, test } from "@playwright/test";
+
+for (const locale of ["es", "en"] as const) {
+  test(`${locale}: header alignment, membership overlay and history`, async ({ page }) => {
+    await page.goto(`/${locale}/`);
+    const alignment = await page.evaluate(() => {
+      const header = document.querySelector("body header > div")?.getBoundingClientRect();
+      const content = document.querySelector("#presentacion > div")?.getBoundingClientRect();
+      return header && content ? { headerStart: header.left, contentStart: content.left, headerEnd: header.right, contentEnd: content.right, overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth } : null;
+    });
+    expect(alignment).not.toBeNull();
+    expect(Math.abs(alignment!.headerStart - alignment!.contentStart)).toBeLessThanOrEqual(1);
+    expect(Math.abs(alignment!.headerEnd - alignment!.contentEnd)).toBeLessThanOrEqual(1);
+    expect(alignment!.overflow).toBe(false);
+    const trigger = page.locator(`a[href="/${locale}/login"]:visible`).first();
+    await trigger.click();
+    await expect(page).toHaveURL(new RegExp(`/${locale}/login$`));
+    await expect(page.getByRole("dialog", { name: locale === "es" ? "Acceso al sistema" : "System access" })).toBeVisible();
+    // The intercepted route keeps the original page mounted beneath the overlay.
+    await expect(page.locator("#presentacion")).toHaveCount(1);
+    await page.getByRole("button", { name: locale === "es" ? "Cerrar autenticación" : "Close authentication" }).click();
+    await expect(page).toHaveURL(new RegExp(`/${locale}/?$`));
+    await expect(trigger).toBeFocused();
+    const menuTrigger = page.locator('button[aria-haspopup="dialog"]:visible').first();
+    await menuTrigger.click();
+    const menu = page.getByRole("dialog", { name: locale === "es" ? "Navegación editorial" : "Editorial navigation" });
+    await menu.getByRole("link", { name: locale === "es" ? "[ Acceder ]" : "[ Access ]", exact: true }).click();
+    await expect(page.getByRole("dialog", { name: locale === "es" ? "Acceso al sistema" : "System access" })).toBeVisible();
+    await page.goBack();
+    await expect(page.getByRole("dialog", { name: locale === "es" ? "Acceso al sistema" : "System access" })).toHaveCount(0);
+    await expect(menuTrigger).toBeFocused();
+  });
+}
+
+test("English system theme reacts to OS changes and explicit preference wins", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.goto("/en/");
+  if (!(await page.getByRole("button", { name: "Use system theme" }).first().isVisible())) {
+    await page.locator('button[aria-haspopup="dialog"]:visible').first().click();
+  }
+  await page.getByRole("button", { name: "Use system theme" }).filter({ visible: true }).first().click();
+  await expect(page.locator("html")).toHaveClass(/light/);
+  await page.emulateMedia({ colorScheme: "dark" });
+  await expect(page.locator("html")).toHaveClass(/dark/);
+  await page.getByRole("button", { name: "Use light theme" }).filter({ visible: true }).first().click();
+  await page.emulateMedia({ colorScheme: "dark" });
+  await expect(page.locator("html")).toHaveClass(/light/);
+  await page.reload();
+  await expect(page.locator("html")).toHaveClass(/light/);
+});
+
+test("language change preserves the public surface, query and fragment", async ({ page }) => {
+  await page.goto("/es/demos?view=catalogue#route-status");
+  const english = page.getByRole("link", { name: "English", exact: true });
+  if (!(await english.first().isVisible())) await page.getByRole("button", { name: /Menú/ }).click();
+  await english.filter({ visible: true }).first().click();
+  await expect(page).toHaveURL(/\/en\/demos\?view=catalogue#route-status$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.getByRole("heading", { name: "Demo catalogue" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Agent Builder", exact: true }).first()).toHaveAttribute("href", "/en/demos/agent-builder");
+});
+
+test("authentication language change preserves safe draft fields and clears passwords", async ({ page }) => {
+  await page.goto("/es/login");
+  await page.getByRole("tab", { name: /CREAR CUENTA/ }).click();
+  await page.getByLabel(/Nombre completo/).fill("Ada Example");
+  await page.getByLabel(/Correo institucional/).fill("ada@example.test");
+  await page.getByLabel(/^Contraseña/).fill("example-secret");
+  await page.getByRole("button", { name: "Revisor", exact: true }).click();
+  await page.getByRole("dialog").getByRole("link", { name: "English", exact: true }).click();
+  await expect(page).toHaveURL(/\/en\/login$/);
+  await expect(page.getByLabel(/Full name/)).toHaveValue("Ada Example");
+  await expect(page.getByLabel(/Work email/)).toHaveValue("ada@example.test");
+  await expect(page.getByLabel(/^Password/)).toHaveValue("");
+  await expect(page.getByRole("button", { name: "Reviewer", exact: true })).toHaveAttribute("aria-pressed", "true");
+});
+
+test("reduced motion keeps demos sticky through broad stable segments", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/en/");
+  const sceneTop = await page.locator("[data-demo-scene]").evaluate((scene) => scene.getBoundingClientRect().top + window.scrollY - 80);
+  await page.evaluate((top) => window.scrollTo({ top: top + 20, behavior: "instant" }), sceneTop);
+  await expect(page.locator('[data-demo-panel-index="0"]')).toHaveAttribute("aria-hidden", "false");
+  await page.evaluate((top) => window.scrollTo({ top: top + 320, behavior: "instant" }), sceneTop);
+  await expect(page.locator('[data-demo-panel-index="0"]')).toHaveAttribute("aria-hidden", "false");
+  await page.evaluate((top) => window.scrollTo({ top: top + 920, behavior: "instant" }), sceneTop);
+  await expect(page.locator('[data-demo-panel-index="1"]')).toHaveAttribute("aria-hidden", "false");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
+});
