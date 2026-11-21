@@ -21,7 +21,8 @@ Fecha: 2026-11-20. Esquema: `spec-driven`. Rama: `spec-10-landing-demo-experienc
 | Testing | EJECUTADO | 262 tests unitarios/componentes y 236 E2E aprobados |
 | OpenSpec Verify | EJECUTADO | Completitud, corrección y coherencia detalladas en este informe |
 | Spec Verifier independiente | EJECUTADO — APPROVED | Informe contrastado; 33/33 criterios PASS; spec cerrada como Implemented por el verificador |
-| Archivo | PENDIENTE | Requiere dictamen APPROVED y autorización final; no se ha sincronizado ni archivado |
+| Sync | EJECUTADO | Tres specs principales creadas, Purpose y los 15 requisitos/40 escenarios cotejados íntegramente con los deltas; validación estricta PASS |
+| Archivo | EJECUTADO | Autorización final del usuario el 2026-11-21; cambio trasladado a archive/2026-11-21-10-landing-demo-experience |
 
 ## Quality gates ejecutados
 
@@ -150,4 +151,13 @@ Dictamen independiente final del 2026-11-20: **APPROVED**, **33/33 criterios PAS
 - Capturas/snapshots/logs temporales de `.playwright-mcp` revisados y eliminados; también `test-results`, `test-results-resume` y `test-results-resume-firefox`. El resultado final se transcribió antes de borrar. No quedan pruebas de mutación temporales.
 - Playwright detuvo su servidor 3099; auditoría 3107 detenido. lsof final no muestra listeners en 3099/3107. Servidor preexistente de otra sesión intacto; Chrome de auditoría cerrado.
 
-**Hallazgos de Verify:** 0 CRITICAL, 0 WARNING, 0 SUGGESTION; ninguna comprobación aplicable omitida. **Resultado: PASS** en completitud, corrección y coherencia. **Spec Verifier: APPROVED**. Estado del flujo: **AWAITING_ARCHIVE_APPROVAL**; sincronizar y archivar quedan pendientes de autorización final explícita del usuario.
+**Hallazgos de Verify:** 0 CRITICAL, 0 WARNING, 0 SUGGESTION; ninguna comprobación aplicable omitida. **Resultado: PASS** en completitud, corrección y coherencia. **Spec Verifier: APPROVED**. Estado final del flujo: **COMPLETED**.
+
+## Cierre del 2026-11-21
+
+- El usuario autorizó continuar con el mensaje «sigue» después de recibir el resultado de implementación/verificación y la solicitud de aprobación final para archivar.
+- La implementación y las correcciones verificadas se guardaron en el commit `d1dc2c1` (`fix: finalize verified bilingual demos and safe auth navigation`), conforme a la regla del proyecto de guardar la fase anterior al autorizar la siguiente.
+- Se sincronizaron `demo-automation` (8 requisitos / 21 escenarios), `landing-experience` (4 / 11) y `localization` (3 / 8) a `openspec/specs/`. Los textos de Purpose y todos los bloques normativos se conservaron íntegros; se sustituyó únicamente la estructura delta por la estructura de spec principal.
+- `openspec validate --specs --strict` → 3 PASS / 0 FAIL. La comparación posterior confirmó que no quedaba contenido por sincronizar en ninguna capability.
+- Archivo: `openspec/changes/archive/2026-11-21-10-landing-demo-experience/`, conservando propuesta, diseño, tareas, deltas, metadatos y este informe. Spec de compatibilidad: `Implemented`, 33/33 criterios verificados.
+- Esta fase solo cambia documentación y organización OpenSpec; no modifica el código que superó 262 tests y 236 E2E. No se han realizado operaciones remotas.
