@@ -1,51 +1,42 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
+import { register } from "@/app/[locale]/auth/actions";
 import { RegistrationPanel } from "@/app/[locale]/login/registration-panel";
 
+vi.mock("@/app/[locale]/auth/actions", () => import("../fixtures/mock-managed-auth-actions"));
+
 describe("RegistrationPanel", () => {
-  it("offers only editor and revisor as requested roles", () => {
-    render(<RegistrationPanel />);
-
-    const roleGroup = screen.getByRole("group", { name: "Roles disponibles" });
-
-    expect(roleGroup).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Editor" })).toHaveAttribute("aria-pressed", "false");
-    expect(screen.getByRole("button", { name: "Revisor" })).toHaveAttribute("aria-pressed", "false");
-    expect(screen.queryByRole("button", { name: "Administrador" })).not.toBeInTheDocument();
-  });
-
-  it("reports accessible validation errors for incomplete registration data", async () => {
+  it("requires the accessible registration fields before submission", async () => {
     const user = userEvent.setup();
     render(<RegistrationPanel />);
-
-    await user.type(screen.getByRole("textbox", { name: "Nombre completo" }), "Ana");
-    await user.type(screen.getByRole("textbox", { name: "Correo institucional" }), "invalid-email");
-    await user.type(screen.getByLabelText(/^Contraseña/), "short");
-    await user.type(screen.getByLabelText(/^Confirmar contraseña/), "different");
-    await user.click(screen.getByRole("button", { name: "Editor" }));
+    expect(screen.getByLabelText(/^Correo electrónico/)).toBeRequired();
+    expect(screen.getByLabelText(/^Contraseña/)).toHaveAttribute("minlength", "8");
+    expect(screen.getByRole("checkbox", { name: /Acepto los términos/ })).toBeRequired();
     await user.click(screen.getByRole("button", { name: "Crear cuenta" }));
-
-    expect(screen.getByText("Escribe nombre y apellido.", { selector: "p" })).toBeVisible();
-    expect(screen.getByText("Introduce un correo válido.", { selector: "p" })).toBeVisible();
-    expect(screen.getByText("La contraseña debe tener al menos 8 caracteres.", { selector: "p" })).toBeVisible();
-    expect(screen.getByText("Las contraseñas no coinciden.", { selector: "p" })).toBeVisible();
-    expect(screen.getByText("Debes aceptar los términos de acceso.", { selector: "p" })).toBeVisible();
+    expect(register).not.toHaveBeenCalled();
   });
 
-  it("shows a pending status after a complete registration form", async () => {
+  it("submits the editorial role using an accessible radio group and displays confirmation instructions", async () => {
+    vi.mocked(register).mockResolvedValueOnce({
+      status: "success",
+      message: "Revisa tu correo y confirma tu dirección para enviar la solicitud.",
+    });
     const user = userEvent.setup();
     render(<RegistrationPanel />);
-
-    await user.type(screen.getByRole("textbox", { name: "Nombre completo" }), "Ana Martín");
-    await user.type(screen.getByRole("textbox", { name: "Correo institucional" }), "ana@example.test");
-    await user.type(screen.getByLabelText(/^Contraseña/), "secure-demo");
-    await user.type(screen.getByLabelText(/^Confirmar contraseña/), "secure-demo");
-    await user.click(screen.getByRole("button", { name: "Revisor" }));
+    await user.type(screen.getByLabelText(/^Nombre completo/), "Ada Example");
+    await user.type(screen.getByLabelText(/^Correo electrónico/), "reader@example.com");
+    await user.type(screen.getByLabelText(/^Contraseña/), "example-password");
+    await user.type(screen.getByLabelText(/^Confirmar contraseña/), "example-password");
+    const roleGroup = screen.getByRole("group", { name: "Rol solicitado" });
+    expect(roleGroup).toBeVisible();
+    await user.click(screen.getByRole("radio", { name: "Revisor" }));
     await user.click(screen.getByRole("checkbox", { name: /Acepto los términos/ }));
     await user.click(screen.getByRole("button", { name: "Crear cuenta" }));
-
-    expect(await screen.findByRole("status")).toHaveTextContent("Solicitud enviada");
+    expect(await screen.findByRole("status")).toHaveTextContent("Revisa tu correo");
+    const [, , form] = vi.mocked(register).mock.calls[0];
+    expect(form.get("requestedRole")).toBe("revisor");
+    expect(form.get("termsAccepted")).toBe("on");
   });
 });

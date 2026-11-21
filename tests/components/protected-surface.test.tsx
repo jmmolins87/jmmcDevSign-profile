@@ -1,52 +1,33 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { ProtectedSurface } from "@/app/[locale]/auth/protected-surface";
-import { listMockLoginProfiles, loginMockSession } from "@/app/[locale]/auth/mock-session";
-import type { UserRole } from "@/app/[locale]/auth/roles";
+import { SHARED_SURFACE_ROLES, type UserRole } from "@/app/[locale]/auth/roles";
 
-async function loginAsRole(role: UserRole) {
-  const profile = listMockLoginProfiles().find((candidate) => candidate.role === role);
-  if (!profile) throw new Error(`Fixture not found for role: ${role}`);
-  await loginMockSession(profile.email, profile.demoPassword);
-}
+vi.mock("@/app/[locale]/auth/actions", () => import("../fixtures/mock-managed-auth-actions"));
 
 describe("ProtectedSurface", () => {
-  it("shows a session-required state for anonymous visitors", () => {
-    render(
-      <ProtectedSurface allowedRoles={["admin", "editor", "revisor"]}>
-        <p>Contenido protegido</p>
-      </ProtectedSurface>,
-    );
-
+  it("denies access even with a legacy browser snapshot", () => {
+    window.localStorage.setItem("jmmc-mock-session", JSON.stringify({ role: "admin", isAuthenticated: true }));
+    render(<ProtectedSurface access={{ status: "anonymous" }} allowedRoles={SHARED_SURFACE_ROLES}><p>Datos privados</p></ProtectedSurface>);
     expect(screen.getByRole("heading", { name: "Sesión requerida" })).toBeVisible();
-    expect(screen.queryByText("Contenido protegido")).not.toBeInTheDocument();
+    expect(screen.queryByText("Datos privados")).toBeNull();
   });
 
-  it.each(["admin", "editor", "revisor"] as const)("allows %s on shared surfaces", async (role) => {
-    await loginAsRole(role);
-
-    render(
-      <ProtectedSurface allowedRoles={["admin", "editor", "revisor"]}>
-        <p>Contenido protegido</p>
-      </ProtectedSurface>,
-    );
-
-    expect(screen.getByText("Contenido protegido")).toBeVisible();
+  it.each(SHARED_SURFACE_ROLES)("allows the %s role with active membership on editor pages", (role: UserRole) => {
+    render(<ProtectedSurface access={{ status: "active", userId: "member", email: "member@example.com", role }} allowedRoles={SHARED_SURFACE_ROLES}><p>Editor activo</p></ProtectedSurface>);
+    expect(screen.getByText("Editor activo")).toBeVisible();
   });
 
-  it.each(["editor", "revisor"] as const)("denies %s on admin surfaces", async (role) => {
-    await loginAsRole(role);
-
-    render(
-      <ProtectedSurface allowedRoles={["admin"]}>
-        <p>Gestión administrativa</p>
-      </ProtectedSurface>,
-    );
-
+  it("does not let a confirmed identity with pending membership view editorial content", () => {
+    render(<ProtectedSurface access={{ status: "inactive", userId: "member", email: "member@example.com", role: "editor" }} allowedRoles={SHARED_SURFACE_ROLES}><p>Datos privados</p></ProtectedSurface>);
     expect(screen.getByRole("heading", { name: "Acceso no autorizado" })).toBeVisible();
-    expect(screen.getByText(/no tiene permisos para esta superficie/)).toBeVisible();
-    expect(screen.queryByText("Gestión administrativa")).not.toBeInTheDocument();
+    expect(screen.queryByText("Datos privados")).toBeNull();
+  });
+
+  it("denies administration to an active editorial user", () => {
+    render(<ProtectedSurface access={{ status: "active", userId: "member", email: "member@example.com", role: "revisor" }} allowedRoles={["admin"]}><p>Datos privados</p></ProtectedSurface>);
+    expect(screen.getByRole("heading", { name: "Acceso no autorizado" })).toBeVisible();
+    expect(screen.queryByText("Datos privados")).toBeNull();
   });
 });
-

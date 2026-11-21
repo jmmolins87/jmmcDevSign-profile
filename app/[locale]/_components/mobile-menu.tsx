@@ -10,20 +10,16 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { LanguageSelector } from "@/app/[locale]/_components/language-selector";
-import { useMockSession } from "@/app/[locale]/auth/mock-session";
 import { demoRouteList, demosIndexRoute, portfolioRouteList } from "@/app/[locale]/route-map";
 
-export function MobileMenu() {
+export function MobileMenu({ adminItem }: { adminItem?: React.ReactNode } = {}) {
   const locale = useLocale();
   const t = usePublicCopy();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openPathname, setOpenPathname] = useState(pathname);
-  const session = useMockSession();
   const isOpen = isMenuOpen && openPathname === pathname;
-  const visiblePortfolioRoutes = session?.role === "admin"
-    ? portfolioRouteList
-    : portfolioRouteList.filter((item) => item.section !== "admin");
+  const visiblePortfolioRoutes = portfolioRouteList.filter((item) => item.section !== "admin");
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -91,6 +87,7 @@ export function MobileMenu() {
                 </Link>
               </li>
             ))}
+            {adminItem}
           </ul>
           <div className="mt-space-lg border-t border-border pt-space-lg">{/* taste-skill-ignore: mobile navigation rule from DESIGN.md */}
             <p className="font-mono text-mono-code uppercase tracking-[0.16em] text-on-surface-variant">{/* taste-skill-ignore: technical metadata token from DESIGN.md */}

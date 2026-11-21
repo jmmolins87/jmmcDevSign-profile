@@ -2,65 +2,45 @@
 
 import Link from "next/link";
 
-import { Badge, Card, CardContent, CardMeta, ErrorState } from "@/app/components/ui";
-import { useMockSession } from "@/app/[locale]/auth/mock-session";
-import { InterfaceStateControls } from "@/app/[locale]/auth/interface-state-controls";
+import { useManagedAuthCopy } from "@/app/[locale]/auth/use-managed-auth-copy";
 import type { UserRole } from "@/app/[locale]/auth/roles";
+import { RefreshAuthStatus } from "@/app/[locale]/login/pending-panel";
+import { ErrorState } from "@/app/components/ui";
+import { localePath } from "@/app/lib/i18n";
+import { useLocale } from "@/app/lib/locale-context";
+import type { EditorialAccess } from "@/app/lib/supabase/session";
 
-type ProtectedSurfaceProps = {
+const linkClass = "inline-flex min-h-11 items-center border border-primary bg-primary px-space-md font-headline text-label-caps uppercase tracking-[0.08em] text-primary-foreground hover:border-accent hover:bg-background hover:text-primary";
+
+export function ProtectedSurface({ access, allowedRoles, children }: {
+  access: EditorialAccess;
   allowedRoles: readonly UserRole[];
-  children: React.ReactNode;
-  showInterfaceStateControls?: boolean;
-};
+  children?: React.ReactNode;
+}) {
+  const t = useManagedAuthCopy();
+  const locale = useLocale();
 
-const roleLabels: Record<UserRole, string> = {
-  admin: "Administrador",
-  editor: "Editor",
-  revisor: "Revisor",
-};
+  if (access.status === "active" && allowedRoles.includes(access.role)) return children;
 
-export function ProtectedSurface({ allowedRoles, children, showInterfaceStateControls = true }: ProtectedSurfaceProps) {
-  const session = useMockSession();
-
-  if (!session) {
+  if (access.status === "unavailable") {
     return (
-      <section aria-labelledby="protected-surface-title" className="grid gap-space-lg">
-        <ErrorState
-          action={<Link className="inline-flex min-h-11 items-center border border-primary bg-primary px-space-md font-headline text-label-caps uppercase tracking-[0.08em] text-primary-foreground hover:border-accent hover:bg-background hover:text-primary" href="/es/login">Ir al acceso</Link>}
-          message="Necesitas una sesión mock para abrir esta superficie protegida."
-          title="Sesión requerida"
-        />
-        <span className="sr-only" id="protected-surface-title">Superficie protegida</span>
-      </section>
+      <ErrorState
+        action={<RefreshAuthStatus />}
+        message={t("El servicio de acceso no está disponible en este momento. Inténtalo de nuevo.")}
+        title={t("Acceso temporalmente no disponible")}
+      />
     );
   }
 
-  if (!allowedRoles.includes(session.role)) {
-    return (
-      <section aria-labelledby="protected-surface-title" className="grid gap-space-lg">
-        <ErrorState
-          action={<Link className="inline-flex min-h-11 items-center border border-primary bg-primary px-space-md font-headline text-label-caps uppercase tracking-[0.08em] text-primary-foreground hover:border-accent hover:bg-background hover:text-primary" href="/es/">Volver al portfolio</Link>}
-          message={`Tu perfil ${roleLabels[session.role]} no tiene permisos para esta superficie.`}
-          title="Acceso no autorizado"
-        />
-        <Card>
-          <CardContent className="flex flex-wrap items-center justify-between gap-space-md">
-            <div>
-              <CardMeta>Sesión actual</CardMeta>
-              <p className="mt-space-xs text-body-md text-on-surface-variant">{session.email}</p>
-            </div>
-            <Badge>{session.role}</Badge>
-          </CardContent>
-        </Card>
-        <span className="sr-only" id="protected-surface-title">Acceso no autorizado</span>
-      </section>
-    );
-  }
-
+  const anonymous = access.status === "anonymous";
+  const denied = access.status === "active";
+  const href = localePath(denied ? "/es/" : "/es/login", locale);
   return (
-    <div className="grid gap-space-lg">
-      {showInterfaceStateControls ? <InterfaceStateControls /> : null}
-      {children}
-    </div>
+    <ErrorState
+      action={<Link className={linkClass} href={href}>{t(denied ? "Volver al portfolio" : "Ir al acceso")}</Link>}
+      message={t(anonymous ? "Necesitas iniciar sesión para abrir esta superficie."
+        : denied ? "Tu perfil no tiene permisos para esta superficie." : "Tu cuenta necesita una membresía activa para abrir esta superficie.")}
+      title={t(anonymous ? "Sesión requerida" : "Acceso no autorizado")}
+    />
   );
 }

@@ -16,7 +16,7 @@ export default defineConfig({
   },
   webServer: {
     command: "pnpm exec next start --hostname 127.0.0.1 --port 3099",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     stderr: "pipe",
     stdout: "pipe",
     timeout: 120_000,

@@ -8,31 +8,23 @@ import { usePublicCopy } from "@/app/lib/use-public-copy";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { useMockSession } from "@/app/[locale]/auth/mock-session";
-
 const primaryNavItems = [
   { href: "/es/", label: "Inicio" },
   { href: "/es/demos", label: "Demos" },
   { href: "/es/blog/editor", label: "Editor" },
-  { href: "/es/admin/approval", label: "Administración" },
 ] as const;
 
 function normalizePath(pathname: string) {
   return pathname === "/es/" ? "/es" : pathname.replace(/\/$/, "");
 }
 
-export function PrimaryNav() {
+export function PrimaryNav({ adminLink }: { adminLink?: React.ReactNode } = {}) {
   const locale = useLocale();
   const t = usePublicCopy();
   const pathname = normalizePath(usePathname().replace(/^\/en(?=\/|$)/, "/es"));
-  const session = useMockSession();
-  const visibleNavItems = session?.role === "admin"
-    ? primaryNavItems
-    : primaryNavItems.filter((item) => item.href !== "/es/admin/approval");
-
   return (
     <nav aria-label={t("Navegación principal")} className="hidden items-center gap-space-lg lg:flex">
-      {visibleNavItems.map((item) => {
+      {primaryNavItems.map((item) => {
         const normalizedHref = normalizePath(item.href);
         const isActive =
           pathname === normalizedHref ||
@@ -53,6 +45,7 @@ export function PrimaryNav() {
           </Link>
         );
       })}
+      {adminLink}
     </nav>
   );
 }

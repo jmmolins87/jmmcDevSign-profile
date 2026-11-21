@@ -20,7 +20,9 @@ export function validatePostForPublishing(
   const errors: PostValidationErrors = {};
 
   if (!post.title.trim()) errors.title = "El título es obligatorio.";
-  if (!POST_SLUG_PATTERN.test(post.slug)) {
+  if (post.slug === "editor" || post.slug === "not-found") {
+    errors.slug = "Elige otro slug. Esta ruta está reservada.";
+  } else if (!POST_SLUG_PATTERN.test(post.slug)) {
     errors.slug = "Usa solo letras minúsculas, números y guiones simples.";
   }
   if (!post.category.trim()) errors.category = "La categoría es obligatoria.";

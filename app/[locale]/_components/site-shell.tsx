@@ -16,13 +16,15 @@ import { PrimaryNav } from "@/app/[locale]/_components/primary-nav";
 import { ThemeSelector } from "@/app/[locale]/_components/theme-selector";
 
 type SiteShellProps = Readonly<{
+  adminLink?: React.ReactNode;
+  mobileAdminItem?: React.ReactNode;
   children: React.ReactNode;
 }>;
 
-export function SiteShell({ children }: SiteShellProps) {
+export function SiteShell({ adminLink, mobileAdminItem, children }: SiteShellProps) {
   return (
     <Suspense fallback={<SiteShellFallback>{children}</SiteShellFallback>}>
-      <PathAwareSiteShell>{children}</PathAwareSiteShell>
+      <PathAwareSiteShell adminLink={adminLink} mobileAdminItem={mobileAdminItem}>{children}</PathAwareSiteShell>
     </Suspense>
   );
 }
@@ -35,17 +37,17 @@ function SiteShellFallback({ children }: SiteShellProps) {
   );
 }
 
-function PathAwareSiteShell({ children }: SiteShellProps) {
+function PathAwareSiteShell({ adminLink, mobileAdminItem, children }: SiteShellProps) {
   const segment = useSelectedLayoutSegment();
 
   if (segment === null) {
     return <LandingShell>{children}</LandingShell>;
   }
 
-  return <StandardSiteShell>{children}</StandardSiteShell>;
+  return <StandardSiteShell adminLink={adminLink} mobileAdminItem={mobileAdminItem}>{children}</StandardSiteShell>;
 }
 
-function StandardSiteShell({ children }: SiteShellProps) {
+function StandardSiteShell({ adminLink, mobileAdminItem, children }: SiteShellProps) {
   const locale = useLocale();
   const t = usePublicCopy();
   return (
@@ -70,7 +72,7 @@ function StandardSiteShell({ children }: SiteShellProps) {
               {t("Arquitectura")}</span>
           </Link>
 
-          <PrimaryNav />
+          <PrimaryNav adminLink={adminLink} />
 
           <div className="flex items-center gap-space-sm">
             <ThemeSelector />
@@ -80,7 +82,7 @@ function StandardSiteShell({ children }: SiteShellProps) {
               href={localePath("/es/login", locale)}
             >
               {t("[ Acceder ]")}</Link>
-            <MobileMenu />
+            <MobileMenu adminItem={mobileAdminItem} />
           </div>
         </div>
       </header>

@@ -214,7 +214,7 @@ openspec validate 11-supabase-production --strict
 
 - **Grill-me completed:** Sí.
 - **Blocking decisions:** Ninguna.
-- **Specification approval:** Pendiente.
-- **Build Mode authorization:** No concedida por esta spec.
+- **Specification approval:** Confirmada por el usuario antes de iniciar la implementación.
+- **Build Mode authorization:** Confirmada por el usuario para trabajar en la rama de la spec con escritura habilitada.
 - **Production authorization:** Se solicitará con el plan de corte y destinos identificados.
 - **Archive authorization:** Se solicitará después de Verify y `spec-verifier APPROVED`.
