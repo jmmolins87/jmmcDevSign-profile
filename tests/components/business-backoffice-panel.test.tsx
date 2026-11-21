@@ -73,6 +73,20 @@ describe("BackofficePanel", () => {
     expect(await screen.findByText("#ORD-9042")).toBeInTheDocument();
   });
 
+  it("labels the reader role and profile in English while keeping the persisted role and permissions", async () => {
+    const user = userEvent.setup();
+    render(<LocaleProvider locale="en"><BackofficePanel /></LocaleProvider>);
+    await screen.findByText("#ORD-9042");
+
+    const readerRole = screen.getByRole("button", { name: "[ READER ]" });
+    await user.click(readerRole);
+
+    expect(readerRole).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByText("{ READER }", { exact: true })).toBeVisible();
+    expect(screen.getByRole("button", { name: "+ REGISTER MANUAL ORDER" })).toBeDisabled();
+    expect((await backofficeRepository.getWorkspace()).role).toBe("LECTOR");
+  });
+
   it("recovers the workspace from the skeleton state", async () => {
     const user = userEvent.setup();
     render(<BackofficePanel />);

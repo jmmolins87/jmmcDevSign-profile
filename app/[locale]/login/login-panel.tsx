@@ -29,8 +29,6 @@ const roleDescriptions: Record<UserRole, string> = {
   revisor: "Acceso a contenido y superficies editoriales y demos operativas.",
 };
 
-let localeEmailDraft = "";
-
 const loginProfiles = listMockLoginProfiles();
 
 const oauthProviders: ReadonlyArray<{ id: OAuthProvider; label: string }> = [
@@ -117,13 +115,14 @@ function PasswordField({
 
 type LoginPanelProps = Readonly<{
   oauthAdapter?: OAuthAuthAdapter;
+  initialEmail?: string;
+  onSafeDraftChange?: (draft: { email: string }) => void;
 }>;
 
-export function LoginPanel({ oauthAdapter = mockOAuthAdapter }: LoginPanelProps = {}) {
+export function LoginPanel({ oauthAdapter = mockOAuthAdapter, initialEmail = "", onSafeDraftChange }: LoginPanelProps = {}) {
   const t = usePublicCopy();
   const session = useMockSession();
-  const [email, setEmail] = useState(localeEmailDraft);
-  useEffect(() => { localeEmailDraft = ""; }, []);
+  const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState("");
   const [selectedProfileId, setSelectedProfileId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -131,13 +130,13 @@ export function LoginPanel({ oauthAdapter = mockOAuthAdapter }: LoginPanelProps 
   const [activeOAuthProvider, setActiveOAuthProvider] = useState<OAuthProvider | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   useEffect(() => {
-    const retainEmail = () => { localeEmailDraft = email; };
-    window.addEventListener("jmmc-locale-switch", retainEmail);
-    return () => window.removeEventListener("jmmc-locale-switch", retainEmail);
-  }, [email]);
-
+    const clearPassword = () => setPassword("");
+    window.addEventListener("jmmc-locale-switch", clearPassword);
+    return () => window.removeEventListener("jmmc-locale-switch", clearPassword);
+  }, []);
   function selectProfile(profile: MockLoginProfile) {
     setEmail(profile.email);
+    onSafeDraftChange?.({ email: profile.email });
     setPassword(profile.demoPassword);
     setSelectedProfileId(profile.id);
     setError(null);
@@ -240,6 +239,7 @@ export function LoginPanel({ oauthAdapter = mockOAuthAdapter }: LoginPanelProps 
           label={t("Correo del perfil")}
           onChange={(event) => {
             setEmail(event.target.value);
+            onSafeDraftChange?.({ email: event.target.value });
             setSelectedProfileId(null);
             setError(null);
           }}

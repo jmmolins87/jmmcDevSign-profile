@@ -89,11 +89,12 @@ for (const locale of ["es", "en"] as const) {
     await page.getByRole("button", { name: text.critical }).click();
     await page.getByRole("button", { name: text.start, exact: true }).click();
     await page.clock.runFor(5000);
-    await expect(page.getByRole("alert")).toContainText(text.error);
+    const playback = page.getByRole("region", { name: locale === "es" ? "Recorrido automático" : "Automated walkthrough" });
+    await expect(playback.getByRole("alert")).toContainText(text.error);
     await expect(page.getByRole("progressbar")).toHaveAttribute("value", "20");
     await expect(page.locator('[data-node-id="node-ai-agent"]')).toHaveAttribute("data-node-status", "error");
     await page.getByRole("button", { name: text.reset, exact: true }).click();
-    await expect(page.getByRole("alert")).toHaveCount(0);
+    await expect(playback.getByRole("alert")).toHaveCount(0);
     await expect(page.getByRole("button", { name: text.start, exact: true })).toBeEnabled();
   });
 }

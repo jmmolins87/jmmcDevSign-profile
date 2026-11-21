@@ -3,7 +3,7 @@
 import { usePublicCopy } from "@/app/lib/use-public-copy";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { LanguageSelector } from "@/app/[locale]/_components/language-selector";
 import { useLocale } from "@/app/lib/locale-context";
@@ -15,8 +15,7 @@ import type { RegistrationRequest } from "@/app/[locale]/auth/types";
 import { LoginPanel } from "@/app/[locale]/login/login-panel";
 import { PendingPanel } from "@/app/[locale]/login/pending-panel";
 import { RegistrationPanel } from "@/app/[locale]/login/registration-panel";
-
-let localeViewDraft: AuthModalView | null = null;
+import { createAuthLocaleDraftStore, saveAuthLocaleDraft, type AuthLocaleDraft } from "@/app/[locale]/login/auth-locale-handoff";
 
 const PENDING_REQUEST_STORAGE_KEY = "jmmcdevsign:auth:pending-request-id";
 
@@ -30,22 +29,35 @@ function readStoredPendingRequest() {
   return registrationRequestsRepository.getSnapshot().find((request) => request.id === requestId) ?? null;
 }
 
-export function LoginModal({ onClose }: { onClose?: () => void } = {}) {
+export function LoginModal({ isIntercepted = false, onClose }: { isIntercepted?: boolean; onClose?: () => void } = {}) {
   const t = usePublicCopy();
   const router = useRouter();
   const locale = useLocale();
-  const [activeView, setActiveView] = useState<AuthModalView>(() => localeViewDraft ?? "login");
-  useEffect(() => { localeViewDraft = null; }, []);
+  const [draftStore] = useState(() => createAuthLocaleDraftStore());
+  const restoredDraft = useSyncExternalStore(draftStore.subscribe, draftStore.getSnapshot, draftStore.getServerSnapshot);
+  const [selectedView, setActiveView] = useState<AuthModalView | null>(null);
+  const activeView = selectedView ?? restoredDraft?.view ?? "login";
+  const safeDraftRef = useRef<Partial<AuthLocaleDraft>>({});
   useEffect(() => {
-    const retainView = () => { localeViewDraft = activeView; };
+    const retainView = () => {
+      // Best effort only: blocked session storage must not prevent changing language.
+      saveAuthLocaleDraft({
+        email: "",
+        fullName: "",
+        requestedRole: "",
+        ...restoredDraft,
+        ...safeDraftRef.current,
+        view: activeView,
+      });
+    };
     window.addEventListener("jmmc-locale-switch", retainView);
     return () => window.removeEventListener("jmmc-locale-switch", retainView);
-  }, [activeView]);
+  }, [activeView, restoredDraft]);
   const [pendingRequest, setPendingRequest] = useState<RegistrationRequest | null>(readStoredPendingRequest);
 
   function handleClose() {
     if (onClose) onClose();
-    else if (window.history.length > 1) router.back();
+    else if (isIntercepted) router.back();
     else router.replace(localePath("/es/", locale));
   }
 
@@ -72,10 +84,11 @@ export function LoginModal({ onClose }: { onClose?: () => void } = {}) {
       <div className="mb-space-md flex justify-end"><LanguageSelector alwaysVisible /></div>
       <AuthModalFrame
         activeView={activeView}
-        login={<LoginPanel />}
+        key={restoredDraft ? "restored-draft" : "empty-draft"}
+        login={<LoginPanel initialEmail={restoredDraft?.email} onSafeDraftChange={(draft) => { safeDraftRef.current = { ...safeDraftRef.current, ...draft }; }} />}
         onViewChange={setActiveView}
         pending={<PendingPanel onVerified={handleVerified} request={pendingRequest} />}
-        register={<RegistrationPanel onRegistered={handleRegistered} />}
+        register={<RegistrationPanel initialDraft={restoredDraft ?? undefined} onSafeDraftChange={(draft) => { safeDraftRef.current = { ...safeDraftRef.current, ...draft }; }} onRegistered={handleRegistered} />}
       />
     </Modal>
   );

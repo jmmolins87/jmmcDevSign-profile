@@ -51,6 +51,7 @@ test("English system theme reacts to OS changes and explicit preference wins", a
 
 test("language change preserves the public surface, query and fragment", async ({ page }) => {
   await page.goto("/es/demos?view=catalogue#route-status");
+  await expect(page.getByRole("banner")).toBeVisible();
   const english = page.getByRole("link", { name: "English", exact: true });
   if (!(await english.first().isVisible())) await page.getByRole("button", { name: /Menú/ }).click();
   await english.filter({ visible: true }).first().click();
@@ -61,6 +62,8 @@ test("language change preserves the public surface, query and fragment", async (
 });
 
 test("authentication language change preserves safe draft fields and clears passwords", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/es/login");
   await page.getByRole("tab", { name: /CREAR CUENTA/ }).click();
   await page.getByLabel(/Nombre completo/).fill("Ada Example");
@@ -69,10 +72,23 @@ test("authentication language change preserves safe draft fields and clears pass
   await page.getByRole("button", { name: "Revisor", exact: true }).click();
   await page.getByRole("dialog").getByRole("link", { name: "English", exact: true }).click();
   await expect(page).toHaveURL(/\/en\/login$/);
+  await expect(page.getByRole("dialog")).toHaveCount(1);
   await expect(page.getByLabel(/Full name/)).toHaveValue("Ada Example");
   await expect(page.getByLabel(/Work email/)).toHaveValue("ada@example.test");
   await expect(page.getByLabel(/^Password/)).toHaveValue("");
   await expect(page.getByRole("button", { name: "Reviewer", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await page.getByLabel(/^Password/).fill("another-example-secret");
+  await page.getByRole("dialog").getByRole("link", { name: "Español", exact: true }).click();
+  await expect(page).toHaveURL(/\/es\/login$/);
+  await expect(page.getByRole("dialog")).toHaveCount(1);
+  await expect(page.getByLabel(/Nombre completo/)).toHaveValue("Ada Example");
+  await expect(page.getByLabel(/Correo institucional/)).toHaveValue("ada@example.test");
+  await expect(page.getByLabel(/^Contraseña/)).toHaveValue("");
+  await expect(page.getByRole("button", { name: "Revisor", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Cerrar autenticación" }).click();
+  await expect(page).toHaveURL(/\/es\/?$/);
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  expect(errors).toEqual([]);
 });
 
 test("reduced motion keeps demos sticky through broad stable segments", async ({ page }) => {

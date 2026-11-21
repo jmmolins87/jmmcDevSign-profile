@@ -1,6 +1,6 @@
 # SPEC 10 — Mejora de landing, localización y automatización de demos
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 01, SPEC 02, SPEC 03, SPEC 05, SPEC 06, SPEC 07, SPEC 08, SPEC 09
 > **Date:** 2026-11-15
 > **OpenSpec change:** `10-landing-demo-experience`
@@ -120,39 +120,39 @@ La pausa bloquea nuevas entradas y transiciones automáticas. Los controles manu
 
 ## Acceptance criteria
 
-- [ ] El header está alineado con el contenido a 375px y 1440px.
-- [ ] El selector muestra iconos de oscuro, claro y sistema.
-- [ ] El modo sistema reacciona a cambios del tema del sistema operativo.
-- [ ] `[ Acceder ]` abre la modal desde header, menú y móvil.
-- [ ] `/en` funciona para landing, demos y autenticación.
-- [ ] El cambio de idioma conserva la superficie equivalente.
-- [ ] Cada demo permanece sticky durante un tramo amplio y estable.
-- [ ] Las cinco demos tienen reproducción mock con inicio, pausa, reanudación, reinicio y progreso.
-- [ ] Agent Builder conserva sus operaciones y muestra la reproducción automatizada.
-- [ ] Leads Workflow no muestra nodos solapados inicialmente.
-- [ ] `AUTO-ALIGN` y `RESET GRID` no producen solapamientos.
-- [ ] Las aristas siguen conectadas tras zoom, alineación y restauración.
-- [ ] Leads Workflow anima el recorrido secuencial de nodos y aristas.
-- [ ] La traza de Leads Workflow conserva el orden de ejecución.
-- [ ] Un error del workflow detiene la reproducción y muestra feedback accesible.
-- [ ] Orders Realtime introduce pedidos automáticamente.
-- [ ] Los pedidos avanzan por `NUEVO`, `EN PLANCHA`, `LISTO` y `ENTREGADO`.
-- [ ] Pausar Orders Realtime bloquea entradas y transiciones automáticas.
-- [ ] Los skeletons de Lead Qualification desaparecen al terminar la carga.
-- [ ] Cambiar o reiniciar el escenario de Lead Qualification no deja skeletons permanentes.
-- [ ] `[ VER ]` de Business Backoffice abre el drawer correcto.
-- [ ] El drawer restaura foco y conserva filtros y página al cerrarse.
-- [ ] Todas las demos muestran estados, progreso, feedback, vacíos y errores de forma visible.
-- [ ] Las demos funcionan con teclado y reduced motion.
-- [ ] No existe overflow horizontal involuntario a 375px ni 1440px.
-- [ ] No se añaden dependencias ni integraciones externas.
-- [ ] `pnpm lint` pasa.
-- [ ] `pnpm typecheck` pasa.
-- [ ] `pnpm test` pasa.
-- [ ] `pnpm build` pasa.
-- [ ] `pnpm test:e2e` pasa.
-- [ ] `openspec validate 10-landing-demo-experience --strict` pasa.
-- [ ] La trazabilidad `REQ → TASK → TEST → VERIFY-PASS` está completa.
+- [x] El header está alineado con el contenido a 375px y 1440px.
+- [x] El selector muestra iconos de oscuro, claro y sistema.
+- [x] El modo sistema reacciona a cambios del tema del sistema operativo.
+- [x] `[ Acceder ]` abre la modal desde header, menú y móvil.
+- [x] `/en` funciona para landing, demos y autenticación.
+- [x] El cambio de idioma conserva la superficie equivalente.
+- [x] Cada demo permanece sticky durante un tramo amplio y estable.
+- [x] Las cinco demos tienen reproducción mock con inicio, pausa, reanudación, reinicio y progreso.
+- [x] Agent Builder conserva sus operaciones y muestra la reproducción automatizada.
+- [x] Leads Workflow no muestra nodos solapados inicialmente.
+- [x] `AUTO-ALIGN` y `RESET GRID` no producen solapamientos.
+- [x] Las aristas siguen conectadas tras zoom, alineación y restauración.
+- [x] Leads Workflow anima el recorrido secuencial de nodos y aristas.
+- [x] La traza de Leads Workflow conserva el orden de ejecución.
+- [x] Un error del workflow detiene la reproducción y muestra feedback accesible.
+- [x] Orders Realtime introduce pedidos automáticamente.
+- [x] Los pedidos avanzan por `NUEVO`, `EN PLANCHA`, `LISTO` y `ENTREGADO`.
+- [x] Pausar Orders Realtime bloquea entradas y transiciones automáticas.
+- [x] Los skeletons de Lead Qualification desaparecen al terminar la carga.
+- [x] Cambiar o reiniciar el escenario de Lead Qualification no deja skeletons permanentes.
+- [x] `[ VER ]` de Business Backoffice abre el drawer correcto.
+- [x] El drawer restaura foco y conserva filtros y página al cerrarse.
+- [x] Todas las demos muestran estados, progreso, feedback, vacíos y errores de forma visible.
+- [x] Las demos funcionan con teclado y reduced motion.
+- [x] No existe overflow horizontal involuntario a 375px ni 1440px.
+- [x] No se añaden dependencias ni integraciones externas.
+- [x] `pnpm lint` pasa.
+- [x] `pnpm typecheck` pasa.
+- [x] `pnpm test` pasa.
+- [x] `pnpm build` pasa.
+- [x] `pnpm test:e2e` pasa.
+- [x] `openspec validate 10-landing-demo-experience --strict` pasa.
+- [x] La trazabilidad `REQ → TASK → TEST → VERIFY-PASS` está completa.
 
 ## Implementation plan
 
@@ -190,3 +190,5 @@ La pausa bloquea nuevas entradas y transiciones automáticas. Los controles manu
 - **Sí:** usar el drawer de expediente existente para `[ VER ]`.
 - **Sí:** corregir Leads Workflow con layout sin colisiones y recorrido secuencial animado.
 - **Pendiente:** aprobación formal de esta spec antes de pasar a Build Mode.
+
+Verificación 2026-11-20 — OpenSpec `10-landing-demo-experience`: APPROVED, 33/33 criterios en PASS.

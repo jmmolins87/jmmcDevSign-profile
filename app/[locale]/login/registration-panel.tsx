@@ -20,7 +20,7 @@ export type RegistrationFormValues = {
 
 export type RegistrationFormErrors = Partial<Record<keyof RegistrationFormValues, string>>;
 
-let localeDraft: Pick<RegistrationFormValues, "email" | "fullName" | "requestedRole"> | null = null;
+type SafeRegistrationDraft = Pick<RegistrationFormValues, "email" | "fullName" | "requestedRole">;
 
 const initialValues: RegistrationFormValues = {
   email: "",
@@ -69,27 +69,33 @@ export function validateRegistrationForm(values: RegistrationFormValues): Regist
 type RegistrationPanelProps = Readonly<{
   onRegistered?: (request: RegistrationRequest) => void;
   registrationAdapter?: RegistrationAuthAdapter;
+  initialDraft?: SafeRegistrationDraft;
+  onSafeDraftChange?: (draft: SafeRegistrationDraft) => void;
 }>;
 
 export function RegistrationPanel({
   onRegistered,
   registrationAdapter = mockRegistrationAdapter,
+  initialDraft,
+  onSafeDraftChange,
 }: RegistrationPanelProps = {}) {
   const t = usePublicCopy();
-  const [values, setValues] = useState<RegistrationFormValues>(() => ({ ...initialValues, ...localeDraft }));
-  useEffect(() => { localeDraft = null; }, []);
+  const [values, setValues] = useState<RegistrationFormValues>(() => ({ ...initialValues, ...initialDraft }));
   const [errors, setErrors] = useState<RegistrationFormErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionNotice, setSubmissionNotice] = useState<string | null>(null);
   useEffect(() => {
-    const retainSafeDraft = () => { localeDraft = { email: values.email, fullName: values.fullName, requestedRole: values.requestedRole }; };
-    window.addEventListener("jmmc-locale-switch", retainSafeDraft);
-    return () => window.removeEventListener("jmmc-locale-switch", retainSafeDraft);
-  }, [values.email, values.fullName, values.requestedRole]);
-
+    const clearPasswords = () => setValues((current) => ({ ...current, password: "", passwordConfirmation: "" }));
+    window.addEventListener("jmmc-locale-switch", clearPasswords);
+    return () => window.removeEventListener("jmmc-locale-switch", clearPasswords);
+  }, []);
   function updateField<Field extends keyof RegistrationFormValues>(field: Field, value: RegistrationFormValues[Field]) {
-    setValues((current) => ({ ...current, [field]: value }));
+    const nextValues = { ...values, [field]: value };
+    setValues(nextValues);
+    if (field === "email" || field === "fullName" || field === "requestedRole") {
+      onSafeDraftChange?.({ email: nextValues.email, fullName: nextValues.fullName, requestedRole: nextValues.requestedRole });
+    }
     setErrors((current) => {
       const next = { ...current };
       delete next[field];

@@ -4,12 +4,13 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { LocaleProvider } from "@/app/lib/locale-context";
 import { LanguageSelector } from "@/app/[locale]/_components/language-selector";
 import { LoginPanel } from "@/app/[locale]/login/login-panel";
-import { RegistrationPanel } from "@/app/[locale]/login/registration-panel";
+import { LoginModal } from "@/app/[locale]/login/login-modal";
+import { AUTH_LOCALE_HANDOFF_KEY } from "@/app/[locale]/login/auth-locale-handoff";
 
 const push = vi.hoisted(() => vi.fn());
 vi.mock("next/navigation", () => ({ usePathname: () => "/es/demos/leads-workflow", useRouter: () => ({ push }) }));
 vi.mock("next/link", () => ({ default: ({ children, href, scroll, ...props }: { children: React.ReactNode; href: string; scroll?: boolean }) => { void scroll; return <a href={href} {...props}>{children}</a>; } }));
-afterEach(() => { window.history.replaceState(null, "", "/"); });
+afterEach(() => { window.history.replaceState(null, "", "/"); window.sessionStorage.clear(); });
 
 describe("public language controls", () => {
   it("navigates to the equivalent surface with its query and fragment", () => {
@@ -30,19 +31,33 @@ describe("public language controls", () => {
   });
   it("preserves safe registration fields across locale navigation and clears passwords", async () => {
     const user = userEvent.setup();
-    const first = render(<RegistrationPanel />);
+    const first = render(<LoginModal />);
+    await user.click(screen.getByRole("tab", { name: /CREAR CUENTA/ }));
     await user.type(screen.getByLabelText(/Nombre completo/), "Ada Example");
     await user.type(screen.getByLabelText(/Correo institucional/), "ada@example.test");
     await user.type(screen.getByLabelText(/^Contraseña/), "secret-example");
     await user.click(screen.getByRole("button", { name: "Revisor" }));
     fireEvent(window, new Event("jmmc-locale-switch"));
+    expect(screen.getByLabelText(/^Contraseña/)).toHaveValue("");
+    expect(window.sessionStorage.getItem(AUTH_LOCALE_HANDOFF_KEY)).not.toContain("secret-example");
     first.unmount();
-    render(<LocaleProvider locale="en"><RegistrationPanel /></LocaleProvider>);
+    const english = render(<LocaleProvider locale="en"><LoginModal /></LocaleProvider>);
     expect(screen.getByLabelText(/Full name/)).toHaveValue("Ada Example");
     expect(screen.getByLabelText(/Work email/)).toHaveValue("ada@example.test");
     expect(screen.getByLabelText(/^Password/)).toHaveValue("");
     expect(screen.getByRole("button", { name: "Reviewer" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getAllByRole("dialog")).toHaveLength(1);
+    expect(window.sessionStorage.getItem(AUTH_LOCALE_HANDOFF_KEY)).toBeNull();
     await user.click(screen.getByRole("button", { name: "Create account" }));
     await waitFor(() => expect(screen.getByLabelText(/^Password/)).toHaveAccessibleDescription("The password must contain at least 8 characters."));
+    await user.type(screen.getByLabelText(/^Password/), "another-secret");
+    fireEvent(window, new Event("jmmc-locale-switch"));
+    english.unmount();
+    render(<LocaleProvider locale="es"><LoginModal /></LocaleProvider>);
+    expect(screen.getAllByRole("dialog")).toHaveLength(1);
+    expect(screen.getByLabelText(/Nombre completo/)).toHaveValue("Ada Example");
+    expect(screen.getByLabelText(/Correo institucional/)).toHaveValue("ada@example.test");
+    expect(screen.getByLabelText(/^Contraseña/)).toHaveValue("");
+    expect(screen.getByRole("button", { name: "Revisor" })).toHaveAttribute("aria-pressed", "true");
   });
 });

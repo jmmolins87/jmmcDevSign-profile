@@ -531,7 +531,7 @@ function BlogSection() {
   return (
     <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
-        <SectionHeader action={<Link className="font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant transition-colors hover:text-accent" href={localePath("/es/login", locale)}>{t("{ ACCESO MIEMBROS [✦] }")}</Link>} section={section} />
+        <SectionHeader action={<Link className="font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant transition-colors hover:text-accent" href={localePath("/es/blog/editor", locale)}>{t("{ ACCESO MIEMBROS [✦] }")}</Link>} section={section} />
         <LandingBlogCarousel posts={posts.map((post) => ({ ...post, title: t(post.title), description: t(post.description), category: t(post.category), imageAlt: t(post.imageAlt), date: t(post.date) }))} />
         <EditorialList ariaLabel={t("Archivo de publicaciones")} items={posts.map((post) => ({ href: localePath(post.href, locale), id: post.id, meta: `${t(post.category)} / ${post.readingTime}`, title: t(post.title) }))} />
       </div>
