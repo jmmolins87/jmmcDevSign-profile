@@ -8,7 +8,7 @@ import {
   validateBackofficeWorkspace,
   validateCustomerEdit,
   validateManualOrder,
-} from "@/app/es/demos/business-backoffice/domain";
+} from "@/app/[locale]/demos/business-backoffice/domain";
 
 describe("business backoffice domain", () => {
   it("creates the reference workspace with deterministic fixtures", () => {

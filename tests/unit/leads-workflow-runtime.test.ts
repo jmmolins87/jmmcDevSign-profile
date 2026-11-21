@@ -2,7 +2,7 @@ import {
   WORKFLOW_FIXTURE,
   createWorkflowRepository,
   createWorkflowRuntimeService,
-} from "@/app/es/demos/leads-workflow/domain";
+} from "@/app/[locale]/demos/leads-workflow/domain";
 import { describe, expect, it } from "vitest";
 
 describe("leads workflow runtime", () => {

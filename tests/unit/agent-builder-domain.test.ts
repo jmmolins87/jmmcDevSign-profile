@@ -6,7 +6,7 @@ import {
   isAgentBuilderSnapshot,
   isAgentConfig,
   validateAgentForDeployment,
-} from "@/app/es/demos/agent-builder/domain";
+} from "@/app/[locale]/demos/agent-builder/domain";
 import { describe, expect, it } from "vitest";
 
 describe("agent builder domain", () => {

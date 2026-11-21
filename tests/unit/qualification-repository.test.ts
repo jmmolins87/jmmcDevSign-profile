@@ -2,7 +2,7 @@ import {
   QUALIFICATION_LEAD_FIXTURES,
   QUALIFICATION_STORAGE_KEY,
   createQualificationRepository,
-} from "@/app/es/demos/lead-qualification/domain";
+} from "@/app/[locale]/demos/lead-qualification/domain";
 import { describe, expect, it } from "vitest";
 
 class MemoryStorage implements Storage {

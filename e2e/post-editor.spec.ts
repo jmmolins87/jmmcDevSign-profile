@@ -13,7 +13,7 @@ async function loginAsEditor(page: Page) {
 
 test.describe("post editor and public posts", () => {
   test("reads published content, exposes SEO metadata and returns 404 for drafts", async ({ page }) => {
-    const response = await page.goto(`/es/blog/${publishedSlug}`, { waitUntil: "networkidle" });
+    const response = await page.goto(`/es/blog/${publishedSlug}`, { waitUntil: "domcontentloaded" });
 
     expect(response?.status()).toBe(200);
     await expect(page.getByRole("heading", { name: /El ocaso de los microservicios caóticos/u })).toBeVisible();
@@ -21,7 +21,7 @@ test.describe("post editor and public posts", () => {
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://www.jmmcdevsign.es/es/blog/${publishedSlug}`);
     await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", /El ocaso de los microservicios caóticos/u);
 
-    const draftResponse = await page.goto("/es/blog/notas-sistema-editorial-en-construccion", { waitUntil: "networkidle" });
+    const draftResponse = await page.goto("/es/blog/notas-sistema-editorial-en-construccion", { waitUntil: "domcontentloaded" });
     expect(draftResponse?.status()).toBe(404);
     await expect(page.getByRole("heading", { name: "Esta publicación no está disponible" })).toBeVisible();
   });

@@ -1,4 +1,4 @@
-import { createOrdersRealtimeTransport, createOrdersRepository } from "@/app/es/demos/orders-realtime/domain";
+import { createOrdersRealtimeTransport, createOrdersRepository } from "@/app/[locale]/demos/orders-realtime/domain";
 import { describe, expect, it } from "vitest";
 
 describe("orders realtime transport", () => {

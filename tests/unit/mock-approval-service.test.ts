@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { createMockRegistrationApprovalService } from "@/app/es/auth/mock-approval-service";
-import type { RegistrationRequest, VerificationChallenge } from "@/app/es/auth/types";
-import { createMockRepository } from "@/app/es/repositories/mock-repository";
+import { createMockRegistrationApprovalService } from "@/app/[locale]/auth/mock-approval-service";
+import type { RegistrationRequest, VerificationChallenge } from "@/app/[locale]/auth/types";
+import { createMockRepository } from "@/app/[locale]/repositories/mock-repository";
 
 describe("mock registration approval service", () => {
   it("assigns a role, stores a digest challenge and sends the six-digit code", async () => {

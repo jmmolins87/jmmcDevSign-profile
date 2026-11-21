@@ -3,8 +3,8 @@ import { describe, expect, it } from "vitest";
 import {
   createPendingAdminApprovalEmailModel,
   MOCK_ADMIN_APPROVAL_TOKEN_TTL_MINUTES,
-} from "@/app/es/auth/mock-admin-approval-email";
-import type { RegistrationRequest } from "@/app/es/auth/types";
+} from "@/app/[locale]/auth/mock-admin-approval-email";
+import type { RegistrationRequest } from "@/app/[locale]/auth/types";
 
 const pendingRequest: RegistrationRequest = {
   id: "registration-action-test",

@@ -5,7 +5,7 @@ import {
   createOrdersWorkspace,
   isOrdersWorkspace,
   validateOrdersWorkspace,
-} from "@/app/es/demos/orders-realtime/domain";
+} from "@/app/[locale]/demos/orders-realtime/domain";
 import { describe, expect, it } from "vitest";
 
 describe("orders realtime domain", () => {

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { renderAdminApprovalEmail } from "@/app/es/auth/admin-approval-email-renderer";
-import type { AdminApprovalEmailModel } from "@/app/es/auth/types";
+import { renderAdminApprovalEmail } from "@/app/[locale]/auth/admin-approval-email-renderer";
+import type { AdminApprovalEmailModel } from "@/app/[locale]/auth/types";
 
 const emailModel: AdminApprovalEmailModel = {
   approveAction: {

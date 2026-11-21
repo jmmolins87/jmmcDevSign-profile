@@ -1,7 +1,7 @@
 import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { LandingUtcClock } from "@/app/es/_components/landing-utc-clock";
+import { LandingUtcClock } from "@/app/[locale]/_components/landing-utc-clock";
 
 describe("landing local clock", () => {
   beforeEach(() => {

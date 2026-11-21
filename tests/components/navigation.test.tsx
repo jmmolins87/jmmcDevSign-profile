@@ -11,7 +11,7 @@ vi.mock("next/link", () => ({
   ),
 }));
 
-import { PrimaryNav } from "@/app/es/_components/primary-nav";
+import { PrimaryNav } from "@/app/[locale]/_components/primary-nav";
 
 describe("primary navigation", () => {
   it("marks the demos section as current on nested demo routes", () => {

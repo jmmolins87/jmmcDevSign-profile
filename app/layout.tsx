@@ -10,7 +10,9 @@ const themeScript = `(() => {
   try {
     const savedTheme = localStorage.getItem("jmmc-theme");
     const root = document.documentElement;
-    const theme = savedTheme === "light" ? "light" : "dark";
+    const preference = savedTheme === "light" || savedTheme === "system" ? savedTheme : "dark";
+    const theme = preference === "system" ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : preference;
+    root.dataset.themePreference = preference;
     root.classList.toggle("dark", theme === "dark");
     root.classList.toggle("light", theme === "light");
   } catch {

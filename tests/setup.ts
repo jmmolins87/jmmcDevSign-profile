@@ -3,7 +3,7 @@ import "@testing-library/jest-dom/vitest";
 import { cleanup } from "@testing-library/react";
 import { afterEach } from "vitest";
 
-import { logoutMockSession } from "@/app/es/auth/mock-session";
+import { logoutMockSession } from "@/app/[locale]/auth/mock-session";
 
 if (typeof window !== "undefined" && !window.matchMedia) {
   Object.defineProperty(window, "matchMedia", {

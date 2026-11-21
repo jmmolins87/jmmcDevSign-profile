@@ -2,8 +2,8 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { OrdersPanel } from "@/app/es/demos/orders-realtime/orders-panel";
-import { ordersRepository } from "@/app/es/demos/orders-realtime/domain";
+import { OrdersPanel } from "@/app/[locale]/demos/orders-realtime/orders-panel";
+import { ordersRepository } from "@/app/[locale]/demos/orders-realtime/domain";
 
 describe("OrdersPanel", () => {
   beforeEach(async () => {

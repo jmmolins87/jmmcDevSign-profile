@@ -2,11 +2,11 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { AgentBuilderPanel } from "@/app/es/demos/agent-builder/agent-builder-panel";
+import { AgentBuilderPanel } from "@/app/[locale]/demos/agent-builder/agent-builder-panel";
 import {
   agentBuilderRepository,
   agentRuntimeService,
-} from "@/app/es/demos/agent-builder/domain";
+} from "@/app/[locale]/demos/agent-builder/domain";
 
 describe("AgentBuilderPanel", () => {
   beforeEach(async () => {

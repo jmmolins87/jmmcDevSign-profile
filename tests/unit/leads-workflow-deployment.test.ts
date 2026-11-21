@@ -3,7 +3,7 @@ import {
   WorkflowDeploymentError,
   createWorkflowDeploymentService,
   createWorkflowRepository,
-} from "@/app/es/demos/leads-workflow/domain";
+} from "@/app/[locale]/demos/leads-workflow/domain";
 import { describe, expect, it } from "vitest";
 
 describe("leads workflow deployment", () => {

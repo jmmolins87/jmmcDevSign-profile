@@ -2,7 +2,7 @@ import {
   listMockLoginProfiles,
   loginMockSession,
   logoutMockSession,
-} from "@/app/es/auth/mock-session";
+} from "@/app/[locale]/auth/mock-session";
 import { afterEach, describe, expect, it } from "vitest";
 
 afterEach(() => {

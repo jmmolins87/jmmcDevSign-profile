@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
 
-import { logoutMockSession } from "@/app/es/auth/mock-session";
-import { LoginPanel } from "@/app/es/login/login-panel";
+import { logoutMockSession } from "@/app/[locale]/auth/mock-session";
+import { LoginPanel } from "@/app/[locale]/login/login-panel";
 
 afterEach(() => {
   logoutMockSession();

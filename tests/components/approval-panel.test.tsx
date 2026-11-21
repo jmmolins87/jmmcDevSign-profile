@@ -2,10 +2,10 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { ApprovalPanel } from "@/app/es/admin/approval/approval-panel";
-import { createMockRegistrationApprovalService } from "@/app/es/auth/mock-approval-service";
-import type { RegistrationRequest, VerificationChallenge } from "@/app/es/auth/types";
-import { createMockRepository } from "@/app/es/repositories/mock-repository";
+import { ApprovalPanel } from "@/app/[locale]/admin/approval/approval-panel";
+import { createMockRegistrationApprovalService } from "@/app/[locale]/auth/mock-approval-service";
+import type { RegistrationRequest, VerificationChallenge } from "@/app/[locale]/auth/types";
+import { createMockRepository } from "@/app/[locale]/repositories/mock-repository";
 
 describe("ApprovalPanel", () => {
   it("lets the admin change the assigned role and approve a pending request", async () => {

@@ -3,7 +3,7 @@ import {
   createQualificationRepository,
   createQualificationRuntimeService,
   filterQualificationLeads,
-} from "@/app/es/demos/lead-qualification/domain";
+} from "@/app/[locale]/demos/lead-qualification/domain";
 import { describe, expect, it } from "vitest";
 
 describe("lead qualification runtime", () => {

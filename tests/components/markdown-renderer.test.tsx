@@ -6,7 +6,7 @@ vi.mock("next/image", () => ({
   default: ({ alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => createElement("img", { alt: alt ?? "", ...props }),
 }));
 
-import { MarkdownRenderer } from "@/app/es/blog/markdown/markdown-renderer";
+import { MarkdownRenderer } from "@/app/[locale]/blog/markdown/markdown-renderer";
 
 describe("MarkdownRenderer", () => {
   it("renders the Markdown syntax exposed by the editor toolbar", () => {

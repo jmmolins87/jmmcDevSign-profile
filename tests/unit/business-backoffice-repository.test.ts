@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { BACKOFFICE_STORAGE_KEY, createBackofficeWorkspace } from "@/app/es/demos/business-backoffice/domain/backoffice-fixtures";
-import { createBackofficeRepository, type BackofficeStorage } from "@/app/es/demos/business-backoffice/domain/backoffice-repository";
+import { BACKOFFICE_STORAGE_KEY, createBackofficeWorkspace } from "@/app/[locale]/demos/business-backoffice/domain/backoffice-fixtures";
+import { createBackofficeRepository, type BackofficeStorage } from "@/app/[locale]/demos/business-backoffice/domain/backoffice-repository";
 
 function createStorage(initial: string | null = null): BackofficeStorage & { values: Map<string, string> } {
   const values = new Map<string, string>();

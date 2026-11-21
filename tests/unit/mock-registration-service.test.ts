@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { createMockRegistrationAdapter } from "@/app/es/auth/mock-registration-service";
-import type { AdminApprovalEmailModel, AuthUser, RegistrationRequest } from "@/app/es/auth/types";
-import { createMockRepository } from "@/app/es/repositories/mock-repository";
+import { createMockRegistrationAdapter } from "@/app/[locale]/auth/mock-registration-service";
+import type { AdminApprovalEmailModel, AuthUser, RegistrationRequest } from "@/app/[locale]/auth/types";
+import { createMockRepository } from "@/app/[locale]/repositories/mock-repository";
 
 describe("mock registration service", () => {
   it("creates a pending request and notifies the admin inbox boundary", async () => {

@@ -2,7 +2,7 @@ import {
   WORKFLOW_FIXTURE,
   WORKFLOW_STORAGE_KEY,
   createWorkflowRepository,
-} from "@/app/es/demos/leads-workflow/domain";
+} from "@/app/[locale]/demos/leads-workflow/domain";
 import { describe, expect, it } from "vitest";
 
 class MemoryStorage implements Storage {

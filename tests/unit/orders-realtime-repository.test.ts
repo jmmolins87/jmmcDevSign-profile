@@ -3,7 +3,7 @@ import {
   ORDERS_STORAGE_KEY,
   ORDER_FIXTURES,
   createOrdersRepository,
-} from "@/app/es/demos/orders-realtime/domain";
+} from "@/app/[locale]/demos/orders-realtime/domain";
 import { describe, expect, it } from "vitest";
 
 class MemoryStorage implements Storage {

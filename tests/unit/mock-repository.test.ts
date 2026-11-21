@@ -1,4 +1,4 @@
-import { createMockRepository } from "@/app/es/repositories/mock-repository";
+import { createMockRepository } from "@/app/[locale]/repositories/mock-repository";
 import { describe, expect, it, vi } from "vitest";
 
 type Note = { id: string; title: string };

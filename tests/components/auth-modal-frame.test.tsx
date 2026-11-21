@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { AuthModalFrame } from "@/app/es/login/auth-modal-frame";
-import { RegistrationPanel } from "@/app/es/login/registration-panel";
+import { AuthModalFrame } from "@/app/[locale]/login/auth-modal-frame";
+import { RegistrationPanel } from "@/app/[locale]/login/registration-panel";
 
 describe("AuthModalFrame", () => {
   it("switches between the dev states and keeps the selector visible", async () => {

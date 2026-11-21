@@ -6,7 +6,7 @@ import {
   validateWorkflowForDeployment,
   createWorkflowSnapshot,
   type WorkflowLeadFilters,
-} from "@/app/es/demos/leads-workflow/domain";
+} from "@/app/[locale]/demos/leads-workflow/domain";
 import { describe, expect, it } from "vitest";
 
 describe("leads workflow domain", () => {
