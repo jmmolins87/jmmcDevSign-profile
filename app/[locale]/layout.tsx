@@ -5,6 +5,9 @@ import { LocaleProvider } from "@/app/lib/locale-context";
 
 export function generateStaticParams() { return [{ locale: "es" }, { locale: "en" }]; }
 
+// Wait for the locale before streaming so unsupported locales get an HTTP 404.
+export const instant = false;
+
 export default async function PublicLayout({
   children,
   params,
