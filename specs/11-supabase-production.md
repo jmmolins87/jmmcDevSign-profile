@@ -1,6 +1,6 @@
 # SPEC 11 — Migración a Supabase y puesta en producción
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 01, SPEC 03, SPEC 3.1, SPEC 04, SPEC 10
 > **Date:** 2026-11-21
 > **OpenSpec change:** `11-supabase-production`
@@ -105,56 +105,56 @@ No quedan decisiones bloqueantes. Las referencias de proyectos y credenciales se
 
 ### Autenticación y autorización
 
-- [ ] Una persona puede registrarse, confirmar su email, iniciar y cerrar sesión y recuperar su contraseña.
-- [ ] Una identidad confirmada sin membresía activa no puede acceder ni mutar contenido editorial.
-- [ ] Solo el admin activo puede consultar y decidir solicitudes.
-- [ ] Admin, editor y revisor activos pueden usar el editor.
-- [ ] UI, servidor y RLS rechazan la misma matriz de actores no autorizados.
-- [ ] Google y GitHub no aparecen como opciones operativas.
+- [x] Una persona puede registrarse, confirmar su email, iniciar y cerrar sesión y recuperar su contraseña.
+- [x] Una identidad confirmada sin membresía activa no puede acceder ni mutar contenido editorial.
+- [x] Solo el admin activo puede consultar y decidir solicitudes.
+- [x] Admin, editor y revisor activos pueden usar el editor.
+- [x] UI, servidor y RLS rechazan la misma matriz de actores no autorizados.
+- [x] Google y GitHub no aparecen como opciones operativas.
 
 ### Solicitudes, códigos y correo
 
-- [ ] Crear la misma solicitud dos veces no duplica filas ni avisos.
-- [ ] Abrir un enlace administrativo no decide la solicitud sin confirmación.
-- [ ] Dos decisiones concurrentes producen una sola transición.
-- [ ] El código caduca a los diez minutos, se consume una vez y se bloquea al quinto fallo.
-- [ ] El reenvío invalida el código anterior y respeta 60 segundos de espera.
-- [ ] Un fallo temporal de Resend se reintenta sin duplicar correo ni decisión.
-- [ ] Los logs y la auditoría no contienen secretos, tokens ni códigos completos.
+- [x] Crear la misma solicitud dos veces no duplica filas ni avisos.
+- [x] Abrir un enlace administrativo no decide la solicitud sin confirmación.
+- [x] Dos decisiones concurrentes producen una sola transición.
+- [x] El código caduca a los diez minutos, se consume una vez y se bloquea al quinto fallo.
+- [x] El reenvío invalida el código anterior y respeta 60 segundos de espera.
+- [x] Un fallo temporal de Resend se reintenta sin duplicar correo ni decisión.
+- [x] Los logs y la auditoría no contienen secretos, tokens ni códigos completos.
 
 ### Editor y publicación
 
-- [ ] El selector permite abrir posts existentes y crear un nuevo borrador.
-- [ ] Guardar manualmente conserva borradores incompletos.
-- [ ] El autoguardado válido se ejecuta después de 800 ms.
-- [ ] Editar un post publicado no altera su versión pública.
-- [ ] Dos sesiones no se sobrescriben silenciosamente.
-- [ ] Publicar ahora actualiza contenido y metadata y cancela cualquier programación anterior.
-- [ ] Programar fija una revisión y la publica durante el siguiente ciclo de un minuto.
-- [ ] Reprogramar impide que la programación anterior se publique.
-- [ ] Eliminar retira la versión pública y conserva las revisiones para auditoría.
+- [x] El selector permite abrir posts existentes y crear un nuevo borrador.
+- [x] Guardar manualmente conserva borradores incompletos.
+- [x] El autoguardado válido se ejecuta después de 800 ms.
+- [x] Editar un post publicado no altera su versión pública.
+- [x] Dos sesiones no se sobrescriben silenciosamente.
+- [x] Publicar ahora actualiza contenido y metadata y cancela cualquier programación anterior.
+- [x] Programar fija una revisión y la publica durante el siguiente ciclo de un minuto.
+- [x] Reprogramar impide que la programación anterior se publique.
+- [x] Eliminar retira la versión pública y conserva las revisiones para auditoría.
 
 ### Lectura, datos iniciales y compatibilidad
 
-- [ ] Los tres slugs actuales de la landing existen tras una inicialización limpia.
-- [ ] Repetir la carga no duplica posts ni sobrescribe ediciones.
-- [ ] Un post publicado se lee anónimamente en español e inglés con metadata coherente.
-- [ ] Un slug sin versión pública devuelve 404.
-- [ ] Una caída de Supabase produce error recuperable.
-- [ ] Las cinco demos siguen siendo públicas, bilingües, locales y sin escrituras remotas.
-- [ ] Los snapshots mock antiguos no conceden identidad ni publican contenido.
+- [x] Los tres slugs actuales de la landing existen tras una inicialización limpia.
+- [x] Repetir la carga no duplica posts ni sobrescribe ediciones.
+- [x] Un post publicado se lee anónimamente en español e inglés con metadata coherente.
+- [x] Un slug sin versión pública devuelve 404.
+- [x] Una caída de Supabase produce error recuperable.
+- [x] Las cinco demos siguen siendo públicas, bilingües, locales y sin escrituras remotas.
+- [x] Los snapshots mock antiguos no conceden identidad ni publican contenido.
 
 ### Operación y lanzamiento
 
-- [ ] `supabase db reset` reconstruye esquema, policies, cron y seed desde cero.
-- [ ] `supabase test db` demuestra permisos, propiedad, estados e idempotencia.
-- [ ] Preview usa datos y variables aislados de Production.
-- [ ] Un entorno desplegado sin configuración obligatoria falla explícitamente.
-- [ ] Lint, typecheck, unitarios, build y E2E pasan con comandos reales del proyecto.
-- [ ] `openspec-verify-change` pasa y `spec-verifier` dicta `APPROVED`.
-- [ ] El usuario autoriza el plan de corte antes de tocar Production.
-- [ ] El candidato pasa humo antes de recibir el dominio.
-- [ ] `https://www.jmmcdevsign.es` pasa humo tras la promoción y existe un procedimiento de recuperación comprobable.
+- [x] `supabase db reset` reconstruye esquema, policies, cron y seed desde cero.
+- [x] `supabase test db` demuestra permisos, propiedad, estados e idempotencia.
+- [x] Preview usa datos y variables aislados de Production.
+- [x] Un entorno desplegado sin configuración obligatoria falla explícitamente.
+- [x] Lint, typecheck, unitarios, build y E2E pasan con comandos reales del proyecto.
+- [x] `openspec-verify-change` pasa y `spec-verifier` dicta `APPROVED`.
+- [x] El usuario autoriza el plan de corte antes de tocar Production.
+- [x] El candidato pasa humo antes de recibir el dominio.
+- [x] `https://www.jmmcdevsign.es` pasa humo tras la promoción y existe un procedimiento de recuperación comprobable.
 
 ## Test strategy
 
@@ -218,3 +218,5 @@ openspec validate 11-supabase-production --strict
 - **Build Mode authorization:** Confirmada por el usuario para trabajar en la rama de la spec con escritura habilitada.
 - **Production authorization:** Se solicitará con el plan de corte y destinos identificados.
 - **Archive authorization:** Se solicitará después de Verify y `spec-verifier APPROVED`.
+
+Verificación independiente del 22 de noviembre de 2026 para `11-supabase-production` con dictamen `APPROVED` y 38 de 38 criterios aprobados.
