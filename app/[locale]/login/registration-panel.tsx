@@ -1,231 +1,102 @@
 "use client";
 
-import { usePublicCopy } from "@/app/lib/use-public-copy";
+import { useActionState, useState } from "react";
 
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import { register, requestMembership } from "@/app/[locale]/auth/actions";
+import { useManagedAuthCopy } from "@/app/[locale]/auth/use-managed-auth-copy";
+import { initialAuthFeedback } from "@/app/[locale]/auth/managed-types";
+import { EDITORIAL_ROLES, isEditorialRole } from "@/app/[locale]/auth/roles";
+import { AuthFeedback } from "@/app/[locale]/login/auth-feedback";
+import type { AuthLocaleDraft } from "@/app/[locale]/login/auth-locale-handoff";
+import { PasswordFields } from "@/app/[locale]/login/password-fields";
+import { Button, CheckboxField, InputField } from "@/app/components/ui";
+import { useLocale } from "@/app/lib/locale-context";
 
-import { Button, CheckboxField, ErrorState, InputField } from "@/app/components/ui";
-import { cn } from "@/app/components/ui/utils";
-import type { RegistrationRequest, RegistrationRole } from "@/app/[locale]/auth/types";
-import { mockRegistrationAdapter, type RegistrationAuthAdapter } from "@/app/[locale]/auth/mock-registration-service";
+type SafeRegistrationDraft = Pick<AuthLocaleDraft, "email" | "fullName" | "requestedRole">;
 
-export type RegistrationFormValues = {
-  email: string;
-  fullName: string;
-  password: string;
-  passwordConfirmation: string;
-  requestedRole: RegistrationRole | "";
-  termsAccepted: boolean;
-};
-
-export type RegistrationFormErrors = Partial<Record<keyof RegistrationFormValues, string>>;
-
-type SafeRegistrationDraft = Pick<RegistrationFormValues, "email" | "fullName" | "requestedRole">;
-
-const initialValues: RegistrationFormValues = {
-  email: "",
-  fullName: "",
-  password: "",
-  passwordConfirmation: "",
-  requestedRole: "",
-  termsAccepted: false,
-};
-
-const roleOptions: ReadonlyArray<{ label: string; value: RegistrationRole }> = [
-  { label: "Editor", value: "editor" },
-  { label: "Revisor", value: "revisor" },
-] as const;
-
-function isValidEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-}
-
-export function validateRegistrationForm(values: RegistrationFormValues): RegistrationFormErrors {
-  const errors: RegistrationFormErrors = {};
-  const fullNameParts = values.fullName.trim().split(/\s+/).filter(Boolean);
-
-  if (fullNameParts.length < 2) {
-    errors.fullName = "Escribe nombre y apellido.";
-  }
-  if (!isValidEmail(values.email)) {
-    errors.email = "Introduce un correo válido.";
-  }
-  if (values.password.length < 8) {
-    errors.password = "La contraseña debe tener al menos 8 caracteres.";
-  }
-  if (values.passwordConfirmation !== values.password) {
-    errors.passwordConfirmation = "Las contraseñas no coinciden.";
-  }
-  if (values.requestedRole !== "editor" && values.requestedRole !== "revisor") {
-    errors.requestedRole = "Selecciona editor o revisor.";
-  }
-  if (!values.termsAccepted) {
-    errors.termsAccepted = "Debes aceptar los términos de acceso.";
-  }
-
-  return errors;
-}
-
-type RegistrationPanelProps = Readonly<{
-  onRegistered?: (request: RegistrationRequest) => void;
-  registrationAdapter?: RegistrationAuthAdapter;
+export function RegistrationPanel({ completeRequest = false, initialDraft, onSafeDraftChange }: {
+  completeRequest?: boolean;
   initialDraft?: SafeRegistrationDraft;
   onSafeDraftChange?: (draft: SafeRegistrationDraft) => void;
-}>;
+} = {}) {
+  const t = useManagedAuthCopy();
+  const locale = useLocale();
+  const [draft, setDraft] = useState<SafeRegistrationDraft>(initialDraft ?? { email: "", fullName: "", requestedRole: "" });
+  const submit = completeRequest ? requestMembership : register;
+  const [feedback, action, pending] = useActionState(submit.bind(null, locale), initialAuthFeedback);
 
-export function RegistrationPanel({
-  onRegistered,
-  registrationAdapter = mockRegistrationAdapter,
-  initialDraft,
-  onSafeDraftChange,
-}: RegistrationPanelProps = {}) {
-  const t = usePublicCopy();
-  const [values, setValues] = useState<RegistrationFormValues>(() => ({ ...initialValues, ...initialDraft }));
-  const [errors, setErrors] = useState<RegistrationFormErrors>({});
-  const [formError, setFormError] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionNotice, setSubmissionNotice] = useState<string | null>(null);
-  useEffect(() => {
-    const clearPasswords = () => setValues((current) => ({ ...current, password: "", passwordConfirmation: "" }));
-    window.addEventListener("jmmc-locale-switch", clearPasswords);
-    return () => window.removeEventListener("jmmc-locale-switch", clearPasswords);
-  }, []);
-  function updateField<Field extends keyof RegistrationFormValues>(field: Field, value: RegistrationFormValues[Field]) {
-    const nextValues = { ...values, [field]: value };
-    setValues(nextValues);
-    if (field === "email" || field === "fullName" || field === "requestedRole") {
-      onSafeDraftChange?.({ email: nextValues.email, fullName: nextValues.fullName, requestedRole: nextValues.requestedRole });
-    }
-    setErrors((current) => {
-      const next = { ...current };
-      delete next[field];
-      return next;
-    });
-    setFormError(null);
-    setSubmissionNotice(null);
+  function changeDraft(fields: Partial<SafeRegistrationDraft>) {
+    const next = { ...draft, ...fields };
+    setDraft(next);
+    onSafeDraftChange?.(next);
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const nextErrors = validateRegistrationForm(values);
-    setErrors(nextErrors);
-    setFormError(null);
-
-    if (Object.keys(nextErrors).length > 0 || values.requestedRole === "") return;
-
-    setIsSubmitting(true);
-    const result = await registrationAdapter.register({
-      email: values.email,
-      fullName: values.fullName,
-      password: values.password,
-      requestedRole: values.requestedRole,
-      termsAccepted: values.termsAccepted,
-    });
-
-    if (!result.ok) {
-      setFormError(result.error);
-      setIsSubmitting(false);
-      return;
-    }
-
-    setSubmissionNotice(t("Solicitud enviada. Esperando revisión del administrador."));
-    onRegistered?.(result.request);
-    setIsSubmitting(false);
-  }
+  if (feedback.status === "success") return <AuthFeedback feedback={feedback} />;
 
   return (
     <div className="grid gap-space-lg" data-registration-state="form">
       <div className="grid gap-space-xs">
-        <span className="font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant">{t("[ ALTA_INFRAESTRUCTURA ]")}</span>
-        <h3 className="font-headline text-headline-lg uppercase tracking-[0.02em] text-primary">{t("Solicitar acceso")}</h3>
+        <h3 className="font-headline text-headline-lg uppercase tracking-[0.02em] text-primary">
+          {t(completeRequest ? "Completa la solicitud" : "Solicitar acceso")}
+        </h3>
         <p className="text-body-md text-on-surface-variant">
-          {t("Completa tus datos para solicitar un rol editorial. El admin revisará la solicitud antes de activar la cuenta.")}</p>
+          {t("Completa tus datos para solicitar un rol editorial. El admin revisará la solicitud antes de activar la cuenta.")}
+        </p>
       </div>
-
-      <form className="grid gap-space-lg" noValidate onSubmit={handleSubmit}>
+      <form action={action} className="grid gap-space-lg">
         <InputField
           autoComplete="name"
-          error={errors.fullName ? t(errors.fullName) : undefined}
           label={t("Nombre completo")}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => updateField("fullName", event.target.value)}
-          placeholder={t("Nombre Apellido")}
+          maxLength={120}
+          minLength={3}
+          name="fullName"
+          onChange={(event) => changeDraft({ fullName: event.target.value })}
           required
-          value={values.fullName}
+          value={draft.fullName}
         />
-        <InputField
-          autoComplete="email"
-          error={errors.email ? t(errors.email) : undefined}
-          label={t("Correo institucional")}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => updateField("email", event.target.value)}
-          placeholder={t("nombre@empresa.com")}
-          required
-          type="email"
-          value={values.email}
-        />
-        <div className="grid gap-space-md sm:grid-cols-2">
-          <InputField
-            autoComplete="new-password"
-            error={errors.password ? t(errors.password) : undefined}
-            label={t("Contraseña")}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => updateField("password", event.target.value)}
-            required
-            type="password"
-            value={values.password}
-          />
-          <InputField
-            autoComplete="new-password"
-            error={errors.passwordConfirmation ? t(errors.passwordConfirmation) : undefined}
-            label={t("Confirmar contraseña")}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => updateField("passwordConfirmation", event.target.value)}
-            required
-            type="password"
-            value={values.passwordConfirmation}
-          />
-        </div>
+        {completeRequest ? null : (
+          <>
+            <InputField
+              autoComplete="email"
+              label={t("Correo electrónico")}
+              maxLength={254}
+              name="email"
+              onChange={(event) => changeDraft({ email: event.target.value })}
+              required
+              type="email"
+              value={draft.email}
+            />
+            <PasswordFields confirm />
+          </>
+        )}
         <fieldset className="grid gap-space-sm">
-          <legend className="font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant">
-            {t("Rol solicitado")}<span aria-hidden="true" className="text-accent">*</span>
-          </legend>
-          <p className="text-body-sm text-on-surface-variant">{t("Solo puedes solicitar los permisos editoriales disponibles.")}</p>
-          <div aria-label={t("Roles disponibles")} className="grid grid-cols-2 gap-space-sm" role="group">
-            {roleOptions.map((option) => {
-              const isSelected = values.requestedRole === option.value;
-
-              return (
-                <button
-                  aria-pressed={isSelected}
-                  className={cn(
-                    "flex min-h-14 items-center justify-between gap-space-sm border px-space-md py-space-sm text-start font-headline text-label-caps uppercase tracking-[0.08em] transition-colors",
-                    isSelected
-                      ? "border-accent bg-surface-high text-primary"
-                      : "border-border bg-surface-container-lowest text-on-surface-variant hover:border-accent hover:text-primary",
-                  )}
-                  key={option.value}
-                  onClick={() => updateField("requestedRole", option.value)}
-                  type="button"
-                >
-                  <span>{t(option.label)}</span>
-                  <span aria-hidden="true" className="text-accent">{isSelected ? "✦" : "✧"}</span>
-                </button>
-              );
-            })}
+          <legend className="font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant">{t("Rol solicitado")}</legend>
+          <div className="grid grid-cols-2 gap-space-sm">
+            {EDITORIAL_ROLES.map((role) => (
+              <label className="flex min-h-12 cursor-pointer items-center gap-space-sm border border-border p-space-sm text-body-md text-on-surface-variant has-checked:border-accent has-checked:text-primary" key={role}>
+                <input
+                  checked={draft.requestedRole === role}
+                  name="requestedRole"
+                  onChange={(event) => {
+                    if (isEditorialRole(event.target.value)) changeDraft({ requestedRole: event.target.value });
+                  }}
+                  required
+                  type="radio"
+                  value={role}
+                />
+                {t(role === "editor" ? "Editor" : "Revisor")}
+              </label>
+            ))}
           </div>
-          {errors.requestedRole ? <p className="text-body-sm text-error" role="alert">{errors.requestedRole ? t(errors.requestedRole) : null}</p> : null}
         </fieldset>
         <CheckboxField
-          checked={values.termsAccepted}
-          error={errors.termsAccepted ? t(errors.termsAccepted) : undefined}
           label={t("Acepto los términos de acceso y el tratamiento de estos datos para revisar la solicitud.")}
-          onChange={(event) => updateField("termsAccepted", event.target.checked)}
+          name="termsAccepted"
+          required
         />
-        {formError ? <ErrorState message={t(formError)} title={t("No se pudo registrar la solicitud")} /> : null}
-        {submissionNotice ? (
-          <div aria-live="polite" className="border border-border bg-surface-container-lowest p-space-md text-body-sm text-on-surface-variant" role="status">
-            {t(submissionNotice)}
-          </div>
-        ) : null}
-        <Button disabled={isSubmitting} type="submit" variant="primary">
-          {isSubmitting ? t("Enviando solicitud…") : t("Crear cuenta")}
+        <AuthFeedback feedback={feedback} />
+        <Button disabled={pending} type="submit" variant="primary">
+          {t(pending ? "Enviando solicitud…" : completeRequest ? "Solicitar acceso" : "Crear cuenta")}
         </Button>
       </form>
     </div>

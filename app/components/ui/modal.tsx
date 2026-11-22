@@ -38,19 +38,19 @@ export function Modal({
     onClose();
   }, [onClose]);
 
-  useEffect(() => () => restoreFocus(), [restoreFocus]);
-
   useEffect(() => {
     const dialog = dialogRef.current;
-    if (!dialog) return;
+    if (!dialog || !open) return;
 
-    if (open && !dialog.open) {
+    if (!dialog.open) {
       returnFocusTargetRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       dialog.showModal();
-    } else if (!open && dialog.open) {
-      dialog.close();
-      restoreFocus();
     }
+
+    return () => {
+      if (dialog.open) dialog.close();
+      restoreFocus();
+    };
   }, [open, restoreFocus]);
 
   function handleCancel(event: SyntheticEvent<HTMLDialogElement>) {
@@ -71,7 +71,9 @@ export function Modal({
       className="jmmc-overlay max-h-[90dvh] w-[calc(100%-2rem)] max-w-2xl overflow-hidden border border-border bg-surface-container p-0 text-on-surface"
       onCancel={handleCancel}
       onClick={handleBackdropClick}
-      onClose={restoreFocus}
+      onClose={(event) => {
+        if (!event.currentTarget.open) restoreFocus();
+      }}
       ref={dialogRef}
     >
       <div className="grid min-w-0 grid-cols-1 max-h-[90dvh] gap-space-lg overflow-y-auto overscroll-contain p-space-lg">

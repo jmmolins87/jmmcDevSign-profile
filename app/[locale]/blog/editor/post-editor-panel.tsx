@@ -2,24 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useId, useRef, useState } from "react";
 
 import { Badge, Button, CardMeta, Drawer, InputField, Modal } from "@/app/components/ui";
-import { useMockSession } from "@/app/[locale]/auth/mock-session";
-import {
-  AUTOSAVE_DEBOUNCE_MS,
-  calculatePostTelemetry,
-  validatePostForPublishing,
-  type CreatePostInput,
-  type PostDraft,
-  type PostValidationErrors,
-  type PostStatus,
-  type UpdatePostInput,
-} from "@/app/[locale]/blog/domain";
-import { coverAssetRepository } from "@/app/[locale]/blog/repositories/cover-asset-repository";
-import { postRepository } from "@/app/[locale]/blog/repositories/post-repositories";
-import type { ClientPostRepository, PostPersistenceState } from "@/app/[locale]/blog/repositories/post-repository";
+import type { UserRole } from "@/app/[locale]/auth/roles";
+import { calculatePostTelemetry, type PostDraft, type PostStatus, type PostValidationErrors } from "@/app/[locale]/blog/domain";
+import { usePostEditor, type PublicationOptions } from "@/app/[locale]/blog/editor/use-post-editor";
 import { MarkdownRenderer } from "@/app/[locale]/blog/markdown/markdown-renderer";
+import type { EditorialCatalog, PostEditorOperations, PostSnapshot } from "@/app/[locale]/blog/repositories/post-repository";
+import { useLocale } from "@/app/lib/locale-context";
 
 const statusLabels: Record<PostStatus, string> = {
   draft: "Borrador",
@@ -28,178 +19,47 @@ const statusLabels: Record<PostStatus, string> = {
   published: "Publicado",
 };
 
-type DemoState = "editing" | "saved" | "published" | "error" | "empty";
 type DeleteTarget = "cover" | "post";
 
-const demoStateLabels: Record<DemoState, string> = {
-  editing: "Editando",
-  saved: "Sincronizado",
-  published: "Publicado",
-  error: "Error de validación",
-  empty: "Nuevo documento",
-};
-
 type PostEditorPanelProps = {
-  repository?: ClientPostRepository;
+  initialCatalog: EditorialCatalog | null;
+  operations: PostEditorOperations;
+  role: UserRole;
 };
 
-export function PostEditorPanel({ repository = postRepository }: PostEditorPanelProps) {
-  const posts = useSyncExternalStore(repository.subscribe, repository.getSnapshot, repository.getSnapshot);
-  const persistenceState = useSyncExternalStore(repository.subscribe, repository.getPersistenceState, repository.getPersistenceState);
-  const session = useMockSession();
-  const [activePostId, setActivePostId] = useState<string | null>(() => posts[0]?.id ?? null);
-  const post = posts.find((candidate) => candidate.id === activePostId) ?? null;
-  const [demoState, setDemoState] = useState<DemoState>("editing");
-  const [feedback, setFeedback] = useState("Cambios locales sin guardar.");
-  const [isSimulatedEmpty, setIsSimulatedEmpty] = useState(false);
+export function PostEditorPanel({ initialCatalog, operations, role }: PostEditorPanelProps) {
+  const locale = useLocale();
+  const editor = usePostEditor(initialCatalog, operations);
+  const { catalog, change, draft, feedback, record, errors: validationErrors } = editor;
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<DeleteTarget | null>(null);
-  const [validationErrors, setValidationErrors] = useState<PostValidationErrors>({});
-  const [draft, setDraft] = useState<PostDraft | null>(post);
+  const [clipboardStatus, setClipboardStatus] = useState("");
   const bodyRef = useRef<HTMLTextAreaElement>(null);
-  const autosaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const draftRef = useRef<PostDraft | null>(draft);
-  const dirtyDraftRef = useRef(false);
-
-  const autosaveDraft = useCallback(async () => {
-    const currentDraft = draftRef.current;
-    if (!currentDraft || !dirtyDraftRef.current) return;
-
-    const validation = validatePostForPublishing(currentDraft);
-    setValidationErrors(validation.errors);
-    if (!validation.valid) {
-      setDemoState("error");
-      setFeedback("Autoguardado detenido: corrige los campos marcados.");
-      return;
-    }
-
-    try {
-      const updatedPost = await repository.update(currentDraft.id, toUpdateInput({ ...currentDraft, status: "draft" }));
-      dirtyDraftRef.current = false;
-      setDraft(updatedPost);
-      setDemoState("saved");
-      setFeedback(`Autoguardado mock: ${updatedPost.updatedAt}.`);
-    } catch {
-      setDemoState("error");
-      setFeedback("No se pudo autoguardar; los cambios siguen locales.");
-    }
-  }, [repository]);
-
-  useEffect(() => {
-    draftRef.current = draft;
-  }, [draft]);
-
-  useEffect(() => {
-    if (!draft || !dirtyDraftRef.current || isSimulatedEmpty) return;
-
-    if (autosaveTimerRef.current) clearTimeout(autosaveTimerRef.current);
-    autosaveTimerRef.current = setTimeout(() => {
-      void autosaveDraft();
-    }, AUTOSAVE_DEBOUNCE_MS);
-
-    return () => {
-      if (autosaveTimerRef.current) clearTimeout(autosaveTimerRef.current);
-    };
-  }, [autosaveDraft, draft, isSimulatedEmpty]);
-
-  function updateDraft<Key extends keyof PostDraft>(key: Key, value: PostDraft[Key]) {
-    setDraft((current) => current ? { ...current, [key]: value } : current);
-    dirtyDraftRef.current = true;
-    setValidationErrors({});
-    setDemoState("editing");
-    setFeedback(`Cambios locales sin guardar. Autoguardado en ${AUTOSAVE_DEBOUNCE_MS} ms.`);
-  }
-
-  function clearAutosave() {
-    if (autosaveTimerRef.current) clearTimeout(autosaveTimerRef.current);
-    autosaveTimerRef.current = null;
-    dirtyDraftRef.current = false;
-  }
-
-  async function saveDraft() {
-    if (!draft) return;
-
-    clearAutosave();
-    try {
-      const updatedPost = await repository.update(draft.id, toUpdateInput({ ...draft, status: "draft" }));
-      setDraft(updatedPost);
-      setDemoState("saved");
-      setFeedback(`Guardado mock: ${updatedPost.updatedAt}.`);
-    } catch {
-      dirtyDraftRef.current = true;
-      setDemoState("error");
-      setFeedback("No se pudo guardar el borrador en el repositorio mock.");
-    }
-  }
-
-  async function publishPost() {
-    if (!draft) return;
-
-    const validation = validatePostForPublishing(draft);
-    setValidationErrors(validation.errors);
-    if (!validation.valid) {
-      setDemoState("error");
-      setFeedback("Error de validación: corrige los campos marcados.");
-      return;
-    }
-
-    clearAutosave();
-    const isScheduled = draft.publishMode === "scheduled";
-    try {
-      const updatedPost = await repository.update(draft.id, toUpdateInput({
-        ...draft,
-        publishedAt: isScheduled ? undefined : new Date().toISOString(),
-        status: isScheduled ? "scheduled" : "published",
-      }));
-      setDraft(updatedPost);
-      setDemoState(isScheduled ? "saved" : "published");
-      setFeedback(isScheduled ? `Programación mock: ${updatedPost.scheduledAt}.` : `Publicación mock: ${updatedPost.slug}.`);
-    } catch {
-      dirtyDraftRef.current = true;
-      setDemoState("error");
-      setFeedback("No se pudo publicar en el repositorio mock.");
-    }
-  }
-
-  async function createOrRecoverDraft() {
-    const recoverableDraft = posts.find((candidate) => candidate.status === "draft");
-    if (recoverableDraft) {
-      setActivePostId(recoverableDraft.id);
-      setDraft(recoverableDraft);
-      setIsSimulatedEmpty(false);
-      setDemoState("editing");
-      setFeedback("Borrador recuperado desde el repositorio mock.");
-      return;
-    }
-
-    const createdPost = await repository.create(createDefaultDraftInput());
-    setActivePostId(createdPost.id);
-    setDraft(createdPost);
-    setIsSimulatedEmpty(false);
-    setDemoState("editing");
-    setFeedback("Nuevo borrador creado en el repositorio mock.");
-  }
+  const postSelectorRef = useRef<HTMLSelectElement>(null);
 
   async function confirmDeletion() {
-    if (!draft || !deleteTarget) return;
-
     if (deleteTarget === "cover") {
-      clearAutosave();
-      const updatedPost = await repository.update(draft.id, { coverAssetId: undefined });
-      setDraft(updatedPost);
+      change("coverAssetId", undefined);
       setDeleteTarget(null);
-      setFeedback("Portada eliminada del documento.");
       return;
     }
 
-    await repository.remove(draft.id);
-    setActivePostId(null);
-    setDraft(null);
-    setDeleteTarget(null);
-    setIsSimulatedEmpty(true);
-    setDemoState("empty");
-    setFeedback("Documento eliminado. El editor está vacío.");
+    if (await editor.remove()) {
+      setDeleteTarget(null);
+      setIsInspectorOpen(false);
+      postSelectorRef.current?.focus();
+    }
+  }
+
+  async function copyDraft() {
+    if (!draft) return;
+    try {
+      await navigator.clipboard.writeText([draft.title, draft.excerpt, draft.bodyMarkdown].join("\n\n"));
+      setClipboardStatus("Texto del borrador copiado.");
+    } catch {
+      setClipboardStatus("No se pudo copiar automáticamente. Puedes seleccionar y copiar el texto del editor.");
+    }
   }
 
   function insertMarkdown(before: string, after = "", fallback = "texto") {
@@ -209,58 +69,105 @@ export function PostEditorPanel({ repository = postRepository }: PostEditorPanel
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const selectedText = draft.bodyMarkdown.slice(start, end) || fallback;
-    const nextBody = `${draft.bodyMarkdown.slice(0, start)}${before}${selectedText}${after}${draft.bodyMarkdown.slice(end)}`;
-    updateDraft("bodyMarkdown", nextBody);
+    const nextBody = draft.bodyMarkdown.slice(0, start) + before + selectedText + after + draft.bodyMarkdown.slice(end);
+    change("bodyMarkdown", nextBody);
     textarea.focus();
     textarea.setSelectionRange(start + before.length, start + before.length + selectedText.length);
   }
 
-  if (!post || !draft || isSimulatedEmpty) {
+  const actionDisabled = !draft || editor.busy || editor.conflict;
+  const controls = (
+    <>
+      <header className="grid gap-space-md border-y border-border bg-surface-container-lowest px-space-md py-space-sm sm:flex sm:flex-wrap sm:items-center sm:justify-between" data-command-bar>
+        <div className="flex min-w-0 flex-wrap items-center gap-space-sm font-mono text-mono-code uppercase text-on-surface-variant">
+          <Link className="text-primary transition-colors hover:text-accent" href={"/" + locale + "/"}>[ PANEL ]</Link>
+          <span aria-hidden="true" className="text-outline">/</span>
+          <span className="truncate">POST EDITOR</span>
+          {record ? <Badge variant={record.post.status === "published" ? "active" : "neutral"}>{statusLabels[record.post.status]}</Badge> : null}
+          <span aria-label="Sesión activa" className="text-accent">SESIÓN ACTIVA / {role}</span>
+        </div>
+        <div className="flex flex-wrap items-center gap-space-sm">
+          <div aria-live="polite" className="font-mono text-[0.6875rem] uppercase text-on-surface-variant" role="status">
+            {feedback.message || (editor.hasUnsavedChanges ? "Cambios sin guardar." : "")}
+          </div>
+          <Button disabled={actionDisabled} onClick={() => void editor.save(false)} size="sm" variant="secondary">Guardar borrador</Button>
+          <Button disabled={actionDisabled} onClick={() => void editor.publish()} size="sm" variant="primary">
+            {draft?.publishMode === "scheduled" ? "Programar" : "Publicar"}
+          </Button>
+        </div>
+      </header>
+      {catalog ? (
+        <div className="flex flex-wrap items-end gap-space-sm border border-border bg-surface-container-low px-space-md py-space-sm">
+          <div className="grid min-w-0 grow gap-space-xs">
+            <label className="font-mono text-mono-code uppercase text-on-surface-variant" htmlFor="editor-post">Publicación activa</label>
+            <select
+              className="min-h-11 w-full min-w-0 border border-border bg-surface-container px-space-md font-mono text-body-md text-on-surface focus:border-accent focus:outline-none"
+              disabled={editor.busy}
+              id="editor-post"
+              onChange={(event) => {
+                editor.select(event.target.value);
+                setClipboardStatus("");
+              }}
+              ref={postSelectorRef}
+              value={editor.selectedId ?? ""}
+            >
+              <option value="">Selecciona una publicación</option>
+              {catalog.posts.map(({ post }) => (
+                <option key={post.id} value={post.id}>
+                  {post.title || "Sin título"} · {statusLabels[post.status]} · {post.updatedAt.slice(0, 10)}
+                </option>
+              ))}
+            </select>
+          </div>
+          <Button disabled={editor.busy} onClick={() => void editor.create()} variant="secondary">Nuevo borrador</Button>
+        </div>
+      ) : null}
+    </>
+  );
+
+  if (!draft || !catalog || !record) {
     return (
       <section className="grid gap-space-lg" data-post-editor>
-        <EditorCommandBar
-          demoState="empty"
-          feedback="Estado vacío simulado."
-          onPublish={publishPost}
-          onSave={saveDraft}
-          persistenceState={persistenceState}
-          sessionLabel={session ? `SESIÓN ACTIVA / ${session.role}` : undefined}
-        />
-        <StateSimulator activeState="empty" onStateChange={(state) => {
-          setDemoState(state);
-          setIsSimulatedEmpty(state === "empty");
-        }} />
+        {controls}
         <div className="border border-border bg-surface-container-lowest px-space-lg py-space-2xl text-center sm:px-space-xl">
-          <p className="font-mono text-mono-code uppercase tracking-[0.12em] text-accent">{`{ ESTADO: NUEVO DOCUMENTO }`}</p>
-          <h1 className="mt-space-md font-headline text-headline-lg uppercase text-primary">No hay una pieza activa</h1>
-          <p className="mx-auto mt-space-sm max-w-xl text-body-md text-on-surface-variant">Crea o recupera un borrador para volver al canvas editorial.</p>
-          <Button className="mt-space-lg" onClick={() => void createOrRecoverDraft()} variant="primary">[ CREAR / RECUPERAR BORRADOR ]</Button>
+          <h2 className="font-headline text-headline-lg uppercase text-primary">{catalog ? "No hay una pieza activa" : "Catálogo no disponible"}</h2>
+          <p className="mx-auto mt-space-sm max-w-xl text-body-md text-on-surface-variant">
+            {catalog ? "Selecciona una publicación o crea un borrador." : "Comprueba la conexión e inténtalo de nuevo."}
+          </p>
+          {!catalog ? <Button className="mt-space-lg" disabled={editor.busy} onClick={() => void editor.reload()} variant="secondary">Reintentar</Button> : null}
         </div>
-        <EditorFooter />
       </section>
     );
   }
 
   const telemetry = calculatePostTelemetry(draft.bodyMarkdown);
-  const coverAssets = coverAssetRepository.list();
-  const coverAsset = coverAssetRepository.get(draft.coverAssetId);
+  const coverAsset = catalog.covers.find((asset) => asset.id === draft.coverAssetId);
+  const inspector = {
+    actionDisabled,
+    draft,
+    errors: validationErrors,
+    onChange: change,
+    onPublicationChange: editor.changePublication,
+    onRequestDelete: setDeleteTarget,
+    onCancelSchedule: editor.cancelSchedule,
+    scheduledAt: record.post.scheduledAt,
+    slugLocked: record.slugLocked,
+    telemetry,
+  };
 
   return (
     <section className="grid gap-space-lg" data-post-editor>
-      <EditorCommandBar
-        demoState={demoState}
-        feedback={feedback}
-        onPublish={publishPost}
-        onSave={saveDraft}
-        persistenceState={persistenceState}
-        postStatus={draft.status}
-        sessionLabel={session ? `SESIÓN ACTIVA / ${session.role}` : undefined}
-      />
-      <StateSimulator activeState={demoState} onStateChange={(state) => {
-        setDemoState(state);
-        setFeedback(`${demoStateLabels[state]}: simulación visible.`);
-        setIsSimulatedEmpty(state === "empty");
-      }} />
+      {controls}
+      {editor.conflict ? (
+        <section aria-label="Conflicto de edición" className="grid gap-space-sm border border-error p-space-md">
+          <p>Otra sesión guardó una versión más reciente. Recargar el documento descarta los cambios de esta sesión.</p>
+          <div className="flex flex-wrap gap-space-sm">
+            <Button disabled={editor.busy} onClick={() => void copyDraft()} size="sm" variant="secondary">Copiar texto del borrador</Button>
+            <Button disabled={editor.busy} onClick={() => void editor.reload()} size="sm" variant="secondary">Recargar versión remota</Button>
+          </div>
+          <span aria-live="polite" className="text-body-sm text-on-surface-variant">{clipboardStatus}</span>
+        </section>
+      ) : null}
 
       <div className="grid min-w-0 gap-space-lg lg:grid-cols-12" data-editor-layout>
         <article className="min-w-0 border border-border bg-surface-container-lowest p-space-md sm:p-space-lg lg:col-span-8" data-editor-canvas>
@@ -276,7 +183,7 @@ export function PostEditorPanel({ repository = postRepository }: PostEditorPanel
                 aria-invalid={validationErrors.title ? "true" : undefined}
                 className="min-h-28 w-full resize-y border-0 border-b-2 border-border bg-transparent p-0 pb-space-sm font-headline text-headline-xl-mobile uppercase leading-[1.05] text-primary placeholder:text-outline focus:border-accent focus:outline-none md:text-headline-xl"
                 id="post-title"
-                onChange={(event) => updateDraft("title", event.target.value)}
+                onChange={(event) => change("title", event.target.value)}
                 placeholder="ESCRIBE EL TÍTULO DEL ARTÍCULO..."
                 rows={2}
                 value={draft.title}
@@ -293,11 +200,11 @@ export function PostEditorPanel({ repository = postRepository }: PostEditorPanel
               <select
                 className="min-h-11 w-full border border-border bg-surface-container px-space-md font-mono text-body-md uppercase text-on-surface focus:border-accent focus:outline-none"
                 id="post-cover"
-                onChange={(event) => updateDraft("coverAssetId", event.target.value || undefined)}
+                onChange={(event) => change("coverAssetId", event.target.value || undefined)}
                 value={draft.coverAssetId ?? ""}
               >
                 <option value="">Sin portada</option>
-                {coverAssets.map((asset) => <option key={asset.id} value={asset.id}>{asset.label}</option>)}
+                {catalog.covers.map((asset) => <option key={asset.id} value={asset.id}>{asset.label}</option>)}
               </select>
               <div className="relative aspect-[16/7] overflow-clip border border-border bg-surface-container-highest">
                 {coverAsset ? (
@@ -319,7 +226,7 @@ export function PostEditorPanel({ repository = postRepository }: PostEditorPanel
                 aria-describedby="post-body-hint"
                 className="min-h-80 w-full resize-y border border-border bg-surface-container px-space-md py-space-md font-mono text-body-md leading-relaxed text-on-surface placeholder:text-on-surface-variant focus:border-accent focus:outline-none"
                 id="post-body"
-                onChange={(event) => updateDraft("bodyMarkdown", event.target.value)}
+                onChange={(event) => change("bodyMarkdown", event.target.value)}
                 ref={bodyRef}
                 value={draft.bodyMarkdown}
               />
@@ -339,7 +246,7 @@ export function PostEditorPanel({ repository = postRepository }: PostEditorPanel
         <Button className="lg:hidden" onClick={() => setIsInspectorOpen(true)} variant="secondary">[ ABRIR INSPECTOR ]</Button>
 
         <aside className="hidden min-w-0 border border-border bg-surface-container-lowest p-space-md sm:p-space-lg lg:col-span-4 lg:block" data-editor-inspector>
-          <InspectorPanel draft={draft} errors={validationErrors} onChange={updateDraft} onRequestDelete={setDeleteTarget} telemetry={telemetry} />
+          <InspectorPanel {...inspector} />
         </aside>
       </div>
 
@@ -364,16 +271,16 @@ export function PostEditorPanel({ repository = postRepository }: PostEditorPanel
           open
           title="Inspector editorial"
         >
-          <InspectorPanel draft={draft} errors={validationErrors} onChange={updateDraft} onRequestDelete={setDeleteTarget} telemetry={telemetry} />
+          <InspectorPanel {...inspector} />
         </Drawer>
       ) : null}
 
       <Modal
-        description="Esta acción modifica el repositorio mock local y no puede deshacerse desde esta pantalla."
+        description={deleteTarget === "cover" ? "La portada se quitará de la revisión de trabajo." : "El documento dejará de estar disponible y se cancelará su programación."}
         footer={(
           <div className="flex flex-wrap justify-end gap-space-sm">
             <Button onClick={() => setDeleteTarget(null)} variant="secondary">Cancelar</Button>
-            <Button onClick={() => void confirmDeletion()} variant="danger">Confirmar eliminación</Button>
+            <Button disabled={editor.busy} onClick={() => void confirmDeletion()} variant="danger">Confirmar eliminación</Button>
           </div>
         )}
         onClose={() => setDeleteTarget(null)}
@@ -381,36 +288,12 @@ export function PostEditorPanel({ repository = postRepository }: PostEditorPanel
         title={deleteTarget === "cover" ? "Eliminar portada" : "Eliminar documento"}
       >
         <p className="text-body-md text-on-surface-variant">
-          {deleteTarget === "cover" ? "La portada se quitará del documento activo." : "El borrador se eliminará y el editor pasará al estado vacío."}
+          {deleteTarget === "cover" ? "La portada se quitará del documento activo." : "Las revisiones se conservarán para auditoría."}
         </p>
       </Modal>
 
-      <EditorFooter />
     </section>
   );
-}
-
-function toUpdateInput(post: PostDraft): UpdatePostInput {
-  const { createdAt, id, updatedAt, ...input } = post;
-  void createdAt;
-  void id;
-  void updatedAt;
-  return input;
-}
-
-function createDefaultDraftInput(): CreatePostInput {
-  return {
-    access: "public",
-    bodyMarkdown: "# Nuevo documento\n\nEmpieza a escribir la pieza editorial.",
-    category: "",
-    excerpt: "",
-    publishMode: "immediate",
-    rights: "CC-BY-4.0",
-    slug: "nuevo-documento",
-    status: "draft",
-    tags: [],
-    title: "",
-  };
 }
 
 function MarkdownToolbar({ onInsert }: { onInsert: (before: string, after?: string, fallback?: string) => void }) {
@@ -442,82 +325,34 @@ function MarkdownToolbar({ onInsert }: { onInsert: (before: string, after?: stri
   );
 }
 
-function EditorCommandBar({
-  demoState,
-  feedback,
-  onPublish,
-  onSave,
-  persistenceState,
-  postStatus,
-  sessionLabel,
-}: {
-  demoState: DemoState;
-  feedback: string;
-  onPublish: () => void;
-  onSave: () => void;
-  persistenceState: PostPersistenceState;
-  postStatus?: PostStatus;
-  sessionLabel?: string;
-}) {
-  return (
-    <header className="grid gap-space-md border-y border-border bg-surface-container-lowest px-space-md py-space-sm sm:flex sm:flex-wrap sm:items-center sm:justify-between" data-command-bar>
-      <div className="flex min-w-0 flex-wrap items-center gap-space-sm font-mono text-mono-code uppercase text-on-surface-variant">
-        <Link className="text-primary transition-colors hover:text-accent" href="/es/">[ PANEL ]</Link>
-        <span aria-hidden="true" className="text-outline">/</span>
-        <span className="truncate">POST EDITOR</span>
-        <Badge variant={demoState === "error" ? "error" : demoState === "published" ? "active" : "neutral"}>{`{ ESTADO: ${demoStateLabels[demoState].toUpperCase()} }`}</Badge>
-        {postStatus ? <span className="text-outline">{statusLabels[postStatus]}</span> : null}
-        {sessionLabel ? <span aria-label="Sesión activa" className="text-accent">{sessionLabel}</span> : null}
-      </div>
-      <div className="flex flex-wrap items-center gap-space-sm">
-        <span aria-live="polite" className="font-mono text-[0.6875rem] uppercase text-on-surface-variant">
-          {persistenceState.mode === "memory" ? "{ SINCRONIZACIÓN: MEMORIA }" : "{ SINCRONIZACIÓN: LOCAL }"}
-          {persistenceState.message ? ` ${persistenceState.message}` : ""}
-        </span>
-        <span aria-live="polite" className="font-mono text-[0.6875rem] uppercase text-on-surface-variant">{feedback}</span>
-        <Button onClick={onSave} size="sm" variant="secondary">Guardar borrador</Button>
-        <Button onClick={onPublish} size="sm" variant="primary">Publicar</Button>
-      </div>
-    </header>
-  );
-}
-
-function StateSimulator({ activeState, onStateChange }: { activeState: DemoState; onStateChange: (state: DemoState) => void }) {
-  const states: readonly DemoState[] = ["editing", "saved", "published", "error", "empty"];
-
-  return (
-    <section aria-label="Simulador de estados del editor" className="flex flex-col gap-space-sm border border-border bg-surface-container-low px-space-md py-space-sm sm:flex-row sm:flex-wrap sm:items-center" data-state-simulator>
-      <span className="font-mono text-mono-code uppercase text-outline">{`{ SIMULADOR DE ESTADOS }`}</span>
-      <div className="flex flex-wrap gap-space-xs">
-        {states.map((state) => (
-          <button
-            aria-pressed={activeState === state}
-            className="min-h-9 border border-border px-space-sm font-mono text-[0.6875rem] uppercase text-on-surface-variant transition-colors hover:border-accent hover:text-primary aria-pressed:border-accent aria-pressed:text-accent"
-            key={state}
-            onClick={() => onStateChange(state)}
-            type="button"
-          >
-            {state}
-          </button>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function InspectorPanel({
+  actionDisabled,
   draft,
   errors,
   onChange,
+  onPublicationChange,
+  onCancelSchedule,
   onRequestDelete,
+  scheduledAt,
+  slugLocked,
   telemetry,
 }: {
+  actionDisabled: boolean;
   draft: PostDraft;
   errors: PostValidationErrors;
-  onChange: <Key extends keyof PostDraft>(key: Key, value: PostDraft[Key]) => void;
+  onChange: <Key extends keyof PostSnapshot>(key: Key, value: PostSnapshot[Key]) => void;
+  onPublicationChange: (options: PublicationOptions) => void;
+  onCancelSchedule: () => Promise<void>;
   onRequestDelete: (target: DeleteTarget) => void;
+  scheduledAt?: string;
+  slugLocked: boolean;
   telemetry: ReturnType<typeof calculatePostTelemetry>;
 }) {
+  const prefix = useId();
+  const excerptId = prefix + "-excerpt";
+  const tags = draft.tags.join(", ");
+  const [tagsInput, setTagsInput] = useState<{ postId: string; parsed: string; text: string } | null>(null);
+
   return (
     <div className="grid gap-space-lg">
       <div className="flex items-center justify-between gap-space-md border-b border-border pb-space-md">
@@ -529,16 +364,17 @@ function InspectorPanel({
       </div>
       <div className="grid gap-space-md">
         <InputField
-          description="Se usa en la URL pública y se valida sin normalización automática."
+          description={slugLocked ? "La URL queda fija después de publicar o programar por primera vez." : "Se usa en la URL pública."}
           error={errors.slug}
-          id="post-slug"
+          id={prefix + "-slug"}
           label="Slug público"
           onChange={(event) => onChange("slug", event.target.value)}
+          readOnly={slugLocked}
           value={draft.slug}
         />
         <InputField
           error={errors.category}
-          id="post-category"
+          id={prefix + "-category"}
           label="Categoría"
           onChange={(event) => onChange("category", event.target.value)}
           value={draft.category}
@@ -546,47 +382,58 @@ function InspectorPanel({
         <InputField
           description="Separa los tags con comas."
           error={errors.tags}
-          id="post-tags"
+          id={prefix + "-tags"}
           label="Tags"
-          onChange={(event) => onChange("tags", event.target.value.split(",").map((tag) => tag.trim()).filter(Boolean))}
-          value={draft.tags.join(", ")}
+          onChange={(event) => {
+            const text = event.target.value;
+            const parsed = text.split(",").map((tag) => tag.trim()).filter(Boolean);
+            setTagsInput({ postId: draft.id, parsed: parsed.join(", "), text });
+            onChange("tags", parsed);
+          }}
+          value={tagsInput?.postId === draft.id && tagsInput.parsed === tags ? tagsInput.text : tags}
         />
         <div className="grid gap-space-sm">
-          <label className="font-headline text-label-caps uppercase tracking-[0.08em] text-primary" htmlFor="post-excerpt">Resumen SEO / RSS</label>
+          <label className="font-headline text-label-caps uppercase tracking-[0.08em] text-primary" htmlFor={excerptId}>Resumen SEO / RSS</label>
           <textarea
-            aria-describedby={errors.excerpt ? "post-excerpt-length post-excerpt-error" : "post-excerpt-length"}
+            aria-describedby={errors.excerpt ? excerptId + "-length " + excerptId + "-error" : excerptId + "-length"}
             aria-invalid={errors.excerpt ? "true" : undefined}
             className="min-h-24 w-full resize-y border border-border-strong bg-surface-low px-space-md py-space-sm font-mono text-body-md text-on-surface placeholder:text-on-surface-variant focus:border-state-focus focus:outline-none"
-            id="post-excerpt"
+            id={excerptId}
             onChange={(event) => onChange("excerpt", event.target.value)}
             rows={3}
             value={draft.excerpt}
           />
-          <span className="font-mono text-[0.6875rem] uppercase text-on-surface-variant" id="post-excerpt-length">{draft.excerpt.length} / 160 caracteres</span>
-          {errors.excerpt ? <span className="text-body-sm text-error" id="post-excerpt-error" role="alert">{errors.excerpt}</span> : null}
+          <span className="font-mono text-[0.6875rem] uppercase text-on-surface-variant" id={excerptId + "-length"}>{draft.excerpt.length} / 160 caracteres</span>
+          {errors.excerpt ? <span className="text-body-sm text-error" id={excerptId + "-error"} role="alert">{errors.excerpt}</span> : null}
         </div>
       </div>
 
       <fieldset className="grid gap-space-sm border-t border-border pt-space-md">
         <legend className="font-headline text-label-caps uppercase tracking-[0.08em] text-primary">Publicación</legend>
         <label className="flex items-center gap-space-sm font-mono text-body-sm text-on-surface-variant">
-          <input checked={draft.publishMode === "immediate"} name="publish-mode" onChange={() => onChange("publishMode", "immediate")} type="radio" value="immediate" />
+          <input checked={draft.publishMode === "immediate"} name={prefix + "-publish-mode"} onChange={() => onPublicationChange({ publishMode: "immediate", scheduledAt: draft.scheduledAt })} type="radio" value="immediate" />
           Inmediata
         </label>
         <label className="flex items-center gap-space-sm font-mono text-body-sm text-on-surface-variant">
-          <input checked={draft.publishMode === "scheduled"} name="publish-mode" onChange={() => onChange("publishMode", "scheduled")} type="radio" value="scheduled" />
+          <input checked={draft.publishMode === "scheduled"} name={prefix + "-publish-mode"} onChange={() => onPublicationChange({ publishMode: "scheduled", scheduledAt: draft.scheduledAt })} type="radio" value="scheduled" />
           Programada
         </label>
         {draft.publishMode === "scheduled" ? (
           <InputField
             description="Formato ISO explícito, por ejemplo 2026-12-01T09:00:00.000Z."
             error={errors.scheduledAt}
-            id="post-scheduled-at"
+            id={prefix + "-scheduled-at"}
             label="Fecha programada (UTC)"
-            onChange={(event) => onChange("scheduledAt", event.target.value || undefined)}
+            onChange={(event) => onPublicationChange({ publishMode: "scheduled", scheduledAt: event.target.value || undefined })}
             placeholder="2026-12-01T09:00:00.000Z"
             value={draft.scheduledAt ?? ""}
           />
+        ) : null}
+        {scheduledAt ? (
+          <div className="grid gap-space-xs">
+            <span className="text-body-sm text-on-surface-variant">Programación vigente (UTC) <time dateTime={scheduledAt}>{scheduledAt}</time></span>
+            <Button disabled={actionDisabled} onClick={() => void onCancelSchedule()} size="sm" variant="secondary">Cancelar programación</Button>
+          </div>
         ) : null}
       </fieldset>
 
@@ -606,18 +453,8 @@ function InspectorPanel({
       <div className="border border-error/50 p-space-md">
         <p className="font-mono text-mono-code uppercase text-error">{`{ ZONA CRÍTICA }`}</p>
         <p className="mt-space-sm text-body-sm text-on-surface-variant">Las acciones destructivas requieren confirmación.</p>
-        <Button className="mt-space-md" onClick={() => onRequestDelete("post")} size="sm" variant="danger">Eliminar borrador</Button>
+        <Button className="mt-space-md" disabled={actionDisabled} onClick={() => onRequestDelete("post")} size="sm" variant="danger">Retirar documento</Button>
       </div>
     </div>
-  );
-}
-
-function EditorFooter() {
-  return (
-    <footer className="flex flex-col gap-space-md border-t border-border pt-space-lg font-mono text-mono-code uppercase text-on-surface-variant sm:flex-row sm:items-center sm:justify-between">
-      <span><span aria-hidden="true" className="text-accent">✦</span> JUANMA (JMMC) // BRUTALIST EDITORIAL RUNTIME</span>
-      <span>{`{ LOCAL MOCK // NO REMOTE SYNC }`}</span>
-      <span>© 2025 JMMC</span>
-    </footer>
   );
 }

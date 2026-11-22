@@ -2,12 +2,11 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import LoginOverlay from "@/app/[locale]/@modal/(.)login/page";
-import LoginPage from "@/app/[locale]/login/page";
 import { LoginModal } from "@/app/[locale]/login/login-modal";
 import { LocaleProvider } from "@/app/lib/locale-context";
 
 const { back, replace } = vi.hoisted(() => ({ back: vi.fn(), replace: vi.fn() }));
+vi.mock("@/app/[locale]/auth/actions", () => import("../fixtures/mock-managed-auth-actions"));
 vi.mock("next/navigation", () => ({
   usePathname: () => "/es/login",
   useRouter: () => ({ back, replace }),
@@ -24,7 +23,7 @@ describe("LoginModal closing navigation", () => {
   ] as const)("closes a direct %s login at its portfolio even when browser history has another entry", async (locale, closeLabel, destination) => {
     const user = userEvent.setup();
     vi.spyOn(window.history, "length", "get").mockReturnValue(2);
-    render(<LocaleProvider locale={locale}><LoginPage /></LocaleProvider>);
+    render(<LocaleProvider locale={locale}><LoginModal /></LocaleProvider>);
 
     await user.click(screen.getByRole("button", { name: closeLabel }));
 
@@ -35,7 +34,7 @@ describe("LoginModal closing navigation", () => {
   it("returns through history when closing an intercepted login", async () => {
     const user = userEvent.setup();
     vi.spyOn(window.history, "length", "get").mockReturnValue(2);
-    render(<LoginOverlay />);
+    render(<LoginModal isIntercepted />);
 
     await user.click(screen.getByRole("button", { name: "Cerrar autenticación" }));
 

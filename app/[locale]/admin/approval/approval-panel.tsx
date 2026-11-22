@@ -1,294 +1,163 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useId, useRef, useState } from "react";
 
-import {
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  CardMeta,
-  CardTitle,
-  DataTable,
-  ErrorState,
-  SelectField,
-  StatusIndicator,
-  Tabs,
-  type DataTableColumn,
-} from "@/app/components/ui";
-import {
-  MOCK_ADMIN_USER_ID,
-  mockRegistrationApprovalService,
-  type RegistrationApprovalService,
-} from "@/app/[locale]/auth/mock-approval-service";
-import { parseMockAdminApprovalAction, type MockAdminApprovalActionRequest } from "@/app/[locale]/auth/mock-admin-approval-actions";
-import { registrationRequestsRepository } from "@/app/[locale]/auth/mock-auth-repository";
-import type { AdminApprovalEmailAction, RegistrationRequest, RegistrationRole, RegistrationStatus } from "@/app/[locale]/auth/types";
-import type { MockRepository } from "@/app/[locale]/repositories/mock-repository";
-import { useMockRepository } from "@/app/[locale]/repositories/use-mock-repository";
-import { AdminApprovalEmailPreview } from "@/app/[locale]/admin/approval/admin-approval-email-preview";
+import { decideRequest } from "@/app/[locale]/auth/actions";
+import { useManagedAuthCopy } from "@/app/[locale]/auth/use-managed-auth-copy";
+import { initialAuthFeedback, type MembershipDecision, type MembershipRequest } from "@/app/[locale]/auth/managed-types";
+import { AuthFeedback } from "@/app/[locale]/login/auth-feedback";
+import { RefreshAuthStatus } from "@/app/[locale]/login/pending-panel";
+import { Badge, Button, Card, CardContent, CardMeta, CardTitle, DataTable, SelectField, Tabs, type DataTableColumn } from "@/app/components/ui";
 
-const statusLabels: Record<RegistrationStatus, string> = {
-  active: "Activa",
-  approved: "Aprobada",
-  pending: "Pendiente",
-  rejected: "Rechazada",
-};
+export type DecisionSelection = { requestId: string; decision: MembershipDecision; proof?: string };
 
-const statusVariants: Record<RegistrationStatus, "neutral" | "active" | "error"> = {
-  active: "active",
-  approved: "active",
-  pending: "neutral",
-  rejected: "error",
-};
-
-const filterLabels = {
-  pending: "Pendientes",
-  approved: "Aprobadas",
-  rejected: "Rechazadas",
-} as const;
-
-const roleOptions = [
-  { label: "Editor", value: "editor" },
-  { label: "Revisor", value: "revisor" },
+const filters = [
+  { status: "pending", label: "Pendientes", badge: "Pendiente", variant: "neutral" },
+  { status: "approved", label: "Aprobadas", badge: "Aprobada", variant: "active" },
+  { status: "rejected", label: "Rechazadas", badge: "Rechazada", variant: "error" },
 ] as const;
 
-type ApprovalPanelProps = Readonly<{
-  approvalService?: RegistrationApprovalService;
-  requestsRepository?: MockRepository<RegistrationRequest, Omit<RegistrationRequest, "id">>;
-}>;
+export function ApprovalPanel({ requests, linkSelection = null, invalidLink = false, deliveryUnavailable = false }: {
+  requests: readonly MembershipRequest[];
+  linkSelection?: DecisionSelection | null;
+  invalidLink?: boolean;
+  deliveryUnavailable?: boolean;
+}) {
+  const t = useManagedAuthCopy();
+  const [selection, setSelection] = useState(linkSelection);
+  const [feedback, submit, submitting] = useActionState(decideRequest, initialAuthFeedback);
+  const confirmSection = useRef<HTMLElement>(null);
+  const confirmTitle = useId();
+  const linkedRequest = requests.find(({ id }) => id === selection?.requestId);
+  const toReview = linkedRequest?.status === "pending" ? linkedRequest : null;
+  const approve = selection?.decision === "approve";
 
-export function ApprovalPanel({
-  approvalService = mockRegistrationApprovalService,
-  requestsRepository = registrationRequestsRepository,
-}: ApprovalPanelProps = {}) {
-  const requests = useMockRepository(requestsRepository);
-  const [feedback, setFeedback] = useState("Selecciona una solicitud pendiente para revisar su acceso.");
-  const [approvalError, setApprovalError] = useState<string | null>(null);
-  const [isApproving, setIsApproving] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [selectedRoles, setSelectedRoles] = useState<Record<string, RegistrationRole>>({});
-  const hasHandledQueryAction = useRef(false);
+  useEffect(() => { if (selection) confirmSection.current?.focus(); }, [selection]);
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 639px)");
-    const updateViewport = () => setIsMobile(mediaQuery.matches);
-
-    updateViewport();
-    mediaQuery.addEventListener("change", updateViewport);
-    return () => mediaQuery.removeEventListener("change", updateViewport);
-  }, []);
-
-  const getSelectedRole = useCallback((request: RegistrationRequest) => {
-    return selectedRoles[request.id] ?? request.assignedRole ?? request.requestedRole;
-  }, [selectedRoles]);
-
-  const approveRequest = useCallback(async (request: RegistrationRequest) => {
-    setApprovalError(null);
-    setIsApproving(request.id);
-
-    const result = await approvalService.approve(request.id, getSelectedRole(request), MOCK_ADMIN_USER_ID);
-    if (!result.ok) {
-      setApprovalError(result.error);
-      setIsApproving(null);
-      return;
-    }
-
-    setFeedback(`${request.fullName}: solicitud aprobada. Código enviado a la bandeja mock.`);
-    setIsApproving(null);
-  }, [approvalService, getSelectedRole]);
-
-  const handleEmailAction = useCallback(async (action: MockAdminApprovalActionRequest) => {
-    const request = requests.find((candidate) => candidate.id === action.requestId);
-
-    if (!request) {
-      setApprovalError("La solicitud del enlace mock ya no está disponible.");
-      return;
-    }
-
-    if (approvalService.applyEmailAction) {
-      const result = await approvalService.applyEmailAction(action, getSelectedRole(request), MOCK_ADMIN_USER_ID);
-      if (!result.ok) {
-        setApprovalError(result.error);
-        return;
-      }
-
-      setApprovalError(null);
-      setFeedback(action.action === "approve"
-        ? `${request.fullName}: solicitud aprobada desde el correo mock. Código enviado a la bandeja mock.`
-        : `${request.fullName}: solicitud rechazada desde el correo mock.`);
-      return;
-    }
-
-    if (action.action === "approve") {
-      await approveRequest(request);
-      return;
-    }
-
-    setApprovalError("El servicio de decisiones no tiene habilitado el rechazo mock.");
-  }, [approvalService, approveRequest, getSelectedRole, requests]);
-
-  useEffect(() => {
-    if (hasHandledQueryAction.current) return;
-
-    const queryAction = parseMockAdminApprovalAction(window.location.search);
-    if (!queryAction) return;
-
-    hasHandledQueryAction.current = true;
-    queueMicrotask(() => {
-      void handleEmailAction(queryAction);
-    });
-  }, [handleEmailAction]);
-
-  function handlePreviewAction(action: AdminApprovalEmailAction) {
-    void handleEmailAction({
-      action: action.action,
-      requestId: action.requestId,
-      token: action.token,
-    });
+  function renderStatus(request: MembershipRequest) {
+    const filter = filters.find(({ status }) => status === request.status);
+    if (!filter) return null;
+    return <Badge variant={filter.variant}>{t(filter.badge)}</Badge>;
   }
 
-  function renderRoleAssignment(request: RegistrationRequest) {
-    if (request.status !== "pending") return request.assignedRole ?? "—";
+  function renderDelivery(request: MembershipRequest) {
+    if (!request.delivery) return "—";
+    const name = request.delivery === "failed" ? "Entrega fallida" : request.delivery === "sent" ? "Código enviado" : "Código en cola";
+    return <Badge variant={request.delivery === "failed" ? "error" : "neutral"}>{t(name)}</Badge>;
+  }
 
+  function renderActions(request: MembershipRequest) {
+    if (request.status !== "pending") return "—";
     return (
-      <SelectField
-        aria-label={`Rol asignado para ${request.fullName}`}
-        className="min-w-32"
-        label="Rol asignado"
-        onChange={(event) => {
-          setSelectedRoles((current) => ({
-            ...current,
-            [request.id]: event.target.value as RegistrationRole,
-          }));
-        }}
-        options={roleOptions}
-        value={getSelectedRole(request)}
-      />
+      <div className="flex flex-wrap gap-space-sm">
+        <Button disabled={submitting} onClick={() => setSelection({ requestId: request.id, decision: "approve" })} size="sm" variant="accent">
+          {t("Aprobar")}
+        </Button>
+        <Button disabled={submitting} onClick={() => setSelection({ requestId: request.id, decision: "reject" })} size="sm" variant="danger">
+          {t("Rechazar")}
+        </Button>
+      </div>
     );
   }
 
-  function renderAction(request: RegistrationRequest) {
-    if (request.status !== "pending") return <span className="text-body-sm text-on-surface-variant">Revisada</span>;
+  const roleLabel = (role: MembershipRequest["assignedRole"]) => role === "editor" ? t("Editor")
+    : role === "revisor" ? t("Revisor") : "—";
 
-    return (
-      <Button
-        disabled={isApproving === request.id}
-        onClick={() => approveRequest(request)}
-        size="sm"
-        variant="accent"
-      >
-        {isApproving === request.id ? "Aprobando…" : "Aprobar y emitir código"}
-      </Button>
-    );
-  }
-
-  const columns: readonly DataTableColumn<RegistrationRequest>[] = [
+  const columns: readonly DataTableColumn<MembershipRequest>[] = [
     {
-      header: "Solicitante",
+      header: t("Solicitante"),
       key: "applicant",
       render: (request) => (
         <div className="grid gap-space-xs">
           <span className="font-headline text-headline-md uppercase text-primary">{request.fullName}</span>
-          <span className="text-body-sm text-on-surface-variant">{request.email}</span>
+          <span className="wrap-anywhere text-body-sm text-on-surface-variant">{request.email}</span>
         </div>
       ),
     },
-    {
-      header: "Solicitado",
-      key: "requestedRole",
-      render: (request) => request.requestedRole,
-    },
-    {
-      header: "Rol asignado",
-      key: "assignedRole",
-      render: renderRoleAssignment,
-    },
-    {
-      header: "Estado",
-      key: "status",
-      render: (request) => <Badge variant={statusVariants[request.status]}>{statusLabels[request.status]}</Badge>,
-    },
-    {
-      header: "Acciones",
-      key: "actions",
-      render: renderAction,
-    },
+    { header: t("Rol solicitado"), key: "requestedRole", render: ({ requestedRole }) => roleLabel(requestedRole) },
+    { header: t("Rol asignado"), key: "assignedRole", render: ({ assignedRole }) => roleLabel(assignedRole) },
+    { header: t("Estado"), key: "status", render: renderStatus },
+    { header: t("Entrega del código"), key: "delivery", render: renderDelivery },
+    { header: t("Acciones"), key: "actions", render: renderActions },
   ];
 
-  const tabs = (Object.keys(filterLabels) as Array<keyof typeof filterLabels>).map((status) => ({
-    id: status,
-    label: `${filterLabels[status]} (${requests.filter((request) => request.status === status).length})`,
-    content: (() => {
-      const filteredRequests = requests.filter((request) => request.status === status);
-      const emptyMessage = `No hay solicitudes ${filterLabels[status].toLowerCase()}.`;
-
-      return isMobile ? (
-          <div className="grid gap-space-md">
-            {filteredRequests.length > 0 ? filteredRequests.map((request) => (
-              <article className="grid gap-space-md border border-border bg-surface-container p-space-md" data-approval-request={request.email} key={request.id}>
-                <div className="grid gap-space-xs">
-                  <CardMeta>{request.email}</CardMeta>
-                  <CardTitle>{request.fullName}</CardTitle>
-                </div>
-                <dl className="grid gap-space-sm text-body-sm">
-                  <div className="flex items-center justify-between gap-space-sm">
-                    <dt className="font-mono text-mono-code uppercase text-on-surface-variant">Solicitado</dt>
-                    <dd>{request.requestedRole}</dd>
-                  </div>
-                  <div className="flex items-center justify-between gap-space-sm">
-                    <dt className="font-mono text-mono-code uppercase text-on-surface-variant">Estado</dt>
-                    <dd><Badge variant={statusVariants[request.status]}>{statusLabels[request.status]}</Badge></dd>
-                  </div>
-                </dl>
-                <div className="grid gap-space-sm border-t border-border pt-space-md">
-                  {renderRoleAssignment(request)}
-                  {renderAction(request)}
-                </div>
-              </article>
-            )) : <p className="border border-border p-space-lg text-body-md text-on-surface-variant" role="status">{emptyMessage}</p>}
-          </div>
-        ) : (
-          <DataTable
-            caption={`Solicitudes ${filterLabels[status].toLowerCase()}`}
-            columns={columns}
-            emptyMessage={emptyMessage}
-            getRowKey={(request) => request.id}
-            rows={filteredRequests}
-          />
-        );
-    })(),
+  const groups = filters.map((filter) => ({ ...filter, requests: requests.filter(({ status }) => status === filter.status) }));
+  const tabs = groups.map((group) => ({
+    id: group.status,
+    label: `${t(group.label)} (${group.requests.length})`,
+    content: (
+      <>
+        <div className="hidden sm:block">
+          <DataTable caption={t(group.label)} columns={columns} emptyMessage={t("No hay solicitudes en este estado.")} getRowKey={({ id }) => id} rows={group.requests} />
+        </div>
+        <div className="grid gap-space-md sm:hidden">
+          {group.requests.length === 0 ? <p role="status">{t("No hay solicitudes en este estado.")}</p> : group.requests.map((request) => (
+            <article className="grid gap-space-md border border-border bg-surface-container p-space-md" data-approval-request={request.email} key={request.id}>
+              <div className="grid gap-space-xs">
+                <CardTitle>{request.fullName}</CardTitle>
+                <CardMeta>{request.email}</CardMeta>
+              </div>
+              <dl className="grid gap-space-sm text-body-sm">
+                <div className="flex justify-between gap-space-sm"><dt>{t("Rol solicitado")}</dt><dd>{roleLabel(request.requestedRole)}</dd></div>
+                <div className="flex justify-between gap-space-sm"><dt>{t("Rol asignado")}</dt><dd>{roleLabel(request.assignedRole)}</dd></div>
+                <div className="flex justify-between gap-space-sm"><dt>{t("Estado")}</dt><dd>{renderStatus(request)}</dd></div>
+                <div className="flex justify-between gap-space-sm"><dt>{t("Entrega del código")}</dt><dd>{renderDelivery(request)}</dd></div>
+              </dl>
+              {renderActions(request)}
+            </article>
+          ))}
+        </div>
+      </>
+    ),
   }));
 
   return (
     <div className="grid gap-space-lg">
-      <div className="grid gap-space-lg md:grid-cols-3">
-        <Card>
-          <CardContent className="grid gap-space-sm">
-            <CardMeta>Cola / pendientes</CardMeta>
-            <CardTitle>{requests.filter((request) => request.status === "pending").length.toString().padStart(2, "0")}</CardTitle>
-            <StatusIndicator label="REQUIEREN REVISIÓN" />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="grid gap-space-sm">
-            <CardMeta>Decisión / aprobadas</CardMeta>
-            <CardTitle>{requests.filter((request) => request.status === "approved").length.toString().padStart(2, "0")}</CardTitle>
-            <StatusIndicator label="OPERATIVAS" status="active" />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="grid gap-space-sm">
-            <CardMeta>Decisión / rechazadas</CardMeta>
-            <CardTitle>{requests.filter((request) => request.status === "rejected").length.toString().padStart(2, "0")}</CardTitle>
-            <StatusIndicator label="BLOQUEADAS" status="error" />
-          </CardContent>
-        </Card>
+      <div className="grid gap-space-lg sm:grid-cols-3">
+        {groups.map((group) => (
+          <Card key={group.status}>
+            <CardContent className="grid gap-space-sm">
+              <CardMeta>{t(group.label)}</CardMeta>
+              <CardTitle>{group.requests.length}</CardTitle>
+            </CardContent>
+          </Card>
+        ))}
       </div>
-      <p aria-live="polite" className="text-body-md text-on-surface-variant">{feedback}</p>
-      {approvalError ? <ErrorState message={approvalError} title="No se pudo aprobar la solicitud" /> : null}
-      <Tabs ariaLabel="Filtro de solicitudes" items={tabs} />
-      <AdminApprovalEmailPreview onAction={handlePreviewAction} requests={requests} />
+      <AuthFeedback feedback={feedback} />
+      {deliveryUnavailable ? <AuthFeedback feedback={{ status: "error", message: "No se pudo consultar el estado de entrega." }} /> : null}
+      {invalidLink || (selection && !linkedRequest) ? <AuthFeedback feedback={{ status: "error", message: "El enlace no corresponde a una solicitud disponible." }} /> : null}
+      {selection && linkedRequest && !toReview && feedback.status === "idle" ? (
+        <AuthFeedback feedback={{ status: "success", message: "Esta solicitud ya había sido revisada." }} />
+      ) : null}
+      {toReview && selection ? (
+        <section aria-labelledby={confirmTitle} className="grid gap-space-md border border-accent bg-surface-container p-space-lg" ref={confirmSection} tabIndex={-1}>
+          <h2 className="font-headline text-headline-lg text-primary" id={confirmTitle}>{t(approve ? "Confirmar aprobación" : "Confirmar rechazo")}</h2>
+          <p className="break-words text-body-sm text-on-surface-variant">{toReview.fullName} · {toReview.email}</p>
+          <p className="text-body-sm text-on-surface-variant">{t(approve ? "Revisa el rol asignado antes de confirmar la aprobación." : "Confirma que quieres rechazar esta solicitud.")}</p>
+          <form action={submit} className="grid gap-space-md" key={`${selection.requestId}:${selection.decision}`}>
+            <input name="requestId" type="hidden" value={toReview.id} />
+            <input name="decision" type="hidden" value={selection.decision} />
+            {selection.proof ? <input name="linkProof" type="hidden" value={selection.proof} /> : null}
+            {approve ? (
+              <SelectField
+                defaultValue={toReview.requestedRole}
+                label={t("Rol asignado")}
+                name="assignedRole"
+                options={[{ value: "editor", label: t("Editor") }, { value: "revisor", label: t("Revisor") }]}
+                required
+              />
+            ) : null}
+            <div className="flex flex-wrap gap-space-sm">
+              <Button disabled={submitting} type="submit" variant={approve ? "primary" : "danger"}>
+                {t(submitting ? "Guardando…" : approve ? "Confirmar aprobación" : "Confirmar rechazo")}
+              </Button>
+              <Button disabled={submitting} onClick={() => setSelection(null)} variant="secondary">{t("Cancelar decisión")}</Button>
+            </div>
+          </form>
+        </section>
+      ) : null}
+      <Tabs ariaLabel={t("Filtro de solicitudes")} items={tabs} />
+      <div className="justify-self-start"><RefreshAuthStatus /></div>
     </div>
   );
 }

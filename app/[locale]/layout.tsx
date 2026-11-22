@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { SiteShell } from "@/app/[locale]/_components/site-shell";
+import { AdminNavigation } from "@/app/[locale]/auth/admin-navigation";
 import { isLocale } from "@/app/lib/i18n";
 import { LocaleProvider } from "@/app/lib/locale-context";
 
@@ -15,5 +17,14 @@ export default async function PublicLayout({
 }: Readonly<{ children: React.ReactNode; modal: React.ReactNode; params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  return <LocaleProvider locale={locale}><SiteShell>{children}{modal}</SiteShell></LocaleProvider>;
+  return (
+    <LocaleProvider locale={locale}>
+      <SiteShell
+        adminLink={<Suspense fallback={null}><AdminNavigation /></Suspense>}
+        mobileAdminItem={<Suspense fallback={null}><AdminNavigation mobile /></Suspense>}
+      >
+        {children}{modal}
+      </SiteShell>
+    </LocaleProvider>
+  );
 }

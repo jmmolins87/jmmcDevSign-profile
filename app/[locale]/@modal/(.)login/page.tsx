@@ -1,3 +1,7 @@
-import { LoginModal } from "@/app/[locale]/login/login-modal";
+import { LoginRoute } from "@/app/[locale]/login/login-route";
+import { isLocale } from "@/app/lib/i18n";
 
-export default function LoginOverlay() { return <LoginModal isIntercepted />; }
+export default async function LoginOverlay({ params, searchParams }: PageProps<"/[locale]/login">) {
+  const { locale } = await params;
+  return <LoginRoute isIntercepted locale={isLocale(locale) ? locale : "es"} searchParams={searchParams} />;
+}

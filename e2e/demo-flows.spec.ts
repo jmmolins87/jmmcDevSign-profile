@@ -1,6 +1,15 @@
 import { expect, test, type Locator } from "@playwright/test";
 
 test("anonymous visitors can exercise the public demo families", async ({ page }, testInfo) => {
+  const databaseOrigin = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "http://127.0.0.1:54321").origin;
+  const databaseWrites: string[] = [];
+  page.on("request", (request) => {
+    const url = new URL(request.url());
+    if (url.origin === databaseOrigin && ["POST", "PUT", "PATCH", "DELETE"].includes(request.method())) {
+      databaseWrites.push(`${request.method()} ${url.pathname}`);
+    }
+  });
+
   const clickAction = async (locator: Locator) => {
     const isMobile = testInfo.project.name.includes("mobile");
     await expect(locator).toBeVisible();
@@ -62,10 +71,12 @@ test("anonymous visitors can exercise the public demo families", async ({ page }
   await expect(page.getByText("TABLA VACÍA // STREAM PAUSADO")).toBeVisible();
   await clickAction(page.getByRole("button", { name: "REINICIAR STREAM →" }));
   await expect(page.getByText("#ORD-9042", { exact: true })).toBeVisible();
+  expect(databaseWrites).toEqual([]);
 });
 
 test("leads workflow recovers a corrupt snapshot with accessible feedback", async ({ page }) => {
-  await page.addInitScript(() => {
+  await page.goto("/es/demos");
+  await page.evaluate(() => {
     window.localStorage.setItem("jmmcdevsign:leads-workflow:v1", "{malformed");
   });
   await page.goto("/es/demos/leads-workflow");

@@ -12,7 +12,7 @@ export const portfolioRoutes = {
     label: "Acceso",
     title: "Autenticación",
     eyebrow: "02 / 09",
-    description: "Punto de entrada para la sesión mock y sus roles.",
+    description: "Punto de entrada para cuentas y solicitudes de acceso editorial.",
     section: "portfolio",
   },
   approval: {
