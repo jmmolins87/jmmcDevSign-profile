@@ -9,7 +9,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ContactForm } from "@/app/[locale]/_components/contact-form";
-import { LandingBlogCarousel, type LandingCarouselPost } from "@/app/[locale]/_components/landing-blog-carousel";
 import { LandingCapabilities } from "@/app/[locale]/_components/landing-capabilities";
 import { LandingDemos } from "@/app/[locale]/_components/landing-demos";
 import { LandingHeroMotion } from "@/app/[locale]/_components/landing-hero-motion";
@@ -25,7 +24,6 @@ import {
   CardHeader,
   CardMeta,
   CardTitle,
-  EditorialList,
 } from "@/app/components/ui";
 
 type LandingSectionId =
@@ -228,42 +226,6 @@ const services: readonly LandingService[] = [
     description: "Ayudo a empresas a destacar en el mundo digital. Desde definir la estrategia técnica hasta ejecutar productos que marquen la diferencia. Arquitectura, code review y visión de producto para equipos que quieren crecer.",
     index: "04",
     title: "Consultoría Técnica",
-  },
-];
-
-const posts: readonly LandingCarouselPost[] = [
-  {
-    date: "28 FEB 2025",
-    description: "Un análisis exhaustivo sobre el coste oculto de la latencia de red, el overhead cognitivo de infraestructura y la orquestación cuando se fragmentan dominios antes de tiempo.",
-    id: "modular-monolith",
-    image: "/assets/landing/featured-architecture-2025.png",
-    imageAlt: "Estructura brutalista de hormigón con diagonales geométricas y sombras duras",
-    title: "El ocaso de los microservicios caóticos: volviendo al monolito modular",
-    category: "Arquitectura distribuida",
-    readingTime: "14 MIN",
-    href: "/es/blog/ocaso-microservicios-caoticos-monolito-modular",
-  },
-  {
-    date: "12 MAR 2025",
-    description: "Una guía práctica para diseñar agentes que puedan usar herramientas, mantener límites claros y dejar una traza útil para las personas que los supervisan.",
-    id: "agent-runtime",
-    image: "/assets/comparativa.png",
-    imageAlt: "Comparativa de identidad visual para un dossier sobre agentes de IA",
-    title: "Agentes que ejecutan: de la instrucción a la ejecución",
-    category: "Agentes de IA",
-    readingTime: "08 MIN",
-    href: "/es/blog/agentes-que-ejecutan-instruccion-ejecucion",
-  },
-  {
-    date: "02 ABR 2025",
-    description: "Cómo convertir decisiones visuales en contratos de interfaz que resisten el crecimiento de un producto y de los equipos que lo mantienen.",
-    id: "design-contracts",
-    image: "/assets/landing/Retrato.png",
-    imageAlt: "Retrato editorial monocromo para un artículo sobre sistemas de diseño",
-    title: "El contrato visual también es arquitectura",
-    category: "Sistemas de diseño",
-    readingTime: "05 MIN",
-    href: "/es/blog/contrato-visual-tambien-es-arquitectura",
   },
 ];
 
@@ -523,7 +485,7 @@ function ServicesSection() {
   );
 }
 
-function BlogSection() {
+function BlogSection({ children }: Readonly<{ children: React.ReactNode }>) {
   const locale = useLocale();
   const t = usePublicCopy();
   const section = landingSections.blog;
@@ -532,8 +494,7 @@ function BlogSection() {
     <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
       <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
         <SectionHeader action={<Link className="font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant transition-colors hover:text-accent" href={localePath("/es/blog/editor", locale)}>{t("{ ACCESO MIEMBROS [✦] }")}</Link>} section={section} />
-        <LandingBlogCarousel posts={posts.map((post) => ({ ...post, title: t(post.title), description: t(post.description), category: t(post.category), imageAlt: t(post.imageAlt), date: t(post.date) }))} />
-        <EditorialList ariaLabel={t("Archivo de publicaciones")} items={posts.map((post) => ({ href: localePath(post.href, locale), id: post.id, meta: `${t(post.category)} / ${post.readingTime}`, title: t(post.title) }))} />
+        {children}
       </div>
     </section>
   );
@@ -603,7 +564,7 @@ function LandingFooter() {
   );
 }
 
-export function LandingPage() {
+export function LandingPage({ blog }: Readonly<{ blog: React.ReactNode }>) {
   return (
     <main>
       <HeroSection />
@@ -613,7 +574,7 @@ export function LandingPage() {
       <TrajectorySection />
       <ProjectsSection />
       <ServicesSection />
-      <BlogSection />
+      <BlogSection>{blog}</BlogSection>
       <ContactSection />
       <LandingFooter />
     </main>

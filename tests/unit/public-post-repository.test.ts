@@ -67,4 +67,33 @@ describe("Supabase public post repository", () => {
 
     await expect(publicPostRepository.getCover(COVER_ASSETS[0].id)).resolves.toEqual(COVER_ASSETS[0]);
   });
+
+  it("lists every published post newest first", async () => {
+    const older = { ...post, id: "post-older", publishedAt: "2026-01-01T09:00:00.000Z" };
+    const newer = { ...post, id: "post-newer", publishedAt: "2026-06-01T09:00:00.000Z" };
+    const fetch = vi.fn(async () => json([{ post: older }, { post: newer }]));
+    vi.stubGlobal("fetch", fetch);
+
+    const listed = await publicPostRepository.listPublished();
+
+    expect(listed.map((entry) => entry.id)).toEqual(["post-newer", "post-older"]);
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining("/rest/v1/published_posts?select=post"),
+      expect.objectContaining({ cache: "no-store", method: "GET" }),
+    );
+  });
+
+  it("rejects an unpublished row in the listing response", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => json([{ post: { ...post, status: "draft" } }])));
+
+    await expect(publicPostRepository.listPublished()).rejects.toThrow("Published post response was invalid");
+  });
+
+  it("lists the cover assets the archive can choose from", async () => {
+    const fetch = vi.fn(async () => json(COVER_ASSETS));
+    vi.stubGlobal("fetch", fetch);
+
+    await expect(publicPostRepository.listCovers()).resolves.toEqual(COVER_ASSETS);
+    expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/rest/v1/cover_assets?select="), expect.objectContaining({ cache: "no-store" }));
+  });
 });
