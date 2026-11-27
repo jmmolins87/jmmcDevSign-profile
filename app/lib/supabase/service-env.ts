@@ -24,12 +24,15 @@ export function requireMembershipServiceEnv() {
 
 export function requireMembershipMailEnv() {
   const service = requireMembershipServiceEnv();
-  const local = isLoopbackHost(new URL(service.url).hostname) && isLoopbackHost(new URL(service.siteUrl).hostname);
-  const transport: MailTransport = local
+  return { ...service, transport: requireMailTransport(), adminEmail: requireSetting("ADMIN_NOTIFICATION_EMAIL") };
+}
+
+export function requireMailTransport(): MailTransport {
+  const { url, siteUrl } = requireSupabaseRuntimeEnv();
+  const local = isLoopbackHost(new URL(url).hostname) && isLoopbackHost(new URL(siteUrl).hostname);
+  return local
     ? { kind: "mailpit", from: process.env.MEMBERSHIP_MAIL_FROM?.trim() || "editorial@local.test" }
     : { kind: "resend", apiKey: requireSetting("RESEND_API_KEY"), from: requireSetting("MEMBERSHIP_MAIL_FROM") };
-
-  return { ...service, transport, adminEmail: requireSetting("ADMIN_NOTIFICATION_EMAIL") };
 }
 
 export function requireMembershipCronSecret() {

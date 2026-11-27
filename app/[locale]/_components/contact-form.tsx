@@ -3,22 +3,11 @@
 import { usePublicCopy } from "@/app/lib/use-public-copy";
 
 import { motion } from "motion/react";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useActionState, useState } from "react";
 
+import { submitContact } from "@/app/[locale]/_components/contact-action";
+import { projectScopes } from "@/app/[locale]/_components/contact-scopes";
 import { usePrefersReducedMotion } from "@/app/[locale]/_components/use-prefers-reduced-motion";
-
-type ContactFormState =
-  | { status: "idle" }
-  | { status: "submitting" }
-  | { status: "success"; message: string }
-  | { status: "error"; message: string };
-
-const projectScopes = [
-  { label: "[ AUDITORÍA DE ARQUITECTURA / CORE REFACTOR ]", value: "audit" },
-  { label: "[ SISTEMA AUTÓNOMO IA MULTI-AGENTE ]", value: "ai-agent" },
-  { label: "[ PLATAFORMA FULLSTACK DE ALTA ESCALA ]", value: "enterprise-fullstack" },
-  { label: "[ ADVISORY TÉCNICO CONTINUO ]", value: "advisory" },
-] as const;
 
 export function ContactForm() {
   const t = usePublicCopy();
@@ -26,42 +15,26 @@ export function ContactForm() {
   const [email, setEmail] = useState("");
   const [scope, setScope] = useState<string>(projectScopes[0].value);
   const [message, setMessage] = useState("");
-  const [state, setState] = useState<ContactFormState>({ status: "idle" });
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [state, action, isSubmitting] = useActionState(submitContact, "idle");
   const shouldReduceMotion = usePrefersReducedMotion();
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      setState({ message: t("Faltan datos para preparar la transmisión."), status: "error" });
-      return;
-    }
-
-    setState({ status: "submitting" });
-    timeoutRef.current = setTimeout(() => {
-      setState({ message: t("{ TRANSMITIDO CON ÉXITO ✦ }"), status: "success" });
-    }, 420);
-  };
-
-  const isSubmitting = state.status === "submitting";
-  const stateMessage = state.status === "idle" ? t("{ LISTO PARA ENVIAR }") : state.status === "submitting" ? t("{ TRANSMITIENDO... }") : state.message;
+  const hasError = !isSubmitting && (state === "invalid" || state === "unavailable");
+  const stateMessage = isSubmitting ? "{ TRANSMITIENDO... }"
+    : state === "sent" ? "{ TRANSMITIDO CON ÉXITO ✦ }"
+    : state === "invalid" ? "Faltan datos para preparar la transmisión."
+    : state === "unavailable" ? "No se pudo enviar el mensaje. Inténtalo de nuevo o escríbenos por correo."
+    : "{ LISTO PARA ENVIAR }";
 
   return (
-    <form className="grid gap-space-md" noValidate onSubmit={handleSubmit}>
+    <form action={action} className="grid gap-space-md">
+      <input autoComplete="off" hidden name="website" tabIndex={-1} />
       <div className="grid gap-space-xs">
         <label className="font-mono text-mono-code uppercase text-on-surface-variant" htmlFor="contact-name">{t("{ 01 } IDENTIFICACIÓN / NOMBRE *")}</label>
         <input
           className="min-h-12 w-full bg-surface-container-low px-space-md py-3 font-mono text-mono-code text-on-surface placeholder:text-outline-variant focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors focus:bg-surface-container-highest"
           id="contact-name"
+          autoComplete="name"
+          maxLength={120}
+          name="name"
           onChange={(event) => setName(event.target.value)}
           placeholder={t("p. ej. Carlos Mendonça // VP de Ingeniería")}
           required
@@ -75,6 +48,9 @@ export function ContactForm() {
         <input
           className="min-h-12 w-full bg-surface-container-low px-space-md py-3 font-mono text-mono-code text-on-surface placeholder:text-outline-variant focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors focus:bg-surface-container-highest"
           id="contact-email"
+          autoComplete="email"
+          maxLength={254}
+          name="email"
           onChange={(event) => setEmail(event.target.value)}
           placeholder="carlos@organizacion.com"
           required
@@ -88,6 +64,7 @@ export function ContactForm() {
         <select
           className="min-h-12 w-full bg-surface-container-low px-space-md py-3 font-mono text-mono-code text-on-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors focus:bg-surface-container-highest"
           id="contact-scope"
+          name="scope"
           onChange={(event) => setScope(event.target.value)}
           value={scope}
         >
@@ -100,6 +77,8 @@ export function ContactForm() {
         <textarea
           className="min-h-32 w-full resize-none bg-surface-container-low px-space-md py-3 font-mono text-mono-code text-on-surface placeholder:text-outline-variant focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-colors focus:bg-surface-container-highest"
           id="contact-message"
+          maxLength={5000}
+          name="message"
           onChange={(event) => setMessage(event.target.value)}
           placeholder={t("Describe los desafíos de infraestructura, volumen esperado y fechas objetivo...")}
           required
@@ -122,13 +101,13 @@ export function ContactForm() {
 
         <motion.p
           aria-live="polite"
-          className={state.status === "error" ? "font-mono text-mono-code text-error" : "font-mono text-mono-code text-accent-text"}
+          className={hasError ? "font-mono text-mono-code text-error" : "font-mono text-mono-code text-accent-text"}
           animate={{ opacity: 1, transform: "translateY(0)" }}
           initial={{ opacity: 0, transform: shouldReduceMotion ? "translateY(0)" : "translateY(0.25rem)" }}
-          role={state.status === "error" ? "alert" : "status"}
+          role={hasError ? "alert" : "status"}
           transition={{ duration: shouldReduceMotion ? 0.01 : 0.18, ease: [0.23, 1, 0.32, 1] }}
         >
-          {stateMessage}
+          {t(stateMessage)}
         </motion.p>
       </div>
     </form>

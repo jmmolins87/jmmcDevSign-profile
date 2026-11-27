@@ -2,6 +2,7 @@ import type { Locale } from "@/app/lib/i18n";
 
 /** Source keys are shared by typed ES/EN dictionaries, as in gettext catalogues. */
 export const englishPublicMessages = {
+  "No se pudo enviar el mensaje. Inténtalo de nuevo o escríbenos por correo.": "Your message could not be sent. Try again or contact us by email.",
   "Presentación": "Introduction", "Capacidades": "Capabilities", "Trayectoria": "Experience", "Proyectos": "Projects", "Servicios": "Services", "Publicaciones": "Publications", "Contacto": "Contact",
   "Inicio": "Home", "Administración": "Administration", "Acceso": "Access", "Autenticación": "Authentication", "Aprobaciones": "Approvals", "Aprobación de accesos": "Access approval", "Editor de publicaciones": "Publication editor",
   "Constructor de agentes": "Agent Builder", "Flujo de leads": "Leads Workflow", "Cualificación de leads": "Lead Qualification", "Pedidos en tiempo real": "Orders Realtime", "Gestión empresarial": "Business Backoffice",
