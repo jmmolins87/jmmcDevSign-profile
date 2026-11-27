@@ -1,9 +1,12 @@
-export type MembershipMail = {
+type OutboundMail = {
   recipient: string;
   subject: string;
   text: string;
-  html: string;
+  html?: string;
+  replyTo?: string;
 };
+
+export type MembershipMail = OutboundMail & { html: string };
 
 type RequestMailInput = {
   siteUrl: string;
@@ -62,9 +65,9 @@ export function renderActivationMail(recipient: string, locale: string, code: st
   };
 }
 
-export async function sendMembershipMail(
+export async function sendMail(
   transport: MailTransport,
-  mail: MembershipMail,
+  mail: OutboundMail,
   idempotencyKey: string,
   fetcher: typeof fetch = fetch,
 ): Promise<MailResult> {
@@ -75,8 +78,8 @@ export async function sendMembershipMail(
     ...(resend ? { Authorization: `Bearer ${transport.apiKey}`, "Idempotency-Key": idempotencyKey } : {}),
   };
   const body = resend
-    ? { from: transport.from, to: [mail.recipient], subject: mail.subject, text: mail.text, html: mail.html }
-    : { From: { Email: transport.from }, To: [{ Email: mail.recipient }], Subject: mail.subject, Text: mail.text, HTML: mail.html };
+    ? { from: transport.from, to: [mail.recipient], subject: mail.subject, text: mail.text, html: mail.html, reply_to: mail.replyTo }
+    : { From: { Email: transport.from }, To: [{ Email: mail.recipient }], Subject: mail.subject, Text: mail.text, HTML: mail.html, ReplyTo: mail.replyTo ? [{ Email: mail.replyTo }] : undefined };
 
   let response: Response;
   try {
@@ -98,3 +101,5 @@ export async function sendMembershipMail(
     ? { result: "retry", error: "provider-transient" }
     : { result: "failed", error: "provider-permanent" };
 }
+
+export const sendMembershipMail = sendMail;

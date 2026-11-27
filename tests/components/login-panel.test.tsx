@@ -28,7 +28,10 @@ describe("LoginPanel", () => {
   it.each(["GitHub", "Apple", "Google"])("starts %s sign-in without requiring email or password", async (provider) => {
     const user = userEvent.setup();
     render(<LoginPanel />);
-    await user.click(screen.getByRole("button", { name: `Continuar con ${provider}` }));
+    const button = screen.getByRole("button", { name: `Continuar con ${provider}` });
+    expect(button.querySelector(`[data-provider-logo="${provider.toLowerCase()}"][aria-hidden="true"]`)).not.toBeNull();
+    expect(button.textContent).toBe("");
+    await user.click(button);
     expect(signInWithSocialProvider).toHaveBeenCalledOnce();
     const [locale, , form] = vi.mocked(signInWithSocialProvider).mock.calls[0];
     expect(locale).toBe("es");
