@@ -338,7 +338,7 @@ export function AgentBuilderPanel() {
 
   return (
     <div className="grid overflow-hidden border border-border bg-surface text-on-surface">
-      <DemoPlaybackControls playback={{ ...playback, error: playback.error ? t(playback.error) : null }} />
+      <DemoPlaybackControls guide="agent" playback={{ ...playback, error: playback.error ? t(playback.error) : null }} />
       <div className="grid gap-space-md border-b border-border bg-surface-lowest px-margin py-space-md sm:px-margin-tablet lg:grid-cols-[1fr_auto] lg:items-center lg:px-space-lg">
         <div className="grid gap-space-sm">
           <div className="flex flex-wrap items-center gap-space-sm font-mono text-mono-code uppercase tracking-[0.08em] text-on-surface-variant">

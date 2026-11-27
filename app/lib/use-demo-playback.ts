@@ -9,6 +9,7 @@ export type DemoPlaybackHandle = {
   error: string | null;
   steps: readonly PlaybackStep[];
   start: () => Promise<PlaybackState>;
+  advance: () => Promise<PlaybackState>;
   pause: () => Promise<PlaybackState>;
   resume: () => Promise<PlaybackState>;
   reset: () => Promise<PlaybackState>;
@@ -19,5 +20,5 @@ export function useDemoPlayback(options: PlaybackOptions): DemoPlaybackHandle {
   useEffect(() => { controller.updateOptions(options); }, [controller, options]);
   useEffect(() => () => { controller.stop(); }, [controller]);
   const state = useSyncExternalStore(controller.subscribe, controller.getSnapshot, controller.getSnapshot);
-  return { state, error: controller.getError(), steps: options.steps, start: controller.start, pause: controller.pause, resume: controller.resume, reset: controller.reset };
+  return { state, error: controller.getError(), steps: options.steps, start: controller.start, advance: controller.advance, pause: controller.pause, resume: controller.resume, reset: controller.reset };
 }

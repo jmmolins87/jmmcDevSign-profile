@@ -427,7 +427,7 @@ export function QualificationPanel() {
   return (
     <div className={styles.panel}>
       <QualificationHeader simulationState={workspace.simulationState} />
-      <DemoPlaybackControls playback={playback} />
+      <DemoPlaybackControls guide="qualification" playback={playback} />
       <div className={styles.feedback} aria-live="polite" role="status">{text(feedback)}</div>
       <CommandBar onInject={handleInject} onReset={handleReset} onSelectState={handleStateChange} simulationState={workspace.simulationState} />
       <KpiRail leads={workspace.leads} />

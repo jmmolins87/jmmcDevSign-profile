@@ -122,15 +122,14 @@ function DemoCard({ index, isActive, profile, route }: DemoCardProps) {
       <div className="grid grid-cols-1 gap-space-xl py-space-lg lg:grid-cols-12 lg:items-center">
         <div className="grid min-w-0 gap-space-lg lg:col-span-5">
           <p className="text-body-md text-secondary">{t(profile.description)}</p>
+          <Link className="inline-flex min-h-12 w-fit items-center gap-space-sm border border-primary bg-primary px-space-md font-headline text-label-caps uppercase text-primary-foreground transition-colors hover:border-accent hover:bg-background hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" href={localePath(route.href, locale)} tabIndex={isActive ? 0 : -1}>
+            {t("Abrir demo")}
+          </Link>
           <div className="grid gap-space-sm font-mono text-mono-code uppercase text-on-surface-variant">
             <div className="flex justify-between gap-space-xs border-b border-border py-space-sm"><span>RUNTIME_LATENCY</span><strong className="text-end text-primary">{profile.telemetry[0]}</strong></div>
             <div className="flex justify-between gap-space-xs border-b border-border py-space-sm"><span>OPERATING_SIGNAL</span><strong className="text-end text-primary">{t(profile.telemetry[1])}</strong></div>
             <div className="flex justify-between gap-space-xs border-b border-border py-space-sm"><span>DATA_LAYER</span><strong className="text-end text-primary">{profile.telemetry[2]}</strong></div>
           </div>
-          <Link className="inline-flex min-h-12 w-fit items-center gap-space-sm border border-primary bg-primary px-space-md font-headline text-label-caps uppercase text-primary-foreground transition-colors hover:border-accent hover:bg-background hover:text-primary active:scale-[0.98]" href={localePath(route.href, locale)} tabIndex={isActive ? 0 : -1}>
-            <span aria-hidden="true" className="text-accent">✦</span>
-            {t("Iniciar demo interactiva")}<span className="font-mono text-mono-code">[ EXEC ]</span>
-          </Link>
         </div>
 
         <div className="min-w-0 bg-surface-container-lowest p-space-md lg:col-span-7">

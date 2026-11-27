@@ -281,7 +281,7 @@ export function OrdersPanel() {
 
   return (
     <main aria-labelledby="orders-realtime-title" className={styles.ordersPage}>
-      <DemoPlaybackControls playback={playback} />
+      <DemoPlaybackControls guide="orders" playback={playback} />
       <section className={styles.technicalStrip}>
         <div className={styles.stripTop}>
           <div className={styles.stripIdentity}>

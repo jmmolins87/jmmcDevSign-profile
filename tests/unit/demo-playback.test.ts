@@ -87,6 +87,28 @@ describe("deterministic demo playback", () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 
+  it("applies a single step when advance is pressed again while the step is still running", async () => {
+    vi.useFakeTimers();
+    const events: string[] = [];
+    let enter!: () => void;
+    let release!: () => void;
+    const entered = new Promise<void>((resolve) => { enter = resolve; });
+    const response = new Promise<void>((resolve) => { release = resolve; });
+    const playback = createDemoPlayback({
+      steps,
+      onStep: async (id) => { events.push(id); enter(); await response; },
+      onReset: () => { events.length = 0; },
+    });
+    const first = playback.advance();
+    await entered;
+    const duplicate = playback.advance();
+    release();
+    await Promise.all([first, duplicate]);
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(events).toEqual(["ingest"]);
+    expect(await playback.getState()).toEqual({ status: "paused", currentStep: 1, progress: 50 });
+  });
+
   it("changes translated labels without restarting the active step", async () => {
     vi.useFakeTimers();
     const events: string[] = [];
