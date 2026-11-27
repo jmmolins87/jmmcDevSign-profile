@@ -5,6 +5,7 @@ import { GET } from "@/app/[locale]/auth/confirm/route";
 
 const providers = vi.hoisted(() => ({
   verifyOtp: vi.fn(),
+  exchangeCodeForSession: vi.fn(),
   clearPasswordRecovery: vi.fn(),
   markPasswordRecovery: vi.fn(),
   getVerifiedIdentity: vi.fn(),
@@ -14,7 +15,9 @@ const providers = vi.hoisted(() => ({
 }));
 
 vi.mock("@/app/lib/supabase/server", () => ({
-  createServerSupabaseClient: async () => ({ auth: { verifyOtp: providers.verifyOtp } }),
+  createServerSupabaseClient: async () => ({
+    auth: { verifyOtp: providers.verifyOtp, exchangeCodeForSession: providers.exchangeCodeForSession },
+  }),
 }));
 vi.mock("@/app/lib/supabase/env", () => ({
   requireSupabaseRuntimeEnv: () => ({ siteUrl: "https://example.com" }),
@@ -57,5 +60,24 @@ describe("Supabase email callback", () => {
     expect(response.headers.get("location")).toBe("https://example.com/en/login?flow=link-error");
     expect(providers.createMembershipRequest).not.toHaveBeenCalled();
     expect(providers.queueMembershipMail).not.toHaveBeenCalled();
+  });
+});
+
+describe("Supabase OAuth callback", () => {
+  it("exchanges the PKCE code and returns to the localized membership screen", async () => {
+    providers.exchangeCodeForSession.mockResolvedValueOnce({ data: { session: {}, user: {} }, error: null });
+    const response = await GET(new NextRequest("https://example.com/en/auth/confirm?code=oauth-code&next=https://other.example"), context);
+    expect(providers.exchangeCodeForSession).toHaveBeenCalledWith("oauth-code");
+    expect(providers.clearPasswordRecovery).toHaveBeenCalledOnce();
+    expect(providers.createMembershipRequest).not.toHaveBeenCalled();
+    expect(response.status).toBe(303);
+    expect(response.headers.get("location")).toBe("https://example.com/en/login");
+    expect(response.headers.get("cache-control")).toBe("private, no-store");
+  });
+
+  it("returns a localized error on provider cancellation without exchanging a code", async () => {
+    const response = await GET(new NextRequest("https://example.com/en/auth/confirm?error=access_denied"), context);
+    expect(providers.exchangeCodeForSession).not.toHaveBeenCalled();
+    expect(response.headers.get("location")).toBe("https://example.com/en/login?flow=oauth-error");
   });
 });

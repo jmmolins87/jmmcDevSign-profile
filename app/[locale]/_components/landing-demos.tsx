@@ -6,7 +6,7 @@ import { localePath } from "@/app/lib/i18n";
 import { usePublicCopy } from "@/app/lib/use-public-copy";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -16,6 +16,7 @@ import { getDemoPanelIndex, getDemoSegmentDistance } from "@/app/[locale]/_compo
 import { Card } from "@/app/components/ui";
 import { usePrefersReducedMotion } from "@/app/[locale]/_components/use-prefers-reduced-motion";
 import { demoRouteList, type PortfolioRoute } from "@/app/[locale]/route-map";
+import styles from "./landing-demos.module.css";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -106,26 +107,25 @@ function DemoCard({ index, isActive, profile, route }: DemoCardProps) {
   return (
     <Card
       aria-hidden={!isActive}
-      className={`absolute inset-0 flex w-full flex-col justify-between bg-surface-container p-space-md md:p-space-xl ${isActive ? "opacity-100" : "pointer-events-none opacity-0"}`}
+      className={`min-w-0 bg-surface-container p-space-md [overflow-wrap:anywhere] md:p-space-xl ${isActive ? "" : "hidden"}`}
       data-demo-panel
       data-demo-panel-index={index}
-      inert={!isActive ? true : undefined}
     >
       <div className="flex flex-wrap items-center justify-between gap-space-md border-b border-border pb-space-md">
         <div className="flex items-center gap-space-sm">
-          <span className="bg-accent px-space-sm py-space-xs font-mono text-mono-code font-bold text-background">{`{ ${String(index + 1).padStart(2, "0")} }`}</span>
+          <span className="shrink-0 whitespace-nowrap bg-accent px-space-sm py-space-xs font-mono text-mono-code font-bold text-background">{`{ ${String(index + 1).padStart(2, "0")} }`}</span>
           <span className="font-headline text-headline-md uppercase text-primary">{t(route.title)}</span>
         </div>
         <span className="font-mono text-mono-code uppercase text-accent">✦ STACK: {profile.stack}</span>
       </div>
 
-      <div className="grid gap-space-xl py-space-lg lg:grid-cols-12 lg:items-center">
-        <div className="grid gap-space-lg lg:col-span-5">
+      <div className="grid grid-cols-1 gap-space-xl py-space-lg lg:grid-cols-12 lg:items-center">
+        <div className="grid min-w-0 gap-space-lg lg:col-span-5">
           <p className="text-body-md text-secondary">{t(profile.description)}</p>
           <div className="grid gap-space-sm font-mono text-mono-code uppercase text-on-surface-variant">
-            <div className="flex justify-between border-b border-border py-space-sm"><span>RUNTIME_LATENCY</span><strong className="text-primary">{profile.telemetry[0]}</strong></div>
-            <div className="flex justify-between border-b border-border py-space-sm"><span>OPERATING_SIGNAL</span><strong className="text-primary">{t(profile.telemetry[1])}</strong></div>
-            <div className="flex justify-between border-b border-border py-space-sm"><span>DATA_LAYER</span><strong className="text-primary">{profile.telemetry[2]}</strong></div>
+            <div className="flex justify-between gap-space-xs border-b border-border py-space-sm"><span>RUNTIME_LATENCY</span><strong className="text-end text-primary">{profile.telemetry[0]}</strong></div>
+            <div className="flex justify-between gap-space-xs border-b border-border py-space-sm"><span>OPERATING_SIGNAL</span><strong className="text-end text-primary">{t(profile.telemetry[1])}</strong></div>
+            <div className="flex justify-between gap-space-xs border-b border-border py-space-sm"><span>DATA_LAYER</span><strong className="text-end text-primary">{profile.telemetry[2]}</strong></div>
           </div>
           <Link className="inline-flex min-h-12 w-fit items-center gap-space-sm border border-primary bg-primary px-space-md font-headline text-label-caps uppercase text-primary-foreground transition-colors hover:border-accent hover:bg-background hover:text-primary active:scale-[0.98]" href={localePath(route.href, locale)} tabIndex={isActive ? 0 : -1}>
             <span aria-hidden="true" className="text-accent">✦</span>
@@ -133,15 +133,15 @@ function DemoCard({ index, isActive, profile, route }: DemoCardProps) {
           </Link>
         </div>
 
-        <div className="bg-surface-container-lowest p-space-md lg:col-span-7">
-          <div className="flex items-center justify-between border-b border-border pb-space-sm font-mono text-[0.6875rem] text-on-surface-variant">
+        <div className="min-w-0 bg-surface-container-lowest p-space-md lg:col-span-7">
+          <div className="flex flex-wrap items-center justify-between gap-space-xs border-b border-border pb-space-sm font-mono text-[0.6875rem] text-on-surface-variant">
             <span className="text-primary">{profile.file}</span>
             <span>PORT: 8080 // SECURE</span>
           </div>
-          <div className="grid gap-space-sm pt-space-md font-mono text-mono-code">
+          <div className="grid grid-cols-1 gap-space-sm pt-space-md font-mono text-mono-code">
             <div className="flex items-center justify-between gap-space-sm bg-surface-container p-space-sm text-on-surface-variant">
-              <span className="truncate">[IN] PROMPT: &quot;{t(profile.input)}&quot;</span>
-              <span className="text-accent">OK</span>
+              <span className="min-w-0 truncate">[IN] PROMPT: &quot;{t(profile.input)}&quot;</span>
+              <span className="shrink-0 text-accent">OK</span>
             </div>
             <div className="bg-surface-container-low p-space-md text-secondary">
               <p className="mb-space-sm text-accent">{`{ ✦ KERNEL DEPLOYMENT SEQUENCE }`}</p>
@@ -158,7 +158,7 @@ function DemoCard({ index, isActive, profile, route }: DemoCardProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-space-sm border-t border-border pt-space-md font-mono text-mono-code uppercase text-on-surface-variant sm:grid-cols-5">
+      <div className={`${styles.progress} flex-wrap gap-space-sm border-t border-border pt-space-md font-mono text-mono-code uppercase text-on-surface-variant`}>
         {demoRouteList.map((demo, demoIndex) => (
           <span className={demoIndex === index ? "bg-surface-high px-space-sm py-space-xs text-accent" : "px-space-sm py-space-xs"} key={demo.href}>
             {`{ ${String(demoIndex + 1).padStart(2, "0")} }`} {t(demo.label)}
@@ -176,6 +176,11 @@ export function LandingDemos() {
   const activeIndexRef = useRef(0);
   const prefersReducedMotion = usePrefersReducedMotion();
 
+  function selectDemo(index: number) {
+    activeIndexRef.current = index;
+    setActiveIndex(index);
+  }
+
   useGSAP(
     () => {
       const root = scope.current;
@@ -186,44 +191,53 @@ export function LandingDemos() {
         return;
       }
 
-      gsap.set(panels, { clearProps: "opacity,visibility,transform" });
-      const updateActiveIndex = (nextIndex: number) => {
-        if (activeIndexRef.current === nextIndex) return;
-        const previousIndex = activeIndexRef.current;
-        activeIndexRef.current = nextIndex;
-        setActiveIndex(nextIndex);
-        if (!prefersReducedMotion) {
-          gsap.killTweensOf([panels[previousIndex], panels[nextIndex]]);
-          gsap.fromTo(panels[nextIndex], { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.24, ease: "power2.out", clearProps: "opacity,transform" });
-        }
-      };
-      const trigger = ScrollTrigger.create({
-        end: () => `+=${panels.length * getDemoSegmentDistance(window.innerHeight)}`,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => updateActiveIndex(getDemoPanelIndex(self.progress, panels.length)),
-        start: "top top+=80",
-        trigger: scene,
+      const media = gsap.matchMedia();
+      media.add("(min-width: 64rem) and (min-height: 48rem)", () => {
+        const trigger = ScrollTrigger.create({
+          end: () => `+=${panels.length * getDemoSegmentDistance(window.innerHeight)}`,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const nextIndex = getDemoPanelIndex(self.progress, panels.length);
+            if (activeIndexRef.current === nextIndex) return;
+            selectDemo(nextIndex);
+            if (!prefersReducedMotion) {
+              gsap.killTweensOf(panels);
+              gsap.fromTo(panels[nextIndex], { opacity: 0 }, { opacity: 1, duration: 0.24, clearProps: "opacity" });
+            }
+          },
+          start: "top top+=80",
+          trigger: scene,
+        });
+        selectDemo(getDemoPanelIndex(trigger.progress, panels.length));
+        return () => {
+          trigger.kill();
+          gsap.killTweensOf(panels);
+          gsap.set(panels, { clearProps: "opacity" });
+        };
       });
-      return () => {
-        trigger.kill();
-        gsap.killTweensOf(panels);
-        gsap.set(panels, { clearProps: "opacity,visibility,transform" });
-      };
+      return () => media.revert();
     },
     { dependencies: [prefersReducedMotion], revertOnUpdate: true, scope },
   );
 
   return (
-    <div className="relative mx-auto w-full max-w-6xl" ref={scope}>
-      <div className="relative" data-demo-scene style={{ minHeight: "calc(100svh - 8rem + 5 * max(720px, 90svh))" }}>
-        <div className="sticky top-20 z-10 flex min-h-[calc(100svh-8rem)] items-center py-space-lg" data-demo-pin>
-          <div className="relative min-h-[min(43rem,calc(100svh-10rem))] w-full" data-demo-stage>
+    <div className="relative mx-auto w-full min-w-0 max-w-6xl" ref={scope}>
+      <div className={styles.scene} data-demo-scene style={{ "--demo-count": demoRouteList.length } as CSSProperties}>
+        <div className={styles.pin} data-demo-pin>
+          <div className="grid w-full min-w-0 gap-space-sm" data-demo-stage>
+            <div aria-label={t("Progreso de demos")} className={`${styles.controls} flex flex-wrap gap-space-xs`} role="group">
+              {demoRouteList.map((route, index) => (
+                <button aria-pressed={activeIndex === index} className="min-h-11 border border-border px-space-sm py-space-xs text-start font-mono text-mono-code text-primary aria-pressed:border-accent aria-pressed:text-accent-text" key={route.href} onClick={() => selectDemo(index)} type="button">
+                  {t(route.label)}
+                </button>
+              ))}
+            </div>
             {demoRouteList.map((route, index) => (
               <DemoCard index={index} isActive={activeIndex === index} profile={demoProfiles[index]} route={route} key={route.href} />
             ))}
-            <div aria-label={t("Progreso de demos")} className="absolute -bottom-space-lg start-0 z-20 flex gap-space-xs" role="tablist">
+            <div aria-hidden="true" className={`${styles.progress} gap-space-xs`}>
               {demoRouteList.map((route, index) => (
-                <span aria-label={`${t(route.title)}, ${t("paso")} ${index + 1} ${t("de")} ${demoRouteList.length}`} aria-selected={activeIndex === index} className={`h-1 transition-[width,background-color] duration-200 ${activeIndex === index ? "w-10 bg-accent" : "w-3 bg-surface-highest"}`} key={route.href} role="tab" />
+                <span className={`h-1 motion-safe:transition-[width,background-color] motion-safe:duration-200 ${activeIndex === index ? "w-10 bg-accent" : "w-3 bg-surface-highest"}`} key={route.href} />
               ))}
             </div>
           </div>

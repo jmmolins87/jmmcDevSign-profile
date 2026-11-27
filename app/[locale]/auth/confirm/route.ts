@@ -17,8 +17,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
   const { siteUrl } = requireSupabaseRuntimeEnv();
   const login = new URL(`/${locale}/login`, siteUrl);
-  function respond(flow: "link-error" | "reset" | "confirmed") {
-    login.searchParams.set("flow", flow);
+  function respond(flow?: "link-error" | "reset" | "confirmed" | "oauth-error") {
+    if (flow) login.searchParams.set("flow", flow);
     return NextResponse.redirect(login, {
       status: 303,
       headers: { "Cache-Control": "private, no-store", "Referrer-Policy": "no-referrer" },
@@ -27,6 +27,21 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
   const tokenHash = request.nextUrl.searchParams.get("token_hash");
   const type = request.nextUrl.searchParams.get("type");
+  const code = request.nextUrl.searchParams.get("code");
+  if (code !== null || (tokenHash === null && type === null && request.nextUrl.searchParams.has("error"))) {
+    if (!code || code.length > 256 || tokenHash !== null || type !== null ||
+      request.nextUrl.searchParams.has("error")) return respond("oauth-error");
+
+    const client = await createServerSupabaseClient({ writeCookies: true });
+    const { data, error } = await client.auth.exchangeCodeForSession(code);
+    if (error || !data.session || !data.user) {
+      console.warn("[supabase-auth] OAuth callback failed", { code: error?.code });
+      return respond("oauth-error");
+    }
+    await clearPasswordRecovery();
+    return respond();
+  }
+
   if (!tokenHash || tokenHash.length > 256 || (type !== "email" && type !== "recovery")) {
     return respond("link-error");
   }

@@ -323,15 +323,15 @@ function HeroWarp() {
 function HeroMonogram() {
   return (
     <div className="relative z-10 flex w-full items-center justify-between gap-space-sm px-1 sm:px-space-lg lg:px-space-xl" data-hero-element="monogram">
-      <span aria-hidden="true" className="font-headline text-[10rem] font-light leading-none text-on-surface-variant opacity-40 sm:text-[15rem] lg:text-[21rem]" data-hero-element="bracket-left">
+      <span aria-hidden="true" className="font-headline text-[clamp(5rem,36vw,10rem)] font-light leading-none text-on-surface-variant opacity-40 sm:text-[15rem] lg:text-[21rem]" data-hero-element="bracket-left">
         {"{"}
       </span>
       <div className="flex min-w-0 flex-1 items-center justify-center gap-space-sm sm:gap-space-lg lg:gap-space-xl">
-        <span className="font-headline text-[4.5rem] font-bold leading-none tracking-[-0.08em] text-primary sm:text-[8rem] lg:text-[14rem]" data-hero-element="monogram-left">JM</span>
-        <span aria-hidden="true" className="font-headline text-[4.5rem] leading-none text-accent sm:text-[8rem] lg:text-[12rem]" data-hero-element="star">✦</span>
-        <span className="font-headline text-[4.5rem] font-bold leading-none tracking-[-0.08em] text-primary sm:text-[8rem] lg:text-[14rem]" data-hero-element="monogram-right">MC</span>
+        <span className="font-headline text-[clamp(2.5rem,16vw,4.5rem)] font-bold leading-none tracking-[-0.08em] text-primary sm:text-[8rem] lg:text-[14rem]" data-hero-element="monogram-left">JM</span>
+        <span aria-hidden="true" className="font-headline text-[clamp(2.5rem,16vw,4.5rem)] leading-none text-accent sm:text-[8rem] lg:text-[12rem]" data-hero-element="star">✦</span>
+        <span className="font-headline text-[clamp(2.5rem,16vw,4.5rem)] font-bold leading-none tracking-[-0.08em] text-primary sm:text-[8rem] lg:text-[14rem]" data-hero-element="monogram-right">MC</span>
       </div>
-      <span aria-hidden="true" className="font-headline text-[10rem] font-light leading-none text-on-surface-variant opacity-40 sm:text-[15rem] lg:text-[21rem]" data-hero-element="bracket-right">
+      <span aria-hidden="true" className="font-headline text-[clamp(5rem,36vw,10rem)] font-light leading-none text-on-surface-variant opacity-40 sm:text-[15rem] lg:text-[21rem]" data-hero-element="bracket-right">
         {"}"}
       </span>
     </div>

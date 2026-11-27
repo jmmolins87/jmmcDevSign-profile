@@ -132,7 +132,7 @@ function LandingMenu() {
         aria-controls="landing-curtain-menu"
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className="inline-flex min-h-10 items-center gap-space-sm border border-border px-space-md font-headline text-label-caps uppercase tracking-[0.08em] text-primary"
+        className="inline-flex min-h-10 items-center gap-space-xs whitespace-nowrap border border-border px-space-sm font-headline text-label-caps uppercase tracking-[0.08em] text-primary sm:gap-space-sm sm:px-space-md"
         onClick={toggleMenu}
         type="button"
         whileHover={{ backgroundColor: "var(--sys-color-surface-high)" }}
@@ -143,7 +143,7 @@ function LandingMenu() {
           ✦
         </span>
         <span>{isOpen ? t("Cerrar") : t("Menú")}</span>
-        <span aria-hidden="true" className="font-mono text-mono-code text-on-surface-variant">
+        <span aria-hidden="true" className="hidden font-mono text-mono-code text-on-surface-variant sm:inline">
           {isOpen ? "{ X }" : "{ || }"}
         </span>
       </motion.button>
@@ -280,7 +280,7 @@ export function LandingShell({ children }: LandingShellProps) {
           </div>
 
           <div className="flex items-center gap-space-sm lg:hidden">
-            <Link className="inline-flex min-h-10 items-center border border-border px-space-sm font-headline text-xs uppercase text-primary" href={localePath("/es/login", locale)}>[ {locale === "es" ? "Acceder" : "Access"} ]</Link>
+            <Link className="inline-flex min-h-10 items-center whitespace-nowrap border border-border px-space-sm font-headline text-xs uppercase text-primary" href={localePath("/es/login", locale)}>[ {locale === "es" ? "Acceder" : "Access"} ]</Link>
             <LandingMenu />
           </div>
         </div>

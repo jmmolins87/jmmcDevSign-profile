@@ -7,6 +7,7 @@ type LocalizedAction = (locale: string, feedback: AuthActionFeedback, form: Form
 const succeeded = async (): Promise<AuthActionFeedback> => ({ status: "success" });
 
 export const signIn = vi.fn<Action>(succeeded);
+export const signInWithSocialProvider = vi.fn<LocalizedAction>(succeeded);
 export const signOut = vi.fn(succeeded);
 export const register = vi.fn<LocalizedAction>(succeeded);
 export const requestMembership = vi.fn<LocalizedAction>(succeeded);

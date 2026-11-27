@@ -17,6 +17,13 @@ for (const locale of ["es", "en"] as const) {
     await trigger.click();
     await expect(page).toHaveURL(new RegExp(`/${locale}/login$`));
     await expect(page.getByRole("dialog", { name: locale === "es" ? "Acceso al sistema" : "System access" })).toBeVisible();
+    for (const provider of ["GitHub", "Apple", "Google"]) {
+      await expect(page.getByRole("button", { name: new RegExp(provider) })).toBeVisible();
+    }
+    await page.getByRole("tab", { name: locale === "es" ? /crear cuenta/i : /create account/i }).click();
+    for (const provider of ["GitHub", "Apple", "Google"]) {
+      await expect(page.getByRole("button", { name: new RegExp(provider) })).toBeVisible();
+    }
     // The intercepted route keeps the original page mounted beneath the overlay.
     await expect(page.locator("#presentacion")).toHaveCount(1);
     await page.getByRole("button", { name: locale === "es" ? "Cerrar autenticación" : "Close authentication" }).click();
@@ -93,6 +100,7 @@ test("authentication language change preserves safe draft fields and clears pass
 });
 
 test("reduced motion keeps demos sticky through broad stable segments", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/en/");
   const sceneTop = await page.locator("[data-demo-scene]").evaluate((scene) => scene.getBoundingClientRect().top + window.scrollY - 80);
@@ -103,4 +111,40 @@ test("reduced motion keeps demos sticky through broad stable segments", async ({
   await page.evaluate((top) => window.scrollTo({ top: top + 920, behavior: "instant" }), sceneTop);
   await expect(page.locator('[data-demo-panel-index="1"]')).toHaveAttribute("aria-hidden", "false");
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
+});
+
+test("narrow landing keeps the hero centered and all demos accessible without overlap", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/es/");
+  await page.evaluate(() => document.fonts.ready.then(() => undefined));
+  const hero = await page.locator('[data-hero-element="monogram"]').boundingBox();
+  expect(hero).not.toBeNull();
+  expect(Math.abs(hero!.x - (320 - hero!.x - hero!.width))).toBeLessThanOrEqual(1);
+
+  const controls = page.getByRole("group", { name: "Progreso de demos" }).getByRole("button");
+  await expect(controls).toHaveCount(5);
+  for (let index = 0; index < 5; index++) {
+    await controls.nth(index).click();
+    await expect(controls.nth(index)).toHaveAttribute("aria-pressed", "true");
+    const active = page.locator("[data-demo-panel]:visible");
+    await expect(active).toHaveCount(1);
+    await expect(active.getByRole("link", { name: /Iniciar demo interactiva/ })).toBeVisible();
+    const layout = await active.evaluate((panel) => {
+      const bounds = panel.getBoundingClientRect();
+      const skills = document.querySelector("#skills")!.getBoundingClientRect();
+      const viewport = document.documentElement.clientWidth;
+      return {
+        overflowInCard: panel.scrollWidth - panel.clientWidth,
+        overflowInSection: document.querySelector("#demos")!.scrollWidth - viewport,
+        cardRight: bounds.right,
+        gapToSkills: skills.top - bounds.bottom,
+        viewport,
+      };
+    });
+    expect(layout.overflowInCard, JSON.stringify(layout)).toBeLessThanOrEqual(1);
+    expect(layout.overflowInSection, JSON.stringify(layout)).toBeLessThanOrEqual(1);
+    expect(layout.cardRight).toBeLessThanOrEqual(layout.viewport);
+    expect(layout.gapToSkills).toBeGreaterThanOrEqual(0);
+  }
 });

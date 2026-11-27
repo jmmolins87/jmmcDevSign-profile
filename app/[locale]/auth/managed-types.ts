@@ -19,7 +19,7 @@ export type LoginState = {
 };
 
 export type MembershipDecision = "approve" | "reject";
-export type AuthFlow = "confirmed" | "reset" | "link-error" | "password-updated" | null;
+export type AuthFlow = "confirmed" | "reset" | "link-error" | "password-updated" | "oauth-error" | null;
 export type AuthActionFeedback = {
   status: "idle" | "success" | "error";
   message?: string;
@@ -32,7 +32,7 @@ export function isMembershipDecision(value: unknown): value is MembershipDecisio
 }
 
 export function readAuthFlow(value: unknown): AuthFlow {
-  return value === "confirmed" || value === "reset" || value === "link-error" || value === "password-updated" ? value : null;
+  return value === "confirmed" || value === "reset" || value === "link-error" || value === "password-updated" || value === "oauth-error" ? value : null;
 }
 
 export function isRequestId(value: unknown): value is string {

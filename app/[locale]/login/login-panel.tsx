@@ -7,6 +7,7 @@ import { useManagedAuthCopy } from "@/app/[locale]/auth/use-managed-auth-copy";
 import { initialAuthFeedback } from "@/app/[locale]/auth/managed-types";
 import { AuthFeedback } from "@/app/[locale]/login/auth-feedback";
 import { PasswordFields } from "@/app/[locale]/login/password-fields";
+import { SocialAuthOptions } from "@/app/[locale]/login/social-auth-options";
 import { Button, InputField } from "@/app/components/ui";
 import { useLocale } from "@/app/lib/locale-context";
 
@@ -23,6 +24,7 @@ export function LoginPanel({ initialEmail = "", onSafeDraftChange }: {
 
   return (
     <div className="grid gap-space-md" data-session-state="anonymous">
+      {!recovery && <SocialAuthOptions />}
       <form action={recovery ? submitRecovery : submitLogin} className="grid gap-space-md" key={recovery ? "recovery" : "login"}>
         {recovery ? <h3 className="font-headline text-headline-lg text-primary">{t("Recuperar contraseña")}</h3> : null}
         <InputField

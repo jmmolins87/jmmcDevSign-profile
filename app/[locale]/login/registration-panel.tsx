@@ -9,6 +9,7 @@ import { EDITORIAL_ROLES, isEditorialRole } from "@/app/[locale]/auth/roles";
 import { AuthFeedback } from "@/app/[locale]/login/auth-feedback";
 import type { AuthLocaleDraft } from "@/app/[locale]/login/auth-locale-handoff";
 import { PasswordFields } from "@/app/[locale]/login/password-fields";
+import { SocialAuthOptions } from "@/app/[locale]/login/social-auth-options";
 import { Button, CheckboxField, InputField } from "@/app/components/ui";
 import { useLocale } from "@/app/lib/locale-context";
 
@@ -43,6 +44,7 @@ export function RegistrationPanel({ completeRequest = false, initialDraft, onSaf
           {t("Completa tus datos para solicitar un rol editorial. El admin revisará la solicitud antes de activar la cuenta.")}
         </p>
       </div>
+      {!completeRequest && <SocialAuthOptions />}
       <form action={action} className="grid gap-space-lg">
         <InputField
           autoComplete="name"
