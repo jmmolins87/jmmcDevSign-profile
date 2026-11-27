@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="flex items-center justify-between gap-space-md"><dt>{labels.access}</dt><dd className="text-primary">{post.access}</dd></div>
             </dl>
           </div>
-          {coverAsset ? <Image alt={coverAsset.alt} className="h-auto max-h-[34rem] w-full border border-border object-cover grayscale contrast-125" height={900} priority src={coverAsset.src} width={1600} /> : null}
+          {coverAsset ? <Image alt={coverAsset.alt} className="h-auto max-h-[34rem] w-full border border-border object-cover" height={900} priority src={coverAsset.src} width={1600} /> : null}
         </header>
 
         <div className="grid gap-space-2xl lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-start">

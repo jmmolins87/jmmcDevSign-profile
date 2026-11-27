@@ -208,7 +208,7 @@ export function PostEditorPanel({ initialCatalog, operations, role }: PostEditor
               </select>
               <div className="relative aspect-[16/7] overflow-clip border border-border bg-surface-container-highest">
                 {coverAsset ? (
-                  <Image alt={coverAsset.alt} className="object-cover grayscale contrast-125" fill sizes="(min-width: 1024px) 60vw, 100vw" src={coverAsset.src} />
+                  <Image alt={coverAsset.alt} className="object-cover" fill sizes="(min-width: 1024px) 60vw, 100vw" src={coverAsset.src} />
                 ) : (
                   <div className="grid h-full place-items-center font-mono text-mono-code uppercase text-on-surface-variant">{`{ SIN PORTADA }`}</div>
                 )}
