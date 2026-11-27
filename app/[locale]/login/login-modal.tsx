@@ -65,6 +65,7 @@ export function LoginModal({ flow = null, isIntercepted = false, onClose, state 
   const signedIn = state.access.status === "active" || state.access.status === "inactive";
   const notice = flow === "confirmed" && signedIn ? { status: "success" as const, message: "Correo confirmado." }
     : flow === "password-updated" ? { status: "success" as const, message: "Contraseña actualizada." }
+    : flow === "oauth-error" ? { status: "error" as const, message: "No se pudo completar el acceso con el proveedor. Inténtalo de nuevo." }
     : flow === "link-error" || (flow === "reset" && !state.recovery && state.access.status !== "unavailable")
       ? { status: "error" as const, message: "Este enlace ya no es válido. Solicita uno nuevo." }
       : null;

@@ -2,6 +2,10 @@ import { publicText } from "@/app/lib/public-messages";
 import type { Locale } from "@/app/lib/i18n";
 
 const english: Readonly<Record<string, string>> = {
+  "Continuar con una cuenta externa": "Continue with an external account",
+  "Continuar con": "Continue with",
+  "Este proveedor aún no está disponible. Puedes continuar por correo.": "This provider is not available yet. You can continue by email.",
+  "No se pudo completar el acceso con el proveedor. Inténtalo de nuevo.": "Could not sign in with the provider. Try again.",
   "Accede a tu cuenta editorial o solicita acceso.": "Sign in to your editorial account or request access.",
   "Correo electrónico": "Email address",
   "Introduce tu correo y tu contraseña.": "Enter your email and password.",

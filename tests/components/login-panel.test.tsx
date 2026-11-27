@@ -2,13 +2,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { sendRecoveryLink, signIn } from "@/app/[locale]/auth/actions";
+import { sendRecoveryLink, signIn, signInWithSocialProvider } from "@/app/[locale]/auth/actions";
 import { LoginPanel } from "@/app/[locale]/login/login-panel";
 
 vi.mock("@/app/[locale]/auth/actions", () => import("../fixtures/mock-managed-auth-actions"));
 
 describe("LoginPanel", () => {
-  it("submits email and password without offering a social provider", async () => {
+  it("submits email and password independently of social sign-in", async () => {
     const user = userEvent.setup();
     render(<LoginPanel />);
     await user.type(screen.getByLabelText(/^Correo electrónico/), "reader@example.com");
@@ -22,7 +22,18 @@ describe("LoginPanel", () => {
     const [, form] = vi.mocked(signIn).mock.calls[0];
     expect(form.get("email")).toBe("reader@example.com");
     expect(form.get("password")).toBe("example-password");
-    expect(screen.queryByRole("button", { name: /Google|GitHub/ })).toBeNull();
+    expect(signInWithSocialProvider).not.toHaveBeenCalled();
+  });
+
+  it.each(["GitHub", "Apple", "Google"])("starts %s sign-in without requiring email or password", async (provider) => {
+    const user = userEvent.setup();
+    render(<LoginPanel />);
+    await user.click(screen.getByRole("button", { name: `Continuar con ${provider}` }));
+    expect(signInWithSocialProvider).toHaveBeenCalledOnce();
+    const [locale, , form] = vi.mocked(signInWithSocialProvider).mock.calls[0];
+    expect(locale).toBe("es");
+    expect(form.get("provider")).toBe(provider.toLowerCase());
+    expect(form.has("password")).toBe(false);
   });
 
   it("shows a generic recovery response without requiring a password", async () => {

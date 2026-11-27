@@ -1,0 +1,25 @@
+.progress {
+  display: none;
+}
+
+@media (min-width: 64rem) and (min-height: 48rem) {
+  .scene {
+    min-block-size: calc(100svh - 8rem + var(--demo-count) * max(720px, 90svh));
+  }
+
+  .pin {
+    position: sticky;
+    inset-block-start: 5rem;
+    display: flex;
+    align-items: center;
+    min-block-size: calc(100svh - 8rem);
+  }
+
+  .controls {
+    display: none;
+  }
+
+  .progress {
+    display: flex;
+  }
+}

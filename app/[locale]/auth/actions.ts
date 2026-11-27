@@ -11,6 +11,7 @@ import {
 import { isMembershipDecision, isRequestId, type AuthActionFeedback } from "@/app/[locale]/auth/managed-types";
 import { clearPasswordRecovery, hasPasswordRecovery } from "@/app/[locale]/auth/recovery-cookie";
 import { isEditorialRole } from "@/app/[locale]/auth/roles";
+import { isSocialProvider } from "@/app/[locale]/auth/social-providers";
 import { isLocale, localePath, type Locale } from "@/app/lib/i18n";
 import { requireSupabaseRuntimeEnv } from "@/app/lib/supabase/env";
 import {
@@ -63,6 +64,42 @@ function passwordFields(form: FormData) {
 function callbackUrl(locale: Locale) {
   const { siteUrl } = requireSupabaseRuntimeEnv();
   return new URL(localePath("/es/auth/confirm", locale), siteUrl).href;
+}
+
+export async function signInWithSocialProvider(locale: Locale, _previous: AuthActionFeedback, form: FormData): Promise<AuthActionFeedback> {
+  const provider = readField(form, "provider");
+  if (!isLocale(locale) || !isSocialProvider(provider)) return failed();
+
+  const { url, publishableKey } = requireSupabaseRuntimeEnv();
+  try {
+    const settings = await fetch(new URL("/auth/v1/settings", url), {
+      cache: "no-store",
+      headers: { apikey: publishableKey },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!settings.ok) {
+      console.warn("[supabase-auth] OAuth settings unavailable", { status: settings.status });
+      return failed();
+    }
+    const { external } = await settings.json() as { external?: Partial<Record<typeof provider, boolean>> };
+    if (external?.[provider] !== true) {
+      return failed("Este proveedor aún no está disponible. Puedes continuar por correo.");
+    }
+  } catch {
+    console.warn("[supabase-auth] could not read OAuth settings");
+    return failed();
+  }
+
+  const client = await createServerSupabaseClient({ writeCookies: true });
+  const { data, error } = await client.auth.signInWithOAuth({
+    provider,
+    options: { redirectTo: callbackUrl(locale), skipBrowserRedirect: true },
+  });
+  if (error || !data.url) {
+    console.warn("[supabase-auth] could not start OAuth", { provider, code: error?.code });
+    return failed();
+  }
+  redirect(data.url);
 }
 
 export async function signIn(_previous: AuthActionFeedback, form: FormData): Promise<AuthActionFeedback> {
