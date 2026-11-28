@@ -19,7 +19,7 @@ export interface PublicPostRepository {
 
 /** Newest publication first, so every listing surface shares the same order. */
 function byPublishedAtDesc(left: PostDraft, right: PostDraft): number {
-  return publishedTimestamp(right) - publishedTimestamp(left);
+  return publishedTimestamp(right) - publishedTimestamp(left) || left.slug.localeCompare(right.slug, "en");
 }
 
 function publishedTimestamp(post: PostDraft): number {

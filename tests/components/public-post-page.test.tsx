@@ -20,8 +20,9 @@ vi.mock("next/image", () => ({
 
 const getPublishedBySlug = vi.hoisted(() => vi.fn());
 const getCover = vi.hoisted(() => vi.fn());
+const listPublished = vi.hoisted(() => vi.fn());
 vi.mock("@/app/[locale]/blog/repositories/public-post-repository", () => ({
-  publicPostRepository: { getPublishedBySlug, getCover },
+  publicPostRepository: { getPublishedBySlug, getCover, listPublished },
 }));
 
 vi.mock("@/app/lib/supabase/env", () => ({
@@ -37,11 +38,14 @@ describe("public blog post route", () => {
   it("renders a published post without an editor or client repository surface", async () => {
     getPublishedBySlug.mockResolvedValueOnce(publishedPost);
     getCover.mockResolvedValueOnce(COVER_ASSETS[0]);
+    listPublished.mockResolvedValueOnce([publishedPost]);
     render(await BlogPostPage({ params: Promise.resolve({ locale: "es", slug: publishedSlug }) }));
 
     expect(screen.getByRole("heading", { name: /El ocaso de los microservicios caóticos/u })).toBeInTheDocument();
     expect(screen.getByText("Distribuir datos no obliga a distribuir la complejidad.")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "[ VOLVER AL PORTFOLIO ]" })).toHaveAttribute("href", "/es/");
+    expect(screen.getByRole("link", { name: "Ver todas las publicaciones" })).toHaveAttribute("href", "/es/#blog");
+    expect(screen.queryByRole("link", { name: /^Publicación (anterior|siguiente)/u })).not.toBeInTheDocument();
     expect(screen.queryByText("POST EDITOR")).not.toBeInTheDocument();
   });
 

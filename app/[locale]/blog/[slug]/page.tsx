@@ -5,11 +5,12 @@ import type { Metadata } from "next";
 import { cache } from "react";
 
 import { CardMeta } from "@/app/components/ui";
-import { calculatePostTelemetry } from "@/app/[locale]/blog/domain";
+import { calculatePostTelemetry, type PostDraft } from "@/app/[locale]/blog/domain";
 import { MarkdownRenderer } from "@/app/[locale]/blog/markdown/markdown-renderer";
 import { postNotFoundCopy } from "@/app/[locale]/blog/not-found-copy";
 import { publicPostRepository } from "@/app/[locale]/blog/repositories/public-post-repository";
-import { isLocale, type Locale } from "@/app/lib/i18n";
+import { isLocale, localePath, type Locale } from "@/app/lib/i18n";
+import { publicText } from "@/app/lib/public-messages";
 import { requireSupabaseRuntimeEnv } from "@/app/lib/supabase/env";
 
 // Next 16 Cache Components: this route resolves its slug and 404 at request time.
@@ -27,6 +28,10 @@ const copy = {
     reading: "Lectura",
     access: "Acceso",
     tags: "Tags del post",
+    navigation: "Navegación entre publicaciones",
+    previous: "Publicación anterior",
+    next: "Publicación siguiente",
+    archive: "Ver todas las publicaciones",
     missingDate: "Fecha no disponible",
     dateLocale: "es-ES",
     ogLocale: "es_ES",
@@ -38,6 +43,10 @@ const copy = {
     reading: "Reading time",
     access: "Access",
     tags: "Post tags",
+    navigation: "Post navigation",
+    previous: "Previous post",
+    next: "Next post",
+    archive: "View all posts",
     missingDate: "Date unavailable",
     dateLocale: "en-GB",
     ogLocale: "en_GB",
@@ -59,6 +68,28 @@ function getCanonicalUrl(locale: Locale, slug: string, siteUrl: string): string 
 function formatPublishedDate(locale: Locale, value?: string): string {
   if (!value) return copy[locale].missingDate;
   return new Intl.DateTimeFormat(copy[locale].dateLocale, { dateStyle: "long", timeZone: "UTC" }).format(new Date(value));
+}
+
+function PostNavigationLink({ post, locale, direction }: Readonly<{
+  post: PostDraft;
+  locale: Locale;
+  direction: "previous" | "next";
+}>) {
+  const isPrevious = direction === "previous";
+  return (
+    <Link
+      className="flex min-w-0 items-start justify-between gap-space-md border border-border bg-surface-high p-space-md hover:border-accent sm:p-space-lg"
+      href={localePath(`/blog/${post.slug}`, locale)}
+      rel={isPrevious ? "prev" : "next"}
+    >
+      {isPrevious && <span aria-hidden="true" className="text-accent">←</span>}
+      <span className={`grid min-w-0 flex-1 gap-space-xs ${isPrevious ? "text-start" : "text-end"}`}>
+        <span className="font-mono text-mono-code uppercase text-on-surface-variant">{copy[locale][direction]}</span>
+        <span className="font-headline text-headline-md uppercase [overflow-wrap:anywhere] text-primary">{publicText(locale, post.title)}</span>
+      </span>
+      {!isPrevious && <span aria-hidden="true" className="text-accent">→</span>}
+    </Link>
+  );
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
@@ -110,6 +141,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const labels = copy[locale];
   const telemetry = calculatePostTelemetry(post.bodyMarkdown);
   const tags = [...new Set(post.tags)];
+  const posts = await publicPostRepository.listPublished().catch(() => {
+    console.warn("[blog] Could not load post navigation.");
+    return [];
+  });
+  const archiveIndex = posts.findIndex((entry) => entry.slug === post.slug);
+  const previousPost = archiveIndex > 0 ? posts[archiveIndex - 1] : undefined;
+  const nextPost = archiveIndex >= 0 ? posts[archiveIndex + 1] : undefined;
 
   return (
     <main className="bg-surface px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" data-public-post>
@@ -149,6 +187,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           </aside>
         </div>
+
+        <nav aria-label={labels.navigation} className="grid gap-space-md border-t border-border pt-space-xl">
+          {(previousPost || nextPost) && (
+            <div className={previousPost && nextPost ? "grid gap-space-md md:grid-cols-2" : "grid"}>
+              {previousPost && <PostNavigationLink direction="previous" locale={locale} post={previousPost} />}
+              {nextPost && <PostNavigationLink direction="next" locale={locale} post={nextPost} />}
+            </div>
+          )}
+          <Link className="inline-flex min-h-11 items-center justify-self-center px-space-sm font-mono text-mono-code uppercase text-primary underline underline-offset-4 hover:text-accent" href={localePath("/#blog", locale)}>
+            {labels.archive}
+          </Link>
+        </nav>
       </article>
     </main>
   );

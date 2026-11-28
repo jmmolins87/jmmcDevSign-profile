@@ -68,15 +68,16 @@ describe("Supabase public post repository", () => {
     await expect(publicPostRepository.getCover(COVER_ASSETS[0].id)).resolves.toEqual(COVER_ASSETS[0]);
   });
 
-  it("lists every published post newest first", async () => {
-    const older = { ...post, id: "post-older", publishedAt: "2026-01-01T09:00:00.000Z" };
-    const newer = { ...post, id: "post-newer", publishedAt: "2026-06-01T09:00:00.000Z" };
-    const fetch = vi.fn(async () => json([{ post: older }, { post: newer }]));
+  it("lists published posts newest first with a stable order when dates match", async () => {
+    const older = { ...post, slug: "older", publishedAt: "2026-01-01T09:00:00.000Z" };
+    const newer = { ...post, slug: "newer", publishedAt: "2026-06-01T09:00:00.000Z" };
+    const sameDate = { ...newer, slug: "also-new" };
+    const fetch = vi.fn(async () => json([{ post: older }, { post: newer }, { post: sameDate }]));
     vi.stubGlobal("fetch", fetch);
 
     const listed = await publicPostRepository.listPublished();
 
-    expect(listed.map((entry) => entry.id)).toEqual(["post-newer", "post-older"]);
+    expect(listed.map((entry) => entry.slug)).toEqual(["also-new", "newer", "older"]);
     expect(fetch).toHaveBeenCalledWith(
       expect.stringContaining("/rest/v1/published_posts?select=post"),
       expect.objectContaining({ cache: "no-store", method: "GET" }),
