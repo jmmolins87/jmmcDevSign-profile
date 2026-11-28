@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/app/components/site-link";
 import { motion } from "motion/react";
 
 import { usePrefersReducedMotion } from "@/app/[locale]/_components/use-prefers-reduced-motion";

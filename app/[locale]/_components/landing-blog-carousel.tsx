@@ -5,7 +5,7 @@ import { localePath } from "@/app/lib/i18n";
 import { usePublicCopy } from "@/app/lib/use-public-copy";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/app/components/site-link";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 

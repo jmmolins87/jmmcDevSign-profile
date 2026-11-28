@@ -6,12 +6,13 @@ import { localePath } from "@/app/lib/i18n";
 import { usePublicCopy } from "@/app/lib/use-public-copy";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/app/components/site-link";
 
 import { ContactForm } from "@/app/[locale]/_components/contact-form";
 import { LandingCapabilities } from "@/app/[locale]/_components/landing-capabilities";
 import { LandingDemos } from "@/app/[locale]/_components/landing-demos";
 import { LandingHeroMotion } from "@/app/[locale]/_components/landing-hero-motion";
+import { HeroStar, LandingHeroTransition } from "@/app/[locale]/_components/landing-hero-transition";
 import { LandingMotionLink } from "@/app/[locale]/_components/landing-motion-link";
 import { LandingProjects, type LandingProject } from "@/app/[locale]/_components/landing-projects";
 import { LandingServices, type LandingService } from "@/app/[locale]/_components/landing-services";
@@ -329,7 +330,9 @@ function HeroMonogram() {
       </span>
       <div className="flex min-w-0 flex-1 items-center justify-center gap-space-sm sm:gap-space-lg lg:gap-space-xl">
         <span className="font-headline text-[clamp(2.5rem,16vw,4.5rem)] font-bold leading-none tracking-[-0.08em] text-primary sm:text-[8rem] lg:text-[14rem]" data-hero-element="monogram-left">JM</span>
-        <span aria-hidden="true" className="font-headline text-[clamp(2.5rem,16vw,4.5rem)] leading-none text-accent sm:text-[8rem] lg:text-[12rem]" data-hero-element="star">✦</span>
+        <span aria-hidden="true" className="block size-[clamp(2.2rem,13vw,10rem)] shrink-0 text-accent" data-hero-star-origin>
+          <span className="block size-full" data-hero-element="star"><HeroStar /></span>
+        </span>
         <span className="font-headline text-[clamp(2.5rem,16vw,4.5rem)] font-bold leading-none tracking-[-0.08em] text-primary sm:text-[8rem] lg:text-[14rem]" data-hero-element="monogram-right">MC</span>
       </div>
       <span aria-hidden="true" className="font-headline text-[clamp(5rem,36vw,10rem)] font-light leading-none text-on-surface-variant opacity-40 sm:text-[15rem] lg:text-[21rem]" data-hero-element="bracket-right">
@@ -343,7 +346,7 @@ function HeroSection() {
   const locale = useLocale();
   const t = usePublicCopy();
   return (
-    <section aria-labelledby="hero-title" className="relative flex min-h-[max(100svh-5rem,700px)] flex-col justify-between overflow-clip border-b border-border bg-surface-container-lowest px-margin py-space-lg sm:px-margin-tablet lg:px-margin-desktop">
+    <section aria-labelledby="hero-title" className="relative flex min-h-[max(calc(100svh_-_var(--landing-header-height)),700px)] flex-col justify-between overflow-clip border-b border-border bg-surface-container-lowest px-margin py-space-lg sm:px-margin-tablet lg:px-margin-desktop">
       <LandingHeroMotion>
         <HeroWarp />
         <div className="relative z-10 grid grid-cols-[1fr_auto_1fr] items-center gap-space-md border-b border-border pb-space-md font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant" data-hero-element="metadata">
@@ -364,8 +367,7 @@ function HeroSection() {
           </div>
         </div>
 
-        <div className="relative z-10 flex flex-col gap-space-md border-t border-border pt-space-md font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant sm:flex-row sm:items-center sm:justify-between" data-hero-element="rail">
-          <Link className="transition-colors hover:text-primary" href="#presentacion">{t("↓ desplazar para entrar en el sistema")}</Link>
+        <div className="relative z-10 border-t border-border pt-space-md text-end font-mono text-mono-code uppercase tracking-[0.12em] text-on-surface-variant" data-hero-element="rail">
           <span>{"{ FULLSTACK ARCHITECTURE / DESIGN SYSTEMS / MADRID }"}</span>
         </div>
       </LandingHeroMotion>
@@ -378,8 +380,8 @@ function PresentationSection() {
   const section = landingSections.presentacion;
 
   return (
-    <section aria-labelledby={`${section.id}-title`} className="border-b border-border bg-surface px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
-      <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl">
+    <section aria-labelledby={`${section.id}-title`} className="scroll-mt-[var(--landing-header-height)] border-b border-border bg-surface px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" id={section.id}>
+      <div className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-xl" data-hero-presentation-content>
         <SectionHeader aside="{ AVAILABLE FOR KEY CONTRACTS }" section={section} />
         <div className="grid gap-space-lg lg:grid-cols-12">
           <Card className="lg:col-span-7">
@@ -573,8 +575,7 @@ export function LandingBlogArchiveFallback() {
 export function LandingPage({ blog }: Readonly<{ blog: React.ReactNode }>) {
   return (
     <main>
-      <HeroSection />
-      <PresentationSection />
+      <LandingHeroTransition hero={<HeroSection />} presentation={<PresentationSection />} />
       <DemosSection />
       <SkillsSection />
       <TrajectorySection />

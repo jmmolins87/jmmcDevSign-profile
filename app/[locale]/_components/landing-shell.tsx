@@ -6,7 +6,7 @@ import { localePath } from "@/app/lib/i18n";
 import { usePublicCopy } from "@/app/lib/use-public-copy";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/app/components/site-link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -251,7 +251,7 @@ export function LandingShell({ children }: LandingShellProps) {
   const locale = useLocale();
   const t = usePublicCopy();
   return (
-    <div className="min-h-[100svh] overflow-x-clip bg-background text-foreground">
+    <div className="min-h-[100svh] overflow-x-clip bg-background text-foreground [--landing-header-height:5rem]">
       <a
         className="sr-only focus:not-sr-only focus:fixed focus:start-margin focus:top-margin focus:z-[70] focus:border focus:border-accent focus:bg-background focus:px-space-md focus:py-space-sm focus:text-primary"
         href="#main-content"
@@ -261,7 +261,7 @@ export function LandingShell({ children }: LandingShellProps) {
       <LandingCursor />
 
       <header className="fixed inset-x-0 top-0 z-50 min-w-0 border-b border-border bg-surface/90 px-margin backdrop-blur-md sm:px-margin-tablet lg:px-margin-desktop">
-        <div className="mx-auto box-border flex min-h-20 min-w-0 w-full max-w-[var(--layout-content-max)] items-center justify-between gap-space-md">
+        <div className="mx-auto box-border flex min-h-[var(--landing-header-height)] min-w-0 w-full max-w-[var(--layout-content-max)] items-center justify-between gap-space-md">
           <LandingIdentity />
 
           <div className="hidden items-center gap-space-sm lg:flex">
@@ -283,7 +283,7 @@ export function LandingShell({ children }: LandingShellProps) {
         </div>
       </header>
 
-      <div className="pt-20" id="main-content">
+      <div className="pt-[var(--landing-header-height)]" id="main-content">
         <LandingScroll>{children}</LandingScroll>
       </div>
     </div>

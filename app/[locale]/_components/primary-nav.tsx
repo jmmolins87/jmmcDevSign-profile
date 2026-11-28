@@ -5,7 +5,7 @@ import { localePath } from "@/app/lib/i18n";
 
 import { usePublicCopy } from "@/app/lib/use-public-copy";
 
-import Link from "next/link";
+import Link from "@/app/components/site-link";
 import { usePathname } from "next/navigation";
 
 const primaryNavItems = [

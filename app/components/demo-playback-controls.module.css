@@ -1,0 +1,28 @@
+.progress {
+  appearance: none;
+  display: block;
+  inline-size: 100%;
+  block-size: 0.25rem;
+  border: 0;
+  background-color: var(--sys-color-surface-highest);
+  color: var(--sys-color-accent);
+}
+
+.progress::-webkit-progress-bar {
+  background-color: var(--sys-color-surface-highest);
+}
+
+.progress::-webkit-progress-value {
+  background-color: var(--sys-color-accent);
+}
+
+.progress::-moz-progress-bar {
+  background-color: var(--sys-color-accent);
+}
+
+@media (forced-colors: active) {
+  .progress {
+    appearance: auto;
+    accent-color: Highlight;
+  }
+}
