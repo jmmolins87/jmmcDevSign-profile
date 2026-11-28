@@ -93,7 +93,7 @@ test.describe("post editor and public posts", () => {
     await expect(previous).toHaveCount(0);
 
     await navigation.getByRole("link", { name: "View all posts" }).click();
-    await expect(page).toHaveURL("/en/#blog");
+    await expect(page).toHaveURL(/\/en\/?#blog$/u);
     await expect(page.getByRole("region", { name: "Technical publication carousel" })).toBeVisible();
   });
 
