@@ -1,10 +1,11 @@
+import { notFound } from "next/navigation";
 import { connection } from "next/server";
 
 import { calculatePostTelemetry, type CoverAsset, type PostDraft } from "@/app/[locale]/blog/domain";
 import { publicPostRepository } from "@/app/[locale]/blog/repositories/public-post-repository";
 import { LandingBlogCarousel, type LandingCarouselPost } from "@/app/[locale]/_components/landing-blog-carousel";
-import { EditorialList, EmptyState, LoadingState } from "@/app/components/ui";
-import { localePath, type Locale } from "@/app/lib/i18n";
+import { EditorialList, EmptyState } from "@/app/components/ui";
+import { isLocale, localePath, type Locale } from "@/app/lib/i18n";
 import { publicText } from "@/app/lib/public-messages";
 import { readSupabaseRuntimeEnv } from "@/app/lib/supabase/env";
 
@@ -69,7 +70,9 @@ async function loadLandingCarouselPosts(locale: Locale): Promise<readonly Landin
 }
 
 /** Publication archive for the landing, resolved at request time behind a Suspense boundary. */
-export async function LandingBlogArchive({ locale }: Readonly<{ locale: Locale }>) {
+export async function LandingBlogArchive({ params }: Readonly<{ params: Promise<{ locale: string }> }>) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
   await connection();
   const posts = await loadLandingCarouselPosts(locale);
 
@@ -86,8 +89,4 @@ export async function LandingBlogArchive({ locale }: Readonly<{ locale: Locale }
       />
     </>
   );
-}
-
-export function LandingBlogArchiveFallback({ locale }: Readonly<{ locale: Locale }>) {
-  return <LoadingState label={publicText(locale, "Cargando publicaciones…")} />;
 }

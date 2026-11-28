@@ -21,13 +21,18 @@ pnpm install --frozen-lockfile
 
 ## Desarrollo local
 
+Para cargar el archivo de publicaciones, inicia Supabase local y copia
+`.env.example` a `.env.local`. Usa la URL de la API local y el valor
+`PUBLISHABLE_KEY` que devuelve `supabase status` para completar
+`NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Ajusta
+`NEXT_PUBLIC_SITE_URL` al origen con el que abres la aplicación.
+
 ```bash
 pnpm dev
 ```
 
-Abre [http://localhost:3000/es/](http://localhost:3000/es/). La aplicación
-funciona sin `.env.local` porque las superficies actuales consumen repositorios
-mock.
+Abre [http://localhost:3000/es/](http://localhost:3000/es/). Las demos usan
+datos de prueba en el navegador. El blog y el acceso editorial usan Supabase.
 
 Comandos disponibles:
 
