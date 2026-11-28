@@ -72,6 +72,31 @@ test.describe("post editor and public posts", () => {
     await expect(page.locator('a[href="/es/blog/editor"]')).toBeVisible();
   });
 
+  test("continues reading between posts in archive order and keeps the language", async ({ page }) => {
+    const response = await page.goto(`/en/blog/${secondPublishedSlug}`);
+    expect(response?.status()).toBe(200);
+    const navigation = page.getByRole("navigation", { name: "Post navigation" });
+    const previous = navigation.getByRole("link", { name: /^Previous post /u });
+    const next = navigation.getByRole("link", { name: /^Next post /u });
+
+    await expect(previous).toHaveAttribute("href", `/en/blog/${thirdPublishedSlug}#post`);
+    await expect(next).toHaveAttribute("href", `/en/blog/${publishedSlug}#post`);
+    await next.press("Enter");
+    await expect(page).toHaveURL(`/en/blog/${publishedSlug}#post`);
+    await expect(page.getByRole("heading", { level: 1, name: /El ocaso de los microservicios caóticos/u })).toBeInViewport();
+    await expect(next).toHaveCount(0);
+
+    await previous.click();
+    await expect(page).toHaveURL(`/en/blog/${secondPublishedSlug}#post`);
+    await previous.click();
+    await expect(page).toHaveURL(`/en/blog/${thirdPublishedSlug}#post`);
+    await expect(previous).toHaveCount(0);
+
+    await navigation.getByRole("link", { name: "View all posts" }).click();
+    await expect(page).toHaveURL(/\/en\/?#blog$/u);
+    await expect(page.getByRole("region", { name: "Technical publication carousel" })).toBeVisible();
+  });
+
   test("persists private revisions, prevents concurrent overwrites, schedules and withdraws a document", async ({ page, editor, browser }) => {
     await signInLocalAccount(page, editor);
     await page.goto("/es/blog/editor");
