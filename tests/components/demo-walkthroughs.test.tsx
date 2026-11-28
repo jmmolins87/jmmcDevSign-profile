@@ -50,6 +50,26 @@ describe("demo walkthrough controls", () => {
     expect(screen.getByRole("button", { name: "Iniciar demo" })).toBeEnabled();
   });
 
+  it("lets a visitor run one workflow node at a time before resuming automatic playback", async () => {
+    await act(async () => { render(<WorkflowPanel />); });
+    const next = screen.getByRole("button", { name: "Avanzar un paso" });
+    await act(async () => { fireEvent.click(next); });
+    expect(screen.getByRole("progressbar")).toHaveAttribute("value", "20");
+    const firstStep = await workflowRepository.getSnapshot();
+    await act(() => vi.advanceTimersByTimeAsync(5000));
+    expect((await workflowRepository.getSnapshot()).events).toEqual(firstStep.events);
+
+    await act(async () => { fireEvent.click(next); });
+    expect(screen.getByRole("progressbar")).toHaveAttribute("value", "40");
+    await act(async () => { fireEvent.click(screen.getByRole("button", { name: "Reanudar demo" })); });
+    await act(() => vi.advanceTimersByTimeAsync(2100));
+    expect(screen.getByRole("progressbar")).toHaveAttribute("value", "100");
+    const complete = await workflowRepository.getSnapshot();
+    expect(complete.events.filter((event) => event.id.startsWith("event-playback")).map((event) => event.nodeId)).toEqual([
+      "node-webhook", "node-ai-agent", "node-crm", "node-email", "node-slack",
+    ]);
+  });
+
   it("runs Agent Builder in English and preserves the working configuration controls", async () => {
     await act(async () => { render(<LocaleProvider locale="en"><AgentBuilderPanel /></LocaleProvider>); });
     expect(screen.getByRole("heading", { name: "Agent configuration" })).toBeVisible();

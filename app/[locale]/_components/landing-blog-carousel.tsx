@@ -73,7 +73,7 @@ export function LandingBlogCarousel({ posts }: Readonly<{ posts: readonly Landin
               transition={{ duration: shouldReduceMotion ? 0.12 : 0.24, ease: [0.23, 1, 0.32, 1] }}
             >
               <div className="relative aspect-[4/3] overflow-clip bg-surface-container-highest md:col-span-5">
-                <Image alt={activePost.imageAlt} className="object-cover grayscale contrast-125" fill sizes="(min-width: 1024px) 34vw, 90vw" src={activePost.image} />
+                <Image alt={activePost.imageAlt} className="object-cover" fill sizes="(min-width: 1024px) 34vw, 90vw" src={activePost.image} />
                 <span className="absolute top-space-sm start-space-sm bg-background/90 px-space-sm py-space-xs font-mono text-mono-code text-accent">{`{ ${String(activeIndex + 1).padStart(2, "0")} // FEATURED }`}</span>
               </div>
               <div className="flex h-full flex-col justify-between gap-space-lg md:col-span-7">

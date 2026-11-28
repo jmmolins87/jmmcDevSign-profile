@@ -129,7 +129,7 @@ test("narrow landing keeps the hero centered and all demos accessible without ov
     await expect(controls.nth(index)).toHaveAttribute("aria-pressed", "true");
     const active = page.locator("[data-demo-panel]:visible");
     await expect(active).toHaveCount(1);
-    await expect(active.getByRole("link", { name: /Iniciar demo interactiva/ })).toBeVisible();
+    await expect(active.getByRole("link", { name: "Abrir demo", exact: true })).toBeVisible();
     const layout = await active.evaluate((panel) => {
       const bounds = panel.getBoundingClientRect();
       const skills = document.querySelector("#skills")!.getBoundingClientRect();

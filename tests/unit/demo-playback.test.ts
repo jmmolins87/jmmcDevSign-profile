@@ -60,6 +60,25 @@ describe("deterministic demo playback", () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 
+  it.each(["start", "advance"] as const)("lets reset win while %s and async fixture restoration settle", async (action) => {
+    vi.useFakeTimers();
+
+    for (let turn = 0; turn <= 8; turn += 1) {
+      const events: string[] = [];
+      const playback = createDemoPlayback({
+        steps,
+        onStep: (id) => { events.push(id); },
+        onReset: async () => { events.length = 0; },
+      });
+      const pending = playback[action]();
+      for (let index = 0; index < turn; index += 1) await Promise.resolve();
+      await Promise.all([pending, playback.reset()]);
+      await vi.advanceTimersByTimeAsync(2000);
+      expect(events).toEqual([]);
+      expect(await playback.getState()).toEqual({ status: "idle", currentStep: 0, progress: 0 });
+    }
+  });
+
   it("stops at an error, exposes the cause and refuses resume until reset", async () => {
     vi.useFakeTimers();
     const events: string[] = [];
@@ -85,6 +104,28 @@ describe("deterministic demo playback", () => {
     await resetting;
     expect(value).toBe("fixture");
     expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it("applies a single step when advance is pressed again while the step is still running", async () => {
+    vi.useFakeTimers();
+    const events: string[] = [];
+    let enter!: () => void;
+    let release!: () => void;
+    const entered = new Promise<void>((resolve) => { enter = resolve; });
+    const response = new Promise<void>((resolve) => { release = resolve; });
+    const playback = createDemoPlayback({
+      steps,
+      onStep: async (id) => { events.push(id); enter(); await response; },
+      onReset: () => { events.length = 0; },
+    });
+    const first = playback.advance();
+    await entered;
+    const duplicate = playback.advance();
+    release();
+    await Promise.all([first, duplicate]);
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(events).toEqual(["ingest"]);
+    expect(await playback.getState()).toEqual({ status: "paused", currentStep: 1, progress: 50 });
   });
 
   it("changes translated labels without restarting the active step", async () => {

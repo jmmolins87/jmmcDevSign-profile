@@ -17,6 +17,7 @@ const test = base.extend<{ editor: Awaited<ReturnType<typeof createConfirmedLoca
 const publishedSlug = "ocaso-microservicios-caoticos-monolito-modular";
 const secondPublishedSlug = "agentes-que-ejecutan-instruccion-ejecucion";
 const thirdPublishedSlug = "contrato-visual-tambien-es-arquitectura";
+const publishedCoverAlt = "Estructura brutalista de hormigón con diagonales geométricas y sombras duras";
 
 function isMobileEditor(page: Page) {
   return (page.viewportSize()?.width ?? 1440) < 1024;
@@ -40,6 +41,7 @@ test.describe("post editor and public posts", () => {
       expect(response?.status()).toBe(200);
       const title = /El ocaso de los microservicios caóticos/u;
       await expect(page.getByRole("heading", { name: title })).toBeVisible();
+      await expect(page.getByRole("img", { name: publishedCoverAlt, exact: true })).toHaveCSS("filter", "none");
       await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /coste oculto/u);
       await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", title);
       const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
@@ -59,13 +61,14 @@ test.describe("post editor and public posts", () => {
     await blog.scrollIntoViewIfNeeded();
 
     const carousel = blog.getByRole("region", { name: "Carrusel de publicaciones técnicas" });
-    await expect(carousel.getByRole("link", { name: /LEER DOSSIER/u })).toHaveAttribute("href", `/es/blog/${publishedSlug}`);
+    await expect(carousel.getByRole("link", { name: /LEER DOSSIER/u })).toHaveAttribute("href", `/es/blog/${thirdPublishedSlug}`);
 
     await carousel.getByRole("button", { name: "Publicación siguiente" }).click();
     await expect(carousel.getByRole("link", { name: /LEER DOSSIER/u })).toHaveAttribute("href", `/es/blog/${secondPublishedSlug}`);
 
     await carousel.getByRole("button", { name: "Publicación siguiente" }).click();
-    await expect(carousel.getByRole("link", { name: /LEER DOSSIER/u })).toHaveAttribute("href", `/es/blog/${thirdPublishedSlug}`);
+    await expect(carousel.getByRole("link", { name: /LEER DOSSIER/u })).toHaveAttribute("href", `/es/blog/${publishedSlug}`);
+    await expect(carousel.getByRole("img", { name: publishedCoverAlt, exact: true })).toHaveCSS("filter", "none");
     await expect(page.locator('a[href="/es/blog/editor"]')).toBeVisible();
   });
 

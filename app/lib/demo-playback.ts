@@ -4,6 +4,7 @@ export type PlaybackState = { status: PlaybackStatus; currentStep: number; progr
 
 export interface DemoPlaybackController {
   start(): Promise<PlaybackState>;
+  advance(): Promise<PlaybackState>;
   pause(): Promise<PlaybackState>;
   resume(): Promise<PlaybackState>;
   reset(): Promise<PlaybackState>;
@@ -44,6 +45,7 @@ export function createDemoPlayback(initialOptions: PlaybackOptions, clock: Playb
   let inFlight: Promise<void> | null = null;
   let resetPending: Promise<PlaybackState> | null = null;
   let startPending: Promise<PlaybackState> | null = null;
+  let advancePending: Promise<PlaybackState> | null = null;
   const listeners = new Set<() => void>();
 
   function publish(next: PlaybackState) {
@@ -58,34 +60,39 @@ export function createDemoPlayback(initialOptions: PlaybackOptions, clock: Playb
 
   function schedule() {
     if (state.status !== "running" || timer !== undefined || inFlight) return;
-    const currentGeneration = generation;
     scheduledAt = clock.now();
     timer = clock.setTimeout(() => {
       timer = undefined;
-      const index = state.currentStep;
-      const step = options.steps[index];
-      inFlight = (async () => {
-        try {
-          await options.onStep(step.id, index);
-          if (generation !== currentGeneration) return;
-          const completedSteps = index + 1;
-          const completed = completedSteps === options.steps.length;
-          remainingMs = options.steps[completed ? index : completedSteps].durationMs;
-          publish({
-            status: completed ? "completed" : state.status,
-            currentStep: completed ? index : completedSteps,
-            progress: Math.round(completedSteps / options.steps.length * 100),
-          });
-        } catch (cause) {
-          if (generation !== currentGeneration) return;
-          error = cause instanceof Error ? cause.message : "Playback step failed.";
-          publish({ ...state, status: "paused" });
-        }
-      })().finally(() => {
-        inFlight = null;
-        if (generation === currentGeneration) schedule();
-      });
+      void executeStep();
     }, remainingMs);
+  }
+
+  function executeStep() {
+    const currentGeneration = generation;
+    const index = state.currentStep;
+    const step = options.steps[index];
+    inFlight = (async () => {
+      try {
+        await options.onStep(step.id, index);
+        if (generation !== currentGeneration) return;
+        const completedSteps = index + 1;
+        const completed = completedSteps === options.steps.length;
+        remainingMs = options.steps[completed ? index : completedSteps].durationMs;
+        publish({
+          status: completed ? "completed" : state.status,
+          currentStep: completed ? index : completedSteps,
+          progress: Math.round(completedSteps / options.steps.length * 100),
+        });
+      } catch (cause) {
+        if (generation !== currentGeneration) return;
+        error = cause instanceof Error ? cause.message : "Playback step failed.";
+        publish({ ...state, status: "paused" });
+      }
+    })().finally(() => {
+      inFlight = null;
+      if (generation === currentGeneration) schedule();
+    });
+    return inFlight;
   }
 
   const controller = {
@@ -108,6 +115,7 @@ export function createDemoPlayback(initialOptions: PlaybackOptions, clock: Playb
     async getState() { return state; },
     async start(): Promise<PlaybackState> {
       if (startPending) return startPending;
+      if (advancePending) return advancePending;
       if (state.status === "running") return state;
       if (state.status === "paused" && !error) return controller.resume();
       startPending = (async () => {
@@ -120,6 +128,22 @@ export function createDemoPlayback(initialOptions: PlaybackOptions, clock: Playb
         return state;
       })().finally(() => { startPending = null; });
       return startPending;
+    },
+    async advance(): Promise<PlaybackState> {
+      if (advancePending) return advancePending;
+      if (startPending || inFlight || error || state.status === "running" || state.status === "completed") return state;
+      advancePending = (async () => {
+        if (state.status === "idle") {
+          const restoration = controller.reset();
+          const startGeneration = generation;
+          await restoration;
+          if (error || generation !== startGeneration) return state;
+          publish({ ...state, status: "paused" });
+        }
+        await executeStep();
+        return state;
+      })().finally(() => { advancePending = null; });
+      return advancePending;
     },
     async pause(): Promise<PlaybackState> {
       if (state.status !== "running") return state;

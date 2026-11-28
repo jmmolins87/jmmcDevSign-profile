@@ -276,13 +276,21 @@ export function WorkflowPanel() {
   });
   const isPlaying = playback.state.status === "running" || playback.state.status === "paused";
   const busy = operationBusy || isPlaying;
+  function prepareSimulation() {
+    executionMode.current = "simulation";
+    failInference.current = snapshot.workflow.preset === "critical-routing";
+  }
+
   const playbackControls = {
     ...playback,
     error: playback.error ? t(playback.error) : null,
     start: async () => {
-      executionMode.current = "simulation";
-      failInference.current = snapshot.workflow.preset === "critical-routing";
+      prepareSimulation();
       return playback.start();
+    },
+    advance: async () => {
+      if (playback.state.status === "idle") prepareSimulation();
+      return playback.advance();
     },
     reset: async () => {
       executionMode.current = "simulation";
@@ -383,7 +391,7 @@ export function WorkflowPanel() {
       </header>
 
       <main>
-        <DemoPlaybackControls playback={playbackControls} />
+        <DemoPlaybackControls guide="workflow" playback={playbackControls} />
         <section className="workflow-command-bar">
           <div className="grid gap-2"><div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-primary"><span className="text-accent">✦</span><h1>{t("EN VIVO // INGESTIÓN TELEMÉTRICA")}</h1></div><div className="flex flex-wrap gap-3 font-mono text-[10px] uppercase text-on-surface-variant"><span>{t("{ LATENCIA P95: ")}<strong className="text-primary">18ms</strong> &#125;</span><span className="text-border">/</span><span>{t("{ INGESTA: ")}<strong className="text-accent">1.482 / MIN</strong> &#125;</span><span className="text-border">/</span><span>&#123; MESH: AWS_ORCHESTRATOR_EKS &#125;</span></div></div>
           <div className="flex flex-wrap gap-2"><button className="workflow-control-button" disabled={busy} onClick={handleAddNode} type="button">{t("[ + AÑADIR NODO ]")}</button><button className="workflow-control-button workflow-control-accent" disabled={busy} onClick={handleSimulate} type="button">{t("✦ [ SIMULAR DISPARO ]")}</button><button className="workflow-deploy-button" disabled={busy} onClick={handleTest} type="button">{t("[ EJECUTAR TEST ↵ ]")}</button></div>
