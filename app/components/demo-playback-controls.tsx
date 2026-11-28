@@ -1,6 +1,8 @@
 "use client";
 
+import { DemoGuideButton } from "@/app/components/demo-guide";
 import { Button } from "@/app/components/ui/button";
+import type { DemoGuideId } from "@/app/lib/demo-guide-preference";
 import { useCopy } from "@/app/lib/locale-context";
 import type { DemoPlaybackHandle } from "@/app/lib/use-demo-playback";
 
@@ -37,7 +39,7 @@ const copy = {
 
 type DemoPlaybackControlsProps = {
   playback: DemoPlaybackHandle;
-  guide?: keyof typeof copy.es.guides;
+  guide?: DemoGuideId;
 };
 
 export function DemoPlaybackControls({ playback, guide }: DemoPlaybackControlsProps) {
@@ -58,7 +60,10 @@ export function DemoPlaybackControls({ playback, guide }: DemoPlaybackControlsPr
     <section aria-label={text.title} className="grid min-w-0 gap-space-md border border-border bg-surface-lowest p-space-md">
       <div className="flex flex-wrap items-center justify-between gap-space-md">
         {guide ? <div className="grid gap-space-2xs">
-          <p className="font-headline text-label-caps uppercase text-primary">{text.heading}</p>
+          <div className="flex flex-wrap items-center gap-x-space-md gap-y-space-xs">
+            <p className="font-headline text-label-caps uppercase text-primary">{text.heading}</p>
+            <DemoGuideButton />
+          </div>
           <p className="text-body-sm text-on-surface-variant">{text.guides[guide]}</p>
         </div> : null}
         <div className="flex flex-wrap items-center gap-space-xs">

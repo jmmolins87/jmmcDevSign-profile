@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 const ordersRoute = "/es/demos/orders-realtime";
 
 test.beforeEach(async ({ page }) => {
-  await page.addInitScript(() => window.localStorage.clear());
+  await page.addInitScript(() => window.localStorage.removeItem("jmmcdevsign:orders-realtime:v1"));
 });
 
 test("exercises client dispatch, KDS transitions, connection scenarios and stream controls", async ({ page }, testInfo) => {
