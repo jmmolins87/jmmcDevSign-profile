@@ -44,12 +44,17 @@ test("confirmed signup receives admin review and activates using the emailed cod
     await expect(page.getByRole("status").filter({ hasText: "Revisa tu correo" })).toBeVisible();
 
     const confirmation = await waitForLocalMail(request, email, /Confirma tu correo/);
+    expect(confirmation.HTML).toContain("max-width:600px");
+    expect(confirmation.HTML).toContain("{JM}");
+    expect(confirmation.HTML).toContain("Confirm my email");
     await page.goto(localMailLink(confirmation, "/es/auth/confirm", site).href);
     await expect(page.getByRole("heading", { name: "Solicitud recibida" })).toBeVisible();
     await page.goto("/es/blog/editor");
     await expect(page.getByRole("heading", { name: "Acceso no autorizado" })).toBeVisible();
 
     const notification = await waitForLocalMail(request, mailRecipient, /Nueva solicitud de acceso editorial/, email);
+    expect(notification.HTML).toContain("max-width:600px");
+    expect(notification.HTML).toContain("PENDIENTE DE EMISIÓN");
     const reviewLink = localMailLink(notification, "/es/admin/approval", site, "approve");
     expect(reviewLink.searchParams.get("decision")).toBe("approve");
 
@@ -76,6 +81,8 @@ test("confirmed signup receives admin review and activates using the emailed cod
       await expect(adminPage.getByText("Esta solicitud ya había sido revisada.")).toBeVisible();
 
       const activation = await waitForLocalMail(request, email, /Tu código de acceso editorial/);
+      expect(activation.HTML).toContain("max-width:600px");
+      expect(activation.HTML).toContain("El código caduca en diez minutos.");
       const code = activation.Text.match(/^\d{6}$/m)?.[0] ?? activation.HTML.match(/<strong>(\d{6})<\/strong>/)?.[1];
       if (!code) throw new Error("The local activation mail lacks a six-digit code.");
 

@@ -1,5 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 
+import { demoGuideIds, demoGuidePreferenceKey } from "./app/lib/demo-guide-preference";
+
+const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3099";
+
 export default defineConfig({
   forbidOnly: Boolean(process.env.CI),
   fullyParallel: true,
@@ -8,8 +12,16 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   testDir: "./e2e",
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3099",
+    baseURL,
     locale: "es-ES",
+    // Existing scenarios are tested after onboarding. The guide suite starts with empty storage.
+    storageState: {
+      cookies: [],
+      origins: [{
+        origin: new URL(baseURL).origin,
+        localStorage: demoGuideIds.map((demo) => ({ name: demoGuidePreferenceKey(demo), value: "1" })),
+      }],
+    },
     screenshot: "only-on-failure",
     trace: "on-first-retry",
     video: "retain-on-failure",

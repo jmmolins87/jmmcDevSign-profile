@@ -56,5 +56,24 @@ describe("membership mail", () => {
     expect(notification.text).toContain("/en/admin/approval?requestId=request-one&decision=reject&proof=reject-proof");
     expect(notification.html).toContain("&lt;script&gt;");
     expect(notification.html).not.toContain("<script>");
+    expect(notification.html).toContain('<html lang="en">');
+    expect(notification.html).toContain("max-width:600px");
+    expect(notification.html).toContain("{JM}");
+    expect(notification.html).toContain("PENDING ISSUANCE");
+    expect(notification.html).toContain("Review rejection");
+    expect(notification.text).toContain("Reviewer");
+    expect(notification.html).not.toMatch(/849201|198\.51\.100\.24|Fixture browser|mock-token/);
+  });
+
+  it("renders the real activation code in the editorial layout with its production expiry", () => {
+    const activation = renderActivationMail("editor@example.test", "es", "012345");
+
+    expect(activation.html).toContain('<html lang="es">');
+    expect(activation.html).toContain("max-width:600px");
+    expect(activation.html).toContain("{JM}");
+    expect(activation.html).toContain("012345");
+    expect(activation.html).toContain("El código caduca en diez minutos.");
+    expect(activation.text).toMatch(/^012345$/m);
+    expect(activation.html).not.toMatch(/admin\/approval|849201|15 minutos/);
   });
 });

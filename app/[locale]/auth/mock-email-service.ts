@@ -15,7 +15,7 @@ export const mockEmailService: EmailService = {
       kind: "admin-notification",
       registrationRequestId: model.request.id,
       sentAt: model.sentAt,
-      subject: "Nueva solicitud de acceso editorial",
+      subject: renderedEmail.subject,
       text: renderedEmail.text,
       to: model.recipient,
     });
