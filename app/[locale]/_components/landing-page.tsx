@@ -24,6 +24,7 @@ import {
   CardHeader,
   CardMeta,
   CardTitle,
+  LoadingState,
 } from "@/app/components/ui";
 
 type LandingSectionId =
@@ -562,6 +563,11 @@ function LandingFooter() {
       </div>
     </footer>
   );
+}
+
+export function LandingBlogArchiveFallback() {
+  const t = usePublicCopy();
+  return <LoadingState label={t("Cargando publicaciones…")} />;
 }
 
 export function LandingPage({ blog }: Readonly<{ blog: React.ReactNode }>) {

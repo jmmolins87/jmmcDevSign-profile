@@ -132,10 +132,9 @@ function LandingMenu() {
         aria-controls="landing-curtain-menu"
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className="inline-flex min-h-10 items-center gap-space-xs whitespace-nowrap border border-border px-space-sm font-headline text-label-caps uppercase tracking-[0.08em] text-primary sm:gap-space-sm sm:px-space-md"
+        className="inline-flex min-h-10 items-center gap-space-xs whitespace-nowrap border border-border px-space-sm font-headline text-label-caps uppercase tracking-[0.08em] text-primary transition-colors hover:bg-surface-high sm:gap-space-sm sm:px-space-md"
         onClick={toggleMenu}
         type="button"
-        whileHover={{ backgroundColor: "var(--sys-color-surface-high)" }}
         whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
         transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
       >
@@ -166,11 +165,10 @@ function LandingMenu() {
           <LandingIdentity />
           <motion.button
             aria-label={t("Cerrar menú editorial")}
-            className="inline-flex min-h-10 items-center gap-space-sm border border-border px-space-md font-mono text-mono-code uppercase tracking-[0.08em] text-on-surface-variant"
+            className="inline-flex min-h-10 items-center gap-space-sm border border-border px-space-md font-mono text-mono-code uppercase tracking-[0.08em] text-on-surface-variant transition-colors hover:bg-surface-high hover:text-primary"
             onClick={closeMenu}
             ref={closeButtonRef}
             type="button"
-            whileHover={{ backgroundColor: "var(--sys-color-surface-high)", color: "var(--sys-color-primary)" }}
             whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
             transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
           >
@@ -193,10 +191,10 @@ function LandingMenu() {
             {landingNavigation.map((item) => (
               <li key={item.href}>
                 <MotionLink
-                  className="group flex items-baseline gap-space-sm font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-on-surface-variant sm:text-headline-xl"
+                  className="group flex items-baseline gap-space-sm font-headline text-headline-xl-mobile uppercase leading-none tracking-[-0.02em] text-on-surface-variant transition-colors hover:text-primary sm:text-headline-xl"
                   href={localePath(item.href, locale)}
                   onClick={closeMenu}
-                  whileHover={{ color: "var(--sys-color-primary)", x: shouldReduceMotion ? 0 : 8 }}
+                  whileHover={shouldReduceMotion ? undefined : { x: 8 }}
                   whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                   transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
                 >
@@ -221,10 +219,9 @@ function LandingMenu() {
             <ThemeSelector />
             <LanguageSelector alwaysVisible />
             <MotionLink
-              className="text-primary"
+              className="text-primary transition-colors hover:text-accent"
               href={localePath("/es/login", locale)}
               onClick={closeMenu}
-              whileHover={{ color: "var(--sys-color-accent)" }}
               whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             >
