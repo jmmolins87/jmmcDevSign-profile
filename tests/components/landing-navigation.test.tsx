@@ -9,6 +9,7 @@ vi.mock("next/navigation", () => ({
 }));
 
 vi.mock("next/link", () => ({
+  useLinkStatus: () => ({ pending: false }),
   default: ({ children, href, onClick, ...props }: { children: React.ReactNode; href: string; onClick?: () => void }) => (
     <a href={href} onClick={onClick} {...props}>{children}</a>
   ),

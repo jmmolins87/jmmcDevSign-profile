@@ -4,7 +4,8 @@ import { connection } from "next/server";
 import { calculatePostTelemetry, type CoverAsset, type PostDraft } from "@/app/[locale]/blog/domain";
 import { publicPostRepository } from "@/app/[locale]/blog/repositories/public-post-repository";
 import { LandingBlogCarousel, type LandingCarouselPost } from "@/app/[locale]/_components/landing-blog-carousel";
-import { EditorialList, EmptyState } from "@/app/components/ui";
+import { LandingBlogList } from "@/app/[locale]/_components/landing-blog-list";
+import { EmptyState } from "@/app/components/ui";
 import { isLocale, localePath, type Locale } from "@/app/lib/i18n";
 import { publicText } from "@/app/lib/public-messages";
 import { readSupabaseRuntimeEnv } from "@/app/lib/supabase/env";
@@ -83,8 +84,7 @@ export async function LandingBlogArchive({ params }: Readonly<{ params: Promise<
   return (
     <>
       <LandingBlogCarousel posts={posts} />
-      <EditorialList
-        ariaLabel={publicText(locale, "Archivo de publicaciones")}
+      <LandingBlogList
         items={posts.map((post) => ({ href: localePath(post.href, locale), id: post.id, meta: `${post.category} / ${post.readingTime}`, title: post.title }))}
       />
     </>

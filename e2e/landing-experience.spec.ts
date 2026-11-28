@@ -148,3 +148,65 @@ test("narrow landing keeps the hero centered and all demos accessible without ov
     expect(layout.gapToSkills).toBeGreaterThanOrEqual(0);
   }
 });
+
+test("the hero stays fixed for a small scroll and reveals the presentation once", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/es/");
+
+  const scene = page.locator("[data-hero-transition]");
+  const hero = page.locator('section[aria-labelledby="hero-title"]');
+  const star = scene.locator("[data-hero-transition-star]");
+  const frame = scene.locator("[data-hero-presentation-frame]");
+  await expect(frame).toHaveCSS("clip-path", /^polygon\(/u);
+  await expect(star).toBeHidden();
+  await expect(page.locator("html")).toHaveAttribute("data-landing-intro-active", "true");
+  await expect(hero.getByText("↓ desplazar para entrar en el sistema")).toHaveCount(0);
+  const heroTop = (await hero.boundingBox())!.y;
+  const start = await scene.evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  const end = await scene.locator("[data-hero-transition-presentation]").evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+
+  await page.evaluate(() => window.scrollTo(0, 20));
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(20);
+  expect(Math.abs((await hero.boundingBox())!.y - heroTop)).toBeLessThanOrEqual(1);
+  await expect(star).toBeHidden();
+
+  await page.evaluate((top) => window.scrollTo(0, top), start + (end - start) * 0.7);
+  await expect(star).toBeVisible();
+  await expect.poll(async () => (await star.boundingBox())?.width ?? 0).toBeGreaterThan(page.viewportSize()!.width * 3);
+  await expect(frame).toHaveCSS("clip-path", /^polygon\(/u);
+  await expect(page.locator("html")).toHaveAttribute("data-landing-intro-active", "true");
+  await expect.poll(async () => Math.abs((await frame.boundingBox())!.y - heroTop)).toBeLessThanOrEqual(1);
+  await page.evaluate((top) => window.scrollTo(0, top), start + (end - start) * 0.8);
+  await expect.poll(async () => Math.abs((await frame.boundingBox())!.y - heroTop)).toBeLessThanOrEqual(1);
+
+  await page.evaluate((top) => window.scrollTo(0, top), end - heroTop + 1);
+  await expect(frame).toHaveCSS("clip-path", "none");
+  await expect(page.locator("html[data-landing-intro-active]")).toHaveCount(0);
+  await expect.poll(async () => Math.abs((await frame.boundingBox())!.y - heroTop)).toBeLessThanOrEqual(2);
+  await expect(page.locator("#presentacion")).toBeInViewport();
+  await page.locator("#demos").scrollIntoViewIfNeeded();
+  await expect(page.locator("#demos")).toBeInViewport();
+
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(hero).toBeInViewport();
+  await expect(star).toBeHidden();
+  await page.evaluate((top) => window.scrollTo(0, top), start + (end - start) * 0.7);
+  await expect(frame).toHaveCSS("clip-path", "none");
+  await expect(star).toBeHidden();
+});
+
+test("the hero bypasses the cinema on reduced motion and direct section links", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/es/");
+  const presentation = page.locator("[data-hero-presentation-frame]");
+  const star = page.locator("[data-hero-transition-star]");
+  await expect(presentation).toHaveCSS("clip-path", "none");
+  await expect(star).toBeHidden();
+
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/en/#presentacion");
+  await expect(page.getByRole("region", { name: "Introduction", exact: true })).toBeInViewport();
+  await expect(presentation).toHaveCount(1);
+  await expect(presentation).toHaveCSS("clip-path", "none");
+  await expect(star).toBeHidden();
+});

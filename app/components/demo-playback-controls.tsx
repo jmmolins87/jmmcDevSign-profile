@@ -6,6 +6,8 @@ import type { DemoGuideId } from "@/app/lib/demo-guide-preference";
 import { useCopy } from "@/app/lib/locale-context";
 import type { DemoPlaybackHandle } from "@/app/lib/use-demo-playback";
 
+import styles from "./demo-playback-controls.module.css";
+
 const copy = {
   es: {
     title: "Recorrido automático", heading: "Prueba la demo", advance: "Avanzar un paso",
@@ -77,7 +79,7 @@ export function DemoPlaybackControls({ playback, guide }: DemoPlaybackControlsPr
           <span>{stepLabel}</span>
           <span className="font-mono text-mono-code tabular-nums">{text.stepCount(state.currentStep + 1, playback.steps.length)}</span>
         </div>
-        <progress aria-label={text.progress} className="h-1 w-full accent-accent" max={100} value={state.progress} />
+        <progress aria-label={text.progress} className={styles.progress} max={100} value={state.progress} />
       </div>
       {error ? <p className="text-body-sm text-error" role="alert">{text.failed} {error}</p> : null}
     </section>

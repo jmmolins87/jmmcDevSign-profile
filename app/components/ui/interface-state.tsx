@@ -1,9 +1,21 @@
 import { useId, type ReactNode } from "react";
 
-export function LoadingState({ label = "Cargando datos" }: { label?: string }) {
+import styles from "./loading-logo.module.css";
+
+export function LoadingState({ label = "Cargando datos", variant = "inline" }: { label?: string; variant?: "inline" | "page" }) {
+  const page = variant === "page";
+
   return (
-    <div aria-live="polite" className="flex items-center gap-space-sm border border-border p-space-lg text-body-md text-on-surface-variant" role="status">
-      <span aria-hidden="true" className="size-2 bg-state-operational" />
+    <div
+      className={`flex items-center text-body-md text-on-surface-variant ${page ? "flex-col gap-space-sm text-center" : "gap-space-sm py-space-lg"}`}
+      role="status"
+    >
+      <span aria-hidden="true" className={`${styles.logo}${page ? ` ${styles.page}` : ""}`} data-loading-logo>
+        <span className={styles.leftBrace} />
+        <span className={styles.monogram} />
+        <span className={styles.star} />
+        <span className={styles.rightBrace} />
+      </span>
       <span>{label}</span>
     </div>
   );

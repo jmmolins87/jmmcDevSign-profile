@@ -1,0 +1,76 @@
+.logo {
+  --logo-image: url("/assets/logo-on-dark.svg");
+
+  position: relative;
+  display: block;
+  flex: none;
+  inline-size: 3.75rem;
+  aspect-ratio: 11 / 6;
+}
+
+:global(.light) .logo {
+  --logo-image: url("/assets/logo-on-light.svg");
+}
+
+.page {
+  inline-size: clamp(9rem, 22vw, 13rem);
+}
+
+.logo > span {
+  position: absolute;
+  inset: 0;
+  background: var(--logo-image) center / 100% 100% no-repeat;
+}
+
+/* The cuts land in the gaps between the four parts of the 176 × 96 source mark. */
+.leftBrace {
+  clip-path: inset(0 76% 0 0);
+  --brace-travel: -5%;
+}
+
+.monogram {
+  clip-path: inset(0 32% 0 24%);
+}
+
+.star {
+  clip-path: inset(0 20% 0 68%);
+  transform-origin: 73.86% 14.58%;
+}
+
+.rightBrace {
+  clip-path: inset(0 0 0 80%);
+  --brace-travel: 5%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .leftBrace,
+  .rightBrace {
+    animation: brace-breath 1.25s var(--motion-ease-editorial) infinite;
+  }
+
+  .star {
+    animation: star-turn 1.25s var(--motion-ease-editorial) infinite;
+  }
+}
+
+@keyframes brace-breath {
+  26% {
+    transform: translateX(var(--brace-travel));
+  }
+
+  68%,
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes star-turn {
+  26% {
+    transform: rotate(48deg) scale(1.23);
+  }
+
+  68%,
+  100% {
+    transform: rotate(90deg);
+  }
+}
