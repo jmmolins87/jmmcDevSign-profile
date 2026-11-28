@@ -1,3 +1,5 @@
+import { renderAdminApprovalEmail, renderEditorialActivationEmail } from "@/app/[locale]/auth/admin-approval-email-renderer";
+
 type OutboundMail = {
   recipient: string;
   subject: string;
@@ -29,40 +31,33 @@ type MailResult =
   | { result: "retry"; error: "network" | "provider-transient" }
   | { result: "failed"; error: "provider-permanent" };
 
-const escapes: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
-const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (character) => escapes[character]);
-
 export function renderRequestMail(input: RequestMailInput): MembershipMail {
-  const english = input.locale === "en";
-  const subject = english ? "New editorial access request" : "Nueva solicitud de acceso editorial";
-  const role = english ? { editor: "Editor", revisor: "Reviewer" } : { editor: "Editor", revisor: "Revisor" };
-  const roleLabel = input.requestedRole === "revisor" ? role.revisor : role.editor;
-  const summary = `${input.fullName} (${input.applicantEmail}) · ${roleLabel}`;
-  const approve = new URL(`/${english ? "en" : "es"}/admin/approval`, input.siteUrl);
+  const locale = input.locale === "en" ? "en" : "es";
+  const approve = new URL(`/${locale}/admin/approval`, input.siteUrl);
   approve.search = new URLSearchParams({ requestId: input.requestId, decision: "approve", proof: input.approveProof }).toString();
   const reject = new URL(approve);
   reject.searchParams.set("decision", "reject");
   reject.searchParams.set("proof", input.rejectProof);
-  const approveLabel = english ? "Review approval" : "Revisar aprobación";
-  const rejectLabel = english ? "Review rejection" : "Revisar rechazo";
   return {
     recipient: input.recipient,
-    subject,
-    text: `${subject}\n\n${summary}\n\n${approveLabel}: ${approve}\n${rejectLabel}: ${reject}`,
-    html: `<h1>${subject}</h1><p>${escapeHtml(summary)}</p><p><a href="${escapeHtml(approve.href)}">${approveLabel}</a></p><p><a href="${escapeHtml(reject.href)}">${rejectLabel}</a></p>`,
+    ...renderAdminApprovalEmail({
+      locale,
+      recipient: input.recipient,
+      request: {
+        id: input.requestId,
+        fullName: input.fullName,
+        email: input.applicantEmail,
+        requestedRole: input.requestedRole === "revisor" ? "revisor" : "editor",
+      },
+      code: { status: "pending", label: "PENDIENTE DE EMISIÓN" },
+      approveAction: { url: approve.href },
+      rejectAction: { url: reject.href },
+    }),
   };
 }
 
 export function renderActivationMail(recipient: string, locale: string, code: string): MembershipMail {
-  const english = locale === "en";
-  const subject = english ? "Your editorial access code" : "Tu código de acceso editorial";
-  const expiration = english ? "This code expires in ten minutes." : "El código caduca en diez minutos.";
-  return {
-    recipient,
-    subject,
-    text: `${subject}\n\n${code}\n\n${expiration}`,
-    html: `<h1>${subject}</h1><p><strong>${escapeHtml(code)}</strong></p><p>${expiration}</p>`,
-  };
+  return { recipient, ...renderEditorialActivationEmail(recipient, locale === "en" ? "en" : "es", code) };
 }
 
 export async function sendMail(

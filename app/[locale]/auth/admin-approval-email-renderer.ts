@@ -1,11 +1,33 @@
 import type {
   AdminApprovalAction,
-  AdminApprovalEmailCode,
   AdminApprovalEmailModel,
   AdminApprovalEmailTheme,
   AuthProvider,
   RenderedEmail,
 } from "@/app/[locale]/auth/types";
+import type { Locale } from "@/app/lib/i18n";
+
+type AdminApprovalContent = Pick<AdminApprovalEmailModel, "code" | "recipient"> & {
+  locale?: Locale;
+  metadata?: AdminApprovalEmailModel["metadata"];
+  request: Pick<AdminApprovalEmailModel["request"], "id" | "fullName" | "email"> &
+    Partial<Pick<AdminApprovalEmailModel["request"], "createdAt" | "provider" | "requestedRole">>;
+  approveAction: Pick<AdminApprovalEmailModel["approveAction"], "url">;
+  rejectAction: Pick<AdminApprovalEmailModel["rejectAction"], "url">;
+};
+
+type EmailField = readonly [label: string, value: string];
+type RenderedEditorialEmail = RenderedEmail & { subject: string };
+type EditorialEmail = {
+  locale: Locale;
+  recipient: string;
+  subject: string;
+  title: string;
+  introduction: string;
+  securityNote: string;
+  content: string;
+  references?: readonly EmailField[];
+};
 
 type EmailPalette = Readonly<{
   accent: string;
@@ -101,18 +123,13 @@ function renderMetadataRow(label: string, value: string, palette: EmailPalette):
   </tr>`;
 }
 
-function renderCodeBlock(code: AdminApprovalEmailCode, palette: EmailPalette): string {
-  const codeValue = code.status === "fixture" ? code.value : code.label;
-  const codeNote = code.status === "fixture"
-    ? `Código fixture de demo, válido durante ${code.expiresInMinutes} minutos`
-    : "Código operativo pendiente de emisión";
-
+function renderCodeBlock(label: string, value: string, note: string, issued: boolean, palette: EmailPalette): string {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 32px;border:1px solid ${palette.rule};">
     <tr>
       <td align="center" style="padding:20px 16px 22px;color:${palette.ink};">
-        <div style="color:${palette.muted};font-family:'Courier New',Courier,monospace;font-size:11px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;">{ CÓDIGO DE VERIFICACIÓN // KERNEL ACCESS }</div>
-        <div style="padding:12px 0 8px;color:${palette.ink};font-family:'Courier New',Courier,monospace;font-size:${code.status === "fixture" ? "38px" : "21px"};font-weight:700;letter-spacing:${code.status === "fixture" ? ".28em" : ".08em"};line-height:44px;word-break:break-word;"><span style="color:${palette.accent};letter-spacing:0;">{</span>${escapeHtml(codeValue)}<span style="color:${palette.accent};letter-spacing:0;">}</span></div>
-        <div style="color:${palette.muted};font-family:'Courier New',Courier,monospace;font-size:11px;line-height:17px;"> <span style="color:${palette.accent};">✦</span> ${escapeHtml(codeNote)}</div>
+        <div style="color:${palette.muted};font-family:'Courier New',Courier,monospace;font-size:11px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;">{ ${escapeHtml(label)} }</div>
+        <div style="padding:12px 0 8px;color:${palette.ink};font-family:'Courier New',Courier,monospace;font-size:${issued ? "38px" : "21px"};font-weight:700;letter-spacing:${issued ? ".28em" : ".08em"};line-height:44px;word-break:break-word;"><span style="color:${palette.accent};letter-spacing:0;">{</span>${escapeHtml(value)}<span style="color:${palette.accent};letter-spacing:0;">}</span></div>
+        <div style="color:${palette.muted};font-family:'Courier New',Courier,monospace;font-size:11px;line-height:17px;"> <span style="color:${palette.accent};">✦</span> ${escapeHtml(note)}</div>
       </td>
     </tr>
   </table>`;
@@ -134,53 +151,21 @@ function renderAction(
   </td>`;
 }
 
-function renderAdminApprovalEmailText(model: AdminApprovalEmailModel): string {
-  const { metadata, request } = model;
-  const code = model.code.status === "fixture"
-    ? `${model.code.value} (fixture demo, válido durante ${model.code.expiresInMinutes} minutos)`
-    : model.code.label;
-
-  return [
-    "{JM} // SISTEMA DE AUTORIZACIÓN AUTOMATIZADA",
-    "",
-    "{ NUEVA SOLICITUD DE ACCESO }",
-    "Alguien quiere entrar en el área de miembros.",
-    "",
-    `Nombre: ${request.fullName}`,
-    `Correo: ${request.email}`,
-    `Método de registro: ${PROVIDER_LABELS[request.provider]}`,
-    `Fecha y hora: ${formatEmailDate(request.createdAt)}`,
-    `Ciudad aproximada: ${metadata.approximateCity} (IP: ${metadata.ipAddress})`,
-    `Dispositivo: ${metadata.device}`,
-    "",
-    `Código de verificación: ${code}`,
-    `Aprobar acceso: ${model.approveAction.url}`,
-    `Rechazar solicitud: ${model.rejectAction.url}`,
-    "",
-    "{ SEGURIDAD } Si no esperabas esta solicitud, rechaza o ignora este correo.",
-    "",
-    `Identificador de transacción: ${metadata.transactionId}`,
-    `Identificador de evento: ${metadata.eventId}`,
-  ].join("\n");
-}
-
-export function renderAdminApprovalEmail(
-  model: AdminApprovalEmailModel,
+function renderEditorialShell(
+  { locale, recipient, subject, title, introduction, securityNote, content, references = [] }: EditorialEmail,
   theme: AdminApprovalEmailTheme = "bone",
-): RenderedEmail {
+): string {
   const palette = EMAIL_PALETTES[theme];
-  const { metadata, request } = model;
-  const escapedRecipient = escapeHtml(model.recipient);
-  const escapedSubject = "Nueva solicitud de acceso editorial";
-  const date = formatEmailDate(request.createdAt);
+  const systemLabel = locale === "en" ? "AUTOMATED AUTHORIZATION SYSTEM" : "SISTEMA DE AUTORIZACIÓN AUTOMATIZADA";
+  const securityLabel = locale === "en" ? "SECURITY" : "SEGURIDAD";
 
-  const html = `<!doctype html>
-<html lang="es">
+  return `<!doctype html>
+<html lang="${locale}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="${theme === "dark" ? "dark" : "light"}">
-    <title>${escapedSubject}</title>
+    <title>${escapeHtml(subject)}</title>
     <style>
       @media only screen and (max-width: 620px) {
         .email-outer-pad { padding: 12px !important; }
@@ -207,43 +192,27 @@ export function renderAdminApprovalEmail(
                     <td align="right" style="padding:0 0 14px;color:${palette.muted};font-family:'Courier New',Courier,monospace;font-size:10px;line-height:16px;letter-spacing:.08em;">[ SEC-ID // 4096-B ]</td>
                   </tr>
                   <tr>
-                    <td colspan="2" style="padding:0 0 20px;color:${palette.accent};font-family:'Courier New',Courier,monospace;font-size:11px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;">{ SISTEMA DE AUTORIZACIÓN AUTOMATIZADA }</td>
+                    <td colspan="2" style="padding:0 0 20px;color:${palette.accent};font-family:'Courier New',Courier,monospace;font-size:11px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;">{ ${systemLabel} }</td>
                   </tr>
                 </table>
 
                 <div style="padding:34px 0 28px;">
-                  <h1 style="margin:0 0 8px;color:${palette.ink};font-family:Impact,'Arial Narrow',Arial,sans-serif;font-size:36px;font-weight:800;line-height:39px;letter-spacing:-.02em;text-transform:uppercase;">{ NUEVA SOLICITUD DE ACCESO }</h1>
-                  <p style="margin:0;color:${palette.ink};font-family:Arial,Helvetica,sans-serif;font-size:18px;line-height:26px;">Alguien quiere entrar en el área de miembros.</p>
+                  <h1 style="margin:0 0 8px;color:${palette.ink};font-family:Impact,'Arial Narrow',Arial,sans-serif;font-size:36px;font-weight:800;line-height:39px;letter-spacing:-.02em;text-transform:uppercase;">{ ${escapeHtml(title)} }</h1>
+                  <p style="margin:0;color:${palette.ink};font-family:Arial,Helvetica,sans-serif;font-size:18px;line-height:26px;">${escapeHtml(introduction)}</p>
                 </div>
 
-                <table role="table" aria-label="Datos de la solicitud" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-top:1px solid ${palette.rule};margin:0 0 30px;">
-                  ${renderMetadataRow("NOMBRE", request.fullName, palette)}
-                  ${renderMetadataRow("CORREO", request.email, palette)}
-                  ${renderMetadataRow("MÉTODO REGISTRO", PROVIDER_LABELS[request.provider], palette)}
-                  ${renderMetadataRow("FECHA Y HORA", date, palette)}
-                  ${renderMetadataRow("CIUDAD APROXIMADA", `${metadata.approximateCity} (IP: ${metadata.ipAddress})`, palette)}
-                  ${renderMetadataRow("DISPOSITIVO", metadata.device, palette)}
-                </table>
-
-                ${renderCodeBlock(model.code, palette)}
-
-                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 30px;">
-                  <tr>
-                    ${renderAction("approve", "✦ APROBAR ACCESO", model.approveAction.url, palette, true)}
-                    ${renderAction("reject", "[ RECHAZAR ]", model.rejectAction.url, palette, false)}
-                  </tr>
-                </table>
+                ${content}
 
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 30px;background:${palette.security};">
                   <tr>
-                    <td style="padding:13px 14px;border-left:2px solid ${palette.accent};color:${palette.ink};font-family:'Courier New',Courier,monospace;font-size:11px;line-height:17px;"> <strong style="color:${palette.accent};">{ SEGURIDAD }</strong> Si no esperabas esta solicitud, rechaza o ignora este correo.</td>
+                    <td style="padding:13px 14px;border-left:2px solid ${palette.accent};color:${palette.ink};font-family:'Courier New',Courier,monospace;font-size:11px;line-height:17px;"> <strong style="color:${palette.accent};">{ ${securityLabel} }</strong> ${escapeHtml(securityNote)}</td>
                   </tr>
                 </table>
 
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-top:1px solid ${palette.rule};">
                   <tr>
-                    <td style="padding:20px 0 0;color:${palette.ink};font-family:'Courier New',Courier,monospace;font-size:10px;line-height:16px;">{JM} <span style="color:${palette.accent};">✦</span> ${escapedRecipient}</td>
-                    <td align="right" style="padding:20px 0 0;color:${palette.muted};font-family:'Courier New',Courier,monospace;font-size:10px;line-height:16px;">Evento: ${escapeHtml(metadata.eventId)}<br>Transacción: ${escapeHtml(metadata.transactionId)}</td>
+                    <td style="padding:20px 0 0;color:${palette.ink};font-family:'Courier New',Courier,monospace;font-size:10px;line-height:16px;overflow-wrap:anywhere;">{JM} <span style="color:${palette.accent};">✦</span> ${escapeHtml(recipient)}</td>
+                    ${references.length ? `<td align="right" style="padding:20px 0 0;color:${palette.muted};font-family:'Courier New',Courier,monospace;font-size:10px;line-height:16px;overflow-wrap:anywhere;">${references.map(([label, value]) => `${escapeHtml(label)}: ${escapeHtml(value)}`).join("<br>")}</td>` : ""}
                   </tr>
                 </table>
               </td>
@@ -254,9 +223,117 @@ export function renderAdminApprovalEmail(
     </table>
   </body>
 </html>`;
+}
+
+const APPROVAL_COPY = {
+  es: {
+    subject: "Nueva solicitud de acceso editorial",
+    title: "NUEVA SOLICITUD DE ACCESO",
+    introduction: "Alguien quiere entrar en el área de miembros.",
+    fields: "Datos de la solicitud",
+    name: "Nombre", email: "Correo", role: "Rol solicitado", reviewer: "Revisor",
+    pending: "PENDIENTE DE EMISIÓN",
+    pendingNote: "El código se genera después de aprobar la solicitud.",
+    verification: "Código de verificación",
+    approve: "Revisar aprobación", reject: "Revisar rechazo",
+    request: "Solicitud",
+    securityNote: "Si no esperabas esta solicitud, rechaza o ignora este correo.",
+  },
+  en: {
+    subject: "New editorial access request",
+    title: "NEW ACCESS REQUEST",
+    introduction: "Someone has requested access to the members area.",
+    fields: "Request details",
+    name: "Name", email: "Email", role: "Requested role", reviewer: "Reviewer",
+    pending: "PENDING ISSUANCE",
+    pendingNote: "The code is issued after the request is approved.",
+    verification: "Verification code",
+    approve: "Review approval", reject: "Review rejection",
+    request: "Request",
+    securityNote: "If you did not expect this request, reject it or ignore this email.",
+  },
+} as const;
+
+export function renderAdminApprovalEmail(
+  model: AdminApprovalContent,
+  theme: AdminApprovalEmailTheme = "bone",
+): RenderedEditorialEmail {
+  const { locale = "es", metadata, request, recipient, code, approveAction, rejectAction } = model;
+  const copy = APPROVAL_COPY[locale];
+  const palette = EMAIL_PALETTES[theme];
+  const fields: EmailField[] = [[copy.name, request.fullName], [copy.email, request.email]];
+  if (request.requestedRole && !metadata) fields.push([copy.role, request.requestedRole === "revisor" ? copy.reviewer : "Editor"]);
+  if (request.provider) fields.push(["Método registro", PROVIDER_LABELS[request.provider]]);
+  if (request.createdAt) fields.push(["Fecha y hora", formatEmailDate(request.createdAt)]);
+  if (metadata) fields.push(["Ciudad aproximada", `${metadata.approximateCity} (IP: ${metadata.ipAddress})`], ["Dispositivo", metadata.device]);
+
+  const references: EmailField[] = metadata
+    ? [["Evento", metadata.eventId], ["Transacción", metadata.transactionId]]
+    : [[copy.request, request.id]];
+  const codeValue = code.status === "fixture" ? code.value : copy.pending;
+  const codeNote = code.status === "fixture"
+    ? `Código fixture de demo, válido durante ${code.expiresInMinutes} minutos`
+    : copy.pendingNote;
+  const codeLabel = `${copy.verification.toUpperCase()} // KERNEL ACCESS`;
+  const approveLabel = metadata ? "Aprobar acceso" : copy.approve;
+  const rejectLabel = metadata ? "Rechazar solicitud" : copy.reject;
+
+  const content = `<table role="table" aria-label="${copy.fields}" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-top:1px solid ${palette.rule};margin:0 0 30px;">
+    ${fields.map(([label, value]) => renderMetadataRow(label, value, palette)).join("\n")}
+  </table>
+  ${renderCodeBlock(codeLabel, codeValue, codeNote, code.status === "fixture", palette)}
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 30px;">
+    <tr>
+      ${renderAction("approve", metadata ? "✦ APROBAR ACCESO" : `✦ ${approveLabel}`, approveAction.url, palette, true)}
+      ${renderAction("reject", metadata ? "[ RECHAZAR ]" : `[ ${rejectLabel} ]`, rejectAction.url, palette, false)}
+    </tr>
+  </table>`;
 
   return {
-    html,
-    text: renderAdminApprovalEmailText(model),
+    subject: copy.subject,
+    html: renderEditorialShell({ ...copy, locale, recipient, content, references }, theme),
+    text: [
+      "{JM}",
+      `{ ${copy.title} }`,
+      copy.introduction,
+      "",
+      ...fields.map(([label, value]) => `${label}: ${value}`),
+      "",
+      `${copy.verification}: ${codeValue}`,
+      codeNote,
+      `${approveLabel}: ${approveAction.url}`,
+      `${rejectLabel}: ${rejectAction.url}`,
+      "",
+      copy.securityNote,
+      "",
+      ...references.map(([label, value]) => `${label}: ${value}`),
+    ].join("\n"),
+  };
+}
+
+export function renderEditorialActivationEmail(recipient: string, locale: Locale, code: string): RenderedEditorialEmail {
+  const copy = locale === "en"
+    ? {
+        subject: "Your editorial access code",
+        title: "ACTIVATE EDITORIAL ACCESS",
+        introduction: "Your request has been approved. Enter this code in the sign-in screen to activate your account.",
+        label: "VERIFICATION CODE",
+        expiration: "This code expires in ten minutes.",
+        securityNote: "Keep this code private. If you did not request access, ignore this email.",
+      }
+    : {
+        subject: "Tu código de acceso editorial",
+        title: "ACTIVA TU ACCESO EDITORIAL",
+        introduction: "Tu solicitud ha sido aprobada. Introduce este código en la pantalla de acceso para activar tu cuenta.",
+        label: "CÓDIGO DE VERIFICACIÓN",
+        expiration: "El código caduca en diez minutos.",
+        securityNote: "No compartas este código. Si no solicitaste el acceso, ignora este correo.",
+      };
+  const content = renderCodeBlock(copy.label, code, copy.expiration, true, EMAIL_PALETTES.bone);
+
+  return {
+    subject: copy.subject,
+    html: renderEditorialShell({ ...copy, locale, recipient, content }),
+    text: ["{JM}", copy.subject, "", copy.introduction, "", code, "", copy.expiration, copy.securityNote].join("\n"),
   };
 }

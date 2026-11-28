@@ -1,8 +1,47 @@
 <!doctype html>
 <html lang="es">
-  <body>
-    <h1>Confirma tu correo</h1>
-    <p><a href="{{ .RedirectTo }}?token_hash={{ .TokenHash }}&amp;type=email">Confirmar mi correo</a></p>
-    <p lang="en"><a href="{{ .RedirectTo }}?token_hash={{ .TokenHash }}&amp;type=email">Confirm my email</a></p>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Confirma tu correo</title>
+    <style>
+      @media only screen and (max-width: 620px) {
+        .email-pad { padding: 28px 20px !important; }
+      }
+    </style>
+  </head>
+  <body style="margin:0;padding:0;background:#171719;color:#0C0C0E;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;background:#171719;border-collapse:collapse;">
+      <tr>
+        <td align="center" style="padding:28px 12px;">
+          <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;border:1px solid #D3CEC3;border-collapse:collapse;background:#EFEBE3;color:#0C0C0E;">
+            <tr>
+              <td class="email-pad" style="padding:42px 38px 34px;">
+                <div style="padding:0 0 20px;border-bottom:1px solid #D3CEC3;">
+                  <div style="font-size:28px;font-weight:800;line-height:32px;letter-spacing:-.06em;">{JM} <span style="color:#FF5A1F;font-size:22px;letter-spacing:0;">✦</span></div>
+                  <div style="padding-top:14px;color:#A53814;font-family:'Courier New',Courier,monospace;font-size:11px;line-height:16px;letter-spacing:.08em;">{ SISTEMA DE AUTORIZACIÓN AUTOMATIZADA }</div>
+                </div>
+                <div style="padding:34px 0 26px;">
+                  <h1 style="margin:0 0 8px;font-family:Impact,'Arial Narrow',Arial,sans-serif;font-size:36px;font-weight:800;line-height:39px;letter-spacing:-.02em;text-transform:uppercase;">{ Confirma tu correo }</h1>
+                  <p style="margin:0;font-size:16px;line-height:24px;">Confirma tu dirección para enviar tu solicitud de acceso editorial.</p>
+                  <p lang="en" style="margin:8px 0 0;color:#5F5B54;font-size:14px;line-height:21px;">Confirm your email address to submit your request for editorial access.</p>
+                </div>
+                <p style="margin:0 0 12px;">
+                  <a href="{{ .RedirectTo }}?token_hash={{ .TokenHash }}&amp;type=email" style="display:block;padding:15px 12px;border:1px solid #FF5A1F;background:#FF5A1F;color:#0C0C0E;font-size:13px;font-weight:700;line-height:18px;text-align:center;text-decoration:none;text-transform:uppercase;">Confirmar mi correo</a>
+                </p>
+                <p lang="en" style="margin:0 0 28px;text-align:center;font-size:14px;line-height:21px;">
+                  <a href="{{ .RedirectTo }}?token_hash={{ .TokenHash }}&amp;type=email" style="color:#0C0C0E;text-decoration:underline;">Confirm my email</a>
+                </p>
+                <div style="padding:13px 14px;border-left:2px solid #FF5A1F;background:#E7E1D7;font-family:'Courier New',Courier,monospace;font-size:11px;line-height:17px;">
+                  <strong style="color:#A53814;">{ SEGURIDAD }</strong> Si no solicitaste el acceso, puedes ignorar este correo.
+                </div>
+                <div style="margin-top:30px;padding-top:20px;border-top:1px solid #D3CEC3;font-family:'Courier New',Courier,monospace;font-size:10px;line-height:16px;">{JM} <span style="color:#FF5A1F;">✦</span> JMMC DevSign</div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   </body>
 </html>
