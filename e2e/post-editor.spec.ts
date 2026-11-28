@@ -61,14 +61,14 @@ test.describe("post editor and public posts", () => {
     await blog.scrollIntoViewIfNeeded();
 
     const carousel = blog.getByRole("region", { name: "Carrusel de publicaciones técnicas" });
-    await expect(carousel.getByRole("link", { name: /LEER DOSSIER/u })).toHaveAttribute("href", `/es/blog/${publishedSlug}`);
-    await expect(carousel.getByRole("img", { name: publishedCoverAlt, exact: true })).toHaveCSS("filter", "none");
+    await expect(carousel.getByRole("link", { name: /LEER DOSSIER/u })).toHaveAttribute("href", `/es/blog/${thirdPublishedSlug}`);
 
     await carousel.getByRole("button", { name: "Publicación siguiente" }).click();
     await expect(carousel.getByRole("link", { name: /LEER DOSSIER/u })).toHaveAttribute("href", `/es/blog/${secondPublishedSlug}`);
 
     await carousel.getByRole("button", { name: "Publicación siguiente" }).click();
-    await expect(carousel.getByRole("link", { name: /LEER DOSSIER/u })).toHaveAttribute("href", `/es/blog/${thirdPublishedSlug}`);
+    await expect(carousel.getByRole("link", { name: /LEER DOSSIER/u })).toHaveAttribute("href", `/es/blog/${publishedSlug}`);
+    await expect(carousel.getByRole("img", { name: publishedCoverAlt, exact: true })).toHaveCSS("filter", "none");
     await expect(page.locator('a[href="/es/blog/editor"]')).toBeVisible();
   });
 

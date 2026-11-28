@@ -60,6 +60,25 @@ describe("deterministic demo playback", () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 
+  it.each(["start", "advance"] as const)("lets reset win while %s and async fixture restoration settle", async (action) => {
+    vi.useFakeTimers();
+
+    for (let turn = 0; turn <= 8; turn += 1) {
+      const events: string[] = [];
+      const playback = createDemoPlayback({
+        steps,
+        onStep: (id) => { events.push(id); },
+        onReset: async () => { events.length = 0; },
+      });
+      const pending = playback[action]();
+      for (let index = 0; index < turn; index += 1) await Promise.resolve();
+      await Promise.all([pending, playback.reset()]);
+      await vi.advanceTimersByTimeAsync(2000);
+      expect(events).toEqual([]);
+      expect(await playback.getState()).toEqual({ status: "idle", currentStep: 0, progress: 0 });
+    }
+  });
+
   it("stops at an error, exposes the cause and refuses resume until reset", async () => {
     vi.useFakeTimers();
     const events: string[] = [];

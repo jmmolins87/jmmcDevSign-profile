@@ -7,6 +7,26 @@ const scenarios = [
   { slug: "business-backoffice", firstStepMs: 1000, remainingStepsMs: [1200, 1200, 1200, 1200, 1200], expectedFirstProgress: 17 },
 ] as const;
 
+for (const scenario of [...scenarios, { slug: "leads-workflow", expectedFirstProgress: 20 }]) {
+  test(`${scenario.slug} advances a single step with the keyboard and waits for the visitor`, async ({ page }) => {
+    await page.clock.install({ time: new Date("2026-11-15T10:00:00Z") });
+    await page.goto(`/es/demos/${scenario.slug}`);
+    const controls = page.getByRole("region", { name: "Recorrido automático", exact: true });
+    const progress = controls.getByRole("progressbar", { name: "Progreso de reproducción" });
+    await expect(progress).toHaveAttribute("value", "0");
+    await page.clock.pauseAt(new Date("2026-11-15T10:01:00Z"));
+
+    const advance = controls.getByRole("button", { name: "Avanzar un paso", exact: true });
+    await advance.press("Enter");
+    await expect(progress).toHaveAttribute("value", String(scenario.expectedFirstProgress));
+    await expect(advance).toBeFocused();
+    await page.clock.runFor(5000);
+    await expect(progress).toHaveAttribute("value", String(scenario.expectedFirstProgress));
+    await expect(controls.getByRole("button", { name: "Reanudar demo", exact: true })).toBeEnabled();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  });
+}
+
 for (const locale of ["es", "en"] as const) {
   const copy = locale === "es"
     ? { region: "Recorrido automático", start: "Iniciar demo", pause: "Pausar demo", resume: "Reanudar demo", reset: "Reiniciar demo", progress: "Progreso de reproducción", complete: "Recorrido completado" }

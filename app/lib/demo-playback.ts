@@ -95,13 +95,6 @@ export function createDemoPlayback(initialOptions: PlaybackOptions, clock: Playb
     return inFlight;
   }
 
-  async function restoreForPlayback() {
-    const restoration = controller.reset();
-    const currentGeneration = generation;
-    await restoration;
-    return !error && generation === currentGeneration;
-  }
-
   const controller = {
     subscribe(listener: () => void) {
       listeners.add(listener);
@@ -126,7 +119,10 @@ export function createDemoPlayback(initialOptions: PlaybackOptions, clock: Playb
       if (state.status === "running") return state;
       if (state.status === "paused" && !error) return controller.resume();
       startPending = (async () => {
-        if (!await restoreForPlayback()) return state;
+        const restoration = controller.reset();
+        const startGeneration = generation;
+        await restoration;
+        if (error || generation !== startGeneration) return state;
         publish({ status: "running", currentStep: 0, progress: 0 });
         schedule();
         return state;
@@ -138,7 +134,10 @@ export function createDemoPlayback(initialOptions: PlaybackOptions, clock: Playb
       if (startPending || inFlight || error || state.status === "running" || state.status === "completed") return state;
       advancePending = (async () => {
         if (state.status === "idle") {
-          if (!await restoreForPlayback()) return state;
+          const restoration = controller.reset();
+          const startGeneration = generation;
+          await restoration;
+          if (error || generation !== startGeneration) return state;
           publish({ ...state, status: "paused" });
         }
         await executeStep();
