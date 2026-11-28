@@ -79,7 +79,7 @@ function PostNavigationLink({ post, locale, direction }: Readonly<{
   return (
     <Link
       className="flex min-w-0 items-start justify-between gap-space-md border border-border bg-surface-high p-space-md hover:border-accent sm:p-space-lg"
-      href={localePath(`/blog/${post.slug}`, locale)}
+      href={localePath(`/blog/${post.slug}#post`, locale)}
       rel={isPrevious ? "prev" : "next"}
     >
       {isPrevious && <span aria-hidden="true" className="text-accent">←</span>}
@@ -150,7 +150,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const nextPost = archiveIndex >= 0 ? posts[archiveIndex + 1] : undefined;
 
   return (
-    <main className="bg-surface px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" data-public-post>
+    <main className="bg-surface px-margin py-space-2xl sm:px-margin-tablet lg:px-margin-desktop" data-public-post id="post">
       <article className="mx-auto grid w-full max-w-[var(--layout-content-max)] gap-space-2xl">
         <header className="grid gap-space-lg border-b border-border pb-space-xl">
           <div className="flex flex-wrap items-center justify-between gap-space-md font-mono text-mono-code uppercase text-on-surface-variant">

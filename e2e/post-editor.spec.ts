@@ -79,17 +79,17 @@ test.describe("post editor and public posts", () => {
     const previous = navigation.getByRole("link", { name: /^Previous post /u });
     const next = navigation.getByRole("link", { name: /^Next post /u });
 
-    await expect(previous).toHaveAttribute("href", `/en/blog/${thirdPublishedSlug}`);
-    await expect(next).toHaveAttribute("href", `/en/blog/${publishedSlug}`);
+    await expect(previous).toHaveAttribute("href", `/en/blog/${thirdPublishedSlug}#post`);
+    await expect(next).toHaveAttribute("href", `/en/blog/${publishedSlug}#post`);
     await next.press("Enter");
-    await expect(page).toHaveURL(`/en/blog/${publishedSlug}`);
-    await expect(page.getByRole("heading", { level: 1 })).toBeInViewport();
+    await expect(page).toHaveURL(`/en/blog/${publishedSlug}#post`);
+    await expect(page.getByRole("heading", { level: 1, name: /El ocaso de los microservicios caóticos/u })).toBeInViewport();
     await expect(next).toHaveCount(0);
 
     await previous.click();
-    await expect(page).toHaveURL(`/en/blog/${secondPublishedSlug}`);
+    await expect(page).toHaveURL(`/en/blog/${secondPublishedSlug}#post`);
     await previous.click();
-    await expect(page).toHaveURL(`/en/blog/${thirdPublishedSlug}`);
+    await expect(page).toHaveURL(`/en/blog/${thirdPublishedSlug}#post`);
     await expect(previous).toHaveCount(0);
 
     await navigation.getByRole("link", { name: "View all posts" }).click();
